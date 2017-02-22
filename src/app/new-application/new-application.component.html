@@ -1,0 +1,10 @@
+<div>
+    <button (click)="clickBack()">back</button></div>
+<div>
+
+    <div>new-application works!<br> Application Name<input type="text" [(ngModel)]="applicationName" /><br></div>
+    <div> Project Folder <input type="text" [value]="workspaceFolderPath" disabled/>
+        <button (click)="clickChangeFolder()">change</button><br>
+    </div>
+</div>
+<button (click)="clickNext()">next</button>

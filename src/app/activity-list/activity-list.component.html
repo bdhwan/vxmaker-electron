@@ -1,0 +1,8 @@
+<p>
+    activity-list works!- {{applicationData.activityList.length}}
+</p>
+
+
+<div *ngFor="let activity of applicationData.activityList" (click)="clickActivity(activity.activityId)">
+    <img [src]="prefix+applicationData.applicationFolderPath+'/'+activity.previewPath" width="100px" height="100px"> {{activity.activityName}}-{{activity.activityId}}
+</div>

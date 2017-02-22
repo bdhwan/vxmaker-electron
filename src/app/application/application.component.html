@@ -1,0 +1,6 @@
+<div *ngIf="applicationData">
+    <button (click)="clickBack()">Back</button> application works!<br> {{applicationData.applicationName}} activity list
+    <app-application-info [applicationData]="applicationData" (onChangeData)="onChangeData($event)" (onClickChangeIcon)="onClickChangeIcon($event)"></app-application-info>
+    <app-activity-list [applicationData]="applicationData" (onChangeActivityData)="onChangeData($event)" (onClickActivity)="clickActivity($event)"></app-activity-list>
+    <button (click)="clickNewActivity()">New Activity</button>
+</div>

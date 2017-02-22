@@ -1,0 +1,6 @@
+<div [hidden]="!(recentProjects!=null && recentProjects.length>0)">
+    <div *ngFor="let application of recentProjects" (click)="clickApplication(application.applicationFolderPath)">
+        {{application.applicationName}}, {{application.applicationFolderPath}}
+
+    </div>
+</div>

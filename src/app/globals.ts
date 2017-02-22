@@ -1,0 +1,1 @@
+export var imgPrefix:string = "http://localhost:8080";

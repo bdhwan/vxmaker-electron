@@ -1,0 +1,6 @@
+<div id="previewScreen" style="width: 900px;height: 600px">
+    <button (click)="clickBack()">Back</button>{{applicationData.applicationName}}
+    <input type="text" [(ngModel)]="activityMetaData.activityName" (blur)="changeActivityName()" />
+    <br> activityMetaData:{{activityMetaData.activityName}}
+    <button (click)="captureScreen()">Capture</button>
+</div>

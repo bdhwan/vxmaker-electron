@@ -1,0 +1,6 @@
+<div>
+    <img [src]="prefix+applicationData.applicationFolderPath+'/'+applicationData.iconPath" width="100px" height="100px">
+    <input type="text" [(ngModel)]="applicationData.applicationName" (blur)="onChange()" />
+    <input type="text" [(ngModel)]="applicationData.applicationId" (blur)="onChange()" />
+    <button (click)="clickIcon()">Icon</button>
+</div>
