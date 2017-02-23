@@ -1,0 +1,52 @@
+.btn-back {
+    background: none;
+    border:none;
+    color:#898989;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.btn-back:hover {
+cursor: pointer;
+}
+
+.btn-new-save {
+    position: absolute;
+    bottom:0;
+    right:0;
+   
+    margin-bottom: 30px;
+    margin-right: 20px;
+}
+
+.btn-new-save button:hover {
+    cursor:  pointer;
+}
+
+.btn-new-save  button {
+    font-weight: 700;
+    font-size: 14px;
+    border:none;
+     color:#46a2ba;
+    background: transparent;
+}
+
+.ic-newproject {
+    text-align: center;
+    margin-top: 70px;
+    margin-bottom: 30px;
+}
+
+.application-name {
+    max-width: 270px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.project-folder input {
+    border:none;
+    color:#898989;
+}
+
+.project-folder button:hover {
+    cursor: pointer;
+}

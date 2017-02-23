@@ -1,0 +1,30 @@
+.recent-project {
+    padding:15px;
+    font-size: 13px;
+    color:#a3a3a3;
+    border-bottom: 1px solid #ccc;
+    margin:0;
+}
+
+.recent-project-list {
+    padding:15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.recent-project-list h5 {
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.recent-project-list p {
+    color:#a3a3a3;
+    margin:0;
+    font-size: 12px;
+    max-width:230px;
+    overflow: hidden;
+}
+
+.recent-project-list:hover {
+ cursor: pointer;
+}

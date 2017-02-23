@@ -63,3 +63,27 @@
 body {
     padding: 2em;
 }
+
+.bg-menu {
+    background: linear-gradient(to bottom, #46a2ba 0%,#8096cc 100%);
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+}
+
+.menu-list {
+    height:100%;
+    background: #edf0f4;
+    max-width:30%;
+}
+
+.menu-main {
+    height:100%;
+    width:70%;
+    position:relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
