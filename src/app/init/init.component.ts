@@ -23,4 +23,5 @@ export class InitComponent implements OnInit {
     // console.log() 
   }
 
+
 }
