@@ -27,4 +27,5 @@
 
 .recent-project-list:hover {
  cursor: pointer;
+ background: rgba(227,232,239,1);
 }
