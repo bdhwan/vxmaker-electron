@@ -7,10 +7,10 @@
     <div class="application-name">
         <h5>Application Name</h5>
         <input class="form-control" type="text" [(ngModel)]="applicationName" />
-        <h5>Project Folder </h5>
+        <h5 style="margin-top: 15px; margin-bottom: 5px;">Project Folder </h5>
         <div class="project-folder">
-        <input  type="text" [value]="workspaceFolderPath" disabled/>
-        <button (click)="clickChangeFolder()">change</button>
+        <input class="form-control"  type="text" [value]="workspaceFolderPath" />
+        <button class="btn-change" (click)="clickChangeFolder()">···</button>
         </div>
     </div>
    
