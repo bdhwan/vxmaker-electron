@@ -4,11 +4,16 @@
     color:#a3a3a3;
     border-bottom: 1px solid #ccc;
     margin:0;
+    position: fixed;
+    top:0;
+    width:250px;
+background: #edf0f4;
 }
 
 .recent-project-list {
     padding:15px;
     border-bottom: 1px solid #ccc;
+width:250px;
 }
 
 .recent-project-list h5 {
@@ -21,7 +26,7 @@
     color:#a3a3a3;
     margin:0;
     font-size: 12px;
-    max-width:230px;
+    text-overflow: ellipsis;
     overflow: hidden;
 }
 

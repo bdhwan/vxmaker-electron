@@ -8,6 +8,7 @@
 
 .btn-back:hover {
 cursor: pointer;
+color:#454545;
 }
 
 .btn-new-save {
@@ -31,22 +32,42 @@ cursor: pointer;
     background: transparent;
 }
 
+.btn-new-save button:hover {
+    color:#2c869d;
+}
+
 .ic-newproject {
     text-align: center;
-    margin-top: 70px;
+    margin-top: 35px;
     margin-bottom: 30px;
 }
 
 .application-name {
-    max-width: 270px;
+    max-width: 290px;
     margin-left: auto;
     margin-right: auto;
 }
+
+.application-name .form-control {
+    width:90%;
+}
+
 .project-folder input {
     border:none;
     color:#898989;
+   width:79%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.project-folder button {
+    border:1px solid #ccc;
+    border-radius: 4px;
+    font-size: 10px;
+    background: #fff;
 }
 
 .project-folder button:hover {
     cursor: pointer;
+    background: #f1f1f1;
 }

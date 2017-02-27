@@ -18,10 +18,10 @@ console.log("userDatapath = " + app.getPath('userData'));
 
 
 
-let minWidth = 800;
-let minHeight = 600;
-let maxWidth = 800;
-let maxHeight = 600;
+let minWidth = 820;
+let minHeight = 502;
+let maxWidth = 1024;
+let maxHeight = 768;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -325,7 +325,7 @@ function createWindow() {
 
         // Open the DevTools when in dev mode.
         // if (process.env.NODE_ENV == 'development')
-        win.webContents.openDevTools()
+        // win.webContents.openDevTools()
 
         // Emitted when the window is closed.
         win.on('closed', () => {

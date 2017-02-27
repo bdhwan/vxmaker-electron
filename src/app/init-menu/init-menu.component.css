@@ -15,14 +15,14 @@ border:none;
 .menu-main-list {
 
     margin-top: 45px;
-max-width:300px;
+max-width:270px;
 margin-left: auto;
 margin-right: auto;
 
 
 }
 
-.hc {
+/*.hc {
     max-width: 280px;
     left: 0;
     right: 0;
@@ -42,7 +42,7 @@ margin-right: auto;
 #center {
     position: absolute;
     z-index: 9999!important;
-}
+}*/
 
 .menu-list  div img {
     width:35px;
