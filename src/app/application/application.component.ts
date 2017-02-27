@@ -47,8 +47,8 @@ export class ApplicationComponent implements OnInit {
       var iconFileName = "image/ic_launcher_" + new Date().getTime() + ".png";
       var targetPath = this.applicationFolderPath + "/" + iconFileName;
 
-      electron.ipcRenderer.sendSync('delete-file', this.applicationFolderPath + "/"+ this.applicationData.iconPath);
-      
+      electron.ipcRenderer.sendSync('delete-file', this.applicationFolderPath + "/" + this.applicationData.iconPath);
+
       var result = electron.ipcRenderer.sendSync('copy-file', newIconImagePath, targetPath);
       if (result) {
         this.applicationData.iconPath = iconFileName;
@@ -84,8 +84,9 @@ export class ApplicationComponent implements OnInit {
 
     if (!this.applicationData) {
       alert("No app data");
+
       var temp = {
-        applicationFolderPath: this.applicationFolderPath
+        'applicationFolderPath': this.applicationFolderPath
       }
       electron.ipcRenderer.sendSync('remove-recent-project-list', temp);
       this.router.navigate(['/init']);
@@ -97,8 +98,9 @@ export class ApplicationComponent implements OnInit {
       }
       electron.ipcRenderer.send('add-recent-project', historyData);
       electron.ipcRenderer.sendSync('change-window', 1080, 800, true);
+      this.applicationData.applicationFolderPath = this.applicationFolderPath;
     }
-    this.applicationData.applicationFolderPath = this.applicationFolderPath;
+
 
   }
 
@@ -118,8 +120,8 @@ export class ApplicationComponent implements OnInit {
       anims: [],
       stages: [],
       states: [],
-      events:[],
-      triggers:[]
+      events: [],
+      triggers: []
     }
 
     this.applicationData.activityList.push(newActivityMetaData);
