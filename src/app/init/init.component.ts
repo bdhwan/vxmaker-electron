@@ -19,8 +19,9 @@ export class InitComponent implements OnInit {
 
   ngOnInit() {
 
-    electron.ipcRenderer.sendSync('change-window', 800, 600, true);
+    electron.ipcRenderer.sendSync('change-window', 800, 502, true);
     // console.log() 
   }
+
 
 }
