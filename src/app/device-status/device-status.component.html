@@ -1,3 +1,6 @@
-<p>
-  device-status works!
+<p *ngIf="deviceList.length > 0">
+    Device Connected
+</p>
+<p *ngIf="deviceList.length == 0">
+    Device Not Connected
 </p>
