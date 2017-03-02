@@ -15,6 +15,7 @@ export class ActivityListComponent implements OnInit {
   @Input() applicationData: any;
   @Output() onChangeActivityData = new EventEmitter<string>();
   @Output() onClickActivity = new EventEmitter<string>();
+  @Output() onClickNewActivity = new EventEmitter<string>();
 
 
 
@@ -38,7 +39,9 @@ export class ActivityListComponent implements OnInit {
     this.onClickActivity.emit(activityId);
   }
 
-
+  clickNewActivity():void{
+    this.onClickNewActivity.emit();
+  }
 
 
 }

@@ -49,13 +49,13 @@ color:#454545;
 }
 
 .application-name .form-control {
-    width:94%;
+    width:100%;
 }
 
 .project-folder input {
   
    padding-right: 25px;
-   width:91% !important;
+
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -74,7 +74,7 @@ color:#454545;
     font-size: 10px;
     background: #fff;
     position: absolute;
-    right:0;
+    right:5px;
     top:0;
     color:#46a2ba;
     font-weight: 800;

@@ -1,6 +1,14 @@
-<div>
-    <img [src]="prefix+applicationData.applicationFolderPath+'/'+applicationData.iconPath" width="100px" height="100px">
-    <input type="text" [(ngModel)]="applicationData.applicationName" (blur)="onChange()" />
-    <input type="text" [(ngModel)]="applicationData.applicationId" (blur)="onChange()" />
-    <button (click)="clickIcon()">Icon</button>
+<div style="padding:15px;">
+     
+     <div class="btn-icon" align="center">
+        <img [src]="prefix+applicationData.applicationFolderPath+'/'+applicationData.iconPath" width="100px" height="100px">
+        <button class="btn-icon-edit" (click)="clickIcon()"><i class="fa fa-edit"></i></button>
+     </div>
+
+    <div style="margin-top: 20px;" align="center">
+        
+        <input type="text" class="project-edit" [(ngModel)]="applicationData.applicationName" (blur)="onChange()" />
+        <input type="text" class="project-path-edit" [(ngModel)]="applicationData.applicationId" (blur)="onChange()" />
+    </div>
+   
 </div>

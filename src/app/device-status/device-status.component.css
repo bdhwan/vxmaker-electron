@@ -1,0 +1,56 @@
+.device-status {
+    font-size: 13px;
+    
+    padding-left: 20px;
+}
+
+.device-unconnected {
+    color:rgba(0,0,0,0.5);
+    font-weight: 600;
+    padding-top: 3px;
+       padding-left: 15px;
+    padding-right: 15px;
+}
+
+.device-connected {
+    color:#46a2ba;
+    font-weight: 600;
+    padding-top: 3px;
+       padding-left: 15px;
+    padding-right: 15px;
+}
+
+.device-status p {
+    float:left;
+}
+
+
+
+.device-status .nav-btn {
+ color:rgba(0,0,0,0.5);
+    font-weight: 600;
+    padding-top: 16px;
+    height:51px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-left: 1px solid #ececec;
+      margin: 0;
+}
+
+
+.device-status .nav-btn:hover {
+    color:#fff;
+    background: #46a2ba;
+    cursor: pointer;
+}
+
+.nav-btn-img {
+    padding-right: 5px;
+    opacity: 0.5;
+}
+
+.device-status .nav-btn:hover .nav-btn-img{
+   -webkit-filter: invert(100%);
+   filter: invert(100%);
+   opacity: 1;
+}

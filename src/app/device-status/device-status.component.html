@@ -1,6 +1,19 @@
-<p *ngIf="deviceList.length > 0">
+
+<div class="device-status">
+
+<p class="device-connected" *ngIf="deviceList.length > 0">
     Device Connected
 </p>
-<p *ngIf="deviceList.length == 0">
+<p class="device-unconnected" *ngIf="deviceList.length == 0">
     Device Not Connected
 </p>
+
+<p class="btn-preview nav-btn" >
+    <span><img src="images/ic_preview.png" class="nav-btn-img"/></span>Send
+</p>
+
+<p class="btn-source nav-btn" >
+     <span><img src="images/ic_source.png" class="nav-btn-img"/></span>Source
+</p>
+
+</div>
