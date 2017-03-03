@@ -23,8 +23,6 @@ import { StageListComponent } from './stage-list/stage-list.component';
 import { PreviewSizeComponent } from './preview-size/preview-size.component';
 
 
-
-
 const appRoutes: Routes = [
   { path: 'init/:workspaceFolder', component: InitComponent },
   { path: 'init', component: InitComponent },

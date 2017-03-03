@@ -29,9 +29,7 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     electron.ipcRenderer.sendSync('unregist-device-connect-status');
-
   }
-
 
   refreshDeviceStatus(): void {
     this.deviceList = electron.ipcRenderer.sendSync('get-device-list');

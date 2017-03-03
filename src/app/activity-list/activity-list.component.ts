@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as glob from "../globals";
 
-
-
 @Component({
   selector: 'app-activity-list',
   templateUrl: './activity-list.component.html',
@@ -17,9 +15,9 @@ export class ActivityListComponent implements OnInit {
   @Output() onClickActivity = new EventEmitter<string>();
   @Output() onClickNewActivity = new EventEmitter<string>();
 
-
-
-  constructor() { }
+  constructor() {
+    
+  }
 
   ngOnInit() {
 
@@ -35,11 +33,11 @@ export class ActivityListComponent implements OnInit {
     this.onChangeActivityData.emit();
   }
 
-  clickActivity(activityId:string):void{
+  clickActivity(activityId: string): void {
     this.onClickActivity.emit(activityId);
   }
 
-  clickNewActivity():void{
+  clickNewActivity(): void {
     this.onClickNewActivity.emit();
   }
 
