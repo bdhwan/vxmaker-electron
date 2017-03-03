@@ -4,7 +4,7 @@
 
 <div class="list-scroll">
     <div class="col-wrap ">
-        <div *ngFor="let activity of applicationData.activityList" (click)="clickActivity(activity.activityId)" class="col-3">
+        <div *ngFor="let activity of applicationData.activityList" class="col-3">
 
             <div class="list-box">
 
@@ -12,9 +12,9 @@
                     <img [src]="prefix+applicationData.applicationFolderPath+'/'+activity.previewPath" width="100px" height="150px">
 
                     <div class="list-hover">
-                        <button><a href="detail.html">Edit</a></button>
-                        <button>Duplicate</button>
-                        <button>Delete</button>
+                        <button (click)="clickActivity(activity.activityId)">Edit</button>
+                        <button (click)="clickDuplicateActivity(activity.activityId)">Duplicate</button>
+                        <button (click)="clickDeleteActivity(activity.activityId)">Delete</button>
                     </div>
 
                 </div>
@@ -24,7 +24,7 @@
                         <h4>{{activity.activityName}}</h4>
                     </div>
                     <div class="list-text-updated">
-                        {{activity.activityId}}
+                        {{activity.updatedAt | date:'medium'}}
                     </div>
                 </div>
 
