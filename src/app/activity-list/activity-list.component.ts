@@ -14,9 +14,11 @@ export class ActivityListComponent implements OnInit {
   @Output() onChangeActivityData = new EventEmitter<string>();
   @Output() onClickActivity = new EventEmitter<string>();
   @Output() onClickNewActivity = new EventEmitter<string>();
+  @Output() onClickDeleteActivity = new EventEmitter<string>();
+  @Output() onClickDuplicatewActivity = new EventEmitter<string>();
 
   constructor() {
-    
+
   }
 
   ngOnInit() {
@@ -29,17 +31,27 @@ export class ActivityListComponent implements OnInit {
     this.onChangeActivityData.emit();
   }
 
-  clickDeleteActivity(activityId: string): void {
-    this.onChangeActivityData.emit();
-  }
-
   clickActivity(activityId: string): void {
     this.onClickActivity.emit(activityId);
+  }
+
+  clickDeleteActivity(activityId: string): void {
+    this.onClickDeleteActivity.emit(activityId);
+  }
+
+  clickDuplicateActivity(activityId: string): void {
+    this.onClickDuplicatewActivity.emit(activityId);
   }
 
   clickNewActivity(): void {
     this.onClickNewActivity.emit();
   }
+
+
+
+
+
+
 
 
 }

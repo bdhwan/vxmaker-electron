@@ -17,16 +17,15 @@ declare var electron: any;
 export class ApplicationComponent implements OnInit {
 
 
-  @ViewChild('test1')
-  private applicationInfoComponent1: ApplicationInfoComponent;
+  // @ViewChild('test1')
+  // private applicationInfoComponent1: ApplicationInfoComponent;
 
-  @ViewChild('test2')
-  private applicationInfoComponent2: ApplicationInfoComponent;
+  // @ViewChild('test2')
+  // private applicationInfoComponent2: ApplicationInfoComponent;
 
 
   applicationFolderPath: string;
-  applicationData;
-
+  applicationData: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,10 +37,6 @@ export class ApplicationComponent implements OnInit {
   }
 
   onClickChangeIcon(): void {
-
-
-    console.log("onClickChangeIcon");
-
     var newIconImagePath = electron.ipcRenderer.sendSync('select-image-file');
     if (newIconImagePath) {
       var iconFileName = "image/ic_launcher_" + new Date().getTime() + ".png";
@@ -55,10 +50,9 @@ export class ApplicationComponent implements OnInit {
         electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + "/app.json", this.applicationData);
       }
     }
-
-
-
   }
+
+
 
   onChangeData(value: string): void {
     console.log("onChangeData - " + value);
@@ -66,12 +60,9 @@ export class ApplicationComponent implements OnInit {
     electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + "/app.json", this.applicationData);
   }
 
-  ngAfterViewInit() {
-    // Redefine `seconds()` to get from the `CountdownTimerComponent.seconds` ...
-    // but wait a tick first to avoid one-time devMode
-    // unidirectional-data-flow-violation error
 
-    // let newData= Object.assign({}, this.applicationData);
+
+  ngAfterViewInit() {
 
   }
 
@@ -96,12 +87,13 @@ export class ApplicationComponent implements OnInit {
         applicationFolderPath: this.applicationFolderPath,
         applicationName: this.applicationData.applicationName,
       }
+
       electron.ipcRenderer.send('add-recent-project', historyData);
       electron.ipcRenderer.sendSync('change-window', 1080, 800, true);
       this.applicationData.applicationFolderPath = this.applicationFolderPath;
+
+
     }
-
-
   }
 
   clickNewActivity(): void {
@@ -113,7 +105,6 @@ export class ApplicationComponent implements OnInit {
       createdAt: now,
       updatedAt: now
     }
-
     var newActivityData = {
       activityId: activityId,
       objects: [],
@@ -130,7 +121,6 @@ export class ApplicationComponent implements OnInit {
     electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + "/activity/" + activityId + ".json", newActivityData);
 
     this.router.navigate(['/activity', this.applicationFolderPath, activityId]);
-
   }
 
 
@@ -138,12 +128,53 @@ export class ApplicationComponent implements OnInit {
     this.router.navigate(['/activity', this.applicationFolderPath, activityId]);
   }
 
+  clickDeleteActivity(activityId): void {
 
-  clickSave(): void {
-    console.log("save application data");
-    electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + "/app.json", this.applicationData);
+    var result = confirm("will you delete? =" + activityId);
+    if (result) {
+      var index = this.findActivityPosition(activityId);
+      console.log("index = " + index);
+      this.applicationData.activityList.splice(index, 1);
+
+      //delete activity file
+      electron.ipcRenderer.sendSync('delete-file', this.applicationFolderPath + "/activity/" + activityId + ".json");
+      this.clickSave();
+
+    }
   }
 
+  findActivityPosition(activityId): any {
+    for (var i = 0; i < this.applicationData.activityList.length; i++) {
+      if (this.applicationData.activityList[i].activityId == activityId) {
+        return i;
+      }
+    }
+  }
+
+
+  clickDuplicateActivity(activityId): void {
+
+
+    var index = this.findActivityPosition(activityId);
+
+    var now = new Date().getTime();
+    var newActivityId = "activity_" + now;
+
+    var newObject = JSON.parse(JSON.stringify(this.applicationData.activityList[index]));
+    newObject.activityId = newActivityId;
+    newObject.activityName = "Copy_" + newObject.activityName;
+    newObject.createdAt = now;
+    newObject.updatedAt = now;
+
+    this.applicationData.activityList.splice(index+1, 0, newObject);
+    electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + "/app.json", this.applicationData);
+    electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + "/activity/" + newActivityId + ".json", newObject);
+    
+  }
+
+  clickSave(): void {
+    electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + "/app.json", this.applicationData);
+  }
 
 
   clickBack(): void {
