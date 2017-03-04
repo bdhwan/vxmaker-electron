@@ -3,4 +3,8 @@
     <input type="text" [(ngModel)]="activityMetaData.activityName" (blur)="changeActivityName()" />
     <br> activityMetaData:{{activityMetaData.activityName}}
     <button (click)="captureScreen()">Capture</button>
+    <app-object-new #objectNew (onClickNewObject)="clickNewObject($event)" (onChangeTreeData)="changeTreeData($event)"></app-object-new>
+    <app-object-tree #objectTree (onSelectNode)="onSelectNodeFromTree($event)"></app-object-tree>
+
+
 </div>

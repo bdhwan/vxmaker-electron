@@ -1,7 +1,9 @@
-import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, ViewChild, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
+import { ObjectTreeComponent } from '../object-tree/object-tree.component'
+import { ObjectNewComponent } from '../object-new/object-new.component'
 
 import 'rxjs/add/operator/switchMap';
 
@@ -17,11 +19,24 @@ declare var rasterizeHTML: any;
 })
 export class ActivityComponent implements OnInit, OnDestroy {
 
+
+  @ViewChild('objectTree')
+  private objectTreeComponent: ObjectTreeComponent;
+
+  @ViewChild('objectNew')
+  private objectNewComponent: ObjectNewComponent;
+
+
   activityId: String;
   applicationFolderPath: string;
   applicationData;
   activityMetaData;
   activityData;
+
+
+  selectedObject;
+
+
 
   constructor(
     private route: ActivatedRoute,
@@ -47,6 +62,50 @@ export class ActivityComponent implements OnInit, OnDestroy {
       }
     }
     this.activityData = JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + "/activity/" + this.activityId + ".json")));
+
+
+    //데이터가 하나도 없으므로 초기화 시켜야함
+    if (!this.activityData.objectList) {
+
+      //1. stage 
+      //2. object
+      //3. state
+
+      //1. stage
+      var stage = {
+        id: "rootStage",
+        name: "rootStage"
+      }
+      this.activityData.stageList = [stage];
+
+
+      //2. object 
+      var newObject = {
+        id: "rootObject",
+        name: "root",
+        type: "FrameLayout"
+      }
+      this.activityData.objectList = [newObject];
+
+      var now = new Date().getTime();
+      //3. state
+      var newState = {
+        id: "state_" + now,
+        objectId: newObject.id,
+        stageId: stage.id
+      }
+
+      this.activityData.stateList = [newState];
+
+    }
+
+
+
+
+
+    console.log("ngOnInit");
+
+
   }
 
 
@@ -98,16 +157,59 @@ export class ActivityComponent implements OnInit, OnDestroy {
           self.activityMetaData.previewPath = fileName;
           self.saveApplicationData();
 
-
           self.zone.run(() => {
             console.log("will go back");
             self.location.back();
           });
 
-
         }
       });
   }
+
+
+  clickNewObject(type: string) {
+    console.log("new type = " + type);
+  }
+
+  changeTreeData(data) {
+    console.log("changeTreeData = " + data);
+  }
+
+  onSelectNodeFromTree(objectId:string){
+    console.log("onSelectNodeFromTree = "+objectId);
+    this.selectedObject = this.findObjectById(this.activityData.objectList, objectId);
+    console.log("finded  = "+this.selectedObject.id);
+  }
+
+
+
+  findObjectById(targetList:any, objectId:string){
+
+    for(var i =0;i<targetList.length;i++){
+
+      var aObject = targetList[i];
+      if(aObject.id==objectId){
+        return aObject;
+      }
+      if(aObject.children.length>0){
+        var childResult= this.findObjectById(aObject.children,objectId);
+        if(childResult){
+          return childResult;
+        }
+      }
+    }
+    return null;
+  }
+
+
+
+  ngAfterViewInit() {
+
+    console.log("ngAfterViewInit");
+    this.objectTreeComponent.setObjectData(this.activityData.objectList);
+
+  }
+
 
 
 

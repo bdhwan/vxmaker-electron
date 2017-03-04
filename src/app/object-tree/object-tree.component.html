@@ -1,3 +1,2 @@
-<p>
-  object-tree works!
-</p>
+<button (click)="addNode()">addNode</button>
+<tree-root #tree [nodes]="nodes" [options]="options" (onActivate)="selectNode($event)"></tree-root>
