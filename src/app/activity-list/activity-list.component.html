@@ -1,8 +1,64 @@
-<p>
-    activity-list works!- {{applicationData.activityList.length}}
-</p>
+<div class="activities-top">
+    <p>{{applicationData.activityList.length}} Activities </p>
+</div>
+
+<div class="list-scroll">
+    <div class="col-wrap ">
+        <div *ngFor="let activity of applicationData.activityList" class="col-3">
+
+            <div class="list-box">
+
+                <div class="list-img">
+                    <img [src]="prefix+applicationData.applicationFolderPath+'/'+activity.previewPath" width="100px" height="150px">
+
+                    <div class="list-hover">
+                        <button (click)="clickActivity(activity.activityId)">Edit</button>
+                        <button (click)="clickDuplicateActivity(activity.activityId)">Duplicate</button>
+                        <button (click)="clickDeleteActivity(activity.activityId)">Delete</button>
+                    </div>
+
+                </div>
+
+                <div class="list-text">
+                    <div class="list-text-title">
+                        <h4>{{activity.activityName}}</h4>
+                    </div>
+                    <div class="list-text-updated">
+                        {{activity.updatedAt | date:'medium'}}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-3 list-new-wrap">
+
+            <div class="list-box">
+
+                <div class="list-img">
+                    <img width="100px" height="150px">
+
+                </div>
+
+                <div class="list-text">
+                    <div class="list-text-title">
+                        <h4>list text title</h4>
+                    </div>
+                    <div class="list-text-updated">
+                        list text updated
+                    </div>
+                </div>
+
+            </div>
 
 
-<div *ngFor="let activity of applicationData.activityList" (click)="clickActivity(activity.activityId)">
-    <img [src]="prefix+applicationData.applicationFolderPath+'/'+activity.previewPath" width="100px" height="100px"> {{activity.activityName}}-{{activity.activityId}}
+
+
+            <button class="list-new" (click)="clickNewActivity()">+</button>
+
+
+        </div>
+
+    </div>
 </div>

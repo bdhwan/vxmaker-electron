@@ -1,0 +1,52 @@
+.btn-icon {
+    position:relative;
+    margin-top: 20px;
+}
+
+.btn-icon-edit {
+position: absolute;
+bottom:0;
+right:65px;
+background: rgba(255,255,255,0.5);
+border:1px solid #ececec;
+border-radius: 4px;
+color:#898989;
+padding:0px;
+padding:6px;
+font-size: 16px;
+}
+
+.btn-icon-edit:hover {
+    cursor: pointer;
+    background: rgba(255,255,255,0.7);
+}
+
+.project-edit {
+    background: none;
+    border:none;
+    text-align: center;
+    font-size: 20px;
+    width:100%;
+    
+}
+
+.project-edit:focus {
+outline: 0;
+background: rgba(255, 255, 255, 0.7);
+}
+
+
+.project-path-edit {
+    background: none;
+    border:none;
+    text-align: center;
+    font-size: 12px;
+    color:#898989;
+    margin-top: 10px;
+    width:100%;
+}
+
+.project-path-edit:focus {
+outline: 0;
+background: rgba(255, 255, 255, 0.7);
+}

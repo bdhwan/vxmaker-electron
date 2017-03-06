@@ -7,6 +7,8 @@ var fse = require('fs-extra');
 var mkdirp = require('mkdirp');
 var beautify = require('js-beautify').js_beautify;
 var ElectronData = require('electron-data');
+var adb = require('adbkit')
+
 
 
 var settings = new ElectronData({
@@ -18,10 +20,10 @@ console.log("userDatapath = " + app.getPath('userData'));
 
 
 
-let minWidth = 800;
-let minHeight = 600;
-let maxWidth = 800;
-let maxHeight = 600;
+let minWidth = 820;
+let minHeight = 502;
+let maxWidth = 1024;
+let maxHeight = 768;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -368,3 +370,60 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+
+
+//adb 관련 
+var deviceListener;
+ipcMain.on('get-device-list', (event) => {
+    event.returnValue = deviceList;
+})
+
+ipcMain.on('regist-device-connect-status', (event, arg) => {
+    // console.log(arg) // prints "ping"
+    deviceListener = event;
+    event.returnValue = true;
+});
+
+ipcMain.on('unregist-device-connect-status', (event, arg) => {
+    // console.log(arg) // prints "ping"
+    deviceListener = null;
+    event.returnValue = true;
+});
+//개발버전 adb 경로
+var adbFilePath = __dirname + "/adb/adb";
+
+// 프로덕션 버전에서 adb 경로
+// var adbFilePath = app.getAppPath() + "/adb/adb";
+var client = adb.createClient({ bin: adbFilePath });
+var deviceList = [];
+client.trackDevices()
+    .then(function(tracker) {
+        tracker.on('add', function(device) {
+            console.log('Device %s was plugged in', device.id)
+            console.log('device ' + JSON.stringify(device))
+            deviceList.push(device.id);
+            console.log('deviceList = ', deviceList.length);
+            if (deviceListener) {
+                deviceListener.sender.send('device-status', 'add');
+            }
+        })
+        tracker.on('remove', function(device) {
+            console.log('Device %s was unplugged', device.id)
+            var index = deviceList.indexOf(device.id); // <-- Not supported in <IE9
+            if (index !== -1) {
+                deviceList.splice(index, 1);
+            }
+            console.log('deviceList = ', deviceList.length);
+            if (deviceListener) {
+                deviceListener.sender.send('device-status', 'remove');
+            }
+
+        })
+        tracker.on('end', function() {
+            console.log('Tracking stopped')
+        })
+    })
+    .catch(function(err) {
+        console.error('Something went wrong:', err.stack)
+    });

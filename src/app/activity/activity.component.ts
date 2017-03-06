@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -15,7 +15,7 @@ declare var rasterizeHTML: any;
   templateUrl: './activity.component.html',
   styleUrls: ['./activity.component.css']
 })
-export class ActivityComponent implements OnInit {
+export class ActivityComponent implements OnInit, OnDestroy {
 
   activityId: String;
   applicationFolderPath: string;
@@ -26,8 +26,8 @@ export class ActivityComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location
-
+    private location: Location,
+    public zone: NgZone
   ) {
     console.log("construct application");
   }
@@ -49,8 +49,15 @@ export class ActivityComponent implements OnInit {
     this.activityData = JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + "/activity/" + this.activityId + ".json")));
   }
 
+
+  ngOnDestroy() {
+
+  }
+
+
   clickBack(): void {
-    this.location.back();
+    //capture and go back
+    this.captureScreen();
   }
 
 
@@ -88,9 +95,15 @@ export class ActivityComponent implements OnInit {
           var filePath = self.applicationFolderPath + "/" + fileName;
           electron.ipcRenderer.sendSync('save-raw-data', filePath, data);
 
-
           self.activityMetaData.previewPath = fileName;
           self.saveApplicationData();
+
+
+          self.zone.run(() => {
+            console.log("will go back");
+            self.location.back();
+          });
+
 
         }
       });
