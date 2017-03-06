@@ -4,6 +4,9 @@ import { Location } from '@angular/common';
 
 import { ObjectTreeComponent } from '../object-tree/object-tree.component'
 import { ObjectNewComponent } from '../object-new/object-new.component'
+import { ObjectPropertyComponent } from '../object-property/object-property.component'
+import { PreviewComponent } from '../preview/preview.component'
+
 
 import 'rxjs/add/operator/switchMap';
 
@@ -25,6 +28,11 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
   @ViewChild('objectNew')
   private objectNewComponent: ObjectNewComponent;
+
+  @ViewChild('objectProperty')
+  private objectPropertyComponent: ObjectPropertyComponent;
+
+
 
 
   activityId: String;
@@ -83,7 +91,8 @@ export class ActivityComponent implements OnInit, OnDestroy {
       var newObject = {
         id: "rootObject",
         name: "root",
-        type: "FrameLayout"
+        type: "FrameLayout",
+        children: []
       }
       this.activityData.objectList = [newObject];
 
@@ -156,6 +165,8 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
           self.activityMetaData.previewPath = fileName;
           self.saveApplicationData();
+          self.saveActivityData();
+
 
           self.zone.run(() => {
             console.log("will go back");
@@ -169,31 +180,55 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
   clickNewObject(type: string) {
     console.log("new type = " + type);
+
+    var now = new Date().getTime();
+    var newObject = {
+      id: "object_" + now,
+      name: type,
+      type: type,
+      children: []
+    };
+    this.selectedObject.children.push(newObject);
+    this.objectTreeComponent.updateTreeModel();
+    this.objectTreeComponent.selectObjectNode(newObject);
+
+
+
   }
 
   changeTreeData(data) {
     console.log("changeTreeData = " + data);
   }
 
-  onSelectNodeFromTree(objectId:string){
-    console.log("onSelectNodeFromTree = "+objectId);
+  onSelectNodeFromTree(objectId: string) {
+    console.log("onSelectNodeFromTree = " + objectId);
     this.selectedObject = this.findObjectById(this.activityData.objectList, objectId);
-    console.log("finded  = "+this.selectedObject.id);
+
+
+    this.objectPropertyComponent.setObjectData(this.selectedObject);
+    // console.log("finded  = " + this.selectedObject.id);
+  }
+
+  onChangeNodeFromTree() {
+    console.log("onChangeNodeFromTree");
+    this.saveActivityData();
+
   }
 
 
 
-  findObjectById(targetList:any, objectId:string){
 
-    for(var i =0;i<targetList.length;i++){
+  findObjectById(targetList: any, objectId: string) {
+
+    for (var i = 0; i < targetList.length; i++) {
 
       var aObject = targetList[i];
-      if(aObject.id==objectId){
+      if (aObject.id == objectId) {
         return aObject;
       }
-      if(aObject.children.length>0){
-        var childResult= this.findObjectById(aObject.children,objectId);
-        if(childResult){
+      if (aObject.children.length > 0) {
+        var childResult = this.findObjectById(aObject.children, objectId);
+        if (childResult) {
           return childResult;
         }
       }

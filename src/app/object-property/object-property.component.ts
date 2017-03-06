@@ -9,7 +9,16 @@ export class ObjectPropertyComponent implements OnInit {
 
   constructor() { }
 
+
+  data;
+
   ngOnInit() {
+  }
+
+
+  public setObjectData(data:any){
+    this.data = data;
+    console.log("data  ="+this.data);
   }
 
 }

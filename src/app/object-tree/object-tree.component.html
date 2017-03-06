@@ -1,2 +1,1 @@
-<button (click)="addNode()">addNode</button>
-<tree-root #tree [nodes]="nodes" [options]="options" (onActivate)="selectNode($event)"></tree-root>
+<tree-root #tree [nodes]="nodes" [options]="options" (onMoveNode)="changeNode($event)" (onActivate)="selectNode($event)"></tree-root>
