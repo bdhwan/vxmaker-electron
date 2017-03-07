@@ -19,6 +19,7 @@
     min-height: 1px;
     padding-right: 15px;
     padding-left: 15px;
+    transition:transform 8s;
 }
 
 .col-wrap {
@@ -52,6 +53,20 @@ font-size: 15px;
 overflow: hidden;
 text-overflow: ellipsis;
 font-weight: 500;
+}
+
+.list-text .list-text-title .activity-name {
+    width:100%;
+    font-size: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+    border:none;
+    text-align: center;
+}
+
+.list-text .list-text-title .activity-name:focus {
+    background: #f5f6f7;
 }
 
 .list-text .list-text-updated {

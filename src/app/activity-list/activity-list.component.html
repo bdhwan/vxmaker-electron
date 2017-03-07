@@ -21,7 +21,8 @@
 
                 <div class="list-text">
                     <div class="list-text-title">
-                        <h4>{{activity.activityName}}</h4>
+                        <!--<h4>{{activity.activityName}}</h4>-->
+                         <input type="text" class="activity-name" [(ngModel)]="activity.activityName" (blur)="onChange()" />
                     </div>
                     <div class="list-text-updated">
                         {{activity.updatedAt | date:'medium'}}
