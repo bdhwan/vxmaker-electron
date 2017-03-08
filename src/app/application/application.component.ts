@@ -169,7 +169,9 @@ export class ApplicationComponent implements OnInit {
     this.applicationData.activityList.splice(index+1, 0, newObject);
     electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + "/app.json", this.applicationData);
     electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + "/activity/" + newActivityId + ".json", newObject);
-    
+
+    this.clickActivity(newActivityId);
+
   }
 
   clickSave(): void {
