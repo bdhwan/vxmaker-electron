@@ -53,4 +53,5 @@
    -webkit-filter: invert(100%);
    filter: invert(100%);
    opacity: 1;
+   margin-top: -2px;
 }
