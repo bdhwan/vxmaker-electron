@@ -21,6 +21,7 @@
 
                 <div class="list-text">
                     <div class="list-text-title">
+                        <input type="text" class="project-edit" [(ngModel)]="activity.activityName" (blur)="onChangeActivityListData()" />
                         <h4>{{activity.activityName}}</h4>
                     </div>
                     <div class="list-text-updated">

@@ -1,6 +1,11 @@
-import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, ViewChild, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
+
+import { ObjectTreeComponent } from '../object-tree/object-tree.component'
+import { ObjectNewComponent } from '../object-new/object-new.component'
+import { ObjectPropertyComponent } from '../object-property/object-property.component'
+import { PreviewComponent } from '../preview/preview.component'
 
 
 import 'rxjs/add/operator/switchMap';
@@ -17,11 +22,29 @@ declare var rasterizeHTML: any;
 })
 export class ActivityComponent implements OnInit, OnDestroy {
 
+
+  @ViewChild('objectTree')
+  private objectTreeComponent: ObjectTreeComponent;
+
+  @ViewChild('objectNew')
+  private objectNewComponent: ObjectNewComponent;
+
+  @ViewChild('objectProperty')
+  private objectPropertyComponent: ObjectPropertyComponent;
+
+
+
+
   activityId: String;
   applicationFolderPath: string;
   applicationData;
   activityMetaData;
   activityData;
+
+
+  selectedObject;
+
+
 
   constructor(
     private route: ActivatedRoute,
@@ -47,6 +70,51 @@ export class ActivityComponent implements OnInit, OnDestroy {
       }
     }
     this.activityData = JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + "/activity/" + this.activityId + ".json")));
+
+
+    //데이터가 하나도 없으므로 초기화 시켜야함
+    if (!this.activityData.objectList) {
+
+      //1. stage 
+      //2. object
+      //3. state
+
+      //1. stage
+      var stage = {
+        id: "rootStage",
+        name: "rootStage"
+      }
+      this.activityData.stageList = [stage];
+
+
+      //2. object 
+      var newObject = {
+        id: "rootObject",
+        name: "root",
+        type: "FrameLayout",
+        children: []
+      }
+      this.activityData.objectList = [newObject];
+
+      var now = new Date().getTime();
+      //3. state
+      var newState = {
+        id: "state_" + now,
+        objectId: newObject.id,
+        stageId: stage.id
+      }
+
+      this.activityData.stateList = [newState];
+
+    }
+
+
+
+
+
+    console.log("ngOnInit");
+
+
   }
 
 
@@ -97,6 +165,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
           self.activityMetaData.previewPath = fileName;
           self.saveApplicationData();
+          self.saveActivityData();
 
 
           self.zone.run(() => {
@@ -104,10 +173,78 @@ export class ActivityComponent implements OnInit, OnDestroy {
             self.location.back();
           });
 
-
         }
       });
   }
+
+
+  clickNewObject(type: string) {
+    console.log("new type = " + type);
+
+    var now = new Date().getTime();
+    var newObject = {
+      id: "object_" + now,
+      name: type,
+      type: type,
+      children: []
+    };
+    this.selectedObject.children.push(newObject);
+    this.objectTreeComponent.updateTreeModel();
+    this.objectTreeComponent.selectObjectNode(newObject);
+
+
+
+  }
+
+  changeTreeData(data) {
+    console.log("changeTreeData = " + data);
+  }
+
+  onSelectNodeFromTree(objectId: string) {
+    console.log("onSelectNodeFromTree = " + objectId);
+    this.selectedObject = this.findObjectById(this.activityData.objectList, objectId);
+
+
+    this.objectPropertyComponent.setObjectData(this.selectedObject);
+    // console.log("finded  = " + this.selectedObject.id);
+  }
+
+  onChangeNodeFromTree() {
+    console.log("onChangeNodeFromTree");
+    this.saveActivityData();
+
+  }
+
+
+
+
+  findObjectById(targetList: any, objectId: string) {
+
+    for (var i = 0; i < targetList.length; i++) {
+
+      var aObject = targetList[i];
+      if (aObject.id == objectId) {
+        return aObject;
+      }
+      if (aObject.children.length > 0) {
+        var childResult = this.findObjectById(aObject.children, objectId);
+        if (childResult) {
+          return childResult;
+        }
+      }
+    }
+    return null;
+  }
+
+
+
+  ngAfterViewInit() {
+
+    console.log("ngAfterViewInit");
+    this.objectTreeComponent.setObjectData(this.activityData.objectList);
+
+  }
+
 
 
 

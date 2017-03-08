@@ -55,7 +55,7 @@ export class ApplicationComponent implements OnInit {
 
 
   onChangeData(value: string): void {
-    console.log("onChangeData - " + value);
+ 
     this.applicationData.updatedAt = new Date().getTime();
     electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + "/app.json", this.applicationData);
   }
