@@ -38,7 +38,7 @@ To get more help on the `angular-cli` use `ng help` or go check out the [Angular
 **VXMaker**는 개발자가 직접 화면구성, 화면전환, 모션 등의 인터랙션을 구상하고, 이를 개발에 사용 가능한 소스 코드, 가이드 문서로 추출하는 프로그램입니다.
 
 
-[![](http://www.altamirasoft.com/leeer/images/banner_2.png)](https://www.vxmaker.com)
+[![](http://www.altamirasoft.com/leeer/images/banner_2.png)](http://www.vxmaker.com)
 
 
 ####**더욱더 정확하고 빠른 개발**
