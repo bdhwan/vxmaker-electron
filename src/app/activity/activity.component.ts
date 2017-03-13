@@ -52,7 +52,8 @@ export class ActivityComponent implements OnInit, OnDestroy {
     private location: Location,
     public zone: NgZone
   ) {
-    console.log("construct application");
+    console.log("construct application ="+window.screen.height+", test");
+    // console.log("construct event.target.innerWidth ="+this.window.innerWidth+", event.target.innerHeight="+this.window.innerHeight);
   }
 
   ngOnInit() {
@@ -244,6 +245,15 @@ export class ActivityComponent implements OnInit, OnDestroy {
     this.objectTreeComponent.setObjectData(this.activityData.objectList);
 
   }
+
+
+  onResize(event) {
+
+    console.log("event.target.innerWidth ="+event.target.innerWidth+", event.target.innerHeight="+event.target.innerHeight);
+
+    
+  }
+
 
 
 

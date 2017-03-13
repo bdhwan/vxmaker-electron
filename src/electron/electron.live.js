@@ -313,8 +313,6 @@ function createWindow() {
         // var url = `file://${__dirname}/index.html`;
         // var url = 'file://' + path.join(__dirname, '../', 'index.html');
 
-
-
         // console.log("url = " + url);
         // win.loadURL(url);
 

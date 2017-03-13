@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {DndModule} from 'ng2-dnd';
+
 
 
 @Component({

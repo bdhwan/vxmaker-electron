@@ -1,6 +1,6 @@
 import { VxmakerAngularPage } from './app.po';
 
-describe('vxmaker-angular App', function() {
+describe('vxmaker-angular App', () => {
   let page: VxmakerAngularPage;
 
   beforeEach(() => {
