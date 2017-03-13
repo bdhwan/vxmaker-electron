@@ -1,5 +1,4 @@
 // src/electron.js
-
 const { app, dialog, shell, Menu, Tray, BrowserWindow, ipcMain } = require('electron')
 var path = require("path");
 const url = require('url');
@@ -7,6 +6,8 @@ var fse = require('fs-extra');
 var mkdirp = require('mkdirp');
 var beautify = require('js-beautify').js_beautify;
 var ElectronData = require('electron-data');
+var adb = require('adbkit')
+
 
 
 var settings = new ElectronData({
@@ -18,10 +19,10 @@ console.log("userDatapath = " + app.getPath('userData'));
 
 
 
-let minWidth = 800;
-let minHeight = 600;
-let maxWidth = 800;
-let maxHeight = 600;
+let minWidth = 820;
+let minHeight = 502;
+let maxWidth = 1024;
+let maxHeight = 768;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -280,33 +281,66 @@ ipcMain.on('copy-file', (event, src, dst) => {
 })
 
 
+//delete file
+ipcMain.on('delete-file', (event, file) => {
+    fse.removeSync(file);
+    event.returnValue = true;
+})
+
+
+
+//copy file
+ipcMain.on('copy-from-root-file', (event, src, dst) => {
+
+    var from = __dirname + "/" + src;
+    fse.copySync(from, dst);
+    event.returnValue = true;
+
+})
 
 
 
 
 
 function createWindow() {
-    // Create the browser window.
-    win = new BrowserWindow({ width: 800, height: 600 })
 
-    // and load the index.html of the app.
-    var url = `file://${__dirname}/index.html`;
+    setTimeout(() => {
+        // Create the browser window.
+        win = new BrowserWindow({ width: minWidth, height: minHeight, minWidth: minWidth, minHeight: minHeight })
 
 
-    console.log("url = " + url);
-    win.loadURL(url);
+        // var url = `file://${__dirname}/index.html`;
+        // var url = 'file://' + path.join(__dirname, '../', 'index.html');
 
-    // Open the DevTools.
-    win.webContents.openDevTools()
+        var url = `file://${__dirname}/index.html`;
 
-    // Emitted when the window is closed.
-    win.on('closed', () => {
-        // Dereference the window object, usually you would store windows
-        // in an array if your app supports multi windows, this is the time
-        // when you should delete the corresponding element.
-        win = null
-    })
+
+
+        console.log("url = " + url);
+        win.loadURL(url);
+
+        // and load the index.html of the app.
+        // win.loadURL(url.format({
+        //     pathname: 'localhost:4200',
+        //     protocol: 'http:',
+        //     slashes: true
+        // }))
+
+        // Open the DevTools when in dev mode.
+        // if (process.env.NODE_ENV == 'development')
+        win.webContents.openDevTools()
+
+        // Emitted when the window is closed.
+        win.on('closed', () => {
+            // Dereference the window object, usually you would store windows
+            // in an array if your app supports multi windows, this is the time
+            // when you should delete the corresponding element.
+            win = null
+        })
+    }, 12000)
+
 }
+
 
 
 
@@ -337,3 +371,60 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+
+
+//adb 관련 
+var deviceListener;
+ipcMain.on('get-device-list', (event) => {
+    event.returnValue = deviceList;
+})
+
+ipcMain.on('regist-device-connect-status', (event, arg) => {
+    // console.log(arg) // prints "ping"
+    deviceListener = event;
+    event.returnValue = true;
+});
+
+ipcMain.on('unregist-device-connect-status', (event, arg) => {
+    // console.log(arg) // prints "ping"
+    deviceListener = null;
+    event.returnValue = true;
+});
+//개발버전 adb 경로
+var adbFilePath = __dirname + "/adb/adb";
+
+// 프로덕션 버전에서 adb 경로
+// var adbFilePath = app.getAppPath() + "/adb/adb";
+var client = adb.createClient({ bin: adbFilePath });
+var deviceList = [];
+client.trackDevices()
+    .then(function(tracker) {
+        tracker.on('add', function(device) {
+            console.log('Device %s was plugged in', device.id)
+            console.log('device ' + JSON.stringify(device))
+            deviceList.push(device.id);
+            console.log('deviceList = ', deviceList.length);
+            if (deviceListener) {
+                deviceListener.sender.send('device-status', 'add');
+            }
+        })
+        tracker.on('remove', function(device) {
+            console.log('Device %s was unplugged', device.id)
+            var index = deviceList.indexOf(device.id); // <-- Not supported in <IE9
+            if (index !== -1) {
+                deviceList.splice(index, 1);
+            }
+            console.log('deviceList = ', deviceList.length);
+            if (deviceListener) {
+                deviceListener.sender.send('device-status', 'remove');
+            }
+
+        })
+        tracker.on('end', function() {
+            console.log('Tracking stopped')
+        })
+    })
+    .catch(function(err) {
+        console.error('Something went wrong:', err.stack)
+    });

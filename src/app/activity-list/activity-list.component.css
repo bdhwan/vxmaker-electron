@@ -142,7 +142,7 @@ color:#46a2ba;
     font-weight: bold;
 }
 
-.list-box:hover .list-img .list-hover{
+.list-box .list-img:hover .list-hover{
     display: block;
     padding-top: 32px;
     cursor: pointer;
