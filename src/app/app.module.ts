@@ -22,7 +22,7 @@ import { PreviewComponent } from './preview/preview.component';
 import { StageListComponent } from './stage-list/stage-list.component';
 import { PreviewSizeComponent } from './preview-size/preview-size.component';
 import { TreeModule } from 'angular2-tree-component';
-
+import {DndModule} from 'ng2-dnd';
 
 const appRoutes: Routes = [
   { path: 'init/:workspaceFolder', component: InitComponent },
@@ -63,6 +63,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     TreeModule,
+    BrowserModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],

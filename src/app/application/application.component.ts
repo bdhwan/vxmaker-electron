@@ -16,14 +16,6 @@ declare var electron: any;
 })
 export class ApplicationComponent implements OnInit {
 
-
-  // @ViewChild('test1')
-  // private applicationInfoComponent1: ApplicationInfoComponent;
-
-  // @ViewChild('test2')
-  // private applicationInfoComponent2: ApplicationInfoComponent;
-
-
   applicationFolderPath: string;
   applicationData: any;
 
