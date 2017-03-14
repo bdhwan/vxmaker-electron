@@ -1,3 +1,9 @@
-<div (window:resize)="onResize($event)" #mainScreen>
-    Preview
+<div (window:resize)="onResize($event)">
+    <div> Preview ( {{previewWidth}},{{previewHeight}} ) </div>
+
+    <div>
+        <div *ngIf="selectedStage"> {{selectedStage.id}}</div>
+        <div *ngIf="selectedObject">{{selectedObject.id}}</div>
+        <div *ngIf="selectedState"> {{selectedState.id}}</div>
+    </div>
 </div>

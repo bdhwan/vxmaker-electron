@@ -10,31 +10,56 @@ import { ElementRef, ViewChild } from '@angular/core';
 })
 export class PreviewComponent implements OnInit {
 
-  @ViewChild('mainScreen') elementView: ElementRef;
+  // @ViewChild('mainScreen') elementView: ElementRef;
+
+  previewWidth = 0;
+  previewHeight = 0;
+  topMargin = 80;
+  leftMargin = 200;
+  rightMargin = 200;
 
 
-  constructor() { }
+  selectedObject;
+  selectedStage;
+  selectedState;
+  
+  activityData;
+
+
+  constructor() {
+
+  }
 
   ngOnInit() {
-
-    console.log(" this.viewHeight = " + this.elementView.nativeElement.offsetHeight);
-
+    // console.log(" this.viewHeight = " + this.elementView.nativeElement.offsetHeight);
+    this.invalidatePreviewSize();
   }
 
 
   onResize(event) {
-
-    console.log("event.target.innerWidth =" + event.target.innerWidth + ", event.target.innerHeight=" + event.target.innerHeight);
-    console.log(" this.viewHeight = " + this.elementView.nativeElement.offsetHeight);
-
+    this.invalidatePreviewSize();
   }
 
-
-
-  public setObjectData(data): void {
-    
+  invalidatePreviewSize(): void {
+    this.previewWidth = window.innerWidth - (this.leftMargin + this.rightMargin);
+    this.previewHeight = window.innerHeight - this.topMargin;
   }
 
+  public setSelectedObject(object): void {
+    this.selectedObject = object;
+  }
 
+  public setSelectedStage(stage): void {
+    this.selectedStage = stage;
+  }
+
+  public setSelectedState(state): void {
+    this.selectedState = state;
+  }
+
+  public setActivityData(data): void {
+    this.activityData = data;
+    console.log("activityData = " + JSON.stringify(data));
+  }
 
 }

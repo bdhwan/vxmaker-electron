@@ -21,6 +21,7 @@ import { EventListComponent } from './event-list/event-list.component';
 import { PreviewComponent } from './preview/preview.component';
 import { StageListComponent } from './stage-list/stage-list.component';
 import { PreviewSizeComponent } from './preview-size/preview-size.component';
+
 import { TreeModule } from 'angular2-tree-component';
 
 
