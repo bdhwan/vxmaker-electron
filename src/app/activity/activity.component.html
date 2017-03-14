@@ -1,22 +1,24 @@
-<div style="background: #ff0000;width:100%;height:100%;" (window:resize)="onResize($event)">
+<div style="background: #ff0000;width:100%;height:100%; position:absolute;">
 
-
-    <div id="topSide">
+    <div id="topSide" style="height: 80px; width:100%; background: #779900">
         <button (click)="clickBack()">Back</button>{{applicationData.applicationName}}
         <input type="text" [(ngModel)]="activityMetaData.activityName" (blur)="changeActivityName()" />
     </div>
 
-    <div id="previewScreen" style="width: 200px;height: 100%">
-        <app-object-tree #objectTree (onChangeNode)="onChangeNodeFromTree($event)" (onSelectNode)="onSelectNodeFromTree($event)"></app-object-tree>
-        <app-object-new #objectNew (onClickNewObject)="clickNewObject($event)" (onChangeTreeData)="changeTreeData($event)"></app-object-new>
+    <div style="position:absolute; background: #4455ff; width: 100%; top: 0;bottom: 0; margin-top: 80px;">
+        <div style="float: left;  width:150px; height: 100%; background: #000088; overflow-y: scroll;">
+            <app-object-tree #objectTree (onChangeNode)="onChangeNodeFromTree($event)" (onSelectNode)="onSelectNodeFromTree($event)"></app-object-tree>
+            <app-object-new #objectNew (onClickNewObject)="clickNewObject($event)" (onChangeTreeData)="changeTreeData($event)"></app-object-new>
+        </div>
+
+        <div id="previewScreen" style="position:absolute; padding-left: 150px; padding-right: 150px;">
+            <app-preview #previewCanvas></app-preview>
+        </div>
+
+        <div id="rightSide" style="float: right; width:150px; height:100%; background: #ff0055; overflow-y: scroll;">
+            <app-object-property #objectProperty (onChangeTreeData)="changePropertyData($event)"></app-object-property>
+        </div>
     </div>
 
-    <div id="centerSide">
-        <app-preview #previewCanvas></app-preview>
-    </div>
-
-    <div id="rightSide">
-        <app-object-property #objectProperty (onChangeTreeData)="changePropertyData($event)"></app-object-property>
-    </div>
 
 </div>
