@@ -47,7 +47,14 @@
 .nav-btn-img {
     padding-right: 5px;
     opacity: 0.5;
+<<<<<<< HEAD
    
+=======
+    width:18px;
+
+   
+
+>>>>>>> master
 }
 
 .device-status .nav-btn:hover .nav-btn-img{

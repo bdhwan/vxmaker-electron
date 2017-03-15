@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Http} from '@angular/http';
+
+
 
 @Component({
   selector: 'app-object-property',
@@ -7,18 +10,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ObjectPropertyComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http:Http) { 
+
+  }
 
 
+  test = [];
+  selectedObject;
+  selectedState;
   data;
 
   ngOnInit() {
+       this.http.get('assets/object/TextView.json').subscribe(res => this.data = res.json());
+  }
+
+  getAllKeys(target) {
+    return Object.keys(target);
+  }
+
+  toJson(target){
+    return JSON.stringify(target);
   }
 
 
-  public setObjectData(data:any){
-    this.data = data;
-    console.log("data  ="+this.data);
+  public setSelectedObject(data: any) {
+    this.selectedObject = data;
   }
+
+  public setSelectedState(data: any) {
+    this.selectedState = data;
+  }
+
+
 
 }
+
+

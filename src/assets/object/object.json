@@ -1,0 +1,8 @@
+{
+    "objectType": [
+        "FrameLayout.json",
+        "RelativeLayout.json",
+        "ImageView.json",
+        "TextView.json"
+    ]
+}
