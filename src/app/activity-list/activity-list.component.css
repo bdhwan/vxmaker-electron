@@ -110,16 +110,16 @@ color:#46a2ba;
     left:0;
     right:0;
     display: none;
-    background: linear-gradient(to bottom, #46a2ba 0%,#8096cc 100%);
+    background:#46a2ba;
 }
 
 .list-box .list-img .list-hover button {
-    background: #fff;
+    background: transparent;
     text-align: center;
-    color:#898989;
+    color:#fff;
     border-radius: 50px;
     display: block;
-    border:none;
+    border:2px solid #fff;
     width:110px;
     margin-left: auto;
     margin-right: auto;
@@ -140,6 +140,8 @@ color:#46a2ba;
 .list-box .list-img .list-hover button:hover {
     color:#46a2ba;
     font-weight: bold;
+    background: #fff;
+    cursor: pointer;
 }
 
 .list-box .list-img:hover .list-hover{
