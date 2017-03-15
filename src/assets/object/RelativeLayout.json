@@ -1,12 +1,11 @@
 {
-    "name": "TextView",
-    "type": "TextView",
+    "name": "RelativeLayout",
+    "type": "RelativeLayout",
     "objectProperties": [{
             "name": "name",
             "type": "string",
-            "default": "TextView"
-        },
-        {
+            "default": "RelativeLayout"
+        }, {
             "name": "text",
             "type": "string",
             "default": "text-view"
@@ -24,7 +23,7 @@
         {
             "name": "canHaveChildren",
             "type": "boolean",
-            "default": false
+            "default": true
         }
     ]
 

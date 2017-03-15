@@ -36,15 +36,24 @@ export class ObjectTreeComponent implements OnInit {
 
   selectedNode;
 
-  selectNode(event): void {
+  selectNode($event): void {
     // console.log("select data = " + JSON.stringify(Object.keys(event.node.data)));
-    this.selectedNode = event.node.data;
+    this.selectedNode = $event.node.data;
     this.onSelectNode.emit(this.selectedNode.id);
   }
 
 
-  changeNode(event): void {
-    // console.log("select data = " + JSON.stringify(Object.keys(event.node.data)));
+  changeNode($event): void {
+
+    // console.log(
+    //   "Moved",
+    //   $event.node.name,
+    //   "to",
+    //   $event.to.parent.name,
+    //   "at index",
+    //   $event.to.index);
+    $event.node.parentId = $event.to.parent.id;
+    // console.log("select data = " + $event);
     this.onChangeNode.emit();
   }
 
@@ -53,6 +62,14 @@ export class ObjectTreeComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  public focusDrillDown(): void {
+    this.tree.treeModel.focusDrillDown();
+  }
+
+  public expandAll(): void {
+    this.tree.treeModel.expandAll();
   }
 
   public updateTreeModel(): void {
@@ -68,6 +85,8 @@ export class ObjectTreeComponent implements OnInit {
   public setObjectData(data): void {
     this.nodes = data;
     this.tree.treeModel.update();
+
+
     //  this.tree.
     if (!this.selectedNode) {
       var target = this.nodes[0];
@@ -75,6 +94,9 @@ export class ObjectTreeComponent implements OnInit {
       this.selectedNode = target;
       this.onSelectNode.emit(this.selectedNode.id);
     }
+
+    this.tree.treeModel.expandAll();
+
   }
 
 

@@ -1,12 +1,11 @@
 {
-    "name": "TextView",
-    "type": "TextView",
+    "name": "FrameLayout",
+    "type": "FrameLayout",
     "objectProperties": [{
             "name": "name",
             "type": "string",
-            "default": "TextView"
-        },
-        {
+            "default": "FrameLayout"
+        }, {
             "name": "text",
             "type": "string",
             "default": "text-view"
@@ -14,7 +13,7 @@
         {
             "name": "textSize",
             "type": "int",
-            "default": "20"
+            "default": 20
         },
         {
             "name": "textColor",
@@ -24,7 +23,7 @@
         {
             "name": "canHaveChildren",
             "type": "boolean",
-            "default": false
+            "default": true
         }
     ]
 

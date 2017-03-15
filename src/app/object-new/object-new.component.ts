@@ -17,6 +17,13 @@ export class ObjectNewComponent implements OnInit {
 
   }
 
+  objectTypeData =[];
+
+  public setObjectTypeData(objectTypeData:any){
+    this.objectTypeData = objectTypeData;
+  }
+  
+
   clickNewObject(type:string){
 
     console.log("clickNewObject -"+type);

@@ -1,12 +1,11 @@
 {
-    "name": "TextView",
-    "type": "TextView",
+    "name": "ImageView",
+    "type": "ImageView",
     "objectProperties": [{
             "name": "name",
             "type": "string",
-            "default": "TextView"
-        },
-        {
+            "default": "ImageView"
+        }, {
             "name": "text",
             "type": "string",
             "default": "text-view"
@@ -21,6 +20,12 @@
             "type": "string",
             "default": "#000000"
         },
+        {
+            "name": "imageSrc",
+            "type": "string",
+            "default": null
+        },
+
         {
             "name": "canHaveChildren",
             "type": "boolean",

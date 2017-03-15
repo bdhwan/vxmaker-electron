@@ -6,6 +6,7 @@ import { ObjectTreeComponent } from '../object-tree/object-tree.component'
 import { ObjectNewComponent } from '../object-new/object-new.component'
 import { ObjectPropertyComponent } from '../object-property/object-property.component'
 import { PreviewComponent } from '../preview/preview.component'
+import { Http } from '@angular/http';
 
 
 import 'rxjs/add/operator/switchMap';
@@ -37,6 +38,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
 
 
+  isReadyToRender: Boolean = false;
 
   activityId: String;
   applicationFolderPath: string;
@@ -50,6 +52,12 @@ export class ActivityComponent implements OnInit, OnDestroy {
   selectedState;
 
 
+  objectTypeData = [];
+
+
+  previewCss = {};
+
+
 
 
 
@@ -57,65 +65,151 @@ export class ActivityComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
-    public zone: NgZone
+    public zone: NgZone,
+    private http: Http
   ) {
-    console.log("construct application =" + window.screen.height + ", test");
+    this.isReadyToRender = false;
+    // console.log("construct application =" + window.screen.height + ", test");
     // console.log("construct event.target.innerWidth ="+this.window.innerWidth+", event.target.innerHeight="+this.window.innerHeight);
   }
+
+
+
 
   ngOnInit() {
 
 
-    this.applicationFolderPath = this.route.snapshot.params['applicationFolderPath'];
-    this.activityId = this.route.snapshot.params['activityId'];
+  }
 
-    this.applicationData = JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + "/app.json")));
-    for (var i = 0; i < this.applicationData.activityList.length; i++) {
-      var activity = this.applicationData.activityList[i];
-      if (activity.activityId === this.activityId) {
-        this.activityMetaData = activity;
-        break;
-      }
-    }
-    this.activityData = JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + "/activity/" + this.activityId + ".json")));
-
-    //데이터가 하나도 없으므로 초기화 시켜야함
-    if (!this.activityData.objectList) {
-
-      //1. stage 
-      //2. object
-      //3. state
+  getPreviewWidth(){
+    return (window.innerWidth - 400)+"px";
+  }
+  getPreviewHeight(){
+    return (window.innerHeight - 80)+"px";
+  }
 
 
-      //1. stage
-      var stage = {
-        id: "rootStage",
-        name: "rootStage"
-      }
-      this.activityData.stageList = [stage];
+  ngAfterViewInit() {
+    this.loadInitDataFromFile().then((result) => {
+      return this.loadApplicationData();
+    }).then((result) => {
+      return this.checkEmptyActivityData();
+    }).then((result) => {
+      return this.initDataToView();
+    }).then((result) => {
+      this.notifySelectedObjectChanged();
+
+    });
+  }
 
 
-      //2. object 
-      var newObject = {
-        id: "rootObject",
-        name: "root",
-        type: "FrameLayout",
-        children: []
-      }
-      this.activityData.objectList = [newObject];
-
-      var now = new Date().getTime();
-      //3. state
-      var newState = this.createNewState(newObject.id, stage.id);
-
-      this.activityData.stateList = [newState];
-
-
-    }
-    console.log("ngOnInit");
-
+  ngOnDestroy() {
 
   }
+
+
+
+  getHttpToJson(targetUrl) {
+    return new Promise((resolve, reject) => {
+      this.http.get(targetUrl).subscribe(res => {
+        var data = res.json();
+        resolve(data);
+      });
+    });
+  }
+
+  loadInitDataFromFile() {
+    return new Promise((resolve, reject) => {
+      //오브젝트 타입 정보 불러오기
+      this.getHttpToJson('assets/object/object.json').then((data: any) => {
+        var reqeustList = [];
+        for (var i = 0; i < data.objectType.length; i++) {
+          reqeustList.push(this.getHttpToJson('assets/object/' + data.objectType[i]));
+        }
+        return Promise.all(reqeustList);
+      }).then((results: any) => {
+        // console.log("results =" + JSON.stringify(results));
+        this.objectTypeData = results;
+        resolve(true);
+      }).catch(function (err) {
+        console.log("catch = " + JSON.stringify(err));
+        reject(err);
+      });;
+    });
+  }
+
+
+  loadApplicationData() {
+    return new Promise((resolve, reject) => {
+      this.applicationFolderPath = this.route.snapshot.params['applicationFolderPath'];
+      this.activityId = this.route.snapshot.params['activityId'];
+      this.applicationData = JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + "/app.json")));
+      for (var i = 0; i < this.applicationData.activityList.length; i++) {
+        var activity = this.applicationData.activityList[i];
+        if (activity.activityId === this.activityId) {
+          this.activityMetaData = activity;
+          break;
+        }
+      }
+      this.activityData = JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + "/activity/" + this.activityId + ".json")));
+      resolve(true);
+    });
+  }
+
+
+  checkEmptyActivityData() {
+    return new Promise((resolve, reject) => {
+      //데이터가 하나도 없으므로 초기화 시켜야함
+      if (!this.activityData.objectList) {
+
+        //1. stage 
+        //2. object
+        //3. state
+
+        //1. stage
+        var stage = {
+          id: "rootStage",
+          name: "rootStage"
+        }
+        this.activityData.stageList = [stage];
+
+
+        //2. object 
+        var newObject = {
+          id: "rootObject",
+          name: "root",
+          type: "FrameLayout",
+          children: []
+        }
+        this.activityData.objectList = [newObject];
+
+        var now = new Date().getTime();
+        //3. state
+        var newState = this.createNewState(newObject.id, stage.id);
+        this.activityData.stateList = [newState];
+
+      }
+      console.log("ngOnInit");
+      resolve(true);
+    });
+  }
+
+
+  initDataToView() {
+    return new Promise((resolve, reject) => {
+      this.isReadyToRender = true;
+      this.selectedObject = this.activityData.objectList[0];
+      this.selectedStage = this.activityData.stageList[0];
+      this.selectedState = this.activityData.stateList[0];
+      this.objectTreeComponent.setObjectData(this.activityData.objectList);
+      this.previewComponent.setActivityData(this.activityData);
+      this.objectNewComponent.setObjectTypeData(this.objectTypeData);
+      resolve(true);
+    });
+  }
+
+
+
 
 
   createNewState(objectId: string, stageId: string) {
@@ -135,9 +229,6 @@ export class ActivityComponent implements OnInit, OnDestroy {
   }
 
 
-  ngOnDestroy() {
-
-  }
 
 
   clickBack(): void {
@@ -194,17 +285,44 @@ export class ActivityComponent implements OnInit, OnDestroy {
       });
   }
 
+  findObjectBasicDataByType(type: string) {
+    for (var i = 0; i < this.objectTypeData.length; i++) {
+      var aData = this.objectTypeData[i];
+      if (type == aData.type) {
+        return aData;
+      }
+    }
+    return null;
+  }
 
   clickNewObject(type: string) {
     console.log("new type = " + type);
 
+    var defaultObject = this.findObjectBasicDataByType(type);
+
+    var parentObject = this.selectedObject;
+    if (!parentObject.children) {
+      parentObject = this.findObjectById(this.selectedObject.parentId);
+    }
+    console.log("parentObject =" + JSON.stringify(parentObject));
+
+
     var now = new Date().getTime();
     var newObject = {
       id: "object_" + now,
-      name: type,
-      type: type,
-      children: []
+      parentId: parentObject.id,
+      canHaveChildren: false
     };
+
+    for (var i = 0; i < defaultObject.objectProperties.length; i++) {
+      var aProperty = defaultObject.objectProperties[i];
+      newObject[aProperty.name] = aProperty.default;
+    }
+
+    if (newObject.canHaveChildren) {
+      newObject['children'] = [];
+    }
+
 
     for (var i = 0; i < this.activityData.stageList.length; i++) {
       var aStage = this.activityData.stageList[i];
@@ -212,11 +330,18 @@ export class ActivityComponent implements OnInit, OnDestroy {
       this.activityData.stateList.push(aState);
     }
 
-    this.selectedObject.children.push(newObject);
+
+
+
+    parentObject.children.push(newObject);
+
     this.objectTreeComponent.updateTreeModel();
     this.objectTreeComponent.selectObjectNode(newObject);
 
+    this.objectTreeComponent.expandAll();
+
   }
+
 
   changeTreeData(data) {
     console.log("changeTreeData = " + data);
@@ -250,7 +375,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
       if (aObject.id == objectId) {
         return aObject;
       }
-      if (aObject.children.length > 0) {
+      if (aObject.children && aObject.children.length > 0) {
         var childResult = this.findObjectByIdWithList(aObject.children, objectId);
         if (childResult) {
           return childResult;
@@ -260,18 +385,13 @@ export class ActivityComponent implements OnInit, OnDestroy {
     return null;
   }
 
-
   findStateByObjectId(objectId: string) {
     return this.findStateByObjectIdWithStageId(objectId, this.selectedStage.id);
   }
 
-
   findStateByObjectIdWithStageId(objectId: string, stageId: string) {
-
-    console.log("will find "+objectId+", stage:"+stageId);
     return this.findStateByObjectIdWithList(this.activityData.stateList, objectId, stageId);
   }
-
 
   findStateByObjectIdWithList(targetList: any, objectId: string, stageId: string) {
     for (var i = 0; i < targetList.length; i++) {
@@ -285,23 +405,11 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
 
 
-  ngAfterViewInit() {
 
-    this.selectedObject = this.activityData.objectList[0];
-    this.selectedStage = this.activityData.stageList[0];
-    this.selectedState = this.activityData.stateList[0];
-
-    this.objectTreeComponent.setObjectData(this.activityData.objectList);
-    this.previewComponent.setActivityData(this.activityData);
-
-    this.notifySelectedObjectChanged();
-  }
 
   notifySelectedObjectChanged() {
 
     this.selectedState = this.findStateByObjectId(this.selectedObject.id);
-
-    console.log("selected state = " + JSON.stringify(this.selectedState));
 
     this.previewComponent.setSelectedObject(this.selectedObject);
     this.previewComponent.setSelectedStage(this.selectedStage);
