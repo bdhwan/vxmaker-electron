@@ -1,0 +1,30 @@
+{
+    "name": "RelativeLayout",
+    "type": "RelativeLayout",
+    "objectProperties": [{
+            "name": "name",
+            "type": "string",
+            "default": "RelativeLayout"
+        }, {
+            "name": "text",
+            "type": "string",
+            "default": "text-view"
+        },
+        {
+            "name": "textSize",
+            "type": "int",
+            "default": "20"
+        },
+        {
+            "name": "textColor",
+            "type": "string",
+            "default": "#000000"
+        },
+        {
+            "name": "canHaveChildren",
+            "type": "boolean",
+            "default": true
+        }
+    ]
+
+}

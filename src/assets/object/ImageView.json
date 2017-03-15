@@ -1,0 +1,36 @@
+{
+    "name": "ImageView",
+    "type": "ImageView",
+    "objectProperties": [{
+            "name": "name",
+            "type": "string",
+            "default": "ImageView"
+        }, {
+            "name": "text",
+            "type": "string",
+            "default": "text-view"
+        },
+        {
+            "name": "textSize",
+            "type": "int",
+            "default": "20"
+        },
+        {
+            "name": "textColor",
+            "type": "string",
+            "default": "#000000"
+        },
+        {
+            "name": "imageSrc",
+            "type": "string",
+            "default": null
+        },
+
+        {
+            "name": "canHaveChildren",
+            "type": "boolean",
+            "default": false
+        }
+    ]
+
+}

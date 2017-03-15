@@ -1,22 +1,29 @@
-<div>
+<div style="background: #ff0000;width:100%;height:100%; position:absolute;" (window:resize)="onResize($event)">
 
-
-    <div id="topSide">
-        <button (click)="clickBack()">Back</button>{{applicationData.applicationName}}
+    <div id="topSide" class="navbar" *ngIf="activityMetaData" style="height:80px;">
+        <button class="btn-back" (click)="clickBack()">◄ Back</button>
         <input type="text" [(ngModel)]="activityMetaData.activityName" (blur)="changeActivityName()" />
+        <div class="nav-right">
+            <app-device-status></app-device-status>
+        </div>
     </div>
 
-    <div id="previewScreen" style="width: 200px;height: 100%">
-        <app-object-tree #objectTree (onChangeNode)="onChangeNodeFromTree($event)" (onSelectNode)="onSelectNodeFromTree($event)"></app-object-tree>
-        <app-object-new #objectNew (onClickNewObject)="clickNewObject($event)" (onChangeTreeData)="changeTreeData($event)"></app-object-new>
+
+    <div style="position:absolute; background: #4455ff; width: 100%; top: 0;bottom: 0; margin-top: 80px;">
+
+        <div style="float: left;  width:200px; height: 100%; background: #ffffff; overflow-y: scroll;">
+            <app-object-tree #objectTree (onChangeNode)="onChangeNodeFromTree($event)" (onSelectNode)="onSelectNodeFromTree($event)"></app-object-tree>
+            <app-object-new #objectNew (onClickNewObject)="clickNewObject($event)" (onChangeTreeData)="changeTreeData($event)"></app-object-new>
+        </div>
+
+        <div id="previewScreen" style="float:left; overflow-x: scroll; overflow-y: scroll;" [style.width]="getPreviewWidth()" [style.height]="getPreviewHeight()">
+            <app-preview #previewCanvas></app-preview>
+        </div>
+
+        <div id="rightSide" style="float: right; width:200px; height:100%; background: #ff0055; overflow-y: scroll;">
+            <app-object-property #objectProperty (onChangeTreeData)="changePropertyData($event)"></app-object-property>
+        </div>
     </div>
 
-    <div id="centerSide">
-        <app-preview #previewCanvas></app-preview>
-    </div>
-
-    <div id="rightSide">
-        <app-object-property #objectProperty (onChangeTreeData)="changePropertyData($event)"></app-object-property>
-    </div>
 
 </div>
