@@ -23,7 +23,9 @@ import { StageListComponent } from './stage-list/stage-list.component';
 import { PreviewSizeComponent } from './preview-size/preview-size.component';
 
 import { TreeModule } from 'angular2-tree-component';
+import { PreviewObjectComponent } from './preview/preview-object/preview-object.component';
 
+import { ApplicationDataServiceService } from './service/application-data-service.service'
 
 const appRoutes: Routes = [
   { path: 'init/:workspaceFolder', component: InitComponent },
@@ -57,7 +59,8 @@ const appRoutes: Routes = [
     EventListComponent,
     PreviewComponent,
     StageListComponent,
-    PreviewSizeComponent
+    PreviewSizeComponent,
+    PreviewObjectComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,7 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [ApplicationDataServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

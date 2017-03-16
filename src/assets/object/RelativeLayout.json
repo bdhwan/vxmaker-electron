@@ -1,29 +1,43 @@
 {
     "name": "RelativeLayout",
     "type": "RelativeLayout",
-    "objectProperties": [{
+    "objectProperties": [
+         {
+            "name": "type",
+            "type": "string",
+            "default": "RelativeLayout"
+        },
+        {
             "name": "name",
             "type": "string",
             "default": "RelativeLayout"
-        }, {
-            "name": "text",
+        },
+       
+        {
+            "name": "background-color",
             "type": "string",
-            "default": "text-view"
+            "default": "#009900"
         },
         {
-            "name": "textSize",
-            "type": "int",
-            "default": "20"
-        },
-        {
-            "name": "textColor",
+            "name": "background-image",
             "type": "string",
-            "default": "#000000"
+            "default": null
         },
         {
             "name": "canHaveChildren",
             "type": "boolean",
             "default": true
+        }
+    ],
+    "stateProperties": [{
+            "name": "width",
+            "type": "int",
+            "default": 1440
+        },
+        {
+            "name": "height",
+            "type": "int",
+            "default": 2560
         }
     ]
 

@@ -7,7 +7,7 @@ import { ObjectNewComponent } from '../object-new/object-new.component'
 import { ObjectPropertyComponent } from '../object-property/object-property.component'
 import { PreviewComponent } from '../preview/preview.component'
 import { Http } from '@angular/http';
-
+import { ApplicationDataServiceService } from '../service/application-data-service.service'
 
 import 'rxjs/add/operator/switchMap';
 
@@ -53,6 +53,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
 
   objectTypeData = [];
+  defaultStateData;
 
 
   previewCss = {};
@@ -66,7 +67,8 @@ export class ActivityComponent implements OnInit, OnDestroy {
     private router: Router,
     private location: Location,
     public zone: NgZone,
-    private http: Http
+    private http: Http,
+    private appDataService: ApplicationDataServiceService
   ) {
     this.isReadyToRender = false;
     // console.log("construct application =" + window.screen.height + ", test");
@@ -81,11 +83,11 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
   }
 
-  getPreviewWidth(){
-    return (window.innerWidth - 400)+"px";
+  getPreviewWidth() {
+    return (window.innerWidth - 400) + "px";
   }
-  getPreviewHeight(){
-    return (window.innerHeight - 80)+"px";
+  getPreviewHeight() {
+    return (window.innerHeight - 80) + "px";
   }
 
 
@@ -98,7 +100,8 @@ export class ActivityComponent implements OnInit, OnDestroy {
       return this.initDataToView();
     }).then((result) => {
       this.notifySelectedObjectChanged();
-
+      this.appDataService.setApplicationData(this.applicationData);
+      
     });
   }
 
@@ -126,6 +129,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
         for (var i = 0; i < data.objectType.length; i++) {
           reqeustList.push(this.getHttpToJson('assets/object/' + data.objectType[i]));
         }
+        this.defaultStateData = data.defaultState;
         return Promise.all(reqeustList);
       }).then((results: any) => {
         // console.log("results =" + JSON.stringify(results));
@@ -173,19 +177,15 @@ export class ActivityComponent implements OnInit, OnDestroy {
         }
         this.activityData.stageList = [stage];
 
-
-        //2. object 
-        var newObject = {
-          id: "rootObject",
-          name: "root",
-          type: "FrameLayout",
-          children: []
-        }
+        //2. object
+        var newObject = this.createNewObject("FrameLayout");
+        newObject.id = "root";
+        newObject['name'] = "root";
         this.activityData.objectList = [newObject];
 
-        var now = new Date().getTime();
         //3. state
-        var newState = this.createNewState(newObject.id, stage.id);
+        var newState = this.createNewState(newObject.id, stage.id,"FrameLayout");
+
         this.activityData.stateList = [newState];
 
       }
@@ -208,11 +208,30 @@ export class ActivityComponent implements OnInit, OnDestroy {
     });
   }
 
+  createNewObject(type: string) {
+
+    var defaultObject = this.findObjectBasicDataByType(type);
+    var now = new Date().getTime();
+    var newObject = {
+      id: "object_" + now,
+      canHaveChildren: false
+    };
+
+    for (var i = 0; i < defaultObject.objectProperties.length; i++) {
+      var aProperty = defaultObject.objectProperties[i];
+      newObject[aProperty.name] = aProperty.default;
+    }
+
+    if (newObject.canHaveChildren) {
+      newObject['children'] = [];
+    }
+    return newObject;
+
+  }
 
 
 
-
-  createNewState(objectId: string, stageId: string) {
+  createNewState(objectId: string, stageId: string, type:string) {
     var now = new Date().getTime();
     var newState = {
       id: "state_" + now,
@@ -220,11 +239,30 @@ export class ActivityComponent implements OnInit, OnDestroy {
       stageId: stageId,
       width: 1440,
       height: 2560,
+      marginTop: 0,
+      marginLeft: 0,
+      marginRight: 0,
+      marginBottom: 0,
+      paddingLeft: 0,
+      paddingRight: 0,
+      paddingTop: 0,
+      paddingBottom: 0,
+      translationX: 0,
+      translationY: 0,
       scaleX: 1,
       scaleY: 1,
       rotate: 0,
-      alpha: 1
+      alpha: 1,
     }
+
+
+    //fetch default state value
+    var defaultObject = this.findObjectBasicDataByType(type);
+    for (var i = 0; i < defaultObject.stateProperties.length; i++) {
+      var aProperty = defaultObject.stateProperties[i];
+      newState[aProperty.name] = aProperty.default;
+    }
+
     return newState;
   }
 
@@ -296,51 +334,31 @@ export class ActivityComponent implements OnInit, OnDestroy {
   }
 
   clickNewObject(type: string) {
-    console.log("new type = " + type);
 
-    var defaultObject = this.findObjectBasicDataByType(type);
 
     var parentObject = this.selectedObject;
     if (!parentObject.children) {
       parentObject = this.findObjectById(this.selectedObject.parentId);
     }
-    console.log("parentObject =" + JSON.stringify(parentObject));
+    console.log("new type = " + type+", parent = "+parentObject.id);
 
-
-    var now = new Date().getTime();
-    var newObject = {
-      id: "object_" + now,
-      parentId: parentObject.id,
-      canHaveChildren: false
-    };
-
-    for (var i = 0; i < defaultObject.objectProperties.length; i++) {
-      var aProperty = defaultObject.objectProperties[i];
-      newObject[aProperty.name] = aProperty.default;
-    }
-
-    if (newObject.canHaveChildren) {
-      newObject['children'] = [];
-    }
-
+    var newObject = this.createNewObject(type);
+    newObject['parentId'] = parentObject.id;
 
     for (var i = 0; i < this.activityData.stageList.length; i++) {
       var aStage = this.activityData.stageList[i];
-      var aState = this.createNewState(newObject.id, this.selectedStage.id);
+      var aState = this.createNewState(newObject.id, this.selectedStage.id, type);
       this.activityData.stateList.push(aState);
     }
 
-
-
-
     parentObject.children.push(newObject);
-
     this.objectTreeComponent.updateTreeModel();
     this.objectTreeComponent.selectObjectNode(newObject);
-
     this.objectTreeComponent.expandAll();
 
   }
+
+
 
 
   changeTreeData(data) {

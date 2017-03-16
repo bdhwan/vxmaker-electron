@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ElementRef, ViewChild } from '@angular/core';
+import { ApplicationDataServiceService } from '../service/application-data-service.service'
 
 
 
@@ -22,11 +23,11 @@ export class PreviewComponent implements OnInit {
   selectedObject;
   selectedStage;
   selectedState;
-  
+
   activityData;
 
 
-  constructor() {
+  constructor(private appDataService: ApplicationDataServiceService) {
 
   }
 
@@ -35,6 +36,12 @@ export class PreviewComponent implements OnInit {
     this.invalidatePreviewSize();
   }
 
+
+  clickTest() {
+    console.log("click");
+    var result = this.appDataService.getApplicationData();
+    console.log("result = " + JSON.stringify(result));
+  }
 
   onResize(event) {
     this.invalidatePreviewSize();
@@ -61,5 +68,38 @@ export class PreviewComponent implements OnInit {
     this.activityData = data;
     console.log("activityData = " + JSON.stringify(data));
   }
+
+
+
+
+
+
+  findStateByObjectId(objectId: string) {
+    if (!this.selectedStage) {
+      return null;
+    }
+    return this.findStateByObjectIdWithStageId(objectId, this.selectedStage.id);
+  }
+
+  findStateByObjectIdWithStageId(objectId: string, stageId: string) {
+
+    if (!this.activityData) {
+      return null;
+    }
+    return this.findStateByObjectIdWithList(this.activityData.stateList, objectId, stageId);
+  }
+
+  findStateByObjectIdWithList(targetList: any, objectId: string, stageId: string) {
+    for (var i = 0; i < targetList.length; i++) {
+      var aState = targetList[i];
+      if (aState.objectId == objectId && aState.stageId == stageId) {
+        return aState;
+      }
+    }
+    return null;
+  }
+
+
+
 
 }

@@ -15,13 +15,12 @@ export class ObjectPropertyComponent implements OnInit {
   }
 
 
-  test = [];
   selectedObject;
   selectedState;
-  data;
+
 
   ngOnInit() {
-       this.http.get('assets/object/TextView.json').subscribe(res => this.data = res.json());
+     
   }
 
   getAllKeys(target) {
