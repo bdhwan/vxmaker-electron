@@ -37,6 +37,10 @@
       margin: 0;
 }
 
+.device-status .btn-source .nav-btn-img{
+width:20px;
+}
+
 
 .device-status .nav-btn:hover {
     color:#fff;
@@ -48,7 +52,7 @@
     padding-right: 5px;
     opacity: 0.5;
     width:18px;
-
+margin-top: -2px;
 }
 
 .device-status .nav-btn:hover .nav-btn-img{

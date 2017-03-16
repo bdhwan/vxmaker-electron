@@ -7,8 +7,50 @@
     border: 1px solid #e7e7e7;
 border-top: none;
     box-shadow: 1px 1px 6px rgba(0,0,0,0.2);
-    z-index: 999;
+    z-index: 9999;
+    margin-bottom: 0;
 }
+
+.howtoconnect {
+    z-index: 9998;
+    position: absolute;
+    right:0;
+margin-right: 186px;
+background: #fff;
+font-size: 12px;
+width:134px;
+text-align: center;
+padding:6px;
+border-bottom-left-radius: 8px;
+border-bottom-right-radius: 8px;
+   box-shadow: 1px 1px 6px rgba(0,0,0,0.2);
+   color:#898989;
+}
+/*
+.howtoconnect a {
+    color:#898989;
+ 
+    text-decoration: none;
+}
+
+.howtoconnect a:hover {
+    color:#454545;
+}*/
+
+.howtoconnect span a {
+    color:#46a2ba;
+    padding-right: 8px;
+    text-decoration: none;
+}
+
+.howtoconnect span a:hover {
+    color:#2b778b;
+}
+
+.howtoconnect .fa-close:active ~ .howtoconnect {
+    display: none;
+}
+
 
 .list-wrap {
     width:100%;
