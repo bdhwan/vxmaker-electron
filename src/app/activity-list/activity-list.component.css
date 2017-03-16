@@ -150,6 +150,23 @@ color:#46a2ba;
     cursor: pointer;
 }
 
+.list-box .list-img img {
+    background: #fff;
+    border:none;
+    outline: none;
+}
+
+.list-hover .btn-home {
+    position: absolute;
+    top:0;
+    right:0;
+}
+
+.list-hover .btn-home i {
+    color:#fff;
+    padding:8px;
+}
+
 .list-scroll {
     overflow-x: auto;
     overflow-y: scroll;

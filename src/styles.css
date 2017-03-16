@@ -16,6 +16,8 @@ input, textarea, keygen, select, button {
     box-sizing: border-box;
 }
 
+::selection{background:#bec9e5;}
+
 :focus {
     outline: none;
 }
