@@ -32,16 +32,36 @@ border-bottom-right-radius: 8px;
    color:#898989;
 }
 
-.connect-wrap i {
+.connect-wrap .fa-close {
     position:absolute;
     right:0;
     top:0;
     color:#898989;
     padding:5px;
-    margin:3px;
+    margin:6px 3px;
     margin-right: 5px;
+    font-size: 12px;
 
 }
+
+.connect-wrap .fa-close:hover {
+color:#454545;
+cursor: pointer;
+}
+
+.connect-delete {
+       position:absolute;
+    right:0;
+    top:0;
+    color:#898989;
+    padding:5px;
+    margin:6px 3px;
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+
+
 /*
 .howtoconnect a {
     color:#898989;
@@ -63,9 +83,9 @@ border-bottom-right-radius: 8px;
     color:#2b778b;
 }
 
-.connect-wrap .fa-close:active > .howtoconnect {
+/*.connect-wrap .fa-close:active{
     display: none;
-}
+}*/
 
 
 .list-wrap {

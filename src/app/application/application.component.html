@@ -12,11 +12,11 @@
 
     <div class="connect-wrap">
 
-    <div class="howtoconnect" >
-        <span><b><a target="_blank" href="http://www.vxmaker.com">How to connect</a></b></span> 
-    </div>
+        <div class="howtoconnect">
+            <span><b><a target="_blank" href="http://www.vxmaker.com">How to connect</a></b></span>
+        </div>
 
-    <i class="fa fa-close"></i>
+        <i class="fa fa-close"></i>
 
     </div>
 
@@ -32,7 +32,8 @@
 
         <div class="list-right">
             <div>
-                <app-activity-list [applicationData]="applicationData" (onChangeActivityData)="onChangeData($event)" (onClickActivity)="clickActivity($event)" (onClickNewActivity)="clickNewActivity($event)" (onClickDuplicatewActivity)="clickDuplicateActivity($event)"
+                <app-activity-list [applicationData]="applicationData" (onChangeActivityData)="onChangeData($event)" (onClickActivity)="clickActivity($event)"
+                    (onClickNewActivity)="clickNewActivity($event)" (onClickDuplicatewActivity)="clickDuplicateActivity($event)"
                     (onClickDeleteActivity)="clickDeleteActivity($event)"></app-activity-list>
 
             </div>

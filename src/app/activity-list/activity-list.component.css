@@ -42,6 +42,8 @@
     position: relative;
 }
 
+
+
 .list-box .list-text {
     padding: 15px 5px;
     text-align: center;
@@ -147,7 +149,7 @@ color:#46a2ba;
 .list-box .list-img:hover .list-hover{
     display: block;
     padding-top: 26px;
-    cursor: pointer;
+    
 }
 
 .list-box .list-img img {
@@ -160,12 +162,26 @@ color:#46a2ba;
     position: absolute;
     top:0;
     right:0;
+    background-image: url(../../assets/images/homebutton.png);
+    background-size: cover;
+    width:17px;
+    height:18px;
+    margin:8px;
 }
 
-.list-hover .btn-home i {
-    color:#fff;
-    padding:8px;
+.list-hover .btn-home:hover {
+
+    background-image: url(../../assets/images/homebutton_hover.png);
+    cursor: pointer;
 }
+   
+
+/*.list-box .btn-home img {
+    background: none!important;
+    margin: 8px;
+}*/
+
+
 
 .list-scroll {
     overflow-x: auto;
