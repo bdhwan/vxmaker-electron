@@ -8,6 +8,10 @@ body {
     line-height: 1.42857143;
 }
 
+input, textarea, keygen, select, button {
+    font-family: 'spoqa', Arial, Helvetica, sans-serif; 
+}
+
 * {
     box-sizing: border-box;
 }
