@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { ApplicationComponent } from '../application/application.component'
+import { ApplicationComponent } from '../../application/application.component'
 
-import * as glob from "../globals";
+import * as glob from "../../globals";
 
 
 @Component({
@@ -18,6 +18,8 @@ export class ApplicationInfoComponent implements OnInit {
 
 
   @Input() applicationData: any;
+  @Input() applicationFolderPath: string;
+
   @Output() onChangeData = new EventEmitter<string>();
   @Output() onClickChangeIcon = new EventEmitter<void>();
 

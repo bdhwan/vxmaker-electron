@@ -12,12 +12,12 @@
             "default": "FrameLayout"
         },
         {
-            "name": "background-color",
+            "name": "backgroundColor",
             "type": "string",
             "default": "#999999"
         },
         {
-            "name": "background-image",
+            "name": "backgroundImage",
             "type": "string",
             "default": null
         },

@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 
 import { TreeModule, TreeComponent } from 'angular2-tree-component';
+import { ApplicationDataServiceService } from '../../service/application-data-service.service'
+
 
 
 @Component({
@@ -19,7 +21,7 @@ export class ObjectTreeComponent implements OnInit {
   @Output() onChangeNode = new EventEmitter<string>();
 
 
-  constructor() { }
+  constructor(private appDataService: ApplicationDataServiceService) { }
 
   options = {
     allowDrag: true,
@@ -82,11 +84,10 @@ export class ObjectTreeComponent implements OnInit {
     this.onSelectNode.emit(this.selectedNode.id);
   }
 
-  public setObjectData(data): void {
-    this.nodes = data;
+  public initObjectData(): void {
+    
+    this.nodes = this.appDataService.getActivityData().objectList;
     this.tree.treeModel.update();
-
-
     //  this.tree.
     if (!this.selectedNode) {
       var target = this.nodes[0];
@@ -98,6 +99,23 @@ export class ObjectTreeComponent implements OnInit {
     this.tree.treeModel.expandAll();
 
   }
+
+  // public setObjectData(data): void {
+  //   this.nodes = data;
+  //   this.tree.treeModel.update();
+
+
+  //   //  this.tree.
+  //   if (!this.selectedNode) {
+  //     var target = this.nodes[0];
+  //     this.tree.treeModel._setActiveNodeSingle(target, true);
+  //     this.selectedNode = target;
+  //     this.onSelectNode.emit(this.selectedNode.id);
+  //   }
+
+  //   this.tree.treeModel.expandAll();
+
+  // }
 
 
 

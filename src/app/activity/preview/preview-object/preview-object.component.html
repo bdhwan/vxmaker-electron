@@ -1,0 +1,4 @@
+<div [ngStyle]="getObjectStyle()" class="disable-text-selection">
+    {{objectData.name}} state:{{state}}
+</div>
+<app-preview-object [objectData]="aObject" *ngFor="let aObject of objectData.children"></app-preview-object>

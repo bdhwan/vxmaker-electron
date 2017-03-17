@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import * as glob from "../globals";
+import * as glob from "../../globals";
 
 @Component({
   selector: 'app-activity-list',
@@ -11,6 +11,9 @@ export class ActivityListComponent implements OnInit {
   prefix = glob.imgPrefix;
 
   @Input() applicationData: any;
+  @Input() applicationFolderPath: string;
+
+
   @Output() onChangeActivityData = new EventEmitter<string>();
   @Output() onClickActivity = new EventEmitter<string>();
   @Output() onClickNewActivity = new EventEmitter<string>();

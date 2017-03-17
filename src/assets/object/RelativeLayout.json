@@ -1,8 +1,7 @@
 {
     "name": "RelativeLayout",
     "type": "RelativeLayout",
-    "objectProperties": [
-         {
+    "objectProperties": [{
             "name": "type",
             "type": "string",
             "default": "RelativeLayout"
@@ -12,14 +11,14 @@
             "type": "string",
             "default": "RelativeLayout"
         },
-       
+
         {
-            "name": "background-color",
+            "name": "backgroundColor",
             "type": "string",
             "default": "#009900"
         },
         {
-            "name": "background-image",
+            "name": "backgroundImage",
             "type": "string",
             "default": null
         },

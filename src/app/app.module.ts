@@ -9,21 +9,21 @@ import { SettingComponent } from './setting/setting.component';
 import { NewApplicationComponent } from './new-application/new-application.component';
 import { ApplicationComponent } from './application/application.component';
 import { ActivityComponent } from './activity/activity.component';
-import { RecentProjectComponent } from './recent-project/recent-project.component';
-import { InitMenuComponent } from './init-menu/init-menu.component';
-import { DeviceStatusComponent } from './device-status/device-status.component';
-import { ApplicationInfoComponent } from './application-info/application-info.component';
-import { ActivityListComponent } from './activity-list/activity-list.component';
-import { ObjectTreeComponent } from './object-tree/object-tree.component';
-import { ObjectNewComponent } from './object-new/object-new.component';
-import { ObjectPropertyComponent } from './object-property/object-property.component';
-import { EventListComponent } from './event-list/event-list.component';
-import { PreviewComponent } from './preview/preview.component';
-import { StageListComponent } from './stage-list/stage-list.component';
-import { PreviewSizeComponent } from './preview-size/preview-size.component';
+import { RecentProjectComponent } from './init/recent-project/recent-project.component';
+import { InitMenuComponent } from './init/init-menu/init-menu.component';
+import { DeviceStatusComponent } from './common/device-status/device-status.component';
+import { ApplicationInfoComponent } from './application/application-info/application-info.component';
+import { ActivityListComponent } from './application/activity-list/activity-list.component';
+import { ObjectTreeComponent } from './activity/object-tree/object-tree.component';
+import { ObjectNewComponent } from './activity/object-new/object-new.component';
+import { ObjectPropertyComponent } from './activity/object-property/object-property.component';
+import { EventListComponent } from './activity/event-list/event-list.component';
+import { PreviewComponent } from './activity/preview/preview.component';
+import { StageListComponent } from './activity/stage-list/stage-list.component';
+import { PreviewSizeComponent } from './activity/preview-size/preview-size.component';
 
 import { TreeModule } from 'angular2-tree-component';
-import { PreviewObjectComponent } from './preview/preview-object/preview-object.component';
+import { PreviewObjectComponent } from './activity/preview/preview-object/preview-object.component';
 
 import { ApplicationDataServiceService } from './service/application-data-service.service'
 
