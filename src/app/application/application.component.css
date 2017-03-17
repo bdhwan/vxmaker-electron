@@ -60,6 +60,10 @@ cursor: pointer;
     font-size: 12px;
 }
 
+#how:target{
+display: none;
+}
+
 
 
 /*
