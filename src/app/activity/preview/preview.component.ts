@@ -42,7 +42,10 @@ export class PreviewComponent implements OnInit {
 
 
 
-  private isMouseDown = false;
+  isMouseDown = false;
+  isResizeDown = false;
+  resizeIndex;
+
   startX;
   startY;
   beforeX;
@@ -58,35 +61,76 @@ export class PreviewComponent implements OnInit {
 
 
 
-    if (this.selectedObject.id != 'root') {
-      this.isMouseDown = true;
-    }
-
     this.startX = event.clientX;
     this.startY = event.clientY;
     this.beforeX = event.clientX;
     this.beforeY = event.clientY;
+
+
+
+    if (this.selectedObject.id != 'root') {
+      this.isMouseDown = true;
+    }
+
 
   }
 
 
   mouseOver(event: MouseEvent) {
 
-    if (this.isMouseDown) {
+    var currentX = event.clientX;
+    var currentY = event.clientY;
 
-      var currentX = event.clientX;
-      var currentY = event.clientY;
+    var differX = (this.beforeX - currentX) / this.zoom;
+    var differY = (this.beforeY - currentY) / this.zoom;
 
-      var differX = (this.beforeX - currentX) / this.zoom;
-      var differY = (this.beforeY - currentY) / this.zoom;
+    var fixDiffer = differX;
+    if (Math.abs(differX) < Math.abs(differY)) {
+      fixDiffer = differY;
+    }
+
+
+    if (this.isResizeDown) {
+
+      console.log("isResizeDownMove");
+      if (this.resizeIndex == 0) {
+        this.appDataService.getSelectedState().marginTop -= differY;
+        this.appDataService.getSelectedState().marginLeft -= differX;
+        this.appDataService.getSelectedState().width += differX;
+        this.appDataService.getSelectedState().height += differY;
+
+      }
+      else if (this.resizeIndex == 1) {
+
+        // this.appDataService.getSelectedState().marginLeft -= differX;
+        this.appDataService.getSelectedState().marginTop -= differY;
+
+        this.appDataService.getSelectedState().width -= differX;
+        this.appDataService.getSelectedState().height += differY;
+
+      }
+      else if (this.resizeIndex == 2) {
+
+        this.appDataService.getSelectedState().marginLeft -= differX;
+        this.appDataService.getSelectedState().width += differX;
+        this.appDataService.getSelectedState().height -= differY;
+
+      }
+      else if (this.resizeIndex == 3) {
+        this.appDataService.getSelectedState().width -= differX;
+        this.appDataService.getSelectedState().height -= differY;
+      }
+
+    }
+    else if (this.isMouseDown) {
 
       this.appDataService.getSelectedState().marginLeft -= differX;
       this.appDataService.getSelectedState().marginTop -= differY;
 
-      this.beforeX = currentX;
-      this.beforeY = currentY;
-
     }
+
+    this.beforeX = currentX;
+    this.beforeY = currentY;
 
   }
 
@@ -94,9 +138,18 @@ export class PreviewComponent implements OnInit {
   mouseUp(event: MouseEvent) {
     console.log("up");
     this.isMouseDown = false;
+    this.isResizeDown = false;
+
   }
 
 
+
+
+  resizeDown(event: MouseEvent, index) {
+    console.log("resizeDown =" + index);
+    this.isResizeDown = true;
+    this.resizeIndex = index;
+  }
 
 
 
@@ -128,6 +181,7 @@ export class PreviewComponent implements OnInit {
       "margin-left": marginLeft + "px",
       "margin-top": marginTop + "px",
       "position": "relative",
+      'cursor': 'move',
     };
   }
 

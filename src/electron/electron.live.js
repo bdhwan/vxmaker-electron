@@ -388,6 +388,22 @@ ipcMain.on('unregist-device-connect-status', (event, arg) => {
     deviceListener = null;
     event.returnValue = true;
 });
+
+
+ipcMain.on('get-file-name-base', (event, arg) => {
+    event.returnValue = path.basename(filePath).base;
+});
+
+ipcMain.on('get-file-name', (event, arg) => {
+    event.returnValue = path.parse(filename).name;
+});
+
+ipcMain.on('get-file-ext', (event, arg) => {
+    event.returnValue = path.basename(filePath).ext;
+});
+
+
+
 //개발버전 adb 경로
 var adbFilePath = __dirname + "/adb/adb";
 

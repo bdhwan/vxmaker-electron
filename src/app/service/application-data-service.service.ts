@@ -21,6 +21,8 @@ export class ApplicationDataServiceService {
   defaultStateData;
 
 
+
+
   zoom = 0.2;
 
   constructor(private http: Http) {
@@ -95,7 +97,21 @@ export class ApplicationDataServiceService {
     return true;
   }
 
-  
+
+
+  getFileName(path) {
+    return electron.ipcRenderer.sendSync('get-file-name', path);  
+  }
+
+  getFileNameBase(path) {
+    return electron.ipcRenderer.sendSync('get-file-name-base', path);
+  }
+
+  getFileExt(path) {
+    return electron.ipcRenderer.sendSync('get-file-name-ext', path);
+  }
+
+
 
 
 
@@ -329,7 +345,6 @@ export class ApplicationDataServiceService {
       'height': state.height * this.zoom + "px",
       'background-color': tempObjectData.backgroundColor,
       'opacity': state.alpha * 0.8,
-      'cursor': 'move',
       'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + "px",
       'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + "px",
     }
@@ -371,7 +386,7 @@ export class ApplicationDataServiceService {
       return Number(tempState.marginTop);
     }
     else {
-      return Number(tempState.marginTop) +this.getParentMarginTop(targetObject.parentId);
+      return Number(tempState.marginTop) + this.getParentMarginTop(targetObject.parentId);
     }
   }
 
