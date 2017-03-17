@@ -1,0 +1,9 @@
+<div (mousemove)="mouseOver($event)" (mousedown)="mouseDown($event)" (mouseup)="mouseUp($event)">
+    <div (window:resize)="onResize($event)" *ngIf="activityData">
+        <div #previewScreen *ngFor="let aObject of activityData.objectList" [ngStyle]="getCenterStyle()">
+            <app-preview-object [objectData]="aObject"></app-preview-object>
+            <div [ngStyle]="getSelectedObjectStyle()">
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,13 +16,13 @@
 
     <div class="list-wrap">
 
-        <div class="list-left">
-            <app-application-info [applicationData]="applicationData" (onChangeData)="onChangeData($event)" (onClickChangeIcon)="onClickChangeIcon($event)"></app-application-info>
+        <div class="list-left" ngIf>
+            <app-application-info [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath" (onChangeData)="onChangeData($event)" (onClickChangeIcon)="onClickChangeIcon($event)"></app-application-info>
         </div>
 
         <div class="list-right">
             <div>
-                <app-activity-list [applicationData]="applicationData" (onChangeActivityData)="onChangeData($event)" (onClickActivity)="clickActivity($event)" (onClickNewActivity)="clickNewActivity($event)" (onClickDuplicatewActivity)="clickDuplicateActivity($event)"
+                <app-activity-list [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath" (onChangeActivityData)="onChangeData($event)" (onClickActivity)="clickActivity($event)" (onClickNewActivity)="clickNewActivity($event)" (onClickDuplicatewActivity)="clickDuplicateActivity($event)"
                     (onClickDeleteActivity)="clickDeleteActivity($event)"></app-activity-list>
 
             </div>

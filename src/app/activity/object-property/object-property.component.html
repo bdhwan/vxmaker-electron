@@ -1,6 +1,7 @@
 <div>
 
-    <div *ngIf="data">test : {{data.type}}</div>
+    <app-preview-size></app-preview-size>
+
     <div *ngIf="selectedObject">
         <li *ngFor="let key of getAllKeys(selectedObject)">
             {{ key }}:<input [(ngModel)]="selectedObject[key]">
