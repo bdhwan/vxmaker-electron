@@ -20,7 +20,7 @@
         </div>
 
         <div id="rightSide" style="float: right; width:200px; height:100%; background: #ff0055; overflow-y: scroll;">
-            <app-object-property #objectProperty (onChangeTreeData)="changePropertyData($event)"></app-object-property>
+            <app-object-property #objectProperty (onSelectImage)="onSelectImageFromProperties($event)" (onChangeTreeData)="changePropertyData($event)"></app-object-property>
         </div>
     </div>
 

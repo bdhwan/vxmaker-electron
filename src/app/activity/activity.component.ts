@@ -219,8 +219,6 @@ export class ActivityComponent implements OnInit, OnDestroy {
     if (!parentObject.children) {
       parentObject = this.appDataService.findObjectById(this.appDataService.getSelectedObject().parentId);
     }
-    console.log("new type = " + type + ", parent = " + parentObject.id);
-
 
     var newObject = this.appDataService.createNewObject(type);
     newObject['parentId'] = parentObject.id;
@@ -237,6 +235,32 @@ export class ActivityComponent implements OnInit, OnDestroy {
     this.objectTreeComponent.expandAll();
 
   }
+
+
+  onSelectImage() {
+
+    console.log("will select image");
+    var newIconImagePath = this.appDataService.selectImageFile();
+    if (newIconImagePath) {
+      var iconFileName = "image/image_" + new Date().getTime() + ".png";
+      var targetPath = this.applicationFolderPath + "/" + iconFileName;
+      var result = this.appDataService.copyFile(newIconImagePath, targetPath);
+
+
+
+      if (result) {
+        this.applicationData.iconPath = iconFileName;
+        this.appDataService.saveApplicationData(this.applicationData);
+      }
+    }
+
+
+
+
+
+  }
+
+
 
 
 

@@ -3,6 +3,10 @@
     <app-preview-size></app-preview-size>
 
     <div *ngIf="selectedObject">
+
+        <div *ngIf="selectedObject.type=='ImageView'">
+            <button (click)="clickSelectImage()"> ImageSelect</button>
+        </div>
         <li *ngFor="let key of getAllKeys(selectedObject)">
             {{ key }}:<input [(ngModel)]="selectedObject[key]">
         </li>
