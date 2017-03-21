@@ -2,11 +2,20 @@
 
     <app-preview-size></app-preview-size>
 
-    <div *ngIf="selectedObject">
 
+
+    <div *ngIf="selectedObject">
         <div *ngIf="selectedObject.type=='ImageView'">
             <button (click)="clickSelectImage()"> ImageSelect</button>
+            <app-resource #imageResource *ngIf="showSelectImage" (onClickNewFile)="clickNewFile($event)"></app-resource>
         </div>
+
+        <div *ngIf="selectedObject.type=='LottieView'">
+            <button (click)="clickSelectFile()"> ImageFile</button>
+            <app-resource #fileResource *ngIf="showSelectFile" (onClickNewFile)="clickNewFile($event)"></app-resource>
+        </div>
+
+
         <li *ngFor="let key of getAllKeys(selectedObject)">
             {{ key }}:<input [(ngModel)]="selectedObject[key]">
         </li>
@@ -16,4 +25,7 @@
             {{ key }}:<input [(ngModel)]="selectedState[key]">
         </li>
     </div>
+
+
+
 </div>

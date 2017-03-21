@@ -1,4 +1,3 @@
-// src/electron.js
 const { app, dialog, shell, Menu, Tray, BrowserWindow, ipcMain } = require('electron')
 var path = require("path");
 const url = require('url');
@@ -7,7 +6,7 @@ var mkdirp = require('mkdirp');
 var beautify = require('js-beautify').js_beautify;
 var ElectronData = require('electron-data');
 var adb = require('adbkit')
-
+var sizeOf = require('image-size');
 
 
 var settings = new ElectronData({
@@ -273,6 +272,35 @@ ipcMain.on('select-image-file', (event, arg) => {
     }
 })
 
+//select image
+ipcMain.on('select-file', (event, arg) => {
+    console.log(arg) // prints "ping"
+
+    var files = dialog.showOpenDialog({
+        properties: ['openFile'],
+        filters: [
+            { name: 'Files', extensions: ['*'] }
+        ]
+    });
+
+
+    if (files) {
+        var file = files[0];
+        event.returnValue = file;
+        // var result = sizeOf(file);
+        // var realPath = workspace + "/images/" + fileName;
+
+        // fse.copySync(file, realPath);
+
+        // result.filePath = "images/" + fileName;
+        // promise.resolve(result);
+
+    } else {
+        event.returnValue = null;
+    }
+})
+
+
 //copy file
 ipcMain.on('copy-file', (event, src, dst) => {
     console.log(src + ", " + dst);
@@ -287,16 +315,36 @@ ipcMain.on('delete-file', (event, file) => {
     event.returnValue = true;
 })
 
-
-
 //copy file
 ipcMain.on('copy-from-root-file', (event, src, dst) => {
-
     var from = __dirname + "/" + src;
     fse.copySync(from, dst);
     event.returnValue = true;
-
 })
+
+
+//get file list
+ipcMain.on('get-file-list', (event, path) => {
+    console.log("will read path = " + path);
+    if (fse.existsSync(path)) {
+        console.log("hav list");
+        event.returnValue = fse.readdirSync(path);
+    } else {
+        console.log("no hav list");
+        event.returnValue = [];
+    }
+})
+
+//get file list
+ipcMain.on('get-image-size', (event, path) => {
+    if (fse.existsSync(path)) {
+        event.returnValue = sizeOf(path);
+    } else {
+        event.returnValue = null;
+    }
+})
+
+
 
 
 
@@ -314,9 +362,7 @@ function createWindow() {
 
         var url = `file://${__dirname}/index.html`;
 
-
-
-        console.log("url = " + url);
+        // console.log("url = " + url);
         win.loadURL(url);
 
         // and load the index.html of the app.
@@ -391,6 +437,28 @@ ipcMain.on('unregist-device-connect-status', (event, arg) => {
     deviceListener = null;
     event.returnValue = true;
 });
+
+
+ipcMain.on('get-file-name-base', (event, filePath) => {
+    console.log("get-file-name-base = " + filePath);
+
+    event.returnValue = path.parse(filePath).base;
+});
+
+ipcMain.on('get-file-name', (event, filePath) => {
+    console.log("get-file-name = " + filePath);
+
+    event.returnValue = path.parse(filePath).name;
+});
+
+ipcMain.on('get-file-ext', (event, filePath) => {
+    console.log("get-file-ext = " + filePath);
+
+    event.returnValue = path.parse(filePath).ext;
+});
+
+
+
 //개발버전 adb 경로
 var adbFilePath = __dirname + "/adb/adb";
 

@@ -3,6 +3,10 @@ import { Http } from '@angular/http';
 declare var electron: any;
 
 
+
+
+
+
 @Injectable()
 export class ApplicationDataServiceService {
 
@@ -20,10 +24,15 @@ export class ApplicationDataServiceService {
   objectTypeData = [];
   defaultStateData;
 
+  imageResourceList;
+  fileResourceList;
 
 
 
   zoom = 0.2;
+
+
+
 
   constructor(private http: Http) {
 
@@ -39,6 +48,11 @@ export class ApplicationDataServiceService {
   }
   initActivityId(activityId) {
     this.activityId = activityId;
+  }
+
+
+  getApplicationPath() {
+    return this.applicationFolderPath;
   }
 
   changeWindowSize(width, height, resizeable) {
@@ -80,6 +94,10 @@ export class ApplicationDataServiceService {
     return electron.ipcRenderer.sendSync('select-image-file');
   }
 
+  selectFile() {
+    return electron.ipcRenderer.sendSync('select-file');
+  }
+
   selectWorkspaceFolderPath() {
     return electron.ipcRenderer.sendSync('select-workspace-folder-path');
   }
@@ -99,8 +117,81 @@ export class ApplicationDataServiceService {
 
 
 
+
+
+
+
+  makeSmallEnglish(origin) {
+    var result = this.makeEnglish(origin.toLowerCase());
+    if (!isNaN(parseInt(result[0], 10)) || result.length == 0 || result.startsWith('_')) {
+      // Is a number
+      result = "image" + result;
+    }
+    return result;
+  }
+
+  makeEnglish(origin) {
+    return origin.trim().replace(/\s/gi, '_').replace(/[^a-zA-Z0-9]/g, '_').replace('-', '_');
+  }
+
+
+
+
+  getUniuqeId(targetList, prefix) {
+    if (prefix) {
+      return this.getUniqueName(targetList, this.makeSmallEnglish(prefix));
+    } else {
+      return this.getUniqueName(targetList, "id_");
+    }
+  }
+
+
+  getUniqueName(targetList, origin) {
+    var result = origin;
+    var indexId = 0;
+    while (this.contains(targetList, result)) {
+      result = origin + "_" + indexId;
+      indexId++;
+    }
+    targetList.push(result);
+    return result;
+  }
+
+
+  getUniqueImageName(path) {
+    var name = this.getFileName(path);
+    var ext = this.getFileExt(path);
+    name = this.getUniuqeId(this.imageResourceList, name);
+    return name + ext;
+  }
+
+  getUniqueFileName(path) {
+    var name = this.getFileName(path);
+    var ext = this.getFileExt(path);
+    name = this.getUniuqeId(this.fileResourceList, name);
+    return name + ext;
+
+  }
+
+
+
+
+  contains(list, obj) {
+    var i = list.length;
+    while (i--) {
+      if (this[i] === obj) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+
+
+
   getFileName(path) {
-    return electron.ipcRenderer.sendSync('get-file-name', path);  
+    return electron.ipcRenderer.sendSync('get-file-name', path);
   }
 
   getFileNameBase(path) {
@@ -108,7 +199,7 @@ export class ApplicationDataServiceService {
   }
 
   getFileExt(path) {
-    return electron.ipcRenderer.sendSync('get-file-name-ext', path);
+    return electron.ipcRenderer.sendSync('get-file-ext', path);
   }
 
 
@@ -174,8 +265,12 @@ export class ApplicationDataServiceService {
   }
 
   loadApplicationData() {
+
+    console.log("loadApplicationData -" + this.applicationFolderPath);
     return new Promise((resolve, reject) => {
-      this.applicationData = JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + "/app.json")));
+      this.applicationData = electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + "/app.json");
+
+      console.log("loadApplicationData done -" + JSON.stringify(this.applicationData));
       for (var i = 0; i < this.applicationData.activityList.length; i++) {
         var activity = this.applicationData.activityList[i];
         if (activity.activityId === this.activityId) {
@@ -183,7 +278,8 @@ export class ApplicationDataServiceService {
           break;
         }
       }
-      this.activityData = JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + "/activity/" + this.activityId + ".json")));
+      console.log("will read = this.activityId =" + this.activityId);
+      this.activityData = electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + "/activity/" + this.activityId + ".json");
       resolve(true);
     });
   }
@@ -213,6 +309,14 @@ export class ApplicationDataServiceService {
   getSelectedState() {
     return this.selectedState;
   }
+
+
+
+  getImageSize(path) {
+    return electron.ipcRenderer.sendSync('get-image-size', path);
+  }
+
+
 
 
 
@@ -288,6 +392,18 @@ export class ApplicationDataServiceService {
   findStateByObjectId(objectId: string) {
     return this.findStateByObjectIdWithStageId(objectId, this.selectedStage.id);
   }
+
+  findAllStateByObjectId(objectId: string) {
+    var result = [];
+    for (var i = 0; i < this.activityData.stateList.length; i++) {
+      var aState = this.activityData.stateList[i];
+      if (aState.objectId == objectId) {
+        result.push(aState);
+      }
+    }
+    return result;
+  }
+
 
   findStateByObjectIdWithStageId(objectId: string, stageId: string) {
     return this.findStateByObjectIdWithList(this.activityData.stateList, objectId, stageId);
@@ -408,5 +524,41 @@ export class ApplicationDataServiceService {
   }
 
 
+  getFileResourceList() {
+    return this.fileResourceList;
+  }
+
+  loadFileResourceList() {
+    return new Promise((resolve, reject) => {
+      this.fileResourceList = electron.ipcRenderer.sendSync('get-file-list', this.applicationFolderPath + "/file");
+      for (var i = 0; i < this.fileResourceList.length; i++) {
+        this.fileResourceList[i] = "file/" + this.fileResourceList[i];
+      }
+      resolve(this.fileResourceList);
+    });
+  }
+
+
+  getImageResourceList() {
+    return this.imageResourceList;
+  }
+
+
+
+  loadImageResourceList() {
+    console.log("loadImageResourceList");
+    return new Promise((resolve, reject) => {
+      this.imageResourceList = electron.ipcRenderer.sendSync('get-file-list', this.applicationFolderPath + "/image");
+      console.log("from electron = " + JSON.stringify(this.imageResourceList));
+      if (!this.imageResourceList) {
+        this.imageResourceList = [];
+      }
+      for (var i = 0; i < this.imageResourceList.length; i++) {
+        this.imageResourceList[i] = "image/" + this.imageResourceList[i];
+      }
+      resolve(this.imageResourceList);
+    });
+
+  }
 
 }
