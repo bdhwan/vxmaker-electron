@@ -3,7 +3,8 @@
         "FrameLayout.json",
         "RelativeLayout.json",
         "ImageView.json",
-        "TextView.json"
+        "TextView.json",
+        "LottieView.json"
     ],
     "defaultState": {
         "width": 1440,

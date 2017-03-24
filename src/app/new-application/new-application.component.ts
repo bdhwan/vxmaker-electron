@@ -53,6 +53,7 @@ export class NewApplicationComponent implements OnInit {
     electron.ipcRenderer.sendSync('make-folder', applicationFolder);
     electron.ipcRenderer.sendSync('make-folder', applicationFolder + "/activity");
     electron.ipcRenderer.sendSync('make-folder', applicationFolder + "/image");
+    electron.ipcRenderer.sendSync('make-folder', applicationFolder + "/file");
     electron.ipcRenderer.sendSync('make-folder', applicationFolder + "/export");
     electron.ipcRenderer.sendSync('make-folder', applicationFolder + "/preview");
 
@@ -67,7 +68,9 @@ export class NewApplicationComponent implements OnInit {
       applicationName: this.applicationName,
       applicationId:"com.altamirasoft."+this.applicationName,
       iconPath:"image/ic_launcher.png",
-      activityList: []
+      activityList: [],
+      imageList:[],
+      fileList:[]
     }
 
     var filePath = applicationFolder + "/app.json";

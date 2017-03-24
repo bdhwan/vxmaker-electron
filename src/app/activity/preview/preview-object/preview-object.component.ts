@@ -14,7 +14,7 @@ import * as glob from "../../../globals";
 export class PreviewObjectComponent implements OnInit {
 
   prefix = glob.imgPrefix;
-
+  applicationFolderPath;
 
 
   @Input() objectData: any;
@@ -26,6 +26,7 @@ export class PreviewObjectComponent implements OnInit {
 
   ngOnInit() {
     this.state = this.appDataService.findStateByObjectId(this.objectData.id);
+    this.applicationFolderPath = this.appDataService.getApplicationPath();
   }
 
 
@@ -35,7 +36,7 @@ export class PreviewObjectComponent implements OnInit {
       return this.appDataService.getObjectStyle(this.state);
     }
     else {
-      
+
       return null;
     }
   }

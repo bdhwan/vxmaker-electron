@@ -6,6 +6,8 @@ import { ObjectTreeComponent } from '../activity/object-tree/object-tree.compone
 import { ObjectNewComponent } from '../activity/object-new/object-new.component'
 import { ObjectPropertyComponent } from '../activity/object-property/object-property.component'
 import { PreviewComponent } from '../activity/preview/preview.component'
+
+import { ResourceComponent } from '../activity/resource/resource.component'
 import { ApplicationDataServiceService } from '../service/application-data-service.service'
 
 import 'rxjs/add/operator/switchMap';
@@ -35,6 +37,10 @@ export class ActivityComponent implements OnInit, OnDestroy {
   @ViewChild('previewCanvas')
   private previewComponent: PreviewComponent;
 
+  @ViewChild('resourceList')
+  private resourceComponent: ResourceComponent;
+
+
 
 
   isReadyToRender: Boolean = false;
@@ -44,6 +50,10 @@ export class ActivityComponent implements OnInit, OnDestroy {
   applicationData;
   activityMetaData;
   activityData;
+
+
+  imageList = [];
+  fileList = [];
 
 
   objectTypeData: any;
@@ -72,8 +82,15 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+
+
     this.applicationFolderPath = this.route.snapshot.params['applicationFolderPath'];
     this.activityId = this.route.snapshot.params['activityId'];
+
+    this.appDataService.initApplicationPath(this.applicationFolderPath);
+    this.appDataService.initActivityId(this.activityId);
+
+
   }
 
   getPreviewWidth() {
@@ -86,16 +103,30 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
   ngAfterViewInit() {
 
-    this.appDataService.initApplicationPath(this.applicationFolderPath);
-    this.appDataService.initActivityId(this.activityId);
+
+
     this.appDataService.loadInitDataFromFile().then((data) => {
 
       this.defaultStateData = this.appDataService.getDefaultStateData();
       this.objectTypeData = this.appDataService.getObjectTypeData();
+
       return this.appDataService.loadApplicationData();
+    })
+    
+    .then((result) => {
+      return this.appDataService.loadImageResourceList();
+    })
+    
+    .then((result) => {
 
-    }).then((result) => {
 
+      return this.appDataService.loadFileResourceList();
+    })
+    
+    .then((result) => {
+
+      this.fileList = this.appDataService.getFileResourceList();
+      this.imageList = this.appDataService.getImageResourceList();
       this.applicationData = this.appDataService.getApplicationData();
       this.activityMetaData = this.appDataService.getActivityMetaData();
       this.activityData = this.appDataService.getActivityData();
@@ -107,6 +138,13 @@ export class ActivityComponent implements OnInit, OnDestroy {
       this.notifySelectedObjectChanged();
     });
   }
+
+
+  public refreshList() {
+    this.applicationFolderPath = this.appDataService.getApplicationPath();
+    this.imageList = this.appDataService.getImageResourceList();
+  }
+
 
 
   ngOnDestroy() {
@@ -219,8 +257,6 @@ export class ActivityComponent implements OnInit, OnDestroy {
     if (!parentObject.children) {
       parentObject = this.appDataService.findObjectById(this.appDataService.getSelectedObject().parentId);
     }
-    console.log("new type = " + type + ", parent = " + parentObject.id);
-
 
     var newObject = this.appDataService.createNewObject(type);
     newObject['parentId'] = parentObject.id;
@@ -237,6 +273,67 @@ export class ActivityComponent implements OnInit, OnDestroy {
     this.objectTreeComponent.expandAll();
 
   }
+
+
+  onSelectImage() {
+
+    console.log("will select image");
+    // var newIconImagePath = this.appDataService.selectImageFile();
+    // if (newIconImagePath) {
+    //   var iconFileName = "image/image_" + new Date().getTime() + ".png";
+    //   var targetPath = this.applicationFolderPath + "/" + iconFileName;
+    //   var result = this.appDataService.copyFile(newIconImagePath, targetPath);
+
+    //   if (result) {
+    //     this.applicationData.iconPath = iconFileName;
+    //     this.appDataService.saveApplicationData(this.applicationData);
+    //   }
+    // }
+  }
+
+
+  clickNewFile(target) {
+    console.log("target = " + target);
+    if (target == 'image') {
+      var newImagePath = this.appDataService.selectImageFile();
+      if (newImagePath) {
+
+        var fileName = this.appDataService.getUniqueImageName(newImagePath);
+        var targetPath = this.applicationFolderPath + "/" + target + "/" + fileName;
+        var result = this.appDataService.copyFile(newImagePath, targetPath);
+        if (result) {
+          this.refreshImageList();
+        }
+      }
+    } else {
+      var newFilePath = this.appDataService.selectFile();
+      if (newFilePath) {
+
+        var fileName = this.appDataService.getUniqueFileName(newFilePath);
+        var targetPath = this.applicationFolderPath + "/" + target + "/" + fileName;
+        var result = this.appDataService.copyFile(newFilePath, targetPath);
+        if (result) {
+          this.refreshFileList();
+        }
+      }
+    }
+  }
+
+
+
+  refreshImageList() {
+    this.appDataService.loadImageResourceList().then((result) => {
+      this.imageList = this.appDataService.getImageResourceList();
+    });
+  }
+
+  refreshFileList() {
+    this.appDataService.loadFileResourceList().then((result) => {
+      this.fileList = this.appDataService.getFileResourceList();
+    });
+  }
+
+
 
 
 
