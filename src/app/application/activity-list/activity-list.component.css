@@ -1,25 +1,24 @@
 .activities-top {
-    height:40px;
+    height: 40px;
     background: #f5f6f7;
     font-size: 15px;
-    color:#898989;
-    padding:9px 15px;
+    color: #898989;
+    padding: 9px 15px;
     margin-bottom: 10px;
-
 }
 
 .activities-top p {
-    margin:0;
+    margin: 0;
 }
 
 .col-3 {
-    width:25%;
-    float:left;
-    position:relative;
+    width: 25%;
+    float: left;
+    position: relative;
     min-height: 1px;
     padding-right: 15px;
     padding-left: 15px;
-    transition:transform 8s;
+    transition: transform 8s;
 }
 
 .col-wrap {
@@ -42,28 +41,26 @@
     position: relative;
 }
 
-
-
 .list-box .list-text {
     padding: 15px 5px;
     text-align: center;
 }
 
 .list-text .list-text-title h4 {
-margin:0;
-font-size: 15px;
-overflow: hidden;
-text-overflow: ellipsis;
-font-weight: 500;
-}
-
-.list-text .list-text-title .activity-name {
-    width:100%;
+    margin: 0;
     font-size: 15px;
     overflow: hidden;
     text-overflow: ellipsis;
     font-weight: 500;
-    border:none;
+}
+
+.list-text .list-text-title .activity-name {
+    width: 100%;
+    font-size: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+    border: none;
     text-align: center;
 }
 
@@ -73,138 +70,132 @@ font-weight: 500;
 
 .list-text .list-text-updated {
     font-size: 12px;
-    color:#898989;
+    color: #898989;
     padding-top: 5px;
 }
 
 .list-new-wrap .list-new {
-    border:2px dotted #dbdbdb;
+    border: 2px dotted #dbdbdb;
     margin-top: 30px;
     margin-bottom: 30px;
     background: #fff;
     margin-left: auto;
     margin-right: auto;
     position: absolute;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
-    width:85%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 85%;
     max-width: 210px;
     font-size: 60px;
     font-weight: 400;
-    color:#dbdbdb;
+    color: #dbdbdb;
 }
 
 .list-new-wrap .list-new:hover {
-border-color: #46a2ba;
-cursor: pointer;
-color:#46a2ba;
+    border-color: #46a2ba;
+    cursor: pointer;
+    color: #46a2ba;
 }
-
-
 
 .list-box .list-img .list-hover {
     position: absolute;
     z-index: 999;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     display: none;
-    background:#46a2ba;
+    background: #46a2ba;
 }
 
 .list-box .list-img .list-hover button {
     background: transparent;
     text-align: center;
-    color:#fff;
+    color: #fff;
     border-radius: 50px;
     display: block;
-    border:2px solid #fff;
-    width:110px;
+    border: 2px solid #fff;
+    width: 110px;
     margin-left: auto;
     margin-right: auto;
     padding: 6px;
     margin-top: 6px;
     margin-bottom: 10px;
 }
-.list-box .list-img .list-hover button a{
-    color:#898989;
+
+.list-box .list-img .list-hover button a {
+    color: #898989;
     text-decoration: none;
 }
 
 .list-box .list-img .list-hover button a:hover {
-    color:#46a2ba;
+    color: #46a2ba;
     font-weight: bold;
 }
 
 .list-box .list-img .list-hover button:hover {
-    color:#46a2ba;
+    color: #46a2ba;
     font-weight: bold;
     background: #fff;
     cursor: pointer;
 }
 
-.list-box .list-img:hover .list-hover{
+.list-box .list-img:hover .list-hover {
     display: block;
     padding-top: 26px;
-    
 }
 
 .list-box .list-img img {
     background: #fff;
-    border:none;
+    border: none;
     outline: none;
 }
 
 .list-hover .btn-home {
     position: absolute;
-    top:0;
-    right:0;
-    background-image: url(../../assets/images/homebutton.png);
+    top: 0;
+    right: 0;
+    background-image: url(../../../assets/images/homebutton.png);
     background-size: cover;
-    width:17px;
-    height:18px;
-    margin:8px;
+    width: 17px;
+    height: 18px;
+    margin: 8px;
 }
 
 .list-hover .btn-home:hover {
-
-    background-image: url(../../assets/images/homebutton_hover.png);
+    background-image: url(../../../assets/images/homebutton_hover.png);
     cursor: pointer;
 }
-   
+
 
 /*.list-box .btn-home img {
     background: none!important;
     margin: 8px;
 }*/
 
-
-
 .list-scroll {
     overflow-x: auto;
     overflow-y: scroll;
     position: absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     margin-left: 280px;
     margin-top: 100px;
     min-width: 210px;
 }
 
-
 @media (min-width: 1850px) {
     .col-3 {
-        width:20%;
+        width: 20%;
     }
-} 
+}
 
 @media (max-width: 1080px) {
     .col-3 {
-        width:33.33333%;
+        width: 33.33333%;
     }
-} 
+}
