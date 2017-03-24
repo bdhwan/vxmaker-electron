@@ -1,7 +1,11 @@
 <div style="padding:15px;">
 
     <div class="btn-icon" align="center">
+<<<<<<< HEAD:src/app/application-info/application-info.component.html
+        <img [src]="prefix+applicationData.applicationFolderPath+'/'+applicationData.iconPath" width="100px" height="100px">
+=======
         <img [src]="prefix+applicationFolderPath+'/'+applicationData.iconPath" width="100px" height="100px">
+>>>>>>> master:src/app/application/application-info/application-info.component.html
         <button class="btn-icon-edit" (click)="clickIcon()"><i class="fa fa-edit"></i></button>
     </div>
 
@@ -11,4 +15,37 @@
         <input type="text" class="project-path-edit" [(ngModel)]="applicationData.applicationId" (blur)="onChange()" />
     </div>
 
+<<<<<<< HEAD:src/app/application-info/application-info.component.html
+      <!-- popup test -->
+
+    <div class="popup-wrap">
+      
+
+        <div>
+            <a class="button" href="#popup1">Let me Pop up</a>
+        </div>
+
+        <div id="popup1" class="overlay">
+            <div class="popup">
+                <a class="close" href="#">&times;</a>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="popup-new">
+                            <img src="../images/popup_drag.png" class="img-responsive" width="150" />
+                            <h3>Drag & Drop</h3>
+                            <h5>Your Files or Browse</h5>
+                        </div>
+                    </div>
+                   
+                </div>
+
+            </div>
+        </div>
+
+        <!-- popup test finish-->
+    </div>
+
+=======
+>>>>>>> master:src/app/application/application-info/application-info.component.html
 </div>

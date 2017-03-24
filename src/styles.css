@@ -1,14 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
 
+
+
 body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'spoqa', Arial, Helvetica, sans-serif; 
+    /*font-family: 'Roboto', sans-serif;*/
     margin: 0;
     line-height: 1.42857143;
+}
+
+input, textarea, keygen, select, button {
+    font-family: 'spoqa', Arial, Helvetica, sans-serif; 
+    /*font-family: 'Roboto', sans-serif;*/
 }
 
 * {
     box-sizing: border-box;
 }
+
+::selection{background:#bec9e5;}
 
 :focus {
     outline: none;

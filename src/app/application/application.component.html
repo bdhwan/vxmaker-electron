@@ -10,6 +10,16 @@
         </div>
     </div>
 
+    <div class="connect-wrap">
+
+        <div class="howtoconnect" id="#how"> 
+            <span><b><a target="_blank" href="http://www.vxmaker.com">How to connect</a></b></span>
+        </div>
+
+        <a href="#how"><i class="fa fa-close" ></i></a>
+
+    </div>
+
     <!-- navbar top finish -->
 
     <!-- list-wrap -->
@@ -22,7 +32,12 @@
 
         <div class="list-right">
             <div>
+<<<<<<< HEAD
+                <app-activity-list [applicationData]="applicationData" (onChangeActivityData)="onChangeData($event)" (onClickActivity)="clickActivity($event)"
+                    (onClickNewActivity)="clickNewActivity($event)" (onClickDuplicatewActivity)="clickDuplicateActivity($event)"
+=======
                 <app-activity-list [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath" (onChangeActivityData)="onChangeData($event)" (onClickActivity)="clickActivity($event)" (onClickNewActivity)="clickNewActivity($event)" (onClickDuplicatewActivity)="clickDuplicateActivity($event)"
+>>>>>>> master
                     (onClickDeleteActivity)="clickDeleteActivity($event)"></app-activity-list>
 
             </div>
