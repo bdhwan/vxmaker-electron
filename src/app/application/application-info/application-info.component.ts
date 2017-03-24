@@ -24,6 +24,9 @@ export class ApplicationInfoComponent implements OnInit {
   @Output() onClickChangeIcon = new EventEmitter<void>();
 
 
+  showImageDialog = false;
+
+
   constructor() {
 
   }
@@ -40,6 +43,10 @@ export class ApplicationInfoComponent implements OnInit {
     this.onClickChangeIcon.emit();
   }
 
-
+  clickToggleDialog() {
+    console.log("clickToggleDialog");
+    this.showImageDialog = !this.showImageDialog;
+  }
+ 
 
 }
