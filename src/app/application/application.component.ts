@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AfterViewInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import { ApplicationInfoComponent } from '../application-info/application-info.component'
+import { ApplicationInfoComponent } from './application-info/application-info.component'
+import { ApplicationDataServiceService } from '../service/application-data-service.service'
 
 import 'rxjs/add/operator/switchMap';
-declare var electron: any;
+// declare var electron: any;
 
 
 
@@ -22,34 +23,33 @@ export class ApplicationComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private appDataService: ApplicationDataServiceService
   ) {
 
 
   }
 
   onClickChangeIcon(): void {
-    var newIconImagePath = electron.ipcRenderer.sendSync('select-image-file');
+    var newIconImagePath = this.appDataService.selectImageFile();
+
     if (newIconImagePath) {
       var iconFileName = "image/ic_launcher_" + new Date().getTime() + ".png";
       var targetPath = this.applicationFolderPath + "/" + iconFileName;
+      this.appDataService.deleteFile(this.applicationFolderPath + "/" + this.applicationData.iconPath);
+      var result = this.appDataService.copyFile(newIconImagePath, targetPath);
 
-      electron.ipcRenderer.sendSync('delete-file', this.applicationFolderPath + "/" + this.applicationData.iconPath);
-
-      var result = electron.ipcRenderer.sendSync('copy-file', newIconImagePath, targetPath);
       if (result) {
         this.applicationData.iconPath = iconFileName;
-        electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + "/app.json", this.applicationData);
+        this.appDataService.saveApplicationData(this.applicationData);
       }
     }
   }
 
 
-
   onChangeData(value: string): void {
- 
     this.applicationData.updatedAt = new Date().getTime();
-    electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + "/app.json", this.applicationData);
+    this.appDataService.saveApplicationData(this.applicationData);
   }
 
 
@@ -62,31 +62,32 @@ export class ApplicationComponent implements OnInit {
   ngOnInit() {
 
     console.log("application compononent ng on init");
-    this.applicationFolderPath = this.route.snapshot.params['applicationFolderPath'];
-    this.applicationData = JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + "/app.json")));
 
+    this.applicationFolderPath = this.route.snapshot.params['applicationFolderPath'];
+
+    console.log("this.applicationFolderPath =" + this.applicationFolderPath);
+    this.appDataService.initApplicationPath(this.applicationFolderPath);
+    this.appDataService.loadApplicationData().then((result) => {
+      this.applicationData = this.appDataService.getApplicationData();
+      console.log("applicationData-" + JSON.stringify(this.applicationData));
+      this.checkInitProcess();
+    }).catch((err) => {
+      console.log("err-" + JSON.stringify(err));
+    });
+
+  }
+
+  checkInitProcess() {
     if (!this.applicationData) {
       alert("No app data");
-
-      var temp = {
-        'applicationFolderPath': this.applicationFolderPath
-      }
-      electron.ipcRenderer.sendSync('remove-recent-project-list', temp);
+      this.appDataService.removeRecentProjectList();
       this.router.navigate(['/init']);
     }
     else {
-      var historyData = {
-        applicationFolderPath: this.applicationFolderPath,
-        applicationName: this.applicationData.applicationName,
-      }
-
-      electron.ipcRenderer.send('add-recent-project', historyData);
-      electron.ipcRenderer.sendSync('change-window', 1080, 800, true);
-      this.applicationData.applicationFolderPath = this.applicationFolderPath;
-
-
+      this.appDataService.addRecentProjectList(this.applicationData.applicationName);
     }
   }
+
 
   clickNewActivity(): void {
     var now = new Date().getTime();
@@ -109,10 +110,12 @@ export class ApplicationComponent implements OnInit {
 
     this.applicationData.activityList.push(newActivityMetaData);
 
-    electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + "/app.json", this.applicationData);
-    electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + "/activity/" + activityId + ".json", newActivityData);
+
+    this.appDataService.saveApplicationData(this.applicationData);
+    this.appDataService.saveActivityData(activityId, newActivityData);
 
     this.router.navigate(['/activity', this.applicationFolderPath, activityId]);
+
   }
 
 
@@ -128,10 +131,8 @@ export class ApplicationComponent implements OnInit {
       console.log("index = " + index);
       this.applicationData.activityList.splice(index, 1);
 
-      //delete activity file
-      electron.ipcRenderer.sendSync('delete-file', this.applicationFolderPath + "/activity/" + activityId + ".json");
+      this.appDataService.deleteActivity(activityId);
       this.clickSave();
-
     }
   }
 
@@ -158,16 +159,17 @@ export class ApplicationComponent implements OnInit {
     newObject.createdAt = now;
     newObject.updatedAt = now;
 
-    this.applicationData.activityList.splice(index+1, 0, newObject);
-    electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + "/app.json", this.applicationData);
-    electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + "/activity/" + newActivityId + ".json", newObject);
+    this.applicationData.activityList.splice(index + 1, 0, newObject);
+
+    this.appDataService.saveApplicationData(this.applicationData);
+    this.appDataService.saveActivityData(newActivityId, newObject);
 
     this.clickActivity(newActivityId);
 
   }
 
   clickSave(): void {
-    electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + "/app.json", this.applicationData);
+    this.appDataService.saveApplicationData(this.applicationData);
   }
 
 

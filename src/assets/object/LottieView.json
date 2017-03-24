@@ -1,34 +1,20 @@
 {
-    "name": "TextView",
-    "type": "TextView",
-    "objectProperties": [
-
-        {
+    "name": "LottieView",
+    "type": "LottieView",
+    "objectProperties": [{
             "name": "type",
             "type": "string",
-            "default": "TextView"
+            "default": "LottieView"
         },
-
         {
             "name": "name",
             "type": "string",
-            "default": "TextView"
+            "default": "LottieView"
         },
-
         {
-            "name": "text",
+            "name": "dataUrl",
             "type": "string",
-            "default": "text-view"
-        },
-        {
-            "name": "textSize",
-            "type": "int",
-            "default": 20
-        },
-        {
-            "name": "textColor",
-            "type": "string",
-            "default": "#000000"
+            "default": null
         },
         {
             "name": "canHaveChildren",
@@ -39,12 +25,12 @@
     "stateProperties": [{
             "name": "width",
             "type": "int",
-            "default": 400
+            "default": 1440
         },
         {
             "name": "height",
             "type": "int",
-            "default": 200
+            "default": 2560
         }
     ]
 

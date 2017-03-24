@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
+import { ApplicationDataServiceService } from '../service/application-data-service.service'
 
-declare var electron: any;
 
 @Component({
   selector: 'app-init',
@@ -14,13 +14,11 @@ export class InitComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-
+    private appDataService: ApplicationDataServiceService
   ) { }
 
   ngOnInit() {
-
-    electron.ipcRenderer.sendSync('change-window', 800, 502, true);
-    // console.log() 
+    this.appDataService.changeWindowSize(800, 502, true);
   }
 
 

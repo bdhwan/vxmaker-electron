@@ -1,7 +1,11 @@
 <div style="padding:15px;">
 
     <div class="btn-icon" align="center">
+<<<<<<< HEAD:src/app/application-info/application-info.component.html
         <img [src]="prefix+applicationData.applicationFolderPath+'/'+applicationData.iconPath" width="100px" height="100px">
+=======
+        <img [src]="prefix+applicationFolderPath+'/'+applicationData.iconPath" width="100px" height="100px">
+>>>>>>> master:src/app/application/application-info/application-info.component.html
         <button class="btn-icon-edit" (click)="clickIcon()"><i class="fa fa-edit"></i></button>
     </div>
 
@@ -11,6 +15,7 @@
         <input type="text" class="project-path-edit" [(ngModel)]="applicationData.applicationId" (blur)="onChange()" />
     </div>
 
+<<<<<<< HEAD:src/app/application-info/application-info.component.html
       <!-- popup test -->
 
     <div class="popup-wrap">
@@ -41,4 +46,6 @@
         <!-- popup test finish-->
     </div>
 
+=======
+>>>>>>> master:src/app/application/application-info/application-info.component.html
 </div>

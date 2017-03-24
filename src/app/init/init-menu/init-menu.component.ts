@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ApplicationDataServiceService } from '../../service/application-data-service.service'
 
-declare var electron: any;
+
+
 
 @Component({
   selector: 'app-init-menu',
@@ -12,7 +14,7 @@ declare var electron: any;
 })
 export class InitMenuComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router,private appDataService: ApplicationDataServiceService) {
 
   }
 
@@ -29,9 +31,9 @@ export class InitMenuComponent implements OnInit {
 
   clickOpenApplication(): void {
     console.log("clickOpenApplication");
-    var folder = electron.ipcRenderer.sendSync('select-workspace-folder-path');
+    var folder = this.appDataService.selectWorkspaceFolderPath();
     if (folder) {
-      var applicationData = JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('read-file-data', folder + "/app.json")));
+      var applicationData = this.appDataService.readFileData(folder + "/app.json");// JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('read-file-data', folder + "/app.json")));
       if (applicationData) {
         this.router.navigate(['/application', folder]);
       }

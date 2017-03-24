@@ -2,28 +2,40 @@
     "name": "FrameLayout",
     "type": "FrameLayout",
     "objectProperties": [{
+            "name": "type",
+            "type": "string",
+            "default": "FrameLayout"
+        },
+        {
             "name": "name",
             "type": "string",
             "default": "FrameLayout"
-        }, {
-            "name": "text",
-            "type": "string",
-            "default": "text-view"
         },
         {
-            "name": "textSize",
-            "type": "int",
-            "default": 20
+            "name": "backgroundColor",
+            "type": "string",
+            "default": "#999999"
         },
         {
-            "name": "textColor",
+            "name": "backgroundImage",
             "type": "string",
-            "default": "#000000"
+            "default": null
         },
         {
             "name": "canHaveChildren",
             "type": "boolean",
             "default": true
+        }
+    ],
+    "stateProperties": [{
+            "name": "width",
+            "type": "int",
+            "default": 1440
+        },
+        {
+            "name": "height",
+            "type": "int",
+            "default": 2560
         }
     ]
 

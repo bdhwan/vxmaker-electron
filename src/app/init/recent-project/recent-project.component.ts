@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
+import { ApplicationDataServiceService } from '../../service/application-data-service.service'
 
-declare var electron: any;
+
 
 @Component({
   selector: 'app-recent-project',
@@ -13,11 +14,12 @@ export class RecentProjectComponent implements OnInit {
   recentProjects;
 
   constructor(
-   private router: Router
+   private router: Router,
+   private appDataService: ApplicationDataServiceService
   ) { }
 
   ngOnInit() {
-    this.recentProjects = JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('get-recent-project-list')));
+    this.recentProjects = this.appDataService.getRecentProjectList();
   }
 
 

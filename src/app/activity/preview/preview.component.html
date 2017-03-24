@@ -1,0 +1,13 @@
+<div (mousemove)="mouseOver($event)" (mousedown)="mouseDown($event)" (mouseup)="mouseUp($event)" class="noselect">
+    <div (window:resize)="onResize($event)" *ngIf="activityData">
+        <div #previewScreen *ngFor="let aObject of activityData.objectList" [ngStyle]="getCenterStyle()">
+            <app-preview-object [objectData]="aObject"></app-preview-object>
+            <div [ngStyle]="getSelectedObjectStyle()">
+                <div style="width:20px;height:20px;background-color:aqua; border-width: 1px; position: absolute;left:0;top:0; margin-left: -10px;margin-top: -10px; cursor:nw-resize;" (mousedown)="resizeDown($event,0)">0</div>
+                <div style="width:20px;height:20px;background-color:aqua; border-width: 1px; position: absolute;right:0;top:0; margin-right: -10px;margin-top: -10px; cursor:ne-resize;" (mousedown)="resizeDown($event,1)">1</div>
+                <div style="width:20px;height:20px;background-color:aqua; border-width: 1px; position: absolute;left:0;bottom:0; margin-left: -10px;margin-bottom: -10px; cursor:sw-resize;" (mousedown)="resizeDown($event,2)">2</div>
+                <div style="width:20px;height:20px;background-color:aqua; border-width: 1px; position: absolute;right:0;bottom:0; margin-right: -10px;margin-bottom: -10px; cursor:se-resize;" (mousedown)="resizeDown($event,3)">3</div>
+            </div>
+        </div>
+    </div>
+</div>
