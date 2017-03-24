@@ -9,13 +9,19 @@
             <div class="list-box">
 
                 <div class="list-img">
+<<<<<<< HEAD:src/app/activity-list/activity-list.component.html
+                    <img [src]="prefix+applicationData.applicationFolderPath+'/'+activity.previewPath" width="100%" height="150px">
+=======
 
                     <img [src]="prefix+applicationFolderPath+'/'+activity.previewPath" width="100px" height="150px">
+>>>>>>> master:src/app/application/activity-list/activity-list.component.html
 
                     <div class="list-hover">
                         <button (click)="clickActivity(activity.activityId)">Edit</button>
                         <button (click)="clickDuplicateActivity(activity.activityId)">Duplicate</button>
                         <button (click)="clickDeleteActivity(activity.activityId)">Delete</button>
+
+                        <div class="btn-home"></div>
                     </div>
 
                 </div>
