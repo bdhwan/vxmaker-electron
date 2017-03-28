@@ -1,5 +1,5 @@
 <div [ngStyle]="getObjectStyle()">
-    <img *ngIf="objectData.type == 'ImageView'" [src]="prefix+applicationFolderPath+'/'+objectData.dataUrl" style="width:100%;height:100%;">
+    <img *ngIf="objectData.type == 'ImageView'" [src]="prefix+applicationFolderPath+'/'+objectData.dataUrl" onError="this.src='assets/images/ic_preview.png'" style="width:100%;height:100%;">
     <p *ngIf="objectData.type == 'TextView'">{{objectData.text}}</p>
 </div>
 <app-preview-object [objectData]="aObject" *ngFor="let aObject of objectData.children"></app-preview-object>

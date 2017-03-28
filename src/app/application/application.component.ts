@@ -3,7 +3,9 @@ import { AfterViewInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { ApplicationInfoComponent } from './application-info/application-info.component'
+import { ResourceComponent } from '../common/resource/resource.component'
 import { ApplicationDataServiceService } from '../service/application-data-service.service'
+
 
 import 'rxjs/add/operator/switchMap';
 // declare var electron: any;
@@ -19,6 +21,10 @@ export class ApplicationComponent implements OnInit {
 
   applicationFolderPath: string;
   applicationData: any;
+
+  @ViewChild('resourceAppDialog')
+  private resourceDialog: ResourceComponent;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -175,6 +181,16 @@ export class ApplicationComponent implements OnInit {
 
   clickBack(): void {
     this.router.navigate(['/init']);
+  }
+
+
+  clickResource() {
+    console.log("clickResource");
+    this.resourceDialog.showDialog("image");
+  }
+
+  onSelectFile(target){
+
   }
 
 

@@ -7,12 +7,10 @@
     <div *ngIf="selectedObject">
         <div *ngIf="selectedObject.type=='ImageView'">
             <button (click)="clickSelectImage()"> ImageSelect</button>
-            <app-resource #imageResource *ngIf="showSelectImage" (onClickNewFile)="clickNewFile($event)"></app-resource>
         </div>
 
         <div *ngIf="selectedObject.type=='LottieView'">
             <button (click)="clickSelectFile()"> ImageFile</button>
-            <app-resource #fileResource *ngIf="showSelectFile" (onClickNewFile)="clickNewFile($event)"></app-resource>
         </div>
 
 

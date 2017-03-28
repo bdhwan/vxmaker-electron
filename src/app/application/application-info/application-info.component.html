@@ -12,28 +12,5 @@
         <input type="text" class="project-path-edit" [(ngModel)]="applicationData.applicationId" (blur)="onChange()" />
     </div>
 
-    <button (click)="clickToggleDialog()">test</button>
-    <!-- popup test -->
 
-    <div class="popup-wrap" *ngIf="showImageDialog">
-
-        <div id="popup1" class="overlay">
-            <div class="popup">
-                <a class="close" (click)="clickToggleDialog()">&times;</a>
-
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="popup-new">
-                            <h3>Drag & Drop</h3>
-                            <h5>Your Files or Browse</h5>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-
-        <!-- popup test finish-->
-    </div>
 </div>
