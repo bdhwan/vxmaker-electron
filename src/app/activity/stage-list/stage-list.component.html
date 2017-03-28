@@ -1,3 +1,7 @@
-<p>
-  stage-list works!
-</p>
+<div *ngIf="stageList">
+    <div style="float: left" *ngFor="let aStage of stageList" (click)="clickSelectStage(aStage)">
+        <h1 *ngIf="currentSelectedStage.id==aStage.id">{{aStage.name}}</h1>
+        <p *ngIf="currentSelectedStage.id!=aStage.id">{{aStage.name}}</p>
+    </div>
+    <button (click)="clickNewStage()">Add</button>
+</div>

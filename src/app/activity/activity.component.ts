@@ -7,6 +7,8 @@ import { ObjectNewComponent } from '../activity/object-new/object-new.component'
 import { ObjectPropertyComponent } from '../activity/object-property/object-property.component'
 import { PreviewComponent } from '../activity/preview/preview.component'
 
+import { StageListComponent } from '../activity/stage-list/stage-list.component'
+
 import { ResourceComponent } from '../common/resource/resource.component'
 import { ApplicationDataServiceService } from '../service/application-data-service.service'
 
@@ -39,6 +41,10 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
   @ViewChild('resourceDialog')
   private resourceDialog: ResourceComponent;
+
+  @ViewChild('stageList')
+  private stageList: StageListComponent;
+
 
 
 
@@ -195,6 +201,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
       this.appDataService.setSelectedObject(this.activityData.objectList[0]);
       this.objectNewComponent.setObjectTypeData(this.objectTypeData);
       this.objectTreeComponent.initObjectData();
+      this.stageList.initData();
 
       resolve(true);
     });
@@ -273,6 +280,35 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
   }
 
+  onNewStage() {
+    console.log("onNewStage");
+    //make new stage
+    //1. stage
+    var now = new Date().getTime();
+    var stage = {
+      id: "stage_" + now,
+      name: "stage-" + this.activityData.stageList.length
+    }
+    this.activityData.stageList.push(stage);
+
+    var allStateList = this.appDataService.getAllSelectedState();
+    for (var i = 0; i < allStateList.length; i++) {
+      var aState = Object.assign({}, allStateList[i]);
+      aState.stageId = stage.id;
+      aState.id = "state_" + new Date().getTime();
+      this.activityData.stateList.push(aState);
+    }
+
+    this.onSelectStage(stage);
+
+  }
+
+
+  onSelectStage(target) {
+    console.log("onSelectStage = " + target);
+    this.appDataService.setSelectedStage(target);
+    this.notifySelectedObjectChanged();
+  }
 
   onSelectFile(target) {
 
@@ -322,6 +358,9 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
     this.previewComponent.onChangeData();
     this.objectPropertyComponent.onChangeData();
+    this.stageList.onChangeData();
+
+
 
   }
 

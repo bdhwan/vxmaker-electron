@@ -17,7 +17,12 @@
         </div>
         <div style="float:left; overflow-x: scroll; overflow-y: scroll;" [style.width]="getPreviewWidth()" [style.height]="getPreviewHeight()">
             <app-preview #previewCanvas (onShowResourceDialog)="onShowResourceDialog($event)"></app-preview>
+            <app-stage-list #stageList (onSelectStage)="onSelectStage($event)" (onNewStage)="onNewStage()"></app-stage-list>
         </div>
+
+
+
+
 
         <div id="rightSide" style="float: right; width:200px; height:100%; background: #ff0055; overflow-y: scroll;">
             <app-object-property #objectProperty (onShowResourceDialog)="onShowResourceDialog($event)" (onChangeTreeData)="changePropertyData($event)"></app-object-property>

@@ -34,6 +34,7 @@ export class PreviewObjectComponent implements OnInit {
 
 
   getObjectStyle() {
+    this.state = this.appDataService.findStateByObjectId(this.objectData.id);
     if (this.state) {
       return this.appDataService.getObjectStyle(this.state);
     }

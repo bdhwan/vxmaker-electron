@@ -310,7 +310,9 @@ export class ApplicationDataServiceService {
     return this.selectedState;
   }
 
-
+  getAllSelectedState() {
+    return this.findAllStateByStageId(this.selectedStage.id);
+  }
 
   getImageSize(path) {
     return electron.ipcRenderer.sendSync('get-image-size', path);
@@ -398,6 +400,17 @@ export class ApplicationDataServiceService {
     for (var i = 0; i < this.activityData.stateList.length; i++) {
       var aState = this.activityData.stateList[i];
       if (aState.objectId == objectId) {
+        result.push(aState);
+      }
+    }
+    return result;
+  }
+
+  findAllStateByStageId(stageId: string) {
+    var result = [];
+    for (var i = 0; i < this.activityData.stateList.length; i++) {
+      var aState = this.activityData.stateList[i];
+      if (aState.stageId == stageId) {
         result.push(aState);
       }
     }
