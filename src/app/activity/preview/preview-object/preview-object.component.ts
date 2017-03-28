@@ -18,6 +18,8 @@ export class PreviewObjectComponent implements OnInit {
 
 
   @Input() objectData: any;
+  @Output() onShowResourceDialog = new EventEmitter<string>();
+
 
   state: any;
   zoom;

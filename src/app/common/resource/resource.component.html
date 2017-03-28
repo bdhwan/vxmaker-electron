@@ -1,0 +1,29 @@
+<div class="popup-wrap" *ngIf="visibility">
+    <div id="popup1" class="overlay" (click)="hideDialog()">
+        <div class="popup" (click)="nothing($event)">
+            <button (click)="hideDialog()">Hide</button>
+            <div>
+                <button (click)="clickTab($event,'image')">Image</button>
+                <button (click)="clickTab($event,'file')">File</button>
+            </div>
+
+            <div>
+                <div *ngIf="tab=='image'">
+                    <h2>image</h2>
+                    <div *ngFor="let imageUrl of imageList">
+                        <img [src]="prefix+applicationFolderPath+'/'+imageUrl" width="100px" height="100px" (click)="clickFile(imageUrl)">
+                    </div>
+                    <button (click)="clickNewFile($event,'image')">New Image</button>
+                </div>
+
+                <div *ngIf="tab=='file'">
+                    <h2>File</h2>
+                    <div *ngFor="let fileUrl of fileList" (click)="clickFile(fileUrl)">
+                        {{fileUrl}}
+                    </div>
+                    <button (click)="clickNewFile($event,'file')">New File</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

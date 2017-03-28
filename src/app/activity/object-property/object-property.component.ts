@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angu
 import { ApplicationDataServiceService } from '../../service/application-data-service.service'
 
 import { PreviewSizeComponent } from '../preview-size/preview-size.component'
-import { ResourceComponent } from '../../activity/resource/resource.component'
 
 
 
@@ -13,16 +12,9 @@ import { ResourceComponent } from '../../activity/resource/resource.component'
 })
 export class ObjectPropertyComponent implements OnInit {
 
-  @Output() onSelectImage = new EventEmitter<string>();
-  @Output() onClickNewFile = new EventEmitter<string>();
 
+  @Output() onShowResourceDialog = new EventEmitter<string>();
 
-  @ViewChild('imageResource')
-  private imageComponent: ResourceComponent;
-
-
-  @ViewChild('fileResource')
-  private fileComponent: ResourceComponent;
 
 
   constructor(
@@ -30,9 +22,6 @@ export class ObjectPropertyComponent implements OnInit {
   ) {
 
   }
-
-  showSelectImage = false;
-  showSelectFile = false;
 
   selectedObject;
   selectedState;
@@ -60,20 +49,20 @@ export class ObjectPropertyComponent implements OnInit {
 
 
   clickSelectImage(): void {
-    this.showSelectImage = !this.showSelectImage;
+    this.clickNewFile("image");
   }
 
   clickSelectFile(): void {
-    this.showSelectFile = !this.showSelectFile;
+    this.clickNewFile("file");
   }
 
 
   clickNewFile(target) {
     console.log("target=" + target);
-    this.onClickNewFile.emit(target);
-
-
+    this.onShowResourceDialog.emit(target);
   }
+
+  
 
 
   public onChangeData(): void {

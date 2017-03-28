@@ -7,7 +7,7 @@ import { ObjectNewComponent } from '../activity/object-new/object-new.component'
 import { ObjectPropertyComponent } from '../activity/object-property/object-property.component'
 import { PreviewComponent } from '../activity/preview/preview.component'
 
-import { ResourceComponent } from '../activity/resource/resource.component'
+import { ResourceComponent } from '../common/resource/resource.component'
 import { ApplicationDataServiceService } from '../service/application-data-service.service'
 
 import 'rxjs/add/operator/switchMap';
@@ -37,9 +37,8 @@ export class ActivityComponent implements OnInit, OnDestroy {
   @ViewChild('previewCanvas')
   private previewComponent: PreviewComponent;
 
-  @ViewChild('resourceList')
-  private resourceComponent: ResourceComponent;
-
+  @ViewChild('resourceDialog')
+  private resourceDialog: ResourceComponent;
 
 
 
@@ -112,31 +111,31 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
       return this.appDataService.loadApplicationData();
     })
-    
-    .then((result) => {
-      return this.appDataService.loadImageResourceList();
-    })
-    
-    .then((result) => {
+
+      .then((result) => {
+        return this.appDataService.loadImageResourceList();
+      })
+
+      .then((result) => {
 
 
-      return this.appDataService.loadFileResourceList();
-    })
-    
-    .then((result) => {
+        return this.appDataService.loadFileResourceList();
+      })
 
-      this.fileList = this.appDataService.getFileResourceList();
-      this.imageList = this.appDataService.getImageResourceList();
-      this.applicationData = this.appDataService.getApplicationData();
-      this.activityMetaData = this.appDataService.getActivityMetaData();
-      this.activityData = this.appDataService.getActivityData();
-      return this.checkEmptyActivityData();
+      .then((result) => {
 
-    }).then((result) => {
-      return this.initDataToView();
-    }).then((result) => {
-      this.notifySelectedObjectChanged();
-    });
+        this.fileList = this.appDataService.getFileResourceList();
+        this.imageList = this.appDataService.getImageResourceList();
+        this.applicationData = this.appDataService.getApplicationData();
+        this.activityMetaData = this.appDataService.getActivityMetaData();
+        this.activityData = this.appDataService.getActivityData();
+        return this.checkEmptyActivityData();
+
+      }).then((result) => {
+        return this.initDataToView();
+      }).then((result) => {
+        this.notifySelectedObjectChanged();
+      });
   }
 
 
@@ -275,65 +274,21 @@ export class ActivityComponent implements OnInit, OnDestroy {
   }
 
 
-  onSelectImage() {
+  onSelectFile(target) {
 
-    console.log("will select image");
-    // var newIconImagePath = this.appDataService.selectImageFile();
-    // if (newIconImagePath) {
-    //   var iconFileName = "image/image_" + new Date().getTime() + ".png";
-    //   var targetPath = this.applicationFolderPath + "/" + iconFileName;
-    //   var result = this.appDataService.copyFile(newIconImagePath, targetPath);
-
-    //   if (result) {
-    //     this.applicationData.iconPath = iconFileName;
-    //     this.appDataService.saveApplicationData(this.applicationData);
-    //   }
-    // }
-  }
-
-
-  clickNewFile(target) {
-    console.log("target = " + target);
-    if (target == 'image') {
-      var newImagePath = this.appDataService.selectImageFile();
-      if (newImagePath) {
-
-        var fileName = this.appDataService.getUniqueImageName(newImagePath);
-        var targetPath = this.applicationFolderPath + "/" + target + "/" + fileName;
-        var result = this.appDataService.copyFile(newImagePath, targetPath);
-        if (result) {
-          this.refreshImageList();
-        }
-      }
-    } else {
-      var newFilePath = this.appDataService.selectFile();
-      if (newFilePath) {
-
-        var fileName = this.appDataService.getUniqueFileName(newFilePath);
-        var targetPath = this.applicationFolderPath + "/" + target + "/" + fileName;
-        var result = this.appDataService.copyFile(newFilePath, targetPath);
-        if (result) {
-          this.refreshFileList();
-        }
-      }
+    console.log("onSelectFile = " + target);
+    var selectedObject = this.appDataService.getSelectedObject();
+    if (selectedObject) {
+      selectedObject.dataUrl = target;
     }
+
+
   }
 
 
-
-  refreshImageList() {
-    this.appDataService.loadImageResourceList().then((result) => {
-      this.imageList = this.appDataService.getImageResourceList();
-    });
+  onShowResourceDialog(target) {
+    this.resourceDialog.showDialog(target);
   }
-
-  refreshFileList() {
-    this.appDataService.loadFileResourceList().then((result) => {
-      this.fileList = this.appDataService.getFileResourceList();
-    });
-  }
-
-
 
 
 

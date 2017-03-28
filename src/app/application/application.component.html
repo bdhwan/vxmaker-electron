@@ -1,14 +1,17 @@
 <div *ngIf="applicationData">
 
     <!-- nav bar top -->
-
     <div class="navbar">
         <button class="btn-back" (click)="clickBack()">◄ Back</button>
+
+        <button (click)="clickResource()">RESOURCE</button>
 
         <div class="nav-right">
             <app-device-status></app-device-status>
         </div>
     </div>
+
+
 
     <div class="connect-wrap">
 
@@ -26,18 +29,18 @@
 
     <div class="list-wrap">
 
-        <div class="list-left" ngIf>
+        <div class="list-left">
             <app-application-info [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath" (onChangeData)="onChangeData($event)" (onClickChangeIcon)="onClickChangeIcon($event)"></app-application-info>
         </div>
         <div class="list-right">
             <div>
-                <app-activity-list [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath" (onChangeActivityData)="onChangeData($event)" (onClickActivity)="clickActivity($event)" (onClickNewActivity)="clickNewActivity($event)" (onClickDuplicatewActivity)="clickDuplicateActivity($event)"
-                    (onClickDeleteActivity)="clickDeleteActivity($event)"></app-activity-list>
-
+                <app-activity-list *ngIf="applicationData" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath" (onChangeActivityData)="onChangeData($event)" (onClickActivity)="clickActivity($event)" (onClickNewActivity)="clickNewActivity($event)"
+                    (onClickDuplicatewActivity)="clickDuplicateActivity($event)" (onClickDeleteActivity)="clickDeleteActivity($event)"></app-activity-list>
             </div>
         </div>
 
+        <app-resource #resourceAppDialog (onSelectFile)="onSelectFile($event)"></app-resource>
+
     </div>
     <!-- list-wrap finish -->
-
 </div>

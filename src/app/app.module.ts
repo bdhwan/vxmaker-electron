@@ -26,7 +26,7 @@ import { TreeModule } from 'angular2-tree-component';
 import { PreviewObjectComponent } from './activity/preview/preview-object/preview-object.component';
 
 import { ApplicationDataServiceService } from './service/application-data-service.service';
-import { ResourceComponent } from './activity/resource/resource.component'
+import { ResourceComponent } from './common/resource/resource.component'
 
 
 
