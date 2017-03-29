@@ -135,9 +135,11 @@ export class EventGeneratorComponent implements OnInit {
 
     }
     else if (this.implementEvent.type == 'startActivity') {
+
       this.implementEvent.toActivityId = this.selectedActivityId;
     }
     else if (this.implementEvent.type == 'finishActivity') {
+      
 
     }
 
