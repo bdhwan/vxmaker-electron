@@ -16,18 +16,28 @@
             <app-object-new #objectNew (onShowResourceDialog)="onShowResourceDialog($event)" (onClickNewObject)="clickNewObject($event)" (onChangeTreeData)="changeTreeData($event)"></app-object-new>
         </div>
         <div style="float:left; overflow-x: scroll; overflow-y: scroll;" [style.width]="getPreviewWidth()" [style.height]="getPreviewHeight()">
-            <app-preview #previewCanvas (onShowResourceDialog)="onShowResourceDialog($event)"></app-preview>
             <app-stage-list #stageList (onSelectStage)="onSelectStage($event)" (onNewStage)="onNewStage()"></app-stage-list>
-        </div>
 
+
+            <app-preview #previewCanvas (onShowResourceDialog)="onShowResourceDialog($event)"></app-preview>
+
+        </div>
 
 
 
 
         <div id="rightSide" style="float: right; width:200px; height:100%; background: #ff0055; overflow-y: scroll;">
+
+            <app-preview-size #previewSize></app-preview-size>
             <app-object-property #objectProperty (onShowResourceDialog)="onShowResourceDialog($event)" (onChangeTreeData)="changePropertyData($event)"></app-object-property>
+            <app-event-list #eventList (onNewEvent)="onNewEvent($event)" (onClickDetailEvent)="onClickDetailEvent($event)"></app-event-list>
+            <app-event-detail-stage-change #eventDetailStageChange (onNewAfterAnimationEvent)="onNewAfterAnimationEvent($event)"></app-event-detail-stage-change>
+            <app-event-detail-start-activity #eventDetailStartActivity></app-event-detail-start-activity>
+            <app-event-detail-finish-activity #eventDetailFinishActivity></app-event-detail-finish-activity>
+
         </div>
     </div>
 </div>
 
 <app-resource #resourceDialog (onSelectFile)="onSelectFile($event)"></app-resource>
+<app-event-generator #eventGenerator (onCompleteEvent)="onCompleteEvent($event)"></app-event-generator>

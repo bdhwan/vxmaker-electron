@@ -21,12 +21,16 @@ import { EventListComponent } from './activity/event-list/event-list.component';
 import { PreviewComponent } from './activity/preview/preview.component';
 import { StageListComponent } from './activity/stage-list/stage-list.component';
 import { PreviewSizeComponent } from './activity/preview-size/preview-size.component';
+import { EventGeneratorComponent } from './activity/event-generator/event-generator.component'
 
 import { TreeModule } from 'angular2-tree-component';
 import { PreviewObjectComponent } from './activity/preview/preview-object/preview-object.component';
 
 import { ApplicationDataServiceService } from './service/application-data-service.service';
-import { ResourceComponent } from './common/resource/resource.component'
+import { ResourceComponent } from './common/resource/resource.component';
+import { EventDetailStageChangeComponent } from './activity/event-detail-stage-change/event-detail-stage-change.component';
+import { EventDetailStartActivityComponent } from './activity/event-detail-start-activity/event-detail-start-activity.component';
+import { EventDetailFinishActivityComponent } from './activity/event-detail-finish-activity/event-detail-finish-activity.component';
 
 
 
@@ -64,7 +68,11 @@ const appRoutes: Routes = [
     StageListComponent,
     PreviewSizeComponent,
     PreviewObjectComponent,
-    ResourceComponent
+    ResourceComponent,
+    EventGeneratorComponent,
+    EventDetailStageChangeComponent,
+    EventDetailStartActivityComponent,
+    EventDetailFinishActivityComponent
   ],
   imports: [
     BrowserModule,

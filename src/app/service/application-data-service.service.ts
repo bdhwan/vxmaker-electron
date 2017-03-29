@@ -21,6 +21,10 @@ export class ApplicationDataServiceService {
   selectedStage;
   selectedState;
 
+  selectedTriggerEvent;
+  selectedImplementEvent;
+
+
   objectTypeData = [];
   defaultStateData;
 
@@ -298,6 +302,23 @@ export class ApplicationDataServiceService {
   }
 
 
+  setSelectedTriggerEvent(event) {
+    this.selectedTriggerEvent = event;
+  }
+
+  setSelectedImplementEvent(event) {
+    this.selectedImplementEvent = event;
+  }
+
+
+  getSelectedImplementEvent() {
+    return this.selectedImplementEvent;
+  }
+
+  getSelectedTriggerEvent() {
+    return this.selectedTriggerEvent;
+  }
+
   getSelectedStage() {
     return this.selectedStage;
   }
@@ -367,6 +388,31 @@ export class ApplicationDataServiceService {
       }
     }
     return null;
+  }
+
+  findImplentEventByTriggerEventId(triggerEventId: string) {
+
+    for (var i = 0; i < this.activityData.implementEventList.length; i++) {
+      var aEvent = this.activityData.implementEventList[i];
+      if (aEvent.triggerEventId == triggerEventId) {
+        return aEvent;
+      }
+    }
+    return null;
+  }
+
+
+
+  findStateChangeEventByImplementEventId(implementEventId: string) {
+
+    var result = [];
+    for (var i = 0; i < this.activityData.stateEventList.length; i++) {
+      var aEvent = this.activityData.stateEventList[i];
+      if (aEvent.implementEventId == implementEventId) {
+        result.push(aEvent);
+      }
+    }
+    return result;
   }
 
 

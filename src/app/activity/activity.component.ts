@@ -10,7 +10,20 @@ import { PreviewComponent } from '../activity/preview/preview.component'
 import { StageListComponent } from '../activity/stage-list/stage-list.component'
 
 import { ResourceComponent } from '../common/resource/resource.component'
+import { EventListComponent } from '../activity/event-list/event-list.component'
+
+import { EventDetailStageChangeComponent } from '../activity/event-detail-stage-change/event-detail-stage-change.component';
+import { EventDetailStartActivityComponent } from '../activity/event-detail-start-activity/event-detail-start-activity.component';
+import { EventDetailFinishActivityComponent } from '../activity/event-detail-finish-activity/event-detail-finish-activity.component';
+
+
+
+
+
+import { EventGeneratorComponent } from '../activity/event-generator/event-generator.component'
 import { ApplicationDataServiceService } from '../service/application-data-service.service'
+
+
 
 import 'rxjs/add/operator/switchMap';
 
@@ -45,6 +58,21 @@ export class ActivityComponent implements OnInit, OnDestroy {
   @ViewChild('stageList')
   private stageList: StageListComponent;
 
+  @ViewChild('eventGenerator')
+  private eventGenerator: EventGeneratorComponent;
+
+  @ViewChild('eventList')
+  private eventList: EventListComponent;
+
+  @ViewChild('eventDetailStageChange')
+  private eventDetailStageChange: EventDetailStageChangeComponent;
+
+  @ViewChild('eventDetailStartActivity')
+  private eventDetailStartActivity: EventDetailStartActivityComponent;
+
+  @ViewChild('eventDetailFinishActivity')
+  private eventDetailFinishActivity: EventDetailFinishActivityComponent;
+
 
 
 
@@ -56,6 +84,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
   activityMetaData;
   activityData;
 
+  selectedTriggerEvent;
 
   imageList = [];
   fileList = [];
@@ -135,6 +164,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
         this.applicationData = this.appDataService.getApplicationData();
         this.activityMetaData = this.appDataService.getActivityMetaData();
         this.activityData = this.appDataService.getActivityData();
+        this.selectedTriggerEvent = this.appDataService.getSelectedTriggerEvent();
         return this.checkEmptyActivityData();
 
       }).then((result) => {
@@ -180,8 +210,18 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
         //3. state
         var newState = this.appDataService.createNewState(newObject.id, stage.id, "FrameLayout");
-
         this.activityData.stateList = [newState];
+
+        //4. triggerEventList;
+        this.activityData.triggerEventList = [];
+
+        //5. implementEventList;
+        this.activityData.implementEventList = [];
+
+        //6. stateEventList;
+        this.activityData.stateEventList = [];
+
+
 
       }
 
@@ -209,7 +249,11 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
 
 
+  onCompleteEvent(event) {
 
+    console.log("onCompleteEvent");
+
+  }
 
 
 
@@ -284,13 +328,17 @@ export class ActivityComponent implements OnInit, OnDestroy {
     console.log("onNewStage");
     //make new stage
     //1. stage
+    var stage = this.onMakeNewStage();
+    this.onSelectStage(stage);
+  }
+
+  onMakeNewStage() {
     var now = new Date().getTime();
     var stage = {
       id: "stage_" + now,
       name: "stage-" + this.activityData.stageList.length
     }
     this.activityData.stageList.push(stage);
-
     var allStateList = this.appDataService.getAllSelectedState();
     for (var i = 0; i < allStateList.length; i++) {
       var aState = Object.assign({}, allStateList[i]);
@@ -298,11 +346,8 @@ export class ActivityComponent implements OnInit, OnDestroy {
       aState.id = "state_" + new Date().getTime();
       this.activityData.stateList.push(aState);
     }
-
-    this.onSelectStage(stage);
-
+    return stage;
   }
-
 
   onSelectStage(target) {
     console.log("onSelectStage = " + target);
@@ -359,14 +404,58 @@ export class ActivityComponent implements OnInit, OnDestroy {
     this.previewComponent.onChangeData();
     this.objectPropertyComponent.onChangeData();
     this.stageList.onChangeData();
+    this.eventList.onChangeData();
+    this.eventGenerator.onChangeData();
 
 
+
+    this.eventList.onChangeData();
+    this.eventDetailStageChange.onChangeData();
+    this.eventDetailStartActivity.onChangeData();
+    this.eventDetailFinishActivity.onChangeData();
 
   }
 
 
+  onNewAfterAnimationEvent(target) {
+    console.log("onNewEvent target =" + target);
+
+    //check stage count
+    if (this.activityData.stageList.length == 1) {
+      this.onMakeNewStage();
+    }
+
+    this.eventGenerator.resetData();
+    this.eventGenerator.makeAfterTrigger(target);
+    this.eventGenerator.showDialog();
+
+  }
+
+  onNewEvent() {
+    //check stage count
+    if (this.activityData.stageList.length == 1) {
+      this.onMakeNewStage();
+    }
+    this.eventGenerator.resetData();
+    this.eventGenerator.showDialog();
+
+  }
+
+  onClickDetailEvent(triggerEvent) {
+    console.log("event = " + triggerEvent.id);
+    this.appDataService.setSelectedTriggerEvent(triggerEvent);
+    var impEvent =  this.appDataService.findImplentEventByTriggerEventId(triggerEvent.id);
+     console.log("impEvent = " + impEvent.id);
+    this.appDataService.setSelectedImplementEvent(impEvent);
 
 
+
+    //notify data set changed
+    this.notifySelectedObjectChanged();
+    console.log("end event = " + triggerEvent.id);
+
+
+  }
 
 
 
