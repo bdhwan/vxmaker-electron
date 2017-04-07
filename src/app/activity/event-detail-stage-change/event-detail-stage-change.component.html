@@ -1,0 +1,8 @@
+<div *ngIf="selectedImplementEvent">
+    <div *ngIf="selectedImplementEvent.type=='stageChange'">
+        event-detail-stage-change works!---{{selectedImplementEvent.type}}
+        <div *ngFor="let aStateEvent of stateEventList">{{aStateEvent.id}}</div>
+
+        <button (click)="clickAddAfterAnimation()">AfterAnimation</button>
+    </div>
+</div>

@@ -72,6 +72,7 @@ export class ResourceComponent implements OnInit {
 
     this.onSelectFile.emit(target);
     this.hideDialog();
+    
   }
   nothing(event) {
     console.log("nothing");

@@ -79,19 +79,24 @@ export class ApplicationComponent implements OnInit {
       this.checkInitProcess();
     }).catch((err) => {
       console.log("err-" + JSON.stringify(err));
+      this.noProject();
     });
 
   }
 
   checkInitProcess() {
     if (!this.applicationData) {
-      alert("No app data");
-      this.appDataService.removeRecentProjectList();
-      this.router.navigate(['/init']);
+      this.noProject();
     }
     else {
       this.appDataService.addRecentProjectList(this.applicationData.applicationName);
     }
+  }
+
+  noProject() {
+    alert("No app data");
+    this.appDataService.removeRecentProjectList();
+    this.router.navigate(['/init']);
   }
 
 
@@ -189,7 +194,7 @@ export class ApplicationComponent implements OnInit {
     this.resourceDialog.showDialog("image");
   }
 
-  onSelectFile(target){
+  onSelectFile(target) {
 
   }
 

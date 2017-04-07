@@ -1,9 +1,4 @@
-<div>
-
-    <app-preview-size></app-preview-size>
-
-
-
+<div *ngIf="!selectedTriggerEvent">
     <div *ngIf="selectedObject">
         <div *ngIf="selectedObject.type=='ImageView'">
             <button (click)="clickSelectImage()"> ImageSelect</button>
@@ -23,7 +18,4 @@
             {{ key }}:<input [(ngModel)]="selectedState[key]">
         </li>
     </div>
-
-
-
 </div>
