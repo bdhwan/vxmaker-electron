@@ -11,10 +11,8 @@ export class EventGeneratorComponent implements OnInit {
 
   @Output() onCompleteEvent = new EventEmitter<string>();
 
-
   triggerEvent;
   implementEvent;
-
 
   stageList;
   activityList;
@@ -23,14 +21,9 @@ export class EventGeneratorComponent implements OnInit {
   selectedStageId;
   selectedActivityId;
   afterTriggerEventId;
-
   readyEvent = false;
-
-
-
   visibility = false;
   constructor(private appDataService: ApplicationDataServiceService) { }
-
 
   ngOnInit() {
 
@@ -42,27 +35,31 @@ export class EventGeneratorComponent implements OnInit {
     this.triggerEvent = null;
     this.implementEvent = null;
     this.currentSelectedStageId = this.appDataService.getSelectedStage().id;
-    this.objectList = this.appDataService.getActivityData().objectList;
+    this.objectList = this.appDataService.getObjectList();
+
   }
+
+
+
 
 
 
 
   onChangeStage(event) {
-    console.log("onChangeStage");
+
     this.readyEvent = true;
   }
 
   onChangeActivity(event) {
-    console.log("onChangeActivity");
+
     this.readyEvent = true;
   }
 
 
 
-  //make after animation
-  public makeAfterTrigger(targetTriggerEventId){
-    this.clickTrigger("afterAnimation");
+  // make after animation
+  public makeAfterTrigger(targetTriggerEventId) {
+    this.clickTrigger('afterAnimation');
     this.afterTriggerEventId = targetTriggerEventId;
     this.triggerEvent.afterTriggerEventId = this.afterTriggerEventId;
   }
@@ -70,7 +67,7 @@ export class EventGeneratorComponent implements OnInit {
 
 
   clickTrigger(target) {
-    var id = "trigger_" + new Date().getTime();
+    const id = 'trigger_' + new Date().getTime();
     this.triggerEvent = {
       id: id,
       stageId: this.currentSelectedStageId,
@@ -82,18 +79,17 @@ export class EventGeneratorComponent implements OnInit {
 
 
   clickImplement(target) {
-    var id = "implement_" + new Date().getTime();
+    const id = 'implement_' + new Date().getTime();
     this.implementEvent = {
       id: id,
       triggerEventId: this.triggerEvent.id,
       type: target,
       name: target
-    }
+    };
 
-    if (target == 'finishActivity') {
+    if (target === 'finishActivity') {
       this.readyEvent = true;
-    }
-    else {
+    } else {
       this.selectedStageId = null;
       this.selectedActivityId = null;
       this.readyEvent = false;
@@ -104,49 +100,47 @@ export class EventGeneratorComponent implements OnInit {
 
 
 
-    //add trigger 
     this.appDataService.getActivityData().triggerEventList.push(this.triggerEvent);
 
 
+    console.log("trigger = " + JSON.stringify(this.appDataService.getActivityData().triggerEventList));
 
-    if (this.implementEvent.type == 'stageChange') {
+    if (this.implementEvent.type === 'stageChange') {
       this.implementEvent.toStageId = this.selectedStageId;
+      this.implementEvent.fromStageId = this.currentSelectedStageId;
 
-
-      for (var i = 0; i < this.objectList.length; i++) {
-        var aObject = this.objectList[i];
-        var toState = this.appDataService.findStateByObjectIdWithStageId(aObject.id, this.selectedStageId);
-
-        var duration = 300;
-        var startDelay = 0;
-        var cubicValue = [];
-        var now = new Date().getTime();
-
-        var stateEvent = {
+      for (let i = 0; i < this.objectList.length; i++) {
+        const aObject = this.objectList[i];
+        const fromState = this.appDataService.findStateByObjectIdWithStageId(aObject.id, this.currentSelectedStageId);
+        const toState = this.appDataService.findStateByObjectIdWithStageId(aObject.id, this.selectedStageId);
+        const duration = 300;
+        const startDelay = 0;
+        const cubicValue = [];
+        const now = new Date().getTime();
+        const stateEvent = {
           id: 'state_event_' + now,
           implementEventId: this.implementEvent.id,
+          objectId: aObject.id,
           name: 'state_event_' + now,
           toStateId: toState.id,
-
-        }
+          fromStateId: fromState.id,
+          duration: 300,
+          startDelay: 0,
+          interpolatorType: 'cubic',
+          cubicValue: [0, 0.5, 0.5, 1],
+          isEnabled: true
+        };
         this.appDataService.getActivityData().stateEventList.push(stateEvent);
       }
-
-
-    }
-    else if (this.implementEvent.type == 'startActivity') {
-
+    } else if (this.implementEvent.type === 'startActivity') {
       this.implementEvent.toActivityId = this.selectedActivityId;
-    }
-    else if (this.implementEvent.type == 'finishActivity') {
+    } else if (this.implementEvent.type === 'finishActivity') {
       
-
     }
 
-    //add implements
+    // add implements
     this.appDataService.getActivityData().implementEventList.push(this.implementEvent);
     this.onCompleteEvent.emit();
-
     this.hideDialog();
 
   }
@@ -155,7 +149,7 @@ export class EventGeneratorComponent implements OnInit {
 
 
   public hideDialog() {
-    console.log("hideDialog = ");
+
     this.visibility = false;
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ApplicationDataServiceService } from '../../service/application-data-service.service'
+import { ApplicationDataServiceService } from '../../service/application-data-service.service';
 
 
 @Component({
@@ -31,7 +31,11 @@ export class EventListComponent implements OnInit {
   }
 
   getImplement(triggerEventId) {
-    return this.appDataService.findImplentEventByTriggerEventId(triggerEventId);
+
+    const result = this.appDataService.findImplentEventByTriggerEventId(triggerEventId);
+    console.log("trigger = "+triggerEventId+", result = "+JSON.stringify(result));
+
+    return result;
   }
 
   clickNewEvent() {
@@ -39,11 +43,11 @@ export class EventListComponent implements OnInit {
   }
 
   clickNewAfterAnimationEvent() {
-    this.onNewEvent.emit("afterAnimation");
+    this.onNewEvent.emit('afterAnimation');
   }
 
   clickDetailEvent(event) {
-    console.log("clickDetailEvent")
+    console.log("clickDetailEvent = "+JSON.stringify(event));
     this.onClickDetailEvent.emit(event);
   }
 

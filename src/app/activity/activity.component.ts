@@ -2,42 +2,29 @@ import { Component, OnInit, OnDestroy, NgZone, ViewChild, AfterViewInit } from '
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { ObjectTreeComponent } from '../activity/object-tree/object-tree.component'
-import { ObjectNewComponent } from '../activity/object-new/object-new.component'
-import { ObjectPropertyComponent } from '../activity/object-property/object-property.component'
-import { PreviewComponent } from '../activity/preview/preview.component'
-
-import { StageListComponent } from '../activity/stage-list/stage-list.component'
-
-import { ResourceComponent } from '../common/resource/resource.component'
-import { EventListComponent } from '../activity/event-list/event-list.component'
-
+import { ObjectTreeComponent } from '../activity/object-tree/object-tree.component';
+import { ObjectNewComponent } from '../activity/object-new/object-new.component';
+import { ObjectPropertyComponent } from '../activity/object-property/object-property.component';
+import { PreviewComponent } from '../activity/preview/preview.component';
+import { StageListComponent } from '../activity/stage-list/stage-list.component';
+import { ResourceComponent } from '../common/resource/resource.component';
+import { EventListComponent } from '../activity/event-list/event-list.component';
 import { EventDetailStageChangeComponent } from '../activity/event-detail-stage-change/event-detail-stage-change.component';
 import { EventDetailStartActivityComponent } from '../activity/event-detail-start-activity/event-detail-start-activity.component';
 import { EventDetailFinishActivityComponent } from '../activity/event-detail-finish-activity/event-detail-finish-activity.component';
-
-
-
-
-
-import { EventGeneratorComponent } from '../activity/event-generator/event-generator.component'
-import { ApplicationDataServiceService } from '../service/application-data-service.service'
-
-
+import { EventGeneratorComponent } from '../activity/event-generator/event-generator.component';
+import { ApplicationDataServiceService } from '../service/application-data-service.service';
 
 import 'rxjs/add/operator/switchMap';
 
-
 declare var rasterizeHTML: any;
-
-
 
 @Component({
   selector: 'app-activity',
   templateUrl: './activity.component.html',
   styleUrls: ['./activity.component.css']
 })
-export class ActivityComponent implements OnInit, OnDestroy {
+export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   @ViewChild('objectTree')
@@ -128,16 +115,15 @@ export class ActivityComponent implements OnInit, OnDestroy {
   }
 
   getPreviewWidth() {
-    return (window.innerWidth - 400) + "px";
+    return (window.innerWidth - 400) + 'px';
   }
+
   getPreviewHeight() {
-    return (window.innerHeight - 80) + "px";
+    return (window.innerHeight - 80) + 'px';
   }
 
 
   ngAfterViewInit() {
-
-
 
     this.appDataService.loadInitDataFromFile().then((data) => {
 
@@ -188,7 +174,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
   checkEmptyActivityData() {
     return new Promise((resolve, reject) => {
-      //데이터가 하나도 없으므로 초기화 시켜야함
+      // 데이터가 하나도 없으므로 초기화 시켜야함
       if (!this.activityData.objectList) {
 
         //1. stage 
@@ -196,20 +182,20 @@ export class ActivityComponent implements OnInit, OnDestroy {
         //3. state
 
         //1. stage
-        var stage = {
-          id: "rootStage",
-          name: "rootStage"
-        }
+        const stage = {
+          id: 'rootStage',
+          name: 'rootStage'
+        };
         this.activityData.stageList = [stage];
 
         //2. object
-        var newObject = this.appDataService.createNewObject("FrameLayout");
-        newObject.id = "root";
-        newObject['name'] = "root";
+        var newObject = this.appDataService.createNewObject('FrameLayout');
+        newObject.id = 'root';
+        newObject['name'] = 'root';
         this.activityData.objectList = [newObject];
 
         //3. state
-        var newState = this.appDataService.createNewState(newObject.id, stage.id, "FrameLayout");
+        var newState = this.appDataService.createNewState(newObject.id, stage.id, 'FrameLayout');
         this.activityData.stateList = [newState];
 
         //4. triggerEventList;
@@ -251,7 +237,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
   onCompleteEvent(event) {
 
-    console.log("onCompleteEvent");
+    // console.log("onCompleteEvent");
 
   }
 
@@ -281,11 +267,11 @@ export class ActivityComponent implements OnInit, OnDestroy {
   }
 
   captureScreen(): void {
-    var self = this;
+    const self = this;
     this.previewComponent.captureScreen().then((data) => {
 
-      var fileName = "preview/" + self.activityId + ".jpg";
-      var filePath = self.applicationFolderPath + "/" + fileName;
+      const fileName = 'preview/' + self.activityId + '.jpg';
+      const filePath = self.applicationFolderPath + '/' + fileName;
 
       self.appDataService.saveRawFile(filePath, data);
       self.activityMetaData.previewPath = fileName;
@@ -293,27 +279,50 @@ export class ActivityComponent implements OnInit, OnDestroy {
       self.saveActivityData();
 
       self.zone.run(() => {
-        console.log("will go back");
+        // console.log("will go back");
         self.location.back();
       });
     });
   }
 
 
+  onClickSendDevice(value: string): void {
+    console.log("onClickSendDevice");
+    this.saveApplicationData();
+    this.saveActivityData();
+    const self = this;
+    this.previewComponent.captureScreen().then((data) => {
+      const fileName = 'preview/' + self.activityId + '.jpg';
+      const filePath = self.applicationFolderPath + '/' + fileName;
+      self.appDataService.saveRawFile(filePath, data);
+      self.activityMetaData.previewPath = fileName;
+      self.saveApplicationData();
+      self.saveActivityData();
+      self.zone.run(() => {
+        console.log("will send data");
+        self.appDataService.sendFileToDevice();
+        // self.location.back();
+        console.log("done send data");
+      });
+    });
+  }
+
+
+
 
   clickNewObject(type: string) {
 
-    var parentObject = this.appDataService.getSelectedObject();
+    let parentObject = this.appDataService.getSelectedObject();
     if (!parentObject.children) {
       parentObject = this.appDataService.findObjectById(this.appDataService.getSelectedObject().parentId);
     }
 
-    var newObject = this.appDataService.createNewObject(type);
+    const newObject = this.appDataService.createNewObject(type);
     newObject['parentId'] = parentObject.id;
 
-    for (var i = 0; i < this.activityData.stageList.length; i++) {
-      var aStage = this.activityData.stageList[i];
-      var aState = this.appDataService.createNewState(newObject.id, this.appDataService.getSelectedStage().id, type);
+    for (let i = 0; i < this.activityData.stageList.length; i++) {
+      const aStage = this.activityData.stageList[i];
+      const aState = this.appDataService.createNewState(newObject.id, aStage.id, type);
       this.activityData.stateList.push(aState);
     }
 
@@ -328,22 +337,23 @@ export class ActivityComponent implements OnInit, OnDestroy {
     console.log("onNewStage");
     //make new stage
     //1. stage
-    var stage = this.onMakeNewStage();
+    const stage = this.onMakeNewStage();
     this.onSelectStage(stage);
   }
 
   onMakeNewStage() {
-    var now = new Date().getTime();
-    var stage = {
-      id: "stage_" + now,
-      name: "stage-" + this.activityData.stageList.length
-    }
+    const now = new Date().getTime();
+    const stage = {
+      id: 'stage_' + now,
+      name: 'stage-' + this.activityData.stageList.length
+    };
+
     this.activityData.stageList.push(stage);
-    var allStateList = this.appDataService.getAllSelectedState();
-    for (var i = 0; i < allStateList.length; i++) {
-      var aState = Object.assign({}, allStateList[i]);
+    const allStateList = this.appDataService.getAllSelectedState();
+    for (let i = 0; i < allStateList.length; i++) {
+      const aState = Object.assign({}, allStateList[i]);
       aState.stageId = stage.id;
-      aState.id = "state_" + new Date().getTime();
+      aState.id = 'state_' + new Date().getTime();
       this.activityData.stateList.push(aState);
     }
     return stage;
@@ -357,8 +367,8 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
   onSelectFile(target) {
 
-    console.log("onSelectFile = " + target);
-    var selectedObject = this.appDataService.getSelectedObject();
+    // console.log("onSelectFile = " + target);
+    const selectedObject = this.appDataService.getSelectedObject();
     if (selectedObject) {
       selectedObject.dataUrl = target;
     }
@@ -375,12 +385,13 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
 
   changeTreeData(data) {
-    console.log("changeTreeData = " + data);
+
+
   }
 
   onSelectNodeFromTree(objectId: string) {
 
-    var selectedObject = this.appDataService.findObjectById(objectId);
+    const selectedObject = this.appDataService.findObjectById(objectId);
     // console.log("onSelectNodeFromTree = " + selectedObject.id);
     this.appDataService.setSelectedObject(selectedObject);
     this.notifySelectedObjectChanged();
@@ -390,7 +401,6 @@ export class ActivityComponent implements OnInit, OnDestroy {
     console.log("onChangeNodeFromTree");
     this.saveActivityData();
   }
-
 
 
 
@@ -432,8 +442,8 @@ export class ActivityComponent implements OnInit, OnDestroy {
   }
 
   onNewEvent() {
-    //check stage count
-    if (this.activityData.stageList.length == 1) {
+    // check stage count
+    if (this.activityData.stageList.length === 1) {
       this.onMakeNewStage();
     }
     this.eventGenerator.resetData();
@@ -442,22 +452,26 @@ export class ActivityComponent implements OnInit, OnDestroy {
   }
 
   onClickDetailEvent(triggerEvent) {
-    console.log("event = " + triggerEvent.id);
+
+    console.log("onClickDetailEvent = "+JSON.stringify(triggerEvent));
+
     this.appDataService.setSelectedTriggerEvent(triggerEvent);
-    var impEvent =  this.appDataService.findImplentEventByTriggerEventId(triggerEvent.id);
-     console.log("impEvent = " + impEvent.id);
+    const impEvent = this.appDataService.findImplentEventByTriggerEventId(triggerEvent.id);
     this.appDataService.setSelectedImplementEvent(impEvent);
 
-
-
-    //notify data set changed
+    // notify data set changed
     this.notifySelectedObjectChanged();
-    console.log("end event = " + triggerEvent.id);
-
-
   }
 
 
+  onCloseEvent() {
+
+    this.appDataService.setSelectedTriggerEvent(null);
+    this.appDataService.setSelectedImplementEvent(null);
+    // notify data set changed
+    this.notifySelectedObjectChanged();
+
+  }
 
 
   onResize(event) {

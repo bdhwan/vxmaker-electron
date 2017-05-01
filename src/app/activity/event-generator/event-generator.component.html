@@ -28,7 +28,8 @@
             <div *ngIf="implementEvent" style="float: left">
                 detail event
                 <div *ngIf="implementEvent.type=='stageChange'">
-                    select target stage
+
+                    from: {{currentSelectedStageId}} select target stage
                     <select [(ngModel)]="selectedStageId" (change)="onChangeStage($event.target.value)"> 
                         <option *ngFor="let aStage of stageList" [value]="aStage.id">{{aStage.name}}</option>
                     </select>

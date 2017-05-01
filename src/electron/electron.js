@@ -360,10 +360,10 @@ function createWindow() {
         // var url = `file://${__dirname}/index.html`;
         // var url = 'file://' + path.join(__dirname, '../', 'index.html');
 
-        var url = `file://${__dirname}/index.html`;
+        var targetUrl = `file://${__dirname}/index.html`;
 
         // console.log("url = " + url);
-        win.loadURL(url);
+        win.loadURL(targetUrl);
 
         // and load the index.html of the app.
         // win.loadURL(url.format({

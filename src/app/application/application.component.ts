@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AfterViewInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import { ApplicationInfoComponent } from './application-info/application-info.component'
-import { ResourceComponent } from '../common/resource/resource.component'
-import { ApplicationDataServiceService } from '../service/application-data-service.service'
+import { ApplicationInfoComponent } from './application-info/application-info.component';
+import { ResourceComponent } from '../common/resource/resource.component';
+import { ApplicationDataServiceService } from '../service/application-data-service.service';
 
 
 import 'rxjs/add/operator/switchMap';
@@ -17,7 +17,7 @@ import 'rxjs/add/operator/switchMap';
   templateUrl: './application.component.html',
   styleUrls: ['./application.component.css']
 })
-export class ApplicationComponent implements OnInit {
+export class ApplicationComponent implements OnInit, AfterViewInit {
 
   applicationFolderPath: string;
   applicationData: any;
@@ -37,13 +37,13 @@ export class ApplicationComponent implements OnInit {
   }
 
   onClickChangeIcon(): void {
-    var newIconImagePath = this.appDataService.selectImageFile();
+    const newIconImagePath = this.appDataService.selectImageFile();
 
     if (newIconImagePath) {
-      var iconFileName = "image/ic_launcher_" + new Date().getTime() + ".png";
-      var targetPath = this.applicationFolderPath + "/" + iconFileName;
-      this.appDataService.deleteFile(this.applicationFolderPath + "/" + this.applicationData.iconPath);
-      var result = this.appDataService.copyFile(newIconImagePath, targetPath);
+      const iconFileName = 'image/ic_launcher_' + new Date().getTime() + '.png';
+      const targetPath = this.applicationFolderPath + '/' + iconFileName;
+      this.appDataService.deleteFile(this.applicationFolderPath + '/' + this.applicationData.iconPath);
+      const result = this.appDataService.copyFile(newIconImagePath, targetPath);
 
       if (result) {
         this.applicationData.iconPath = iconFileName;
@@ -60,6 +60,15 @@ export class ApplicationComponent implements OnInit {
 
 
 
+  onClickSendDevice(value: string): void {
+    console.log("onClickSendDevice");
+    this.applicationData.updatedAt = new Date().getTime();
+    this.appDataService.saveApplicationData(this.applicationData);
+    this.appDataService.sendFileToDevice();
+
+  };
+
+
   ngAfterViewInit() {
 
   }
@@ -67,18 +76,18 @@ export class ApplicationComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log("application compononent ng on init");
+    console.log('application compononent ng on init');
 
     this.applicationFolderPath = this.route.snapshot.params['applicationFolderPath'];
 
-    console.log("this.applicationFolderPath =" + this.applicationFolderPath);
+    console.log('this.applicationFolderPath =' + this.applicationFolderPath);
     this.appDataService.initApplicationPath(this.applicationFolderPath);
     this.appDataService.loadApplicationData().then((result) => {
       this.applicationData = this.appDataService.getApplicationData();
-      console.log("applicationData-" + JSON.stringify(this.applicationData));
+      console.log('applicationData-' + JSON.stringify(this.applicationData));
       this.checkInitProcess();
     }).catch((err) => {
-      console.log("err-" + JSON.stringify(err));
+      console.log('err-' + JSON.stringify(err));
       this.noProject();
     });
 
@@ -94,30 +103,24 @@ export class ApplicationComponent implements OnInit {
   }
 
   noProject() {
-    alert("No app data");
+    alert('No app data');
     this.appDataService.removeRecentProjectList();
     this.router.navigate(['/init']);
   }
 
 
   clickNewActivity(): void {
-    var now = new Date().getTime();
-    var activityId = "activity_" + now;
-    var newActivityMetaData = {
+    const now = new Date().getTime();
+    const activityId = 'activity_' + now;
+    const newActivityMetaData = {
       activityId: activityId,
-      activityName: "UntitledActivityName",
+      activityName: 'UntitledActivityName',
       createdAt: now,
       updatedAt: now
-    }
-    var newActivityData = {
-      activityId: activityId,
-      objects: [],
-      anims: [],
-      stages: [],
-      states: [],
-      events: [],
-      triggers: []
-    }
+    };
+    const newActivityData = {
+      activityId: activityId
+    };
 
     this.applicationData.activityList.push(newActivityMetaData);
 
@@ -136,10 +139,9 @@ export class ApplicationComponent implements OnInit {
 
   clickDeleteActivity(activityId): void {
 
-    var result = confirm("will you delete? =" + activityId);
+    const result = confirm('will you delete? =' + activityId);
     if (result) {
-      var index = this.findActivityPosition(activityId);
-      console.log("index = " + index);
+      const index = this.findActivityPosition(activityId);
       this.applicationData.activityList.splice(index, 1);
 
       this.appDataService.deleteActivity(activityId);
@@ -148,8 +150,8 @@ export class ApplicationComponent implements OnInit {
   }
 
   findActivityPosition(activityId): any {
-    for (var i = 0; i < this.applicationData.activityList.length; i++) {
-      if (this.applicationData.activityList[i].activityId == activityId) {
+    for (let i = 0; i < this.applicationData.activityList.length; i++) {
+      if (this.applicationData.activityList[i].activityId === activityId) {
         return i;
       }
     }
@@ -159,14 +161,14 @@ export class ApplicationComponent implements OnInit {
   clickDuplicateActivity(activityId): void {
 
 
-    var index = this.findActivityPosition(activityId);
+    const index = this.findActivityPosition(activityId);
 
-    var now = new Date().getTime();
-    var newActivityId = "activity_" + now;
+    const now = new Date().getTime();
+    const newActivityId = 'activity_' + now;
 
-    var newObject = JSON.parse(JSON.stringify(this.applicationData.activityList[index]));
+    const newObject = JSON.parse(JSON.stringify(this.applicationData.activityList[index]));
     newObject.activityId = newActivityId;
-    newObject.activityName = "Copy_" + newObject.activityName;
+    newObject.activityName = 'Copy_' + newObject.activityName;
     newObject.createdAt = now;
     newObject.updatedAt = now;
 
@@ -190,8 +192,8 @@ export class ApplicationComponent implements OnInit {
 
 
   clickResource() {
-    console.log("clickResource");
-    this.resourceDialog.showDialog("image");
+    console.log('clickResource');
+    this.resourceDialog.showDialog('image');
   }
 
   onSelectFile(target) {

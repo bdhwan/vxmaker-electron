@@ -1,8 +1,8 @@
 <div *ngIf="!selectedTriggerEvent">
     <div *ngIf="triggerEventList">
         {{triggerEventList.length}}
-        <div *ngFor="let event of triggerEventList" (click)="clickDetailEvent(event)">
-            {{event.name}} - {{getImplement(event.id).name}}
+        <div *ngFor="let aEvent of triggerEventList" (click)="clickDetailEvent(aEvent)">
+            {{aEvent.name}} - {{getImplement(aEvent.id).name}}
         </div>
     </div>
     <button (click)="clickNewEvent()">New Event</button>

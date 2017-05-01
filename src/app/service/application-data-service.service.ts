@@ -31,6 +31,8 @@ export class ApplicationDataServiceService {
   imageResourceList;
   fileResourceList;
 
+  deviceList = [];
+
 
 
   zoom = 0.2;
@@ -64,14 +66,14 @@ export class ApplicationDataServiceService {
   }
 
   removeRecentProjectList() {
-    var temp = {
+    const temp = {
       'applicationFolderPath': this.applicationFolderPath
-    }
+    };
     electron.ipcRenderer.sendSync('remove-recent-project-list', temp);
   }
 
   addRecentProjectList(applicationName) {
-    var historyData = {
+    const historyData = {
       applicationFolderPath: this.applicationFolderPath,
       applicationName: applicationName,
     }
@@ -83,15 +85,15 @@ export class ApplicationDataServiceService {
   }
 
   saveApplicationData(applicationData) {
-    electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + "/app.json", applicationData);
+    electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + '/app.json', applicationData);
   }
 
   saveActivityData(activityId, activityData) {
-    electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + "/activity/" + activityId + ".json", activityData);
+    electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + '/activity/' + activityId + '.json', activityData);
   }
 
   deleteActivity(activityId) {
-    electron.ipcRenderer.sendSync('delete-file', this.applicationFolderPath + "/activity/" + activityId + ".json");
+    electron.ipcRenderer.sendSync('delete-file', this.applicationFolderPath + '/activity/' + activityId + '.json');
   }
 
   selectImageFile() {
@@ -126,10 +128,10 @@ export class ApplicationDataServiceService {
 
 
   makeSmallEnglish(origin) {
-    var result = this.makeEnglish(origin.toLowerCase());
+    let result = this.makeEnglish(origin.toLowerCase());
     if (!isNaN(parseInt(result[0], 10)) || result.length == 0 || result.startsWith('_')) {
       // Is a number
-      result = "image" + result;
+      result = 'image' + result;
     }
     return result;
   }
@@ -145,16 +147,16 @@ export class ApplicationDataServiceService {
     if (prefix) {
       return this.getUniqueName(targetList, this.makeSmallEnglish(prefix));
     } else {
-      return this.getUniqueName(targetList, "id_");
+      return this.getUniqueName(targetList, 'id_');
     }
   }
 
 
   getUniqueName(targetList, origin) {
-    var result = origin;
-    var indexId = 0;
+    let result = origin;
+    let indexId = 0;
     while (this.contains(targetList, result)) {
-      result = origin + "_" + indexId;
+      result = origin + '_' + indexId;
       indexId++;
     }
     targetList.push(result);
@@ -163,15 +165,15 @@ export class ApplicationDataServiceService {
 
 
   getUniqueImageName(path) {
-    var name = this.getFileName(path);
-    var ext = this.getFileExt(path);
+    let name = this.getFileName(path);
+    const ext = this.getFileExt(path);
     name = this.getUniuqeId(this.imageResourceList, name);
     return name + ext;
   }
 
   getUniqueFileName(path) {
-    var name = this.getFileName(path);
-    var ext = this.getFileExt(path);
+    let name = this.getFileName(path);
+    const ext = this.getFileExt(path);
     name = this.getUniuqeId(this.fileResourceList, name);
     return name + ext;
 
@@ -181,7 +183,7 @@ export class ApplicationDataServiceService {
 
 
   contains(list, obj) {
-    var i = list.length;
+    let i = list.length;
     while (i--) {
       if (this[i] === obj) {
         return true;
@@ -215,7 +217,7 @@ export class ApplicationDataServiceService {
   getHttpToJson(targetUrl) {
     return new Promise((resolve, reject) => {
       this.http.get(targetUrl).subscribe(res => {
-        var data = res.json();
+        let data = res.json();
         resolve(data);
       });
     });
@@ -225,21 +227,29 @@ export class ApplicationDataServiceService {
     return new Promise((resolve, reject) => {
       //오브젝트 타입 정보 불러오기
       this.getHttpToJson('assets/object/object.json').then((data: any) => {
-        var reqeustList = [];
-        for (var i = 0; i < data.objectType.length; i++) {
+        const reqeustList = [];
+        for (let i = 0; i < data.objectType.length; i++) {
           reqeustList.push(this.getHttpToJson('assets/object/' + data.objectType[i]));
         }
         this.defaultStateData = data.defaultState;
         return Promise.all(reqeustList);
       }).then((results: any) => {
-        // console.log("results =" + JSON.stringify(results));
+        // console.log('results =' + JSON.stringify(results));
         this.objectTypeData = results;
         resolve(true);
       }).catch(function (err) {
-        console.log("catch = " + JSON.stringify(err));
+        console.log('catch = ' + JSON.stringify(err));
         reject(err);
       });;
     });
+  }
+
+  refreshDeviceList() {
+    this.deviceList = electron.ipcRenderer.sendSync('get-device-list');
+  }
+
+  getDeviceList() {
+    return this.deviceList;
   }
 
 
@@ -250,6 +260,7 @@ export class ApplicationDataServiceService {
   getDefaultStateData() {
     return this.defaultStateData;
   }
+
 
 
   getApplicationData() {
@@ -264,26 +275,46 @@ export class ApplicationDataServiceService {
     return this.activityData;
   }
 
+  getObjectList() {
+    return this.getAllObjectList(this.activityData.objectList);
+  }
+
+  getAllObjectList(targetList) {
+    const result = [];
+    for (let i = 0; i < targetList.length; i++) {
+      const aObject = targetList[i];
+      result.push(aObject);
+      if (aObject.children && aObject.children.length > 0) {
+        const childResult = this.getAllObjectList(aObject.children);
+        for (let j = 0; j < childResult.length; j++) {
+          result.push(childResult[j]);
+        }
+      }
+    }
+    return result;
+
+  }
+
   saveRawFile(filePath, data) {
     electron.ipcRenderer.sendSync('save-raw-data', filePath, data);
   }
 
   loadApplicationData() {
 
-    console.log("loadApplicationData -" + this.applicationFolderPath);
+    console.log('loadApplicationData -' + this.applicationFolderPath);
     return new Promise((resolve, reject) => {
-      this.applicationData = electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + "/app.json");
+      this.applicationData = electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + '/app.json');
 
-      console.log("loadApplicationData done -" + JSON.stringify(this.applicationData));
-      for (var i = 0; i < this.applicationData.activityList.length; i++) {
-        var activity = this.applicationData.activityList[i];
+      console.log('loadApplicationData done -' + JSON.stringify(this.applicationData));
+      for (let i = 0; i < this.applicationData.activityList.length; i++) {
+        const activity = this.applicationData.activityList[i];
         if (activity.activityId === this.activityId) {
           this.activityMetaData = activity;
           break;
         }
       }
-      console.log("will read = this.activityId =" + this.activityId);
-      this.activityData = electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + "/activity/" + this.activityId + ".json");
+      console.log('will read = this.activityId =' + this.activityId);
+      this.activityData = electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + '/activity/' + this.activityId + '.json');
       resolve(true);
     });
   }
@@ -346,9 +377,9 @@ export class ApplicationDataServiceService {
 
 
   createNewState(objectId: string, stageId: string, type: string) {
-    var now = new Date().getTime();
-    var newState = {
-      id: "state_" + now,
+    const now = new Date().getTime();
+    const newState = {
+      id: 'state_' + now,
       objectId: objectId,
       stageId: stageId,
       width: 1440,
@@ -367,13 +398,13 @@ export class ApplicationDataServiceService {
       scaleY: 1,
       rotate: 0,
       alpha: 1,
-    }
+    };
 
 
     //fetch default state value
-    var defaultObject = this.findObjectBasicDataByType(type);
-    for (var i = 0; i < defaultObject.stateProperties.length; i++) {
-      var aProperty = defaultObject.stateProperties[i];
+    const defaultObject = this.findObjectBasicDataByType(type);
+    for (let i = 0; i < defaultObject.stateProperties.length; i++) {
+      const aProperty = defaultObject.stateProperties[i];
       newState[aProperty.name] = aProperty.default;
     }
 
@@ -381,9 +412,9 @@ export class ApplicationDataServiceService {
   }
 
   findObjectBasicDataByType(type: string) {
-    for (var i = 0; i < this.objectTypeData.length; i++) {
-      var aData = this.objectTypeData[i];
-      if (type == aData.type) {
+    for (let i = 0; i < this.objectTypeData.length; i++) {
+      const aData = this.objectTypeData[i];
+      if (type === aData.type) {
         return aData;
       }
     }
@@ -392,9 +423,9 @@ export class ApplicationDataServiceService {
 
   findImplentEventByTriggerEventId(triggerEventId: string) {
 
-    for (var i = 0; i < this.activityData.implementEventList.length; i++) {
-      var aEvent = this.activityData.implementEventList[i];
-      if (aEvent.triggerEventId == triggerEventId) {
+    for (let i = 0; i < this.activityData.implementEventList.length; i++) {
+      const aEvent = this.activityData.implementEventList[i];
+      if (aEvent.triggerEventId === triggerEventId) {
         return aEvent;
       }
     }
@@ -405,10 +436,10 @@ export class ApplicationDataServiceService {
 
   findStateChangeEventByImplementEventId(implementEventId: string) {
 
-    var result = [];
-    for (var i = 0; i < this.activityData.stateEventList.length; i++) {
-      var aEvent = this.activityData.stateEventList[i];
-      if (aEvent.implementEventId == implementEventId) {
+    const result = [];
+    for (let i = 0; i < this.activityData.stateEventList.length; i++) {
+      const aEvent = this.activityData.stateEventList[i];
+      if (aEvent.implementEventId === implementEventId) {
         result.push(aEvent);
       }
     }
@@ -421,13 +452,13 @@ export class ApplicationDataServiceService {
   }
 
   findObjectByIdWithList(targetList: any, objectId: string) {
-    for (var i = 0; i < targetList.length; i++) {
-      var aObject = targetList[i];
-      if (aObject.id == objectId) {
+    for (let i = 0; i < targetList.length; i++) {
+      const aObject = targetList[i];
+      if (aObject.id === objectId) {
         return aObject;
       }
       if (aObject.children && aObject.children.length > 0) {
-        var childResult = this.findObjectByIdWithList(aObject.children, objectId);
+        const childResult = this.findObjectByIdWithList(aObject.children, objectId);
         if (childResult) {
           return childResult;
         }
@@ -442,10 +473,10 @@ export class ApplicationDataServiceService {
   }
 
   findAllStateByObjectId(objectId: string) {
-    var result = [];
-    for (var i = 0; i < this.activityData.stateList.length; i++) {
-      var aState = this.activityData.stateList[i];
-      if (aState.objectId == objectId) {
+    const result = [];
+    for (let i = 0; i < this.activityData.stateList.length; i++) {
+      const aState = this.activityData.stateList[i];
+      if (aState.objectId === objectId) {
         result.push(aState);
       }
     }
@@ -453,10 +484,10 @@ export class ApplicationDataServiceService {
   }
 
   findAllStateByStageId(stageId: string) {
-    var result = [];
-    for (var i = 0; i < this.activityData.stateList.length; i++) {
-      var aState = this.activityData.stateList[i];
-      if (aState.stageId == stageId) {
+    const result = [];
+    for (let i = 0; i < this.activityData.stateList.length; i++) {
+      const aState = this.activityData.stateList[i];
+      if (aState.stageId === stageId) {
         result.push(aState);
       }
     }
@@ -469,9 +500,9 @@ export class ApplicationDataServiceService {
   }
 
   findStateByObjectIdWithList(targetList: any, objectId: string, stageId: string) {
-    for (var i = 0; i < targetList.length; i++) {
-      var aState = targetList[i];
-      if (aState.objectId == objectId && aState.stageId == stageId) {
+    for (let i = 0; i < targetList.length; i++) {
+      const aState = targetList[i];
+      if (aState.objectId === objectId && aState.stageId === stageId) {
         return aState;
       }
     }
@@ -482,15 +513,15 @@ export class ApplicationDataServiceService {
 
   createNewObject(type) {
 
-    var defaultObject = this.findObjectBasicDataByType(type);
-    var now = new Date().getTime();
-    var newObject = {
-      id: "object_" + now,
+    const defaultObject = this.findObjectBasicDataByType(type);
+    const now = new Date().getTime();
+    const newObject = {
+      id: 'object_' + now,
       canHaveChildren: false
     };
 
-    for (var i = 0; i < defaultObject.objectProperties.length; i++) {
-      var aProperty = defaultObject.objectProperties[i];
+    for (let i = 0; i < defaultObject.objectProperties.length; i++) {
+      const aProperty = defaultObject.objectProperties[i];
       newObject[aProperty.name] = aProperty.default;
     }
 
@@ -513,29 +544,29 @@ export class ApplicationDataServiceService {
 
 
   getObjectStyle(state) {
-    var tempObjectData = this.findObjectById(state.objectId);
-    var objectStyle = {
-      "position": "absolute",
-      'width': state.width * this.zoom + "px",
-      'height': state.height * this.zoom + "px",
+    const tempObjectData = this.findObjectById(state.objectId);
+    const objectStyle = {
+      'position': 'absolute',
+      'width': state.width * this.zoom + 'px',
+      'height': state.height * this.zoom + 'px',
       'background-color': tempObjectData.backgroundColor,
       'opacity': state.alpha * 0.8,
-      'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + "px",
-      'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + "px",
+      'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
+      'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
     }
     return objectStyle;
   }
 
 
   getSelectedObjectStyle(state) {
-    var tempObjectData = this.findObjectById(state.objectId);
-    var objectStyle = {
-      "position": "absolute",
-      'width': state.width * this.zoom + "px",
-      'height': state.height * this.zoom + "px",
-      'border': "1px solid gold",
-      'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + "px",
-      'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + "px",
+    const tempObjectData = this.findObjectById(state.objectId);
+    const objectStyle = {
+      'position': 'absolute',
+      'width': state.width * this.zoom + 'px',
+      'height': state.height * this.zoom + 'px',
+      'border': '1px solid gold',
+      'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
+      'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
     }
     return objectStyle;
   }
@@ -544,30 +575,28 @@ export class ApplicationDataServiceService {
 
   getParentMarginLeft(targetObjectId) {
 
-    var targetObject = this.findObjectById(targetObjectId);
-    var tempState = this.findStateByObjectId(targetObjectId);
-    if (targetObjectId == 'root') {
+    const targetObject = this.findObjectById(targetObjectId);
+    const tempState = this.findStateByObjectId(targetObjectId);
+    if (targetObjectId === 'root') {
       return Number(tempState.marginLeft);
-    }
-    else {
+    } else {
       return Number(tempState.marginLeft) + this.getParentMarginLeft(targetObject.parentId);
     }
   }
 
   getParentMarginTop(targetObjectId) {
-    var targetObject = this.findObjectById(targetObjectId);
-    var tempState = this.findStateByObjectId(targetObject.id);
+    const targetObject = this.findObjectById(targetObjectId);
+    const tempState = this.findStateByObjectId(targetObject.id);
     if (targetObjectId == 'root') {
       return Number(tempState.marginTop);
-    }
-    else {
+    } else {
       return Number(tempState.marginTop) + this.getParentMarginTop(targetObject.parentId);
     }
   }
 
   getMarginLeft(state, objectData) {
-    var totalMargin = state.marginLeft;
-    if (objectData.id != 'root') {
+    let totalMargin = state.marginLeft;
+    if (objectData.id !== 'root') {
       totalMargin = Number(state.marginLeft) + this.getParentMarginLeft(objectData.parentId);
     }
     return totalMargin;
@@ -575,8 +604,8 @@ export class ApplicationDataServiceService {
 
 
   getMarginTop(state, objectData) {
-    var totalMargin = state.marginTop;
-    if (objectData.id != 'root') {
+    let totalMargin = state.marginTop;
+    if (objectData.id !== 'root') {
       totalMargin = Number(state.marginTop) + this.getParentMarginTop(objectData.parentId);
     }
     return totalMargin;
@@ -589,9 +618,9 @@ export class ApplicationDataServiceService {
 
   loadFileResourceList() {
     return new Promise((resolve, reject) => {
-      this.fileResourceList = electron.ipcRenderer.sendSync('get-file-list', this.applicationFolderPath + "/file");
-      for (var i = 0; i < this.fileResourceList.length; i++) {
-        this.fileResourceList[i] = "file/" + this.fileResourceList[i];
+      this.fileResourceList = electron.ipcRenderer.sendSync('get-file-list', this.applicationFolderPath + '/file');
+      for (let i = 0; i < this.fileResourceList.length; i++) {
+        this.fileResourceList[i] = 'file/' + this.fileResourceList[i];
       }
       resolve(this.fileResourceList);
     });
@@ -605,19 +634,32 @@ export class ApplicationDataServiceService {
 
 
   loadImageResourceList() {
-    console.log("loadImageResourceList");
     return new Promise((resolve, reject) => {
-      this.imageResourceList = electron.ipcRenderer.sendSync('get-file-list', this.applicationFolderPath + "/image");
-      console.log("from electron = " + JSON.stringify(this.imageResourceList));
+      this.imageResourceList = electron.ipcRenderer.sendSync('get-file-list', this.applicationFolderPath + '/image');
+      console.log('from electron = ' + JSON.stringify(this.imageResourceList));
       if (!this.imageResourceList) {
         this.imageResourceList = [];
       }
-      for (var i = 0; i < this.imageResourceList.length; i++) {
-        this.imageResourceList[i] = "image/" + this.imageResourceList[i];
+      for (let i = 0; i < this.imageResourceList.length; i++) {
+        this.imageResourceList[i] = 'image/' + this.imageResourceList[i];
       }
       resolve(this.imageResourceList);
     });
-
   }
+
+  sendFileToDevice() {
+    return new Promise((resolve, reject) => {
+      const tarFilePath = electron.ipcRenderer.sendSync('tar-folder', this.applicationFolderPath);
+      const sendResult = electron.ipcRenderer.sendSync('send-file-to-device', tarFilePath, this.deviceList[0], '/sdcard/vxmaker/vxmfiles/' + this.getFileName(this.applicationFolderPath) + '.tar');
+      if (sendResult) {
+        resolve(true);
+      } else {
+        reject(false);
+      }
+  });
+  }
+
+
+
 
 }

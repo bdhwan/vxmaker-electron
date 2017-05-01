@@ -1,8 +1,14 @@
 <div *ngIf="selectedImplementEvent">
     <div *ngIf="selectedImplementEvent.type=='stageChange'">
-        event-detail-stage-change works!---{{selectedImplementEvent.type}}
-        <div *ngFor="let aStateEvent of stateEventList">{{aStateEvent.id}}</div>
+        {{selectedImplementEvent.type}}- {{stateEventList.length}}
+        <div *ngFor="let aStateEvent of stateEventList">
+            {{getObjectName(aStateEvent.objectId).name}}, {{aStateEvent.duration}}, {{aStateEvent.startDelay}}, {{aStateEvent.cubicValue}}
 
+            <input type="checkbox" [checked]="aStateEvent.isEnabled" (change)="aStateEvent.isEnabled = !aStateEvent.isEnabled" />
+
+
+        </div>
         <button (click)="clickAddAfterAnimation()">AfterAnimation</button>
+        <button (click)="clickCancel()">Cancel</button>
     </div>
 </div>
