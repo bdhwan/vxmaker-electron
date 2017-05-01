@@ -17,26 +17,24 @@ export class ObjectTreeComponent implements OnInit {
   private tree: TreeComponent;
 
 
+  options = {
+    allowDrag: true,
+    allowDrop: (element, to) => {
+      return to.parent.hasChildren;
+    }
+  };
+
+  nodes = [];
+  selectedNode;
+
+
   @Output() onSelectNode = new EventEmitter<string>();
   @Output() onChangeNode = new EventEmitter<string>();
 
 
   constructor(private appDataService: ApplicationDataServiceService) { }
 
-  options = {
-    allowDrag: true,
-    allowDrop: (element, to) => {
-      return to.parent.hasChildren;
-    }
-  }
 
-
-
-  nodes = [];
-
-
-
-  selectedNode;
 
   selectNode($event): void {
     // console.log("select data = " + JSON.stringify(Object.keys(event.node.data)));
@@ -85,39 +83,24 @@ export class ObjectTreeComponent implements OnInit {
   }
 
   public initObjectData(): void {
-    
+
     this.nodes = this.appDataService.getActivityData().objectList;
     this.tree.treeModel.update();
     //  this.tree.
     if (!this.selectedNode) {
-      var target = this.nodes[0];
+      const target = this.nodes[0];
       this.tree.treeModel._setActiveNodeSingle(target, true);
       this.selectedNode = target;
       this.onSelectNode.emit(this.selectedNode.id);
     }
 
-    this.tree.treeModel.expandAll();
+    const self = this;
 
+    setTimeout(function () {
+      console.log('will expand all');
+      self.expandAll();
+    }, 10);
   }
-
-  // public setObjectData(data): void {
-  //   this.nodes = data;
-  //   this.tree.treeModel.update();
-
-
-  //   //  this.tree.
-  //   if (!this.selectedNode) {
-  //     var target = this.nodes[0];
-  //     this.tree.treeModel._setActiveNodeSingle(target, true);
-  //     this.selectedNode = target;
-  //     this.onSelectNode.emit(this.selectedNode.id);
-  //   }
-
-  //   this.tree.treeModel.expandAll();
-
-  // }
-
-
 
 
 }

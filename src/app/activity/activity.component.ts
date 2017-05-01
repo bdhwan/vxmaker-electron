@@ -110,8 +110,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.appDataService.initApplicationPath(this.applicationFolderPath);
     this.appDataService.initActivityId(this.activityId);
-
-
   }
 
   getPreviewWidth() {
@@ -216,6 +214,10 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
+  clickText() {
+    console.log("clickText");
+    this.objectTreeComponent.expandAll();
+  }
 
 
 
@@ -453,7 +455,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onClickDetailEvent(triggerEvent) {
 
-    console.log("onClickDetailEvent = "+JSON.stringify(triggerEvent));
+    console.log("onClickDetailEvent = " + JSON.stringify(triggerEvent));
 
     this.appDataService.setSelectedTriggerEvent(triggerEvent);
     const impEvent = this.appDataService.findImplentEventByTriggerEventId(triggerEvent.id);

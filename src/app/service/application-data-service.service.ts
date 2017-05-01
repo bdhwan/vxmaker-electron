@@ -517,7 +517,8 @@ export class ApplicationDataServiceService {
     const now = new Date().getTime();
     const newObject = {
       id: 'object_' + now,
-      canHaveChildren: false
+      canHaveChildren: false,
+      isExpanded: true
     };
 
     for (let i = 0; i < defaultObject.objectProperties.length; i++) {
