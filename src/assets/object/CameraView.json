@@ -1,0 +1,37 @@
+{
+    "name": "CameraView",
+    "type": "CameraView",
+    "objectProperties": [{
+            "name": "type",
+            "type": "string",
+            "default": "CameraView"
+        },
+        {
+            "name": "name",
+            "type": "string",
+            "default": "CameraView"
+        },
+        {
+            "name": "frontCamera",
+            "type": "boolean",
+            "default": false
+        },
+        {
+            "name": "canHaveChildren",
+            "type": "boolean",
+            "default": false
+        }
+    ],
+    "stateProperties": [{
+            "name": "width",
+            "type": "int",
+            "default": 600
+        },
+        {
+            "name": "height",
+            "type": "int",
+            "default": 800
+        }
+    ]
+
+}

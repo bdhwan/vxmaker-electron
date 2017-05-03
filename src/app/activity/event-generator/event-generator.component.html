@@ -20,6 +20,13 @@
                 <button (click)="clickImplement('stageChange')">stageChange</button>
                 <button (click)="clickImplement('startActivity')">startActivity</button>
                 <button (click)="clickImplement('finishActivity')">finishActivity</button>
+
+                <div>-----Lottie-------</div>
+                <button (click)="clickImplement('startLottie')">startLottie</button>
+                <button (click)="clickImplement('stopLottie')">stopLottie</button>
+
+                <div>-----Camera-------</div>
+                <button (click)="clickImplement('takePicture')">takePicture</button>
             </div>
 
 
@@ -43,6 +50,23 @@
                 <div *ngIf="implementEvent.type=='finishActivity'">
                     will finish activity
                 </div>
+
+
+                Lottie
+                <div *ngIf="implementEvent.type=='startLottie'">
+                    select Lottie to start
+                </div>
+
+                <div *ngIf="implementEvent.type=='stopLottie'">
+                    select Lottie to start
+                </div>
+
+                -----Camera-------
+                <div *ngIf="implementEvent.type=='takePicture'">
+                    select view to picture
+                </div>
+
+
             </div>
 
 

@@ -4,7 +4,8 @@
         "RelativeLayout.json",
         "ImageView.json",
         "TextView.json",
-        "LottieView.json"
+        "LottieView.json",
+        "CameraView.json"
     ],
     "defaultState": {
         "width": 1440,
