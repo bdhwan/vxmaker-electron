@@ -20,6 +20,16 @@
             "name": "canHaveChildren",
             "type": "boolean",
             "default": false
+        },
+        {
+            "name": "loop",
+            "type": "boolean",
+            "default": true
+        },
+        {
+            "name": "autoPlay",
+            "type": "boolean",
+            "default": true
         }
     ],
     "stateProperties": [{

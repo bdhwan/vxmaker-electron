@@ -5,6 +5,8 @@ import { Location } from '@angular/common';
 import { ApplicationInfoComponent } from './application-info/application-info.component';
 import { ResourceComponent } from '../common/resource/resource.component';
 import { ApplicationDataServiceService } from '../service/application-data-service.service';
+import { UUID } from 'angular2-uuid';
+
 
 
 import 'rxjs/add/operator/switchMap';
@@ -61,7 +63,6 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
 
 
   onClickSendDevice(value: string): void {
-    console.log("onClickSendDevice");
     this.applicationData.updatedAt = new Date().getTime();
     this.appDataService.saveApplicationData(this.applicationData);
     this.appDataService.sendFileToDevice();
@@ -111,7 +112,7 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
 
   clickNewActivity(): void {
     const now = new Date().getTime();
-    const activityId = 'activity_' + now;
+    const activityId = 'activity_' + UUID.UUID();
     const newActivityMetaData = {
       activityId: activityId,
       activityName: 'UntitledActivityName',
@@ -164,7 +165,7 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
     const index = this.findActivityPosition(activityId);
 
     const now = new Date().getTime();
-    const newActivityId = 'activity_' + now;
+    const newActivityId = 'activity_' + UUID.UUID();
 
     const newObject = JSON.parse(JSON.stringify(this.applicationData.activityList[index]));
     newObject.activityId = newActivityId;

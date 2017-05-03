@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ApplicationDataServiceService } from '../../service/application-data-service.service'
+import { UUID } from 'angular2-uuid';
+
 
 @Component({
   selector: 'app-event-generator',
@@ -67,7 +69,7 @@ export class EventGeneratorComponent implements OnInit {
 
 
   clickTrigger(target) {
-    const id = 'trigger_' + new Date().getTime();
+    const id = 'trigger_' + UUID.UUID();
     this.triggerEvent = {
       id: id,
       stageId: this.currentSelectedStageId,
@@ -79,7 +81,7 @@ export class EventGeneratorComponent implements OnInit {
 
 
   clickImplement(target) {
-    const id = 'implement_' + new Date().getTime();
+    const id = 'implement_' + UUID.UUID();
     this.implementEvent = {
       id: id,
       triggerEventId: this.triggerEvent.id,
@@ -102,9 +104,6 @@ export class EventGeneratorComponent implements OnInit {
 
     this.appDataService.getActivityData().triggerEventList.push(this.triggerEvent);
 
-
-    console.log("trigger = " + JSON.stringify(this.appDataService.getActivityData().triggerEventList));
-
     if (this.implementEvent.type === 'stageChange') {
       this.implementEvent.toStageId = this.selectedStageId;
       this.implementEvent.fromStageId = this.currentSelectedStageId;
@@ -116,7 +115,7 @@ export class EventGeneratorComponent implements OnInit {
         const duration = 300;
         const startDelay = 0;
         const cubicValue = [];
-        const now = new Date().getTime();
+        const now = UUID.UUID();
         const stateEvent = {
           id: 'state_event_' + now,
           implementEventId: this.implementEvent.id,

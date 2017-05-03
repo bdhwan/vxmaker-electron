@@ -49,7 +49,7 @@ export class NewApplicationComponent implements OnInit {
       return;
     }
 
-    var applicationFolder = this.workspaceFolderPath + "/" + this.applicationName;
+    const applicationFolder = this.workspaceFolderPath + '/' + this.applicationName;
     electron.ipcRenderer.sendSync('make-folder', applicationFolder);
     electron.ipcRenderer.sendSync('make-folder', applicationFolder + "/activity");
     electron.ipcRenderer.sendSync('make-folder', applicationFolder + "/image");
@@ -57,23 +57,23 @@ export class NewApplicationComponent implements OnInit {
     electron.ipcRenderer.sendSync('make-folder', applicationFolder + "/export");
     electron.ipcRenderer.sendSync('make-folder', applicationFolder + "/preview");
 
-    electron.ipcRenderer.sendSync('copy-from-root-file',"template/source_template/ic_launcher.png" ,applicationFolder + "/image/ic_launcher.png");
+    electron.ipcRenderer.sendSync('copy-from-root-file', 'template/source_template/ic_launcher.png' ,applicationFolder + "/image/ic_launcher.png");
 
 
 
-    var now = new Date().getTime();
-    var data = {
+    const now = new Date().getTime();
+    const data = {
       createdAt: now,
       updatedAt: now,
       applicationName: this.applicationName,
-      applicationId:"com.altamirasoft."+this.applicationName,
-      iconPath:"image/ic_launcher.png",
+      applicationId: 'com.altamirasoft.' + this.applicationName,
+      iconPath: 'image/ic_launcher.png',
       activityList: [],
-      imageList:[],
-      fileList:[]
-    }
+      imageList: [],
+      fileList: []
+    };
 
-    var filePath = applicationFolder + "/app.json";
+    const filePath = applicationFolder + '/app.json';
     electron.ipcRenderer.sendSync('save-file-data', filePath, data);
     this.router.navigate(['/application', applicationFolder]);
 

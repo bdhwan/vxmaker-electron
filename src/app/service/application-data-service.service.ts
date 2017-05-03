@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { UUID } from 'angular2-uuid';
+
 declare var electron: any;
 
 
@@ -377,9 +379,8 @@ export class ApplicationDataServiceService {
 
 
   createNewState(objectId: string, stageId: string, type: string) {
-    const now = new Date().getTime();
     const newState = {
-      id: 'state_' + now,
+      id: 'state_' + UUID.UUID(),
       objectId: objectId,
       stageId: stageId,
       width: 1440,
@@ -401,7 +402,7 @@ export class ApplicationDataServiceService {
     };
 
 
-    //fetch default state value
+    // fetch default state value
     const defaultObject = this.findObjectBasicDataByType(type);
     for (let i = 0; i < defaultObject.stateProperties.length; i++) {
       const aProperty = defaultObject.stateProperties[i];
@@ -514,9 +515,8 @@ export class ApplicationDataServiceService {
   createNewObject(type) {
 
     const defaultObject = this.findObjectBasicDataByType(type);
-    const now = new Date().getTime();
     const newObject = {
-      id: 'object_' + now,
+      id: 'object_' + UUID.UUID(),
       canHaveChildren: false,
       isExpanded: true
     };

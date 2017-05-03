@@ -14,6 +14,8 @@ import { EventDetailStartActivityComponent } from '../activity/event-detail-star
 import { EventDetailFinishActivityComponent } from '../activity/event-detail-finish-activity/event-detail-finish-activity.component';
 import { EventGeneratorComponent } from '../activity/event-generator/event-generator.component';
 import { ApplicationDataServiceService } from '../service/application-data-service.service';
+import { UUID } from 'angular2-uuid';
+
 
 import 'rxjs/add/operator/switchMap';
 
@@ -344,9 +346,8 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onMakeNewStage() {
-    const now = new Date().getTime();
     const stage = {
-      id: 'stage_' + now,
+      id: 'stage_' + UUID.UUID(),
       name: 'stage-' + this.activityData.stageList.length
     };
 
@@ -355,7 +356,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     for (let i = 0; i < allStateList.length; i++) {
       const aState = Object.assign({}, allStateList[i]);
       aState.stageId = stage.id;
-      aState.id = 'state_' + new Date().getTime();
+      aState.id = 'state_' + UUID.UUID();
       this.activityData.stateList.push(aState);
     }
     return stage;
