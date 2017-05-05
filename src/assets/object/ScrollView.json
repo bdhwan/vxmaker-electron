@@ -1,36 +1,42 @@
 {
-    "name": "ImageView",
-    "type": "ImageView",
+    "name": "ScrollView",
+    "type": "ScrollView",
     "objectProperties": [{
             "name": "type",
             "type": "string",
-            "default": "ImageView"
+            "default": "ScrollView"
         },
         {
             "name": "name",
             "type": "string",
-            "default": "ImageView"
+            "default": "ScrollView"
+        },
+
+        {
+            "name": "backgroundColor",
+            "type": "string",
+            "default": "#009900"
         },
         {
-            "name": "dataUrl",
+            "name": "backgroundImage",
             "type": "string",
             "default": null
         },
         {
             "name": "canHaveChildren",
             "type": "boolean",
-            "default": false
+            "default": true
         }
     ],
     "stateProperties": [{
             "name": "width",
             "type": "int",
-            "default": 200
+            "default": 1440
         },
         {
             "name": "height",
             "type": "int",
-            "default": 200
+            "default": 2560
         }
     ]
 

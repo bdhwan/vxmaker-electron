@@ -423,7 +423,6 @@ export class ApplicationDataServiceService {
   }
 
   findImplentEventByTriggerEventId(triggerEventId: string) {
-
     for (let i = 0; i < this.activityData.implementEventList.length; i++) {
       const aEvent = this.activityData.implementEventList[i];
       if (aEvent.triggerEventId === triggerEventId) {
@@ -433,6 +432,67 @@ export class ApplicationDataServiceService {
     return null;
   }
 
+  deleteTriggerEvent(triggerEvent: any) {
+    let index = -1;
+    for (let i = 0; i < this.activityData.triggerEventList.length; i++) {
+      const aEvent = this.activityData.triggerEventList[i];
+      if (aEvent.id === triggerEvent.id) {
+        index = i;
+        break;
+      }
+    }
+    console.log("will delete = " + index);
+    if (index !== -1) {
+      const removed = this.activityData.triggerEventList[index];
+      this.activityData.triggerEventList.splice(index, 1);
+      this.deleteImplementEventByTriggerEventId(removed.id);
+    }
+
+  }
+
+  deleteImplementEventByTriggerEventId(triggerEventId: string) {
+
+    let index = -1;
+    for (let i = 0; i < this.activityData.implementEventList.length; i++) {
+      const aEvent = this.activityData.implementEventList[i];
+      if (aEvent.triggerEventId === triggerEventId) {
+        index = i;
+        break;
+      }
+    }
+
+
+    if (index !== -1) {
+      const removed = this.activityData.implementEventList[index];
+      this.activityData.implementEventList.splice(index, 1);
+      if (removed.type === 'stageChange') {
+        this.deleteStageChangeEventByImplementEventId(removed.id);
+        this.deleteAfterAnimationEventByImplentEventId(removed.id);
+      }
+    }
+  }
+
+
+  deleteAfterAnimationEventByImplentEventId(implementEventId) {
+    for (let i = 0; i < this.activityData.triggerEventList.length; i++) {
+      const aEvent = this.activityData.triggerEventList[i];
+      if (aEvent.afterTriggerEventId === implementEventId) {
+        this.deleteTriggerEvent(aEvent);
+      }
+    }
+  }
+
+  deleteStageChangeEventByImplementEventId(implementEventId: string) {
+    const afterArray = [];
+    for (let i = 0; i < this.activityData.stateEventList.length; i++) {
+      const aEvent = this.activityData.stateEventList[i];
+      if (aEvent.implementEventId === implementEventId) {
+        continue;
+      }
+      afterArray.push(aEvent);
+    }
+    this.activityData.stateEventList = afterArray;
+  }
 
 
   findStateChangeEventByImplementEventId(implementEventId: string) {
@@ -657,7 +717,7 @@ export class ApplicationDataServiceService {
       } else {
         reject(false);
       }
-  });
+    });
   }
 
 

@@ -31,10 +31,7 @@ export class EventListComponent implements OnInit {
   }
 
   getImplement(triggerEventId) {
-
     const result = this.appDataService.findImplentEventByTriggerEventId(triggerEventId);
-    console.log("trigger = "+triggerEventId+", result = "+JSON.stringify(result));
-
     return result;
   }
 
@@ -47,8 +44,24 @@ export class EventListComponent implements OnInit {
   }
 
   clickDetailEvent(event) {
-    console.log("clickDetailEvent = "+JSON.stringify(event));
+    console.log("clickDetailEvent = " + JSON.stringify(event));
     this.onClickDetailEvent.emit(event);
+  }
+
+  clickDeleteEvent(event, triggerEvent) {
+
+    event.stopPropagation();
+
+    const result = confirm('will you delete ' + triggerEvent.name + '?');
+    if (result) {
+      console.log('clickDelete = ' + triggerEvent.id);
+      // const implEvent = this.appDataService.findImplentEventByTriggerEventId(triggerEvent.id);
+      this.appDataService.deleteTriggerEvent(triggerEvent);
+    }
+
+
+
+
   }
 
 

@@ -22,6 +22,8 @@ export class EventGeneratorComponent implements OnInit {
   objectList;
   selectedStageId;
   selectedActivityId;
+  selectedLottiViewId;
+  selectedTakePictureObjectViewId;
   afterTriggerEventId;
   readyEvent = false;
   visibility = false;
@@ -56,6 +58,38 @@ export class EventGeneratorComponent implements OnInit {
 
     this.readyEvent = true;
   }
+
+  onChangeLottiView(event) {
+
+    this.readyEvent = true;
+  }
+
+  onChangeCameraPictureView(event) {
+    this.readyEvent = true;
+  }
+
+
+  getLottieViewList() {
+    return this.filterObjectView('LottieView');
+  }
+
+  getImageViewList() {
+    return this.filterObjectView('ImageView');
+  }
+
+
+  filterObjectView(targetType) {
+    const result = [];
+    for (let i = 0; i < this.objectList.length; i++) {
+      const aObject = this.objectList[i];
+      if (aObject.type === targetType) {
+        result.push(aObject);
+      }
+    }
+    return result;
+  }
+
+
 
 
 
@@ -95,6 +129,8 @@ export class EventGeneratorComponent implements OnInit {
       this.selectedStageId = null;
       this.selectedActivityId = null;
       this.readyEvent = false;
+      this.selectedLottiViewId = null;
+      this.selectedTakePictureObjectViewId = null;
     }
   }
 
@@ -134,7 +170,16 @@ export class EventGeneratorComponent implements OnInit {
     } else if (this.implementEvent.type === 'startActivity') {
       this.implementEvent.toActivityId = this.selectedActivityId;
     } else if (this.implementEvent.type === 'finishActivity') {
+
+    } else if (this.implementEvent.type === 'startLottie') {
+      this.implementEvent.lottieViewId = this.selectedLottiViewId;
+    } else if (this.implementEvent.type === 'stopLottie') {
+      this.implementEvent.lottieViewId = this.selectedLottiViewId;
+    } else if (this.implementEvent.type === 'takePicture') {
+
+      console.log("take picture = "+this.selectedTakePictureObjectViewId);
       
+      this.implementEvent.takePictureImageView = this.selectedTakePictureObjectViewId;
     }
 
     // add implements

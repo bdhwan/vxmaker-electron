@@ -5,7 +5,9 @@
         "ImageView.json",
         "TextView.json",
         "LottieView.json",
-        "CameraView.json"
+        "CameraView.json",
+        "VideoView.json",
+        "ScrollView.json"
     ],
     "defaultState": {
         "width": 1440,

@@ -1,15 +1,15 @@
 {
-    "name": "ImageView",
-    "type": "ImageView",
+    "name": "VideoView",
+    "type": "VideoView",
     "objectProperties": [{
             "name": "type",
             "type": "string",
-            "default": "ImageView"
+            "default": "VideoView"
         },
         {
             "name": "name",
             "type": "string",
-            "default": "ImageView"
+            "default": "VideoView"
         },
         {
             "name": "dataUrl",
@@ -20,6 +20,16 @@
             "name": "canHaveChildren",
             "type": "boolean",
             "default": false
+        },
+        {
+            "name": "loop",
+            "type": "boolean",
+            "default": true
+        },
+        {
+            "name": "autoPlay",
+            "type": "boolean",
+            "default": true
         }
     ],
     "stateProperties": [{

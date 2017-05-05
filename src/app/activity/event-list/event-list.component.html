@@ -2,7 +2,7 @@
     <div *ngIf="triggerEventList">
         {{triggerEventList.length}}
         <div *ngFor="let aEvent of triggerEventList" (click)="clickDetailEvent(aEvent)">
-            {{aEvent.name}} - {{getImplement(aEvent.id).name}}
+            {{aEvent.name}} -{{getImplement(aEvent.id).name}} <button (click)="clickDeleteEvent($event,aEvent)">X</button>
         </div>
     </div>
     <button (click)="clickNewEvent()">New Event</button>
