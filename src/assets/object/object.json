@@ -4,6 +4,7 @@
         "RelativeLayout.json",
         "ImageView.json",
         "TextView.json",
+        "Button.json",
         "LottieView.json",
         "CameraView.json",
         "VideoView.json",

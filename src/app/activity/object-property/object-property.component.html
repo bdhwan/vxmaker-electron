@@ -4,7 +4,7 @@
             <button (click)="clickSelectImage()"> ImageSelect</button>
         </div>
 
-        <div *ngIf="selectedObject.type=='LottieView'">
+        <div *ngIf="selectedObject.type=='LottieView'||selectedObject.type=='VideoView'">
             <button (click)="clickSelectFile()"> ImageFile</button>
         </div>
 

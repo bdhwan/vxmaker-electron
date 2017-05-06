@@ -14,9 +14,6 @@
         <div style="float: left;  width:200px; height: 100%; background: #ffffff; overflow-y: scroll;">
             <app-object-tree #objectTree (onChangeNode)="onChangeNodeFromTree($event)" (onClickNewFile)="clickNewFile($event)" (onSelectNode)="onSelectNodeFromTree($event)"></app-object-tree>
             <app-object-new #objectNew (onShowResourceDialog)="onShowResourceDialog($event)" (onClickNewObject)="clickNewObject($event)" (onChangeTreeData)="changeTreeData($event)"></app-object-new>
-
-            <div><button (click)="clickText()">test</button></div>
-
         </div>
         <div style="float:left; overflow-x: scroll; overflow-y: scroll;" [style.width]="getPreviewWidth()" [style.height]="getPreviewHeight()">
             <app-stage-list #stageList (onSelectStage)="onSelectStage($event)" (onNewStage)="onNewStage()"></app-stage-list>

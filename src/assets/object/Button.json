@@ -1,0 +1,51 @@
+{
+    "name": "Button",
+    "type": "Button",
+    "objectProperties": [
+
+        {
+            "name": "type",
+            "type": "string",
+            "default": "Button"
+        },
+
+        {
+            "name": "name",
+            "type": "string",
+            "default": "Button"
+        },
+
+        {
+            "name": "text",
+            "type": "string",
+            "default": "button"
+        },
+        {
+            "name": "textSize",
+            "type": "int",
+            "default": 20
+        },
+        {
+            "name": "textColor",
+            "type": "string",
+            "default": "#000000"
+        },
+        {
+            "name": "canHaveChildren",
+            "type": "boolean",
+            "default": false
+        }
+    ],
+    "stateProperties": [{
+            "name": "width",
+            "type": "int",
+            "default": 400
+        },
+        {
+            "name": "height",
+            "type": "int",
+            "default": 200
+        }
+    ]
+
+}

@@ -27,6 +27,11 @@
 
                 <div>-----Camera-------</div>
                 <button (click)="clickImplement('takePicture')">takePicture</button>
+
+
+                <div>-----VideoView-------</div>
+                <button (click)="clickImplement('startVideo')">startVideo</button>
+                <button (click)="clickImplement('stopVideo')">stopVideo</button>
             </div>
 
 
@@ -54,17 +59,34 @@
 
                 <div *ngIf="implementEvent.type=='startLottie'">
                     select Lottie to start
-                    <select [(ngModel)]="selectedLottiViewId" (change)="onChangeActivity($event.target.value)"> 
+                    <select [(ngModel)]="selectedLottieViewId" (change)="onChangeActivity($event.target.value)"> 
                         <option  *ngFor="let aObject of getLottieViewList()" [value]="aObject.id">{{aObject.name}}</option>
                     </select>
                 </div>
 
                 <div *ngIf="implementEvent.type=='stopLottie'">
                     select Lottie to start
-                    <select [(ngModel)]="selectedLottiViewId" (change)="onChangeLottiView($event.target.value)"> 
+                    <select [(ngModel)]="selectedLottieViewId" (change)="onChangeLottiView($event.target.value)"> 
                         <option *ngFor="let aObject of getLottieViewList()" [value]="aObject.id">{{aObject.name}}</option>
                     </select>
                 </div>
+
+
+                <div *ngIf="implementEvent.type=='startVideo'">
+                    select Lottie to start
+                    <select [(ngModel)]="selectedVideoViewId" (change)="onChangeVideoView($event.target.value)"> 
+                        <option  *ngFor="let aObject of getVideoViewList()" [value]="aObject.id">{{aObject.name}}</option>
+                    </select>
+                </div>
+
+                <div *ngIf="implementEvent.type=='stopVideo'">
+                    select Lottie to start
+                    <select [(ngModel)]="selectedVideoViewId" (change)="onChangeVideoView($event.target.value)"> 
+                        <option *ngFor="let aObject of getVideoViewList()" [value]="aObject.id">{{aObject.name}}</option>
+                    </select>
+                </div>
+
+
 
 
                 <div *ngIf="implementEvent.type=='takePicture'">

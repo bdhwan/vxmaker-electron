@@ -22,7 +22,9 @@ export class EventGeneratorComponent implements OnInit {
   objectList;
   selectedStageId;
   selectedActivityId;
-  selectedLottiViewId;
+  selectedLottieViewId;
+
+  selectedVideoViewId;
   selectedTakePictureObjectViewId;
   afterTriggerEventId;
   readyEvent = false;
@@ -64,6 +66,10 @@ export class EventGeneratorComponent implements OnInit {
     this.readyEvent = true;
   }
 
+  onChangeVideoView(event) {
+    this.readyEvent = true;
+  }
+
   onChangeCameraPictureView(event) {
     this.readyEvent = true;
   }
@@ -76,7 +82,9 @@ export class EventGeneratorComponent implements OnInit {
   getImageViewList() {
     return this.filterObjectView('ImageView');
   }
-
+  getVideoViewList() {
+    return this.filterObjectView('VideoView');
+  }
 
   filterObjectView(targetType) {
     const result = [];
@@ -129,7 +137,8 @@ export class EventGeneratorComponent implements OnInit {
       this.selectedStageId = null;
       this.selectedActivityId = null;
       this.readyEvent = false;
-      this.selectedLottiViewId = null;
+      this.selectedLottieViewId = null;
+      this.selectedVideoViewId = null;
       this.selectedTakePictureObjectViewId = null;
     }
   }
@@ -172,13 +181,14 @@ export class EventGeneratorComponent implements OnInit {
     } else if (this.implementEvent.type === 'finishActivity') {
 
     } else if (this.implementEvent.type === 'startLottie') {
-      this.implementEvent.lottieViewId = this.selectedLottiViewId;
+      this.implementEvent.lottieViewId = this.selectedLottieViewId;
     } else if (this.implementEvent.type === 'stopLottie') {
-      this.implementEvent.lottieViewId = this.selectedLottiViewId;
+      this.implementEvent.lottieViewId = this.selectedLottieViewId;
+    } else if (this.implementEvent.type === 'startVideo') {
+      this.implementEvent.videoViewId = this.selectedVideoViewId;
+    } else if (this.implementEvent.type === 'stopVideo') {
+      this.implementEvent.videoViewId = this.selectedVideoViewId;
     } else if (this.implementEvent.type === 'takePicture') {
-
-      console.log("take picture = "+this.selectedTakePictureObjectViewId);
-      
       this.implementEvent.takePictureImageView = this.selectedTakePictureObjectViewId;
     }
 
