@@ -1,20 +1,20 @@
 {
-    "name": "ImageView",
-    "type": "ImageView",
+    "name": "CameraView",
+    "type": "CameraView",
     "objectProperties": [{
             "name": "type",
             "type": "string",
-            "default": "ImageView"
+            "default": "CameraView"
         },
         {
             "name": "name",
             "type": "string",
-            "default": "ImageView"
+            "default": "CameraView"
         },
         {
-            "name": "dataUrl",
-            "type": "string",
-            "default": null
+            "name": "frontCamera",
+            "type": "boolean",
+            "default": false
         },
         {
             "name": "canHaveChildren",
@@ -25,12 +25,12 @@
     "stateProperties": [{
             "name": "width",
             "type": "int",
-            "default": 200
+            "default": 600
         },
         {
             "name": "height",
             "type": "int",
-            "default": 200
+            "default": 800
         }
     ]
 

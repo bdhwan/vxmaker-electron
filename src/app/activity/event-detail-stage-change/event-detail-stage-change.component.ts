@@ -9,6 +9,11 @@ import { ApplicationDataServiceService } from '../../service/application-data-se
 export class EventDetailStageChangeComponent implements OnInit {
 
   @Output() onNewAfterAnimationEvent = new EventEmitter<string>();
+<<<<<<< HEAD
+=======
+  @Output() onCloseEvent = new EventEmitter<string>();
+
+>>>>>>> activity-event-making-step-1
   // selectedTriggerEvent;
   selectedImplementEvent;
 
@@ -25,6 +30,14 @@ export class EventDetailStageChangeComponent implements OnInit {
 
   clickAddAfterAnimation() {
     this.onNewAfterAnimationEvent.emit(this.selectedImplementEvent.id);
+<<<<<<< HEAD
+=======
+  }
+
+  clickCancel(){
+
+    this.onCloseEvent.emit();
+>>>>>>> activity-event-making-step-1
 
   }
 
@@ -35,6 +48,13 @@ export class EventDetailStageChangeComponent implements OnInit {
   }
 
 
+<<<<<<< HEAD
+=======
+  getObjectName(objectId){
+    return this.appDataService.findObjectById(objectId);
+  }
+
+>>>>>>> activity-event-making-step-1
 
   public onChangeData() {
     // this.selectedTriggerEvent = this.appDataService.getSelectedTriggerEvent();
@@ -46,4 +66,10 @@ export class EventDetailStageChangeComponent implements OnInit {
   }
 
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> activity-event-making-step-1
 }

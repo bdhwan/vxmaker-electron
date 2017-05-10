@@ -9,6 +9,9 @@ var beautify = require('js-beautify').js_beautify;
 var ElectronData = require('electron-data');
 var adb = require('adbkit')
 var sizeOf = require('image-size');
+var tar = require('tar');
+var fstream = require("fstream");
+var Promise = require('bluebird');
 
 
 var settings = new ElectronData({
@@ -146,31 +149,6 @@ ipcMain.on('select-workspace-folder-path', (event, beforePath) => {
         event.returnValue = null;
     }
 })
-
-//make application folder
-// ipcMain.on('make-application-folder', (event, workspaceFolderPath, applicationName) => {
-//     var resultPath = workspaceFolderPath + "/" + applicationName;
-//     fse.removeSync(resultPath);
-//     mkdirp.sync(resultPath);
-//     mkdirp.sync(resultPath + "/activity");
-//     mkdirp.sync(resultPath + "/image");
-//     mkdirp.sync(resultPath + "/export");
-
-//     settings.set("workspace-folder", workspaceFolderPath);
-//     settings.save();
-
-
-//     var now = new Date().getTime();
-//     var filePath = resultPath + "/app.json";
-//     var data = {
-//         createdAt: now,
-//         updatedAt: now,
-//         applicationName: applicationName,
-//         activityList: []
-//     }
-//     fse.writeFileSync(filePath, beautify(JSON.stringify(data), { indent_size: 4 }), 'utf-8');
-//     event.returnValue = resultPath;
-// })
 
 
 //make application folder
@@ -347,6 +325,77 @@ ipcMain.on('get-image-size', (event, path) => {
 })
 
 
+// send file
+ipcMain.on('tar-folder', (event, folderPath) => {
+
+    console.log("will tar = " + folderPath);
+
+    var filePath = app.getPath('desktop') + "/temp.tar";
+
+    var dirDest = fse.createWriteStream(filePath);
+    console.log("makeNew3");
+
+    var packer = tar.Pack({ noProprietary: true })
+        .on('error', function(err) {
+            console.log("err2=" + JSON.stringify(err));
+            event.returnValue = false;
+        })
+        .on('end', function() {
+            console.log("makeNew5=" + folderPath);
+            console.log("makeNew6 will resolve=" + filePath);
+            event.returnValue = filePath;
+        });
+
+    fstream.Reader({ path: folderPath, type: "Directory" })
+        .on('error', function(err) {
+            console.log("err1=" + JSON.stringify(err));
+            event.returnValue = false;
+        })
+        .pipe(packer)
+        .pipe(dirDest)
+    console.log("makeNew4");
+
+})
+
+
+// send file
+ipcMain.on('send-file-to-device', (event, tarFilePath, deviceId, devicePath) => {
+
+    console.log("will send file to device = " + tarFilePath);
+    console.log("deviceId = " + deviceId);
+    console.log("devicePath = " + devicePath);
+
+    client.push(deviceId, tarFilePath, devicePath)
+        .then(function(transfer) {
+            return new Promise(function(resolve, reject) {
+                transfer.on('progress', function(stats) {
+                    console.log('[%s] Pushed %d bytes so far',
+                        deviceId,
+                        stats.bytesTransferred)
+                })
+                transfer.on('end', function() {
+                    console.log('[%s] Push complete', deviceId)
+                    resolve()
+                })
+                transfer.on('error', reject)
+            })
+        })
+        .then(function() {
+            console.log("done!");
+            event.returnValue = true;
+        })
+        .catch(function(err) {
+            console.error('Something went wrong:', err.stack)
+            event.returnValue = false;
+        });
+})
+
+
+
+
+
+
+
 
 
 
@@ -359,18 +408,9 @@ function createWindow() {
         win = new BrowserWindow({ width: minWidth, height: minHeight, minWidth: minWidth, minHeight: minHeight })
 
 
-        // var url = `file://${__dirname}/index.html`;
-        // var url = 'file://' + path.join(__dirname, '../', 'index.html');
-
-        // console.log("url = " + url);
-        // win.loadURL(url);
-
-        // and load the index.html of the app.
-        win.loadURL(url.format({
-            pathname: 'localhost:4200',
-            protocol: 'http:',
-            slashes: true
-        }))
+        var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true })
+            // and load the index.html of the app.
+        win.loadURL(targetUrl)
 
         // Open the DevTools when in dev mode.
         // if (process.env.NODE_ENV == 'development')

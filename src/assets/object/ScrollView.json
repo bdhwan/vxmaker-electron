@@ -1,33 +1,29 @@
 {
-    "name": "LottieView",
-    "type": "LottieView",
+    "name": "ScrollView",
+    "type": "ScrollView",
     "objectProperties": [{
             "name": "type",
             "type": "string",
-            "default": "LottieView"
+            "default": "ScrollView"
         },
         {
             "name": "name",
             "type": "string",
-            "default": "LottieView"
+            "default": "ScrollView"
+        },
+
+        {
+            "name": "backgroundColor",
+            "type": "string",
+            "default": "#009900"
         },
         {
-            "name": "dataUrl",
+            "name": "backgroundImage",
             "type": "string",
             "default": null
         },
         {
             "name": "canHaveChildren",
-            "type": "boolean",
-            "default": false
-        },
-        {
-            "name": "loop",
-            "type": "boolean",
-            "default": true
-        },
-        {
-            "name": "autoPlay",
             "type": "boolean",
             "default": true
         }

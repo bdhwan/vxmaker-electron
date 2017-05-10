@@ -79,7 +79,6 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     TreeModule,
-    BrowserModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [ApplicationDataServiceService],

@@ -145,31 +145,6 @@ ipcMain.on('select-workspace-folder-path', (event, beforePath) => {
     }
 })
 
-//make application folder
-// ipcMain.on('make-application-folder', (event, workspaceFolderPath, applicationName) => {
-//     var resultPath = workspaceFolderPath + "/" + applicationName;
-//     fse.removeSync(resultPath);
-//     mkdirp.sync(resultPath);
-//     mkdirp.sync(resultPath + "/activity");
-//     mkdirp.sync(resultPath + "/image");
-//     mkdirp.sync(resultPath + "/export");
-
-//     settings.set("workspace-folder", workspaceFolderPath);
-//     settings.save();
-
-
-//     var now = new Date().getTime();
-//     var filePath = resultPath + "/app.json";
-//     var data = {
-//         createdAt: now,
-//         updatedAt: now,
-//         applicationName: applicationName,
-//         activityList: []
-//     }
-//     fse.writeFileSync(filePath, beautify(JSON.stringify(data), { indent_size: 4 }), 'utf-8');
-//     event.returnValue = resultPath;
-// })
-
 
 //make application folder
 ipcMain.on('make-folder', (event, folder) => {
@@ -360,10 +335,10 @@ function createWindow() {
         // var url = `file://${__dirname}/index.html`;
         // var url = 'file://' + path.join(__dirname, '../', 'index.html');
 
-        var url = `file://${__dirname}/index.html`;
+        var targetUrl = `file://${__dirname}/index.html`;
 
         // console.log("url = " + url);
-        win.loadURL(url);
+        win.loadURL(targetUrl);
 
         // and load the index.html of the app.
         // win.loadURL(url.format({

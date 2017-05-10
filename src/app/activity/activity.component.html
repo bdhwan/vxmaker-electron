@@ -4,7 +4,7 @@
         <button class="btn-back" (click)="clickBack()">◄ Back</button>
         <input type="text" [(ngModel)]="activityMetaData.activityName" (blur)="changeActivityName()" />
         <div class="nav-right">
-            <app-device-status></app-device-status>
+            <app-device-status (onClickSendDevice)="onClickSendDevice()"></app-device-status>
         </div>
     </div>
 
@@ -17,8 +17,11 @@
         </div>
         <div style="float:left; overflow-x: scroll; overflow-y: scroll;" [style.width]="getPreviewWidth()" [style.height]="getPreviewHeight()">
             <app-stage-list #stageList (onSelectStage)="onSelectStage($event)" (onNewStage)="onNewStage()"></app-stage-list>
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> activity-event-making-step-1
             <app-preview #previewCanvas (onShowResourceDialog)="onShowResourceDialog($event)"></app-preview>
 
         </div>
@@ -31,7 +34,11 @@
             <app-preview-size #previewSize></app-preview-size>
             <app-object-property #objectProperty (onShowResourceDialog)="onShowResourceDialog($event)" (onChangeTreeData)="changePropertyData($event)"></app-object-property>
             <app-event-list #eventList (onNewEvent)="onNewEvent($event)" (onClickDetailEvent)="onClickDetailEvent($event)"></app-event-list>
+<<<<<<< HEAD
             <app-event-detail-stage-change #eventDetailStageChange (onNewAfterAnimationEvent)="onNewAfterAnimationEvent($event)"></app-event-detail-stage-change>
+=======
+            <app-event-detail-stage-change #eventDetailStageChange (onNewAfterAnimationEvent)="onNewAfterAnimationEvent($event)" (onCloseEvent)="onCloseEvent($event)"></app-event-detail-stage-change>
+>>>>>>> activity-event-making-step-1
             <app-event-detail-start-activity #eventDetailStartActivity></app-event-detail-start-activity>
             <app-event-detail-finish-activity #eventDetailFinishActivity></app-event-detail-finish-activity>
 

@@ -1,15 +1,15 @@
 {
-    "name": "LottieView",
-    "type": "LottieView",
+    "name": "VideoView",
+    "type": "VideoView",
     "objectProperties": [{
             "name": "type",
             "type": "string",
-            "default": "LottieView"
+            "default": "VideoView"
         },
         {
             "name": "name",
             "type": "string",
-            "default": "LottieView"
+            "default": "VideoView"
         },
         {
             "name": "dataUrl",
@@ -35,12 +35,12 @@
     "stateProperties": [{
             "name": "width",
             "type": "int",
-            "default": 1440
+            "default": 200
         },
         {
             "name": "height",
             "type": "int",
-            "default": 2560
+            "default": 200
         }
     ]
 

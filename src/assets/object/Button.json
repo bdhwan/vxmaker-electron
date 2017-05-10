@@ -1,20 +1,34 @@
 {
-    "name": "ImageView",
-    "type": "ImageView",
-    "objectProperties": [{
+    "name": "Button",
+    "type": "Button",
+    "objectProperties": [
+
+        {
             "name": "type",
             "type": "string",
-            "default": "ImageView"
+            "default": "Button"
         },
+
         {
             "name": "name",
             "type": "string",
-            "default": "ImageView"
+            "default": "Button"
+        },
+
+        {
+            "name": "text",
+            "type": "string",
+            "default": "button"
         },
         {
-            "name": "dataUrl",
+            "name": "textSize",
+            "type": "int",
+            "default": 20
+        },
+        {
+            "name": "textColor",
             "type": "string",
-            "default": null
+            "default": "#000000"
         },
         {
             "name": "canHaveChildren",
@@ -25,7 +39,7 @@
     "stateProperties": [{
             "name": "width",
             "type": "int",
-            "default": 200
+            "default": 400
         },
         {
             "name": "height",
