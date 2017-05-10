@@ -17,11 +17,6 @@
 
             <div *ngIf="triggerEvent" style="float: left">
                 implementEvent
-<<<<<<< HEAD
-                <button (click)="clickImplement('stageChange')">stageChange</button>
-                <button (click)="clickImplement('startActivity')">startActivity</button>
-                <button (click)="clickImplement('finishActivity')">finishActivity</button>
-=======
                 <div><button (click)="clickImplement('stageChange')">stageChange</button></div>
                 <div><button (click)="clickImplement('startActivity')">startActivity</button></div>
                 <div><button (click)="clickImplement('finishActivity')">finishActivity</button></div>
@@ -37,7 +32,6 @@
                 <div>-----VideoView-------</div>
                 <button (click)="clickImplement('startVideo')">startVideo</button>
                 <button (click)="clickImplement('stopVideo')">stopVideo</button>
->>>>>>> activity-event-making-step-1
             </div>
 
 
@@ -46,12 +40,8 @@
             <div *ngIf="implementEvent" style="float: left">
                 detail event
                 <div *ngIf="implementEvent.type=='stageChange'">
-<<<<<<< HEAD
-                    select target stage
-=======
 
                     from: {{currentSelectedStageId}} select target stage
->>>>>>> activity-event-making-step-1
                     <select [(ngModel)]="selectedStageId" (change)="onChangeStage($event.target.value)"> 
                         <option *ngFor="let aStage of stageList" [value]="aStage.id">{{aStage.name}}</option>
                     </select>
@@ -65,8 +55,6 @@
                 <div *ngIf="implementEvent.type=='finishActivity'">
                     will finish activity
                 </div>
-<<<<<<< HEAD
-=======
 
 
                 <div *ngIf="implementEvent.type=='startLottie'">
@@ -109,7 +97,6 @@
                 </div>
 
 
->>>>>>> activity-event-making-step-1
             </div>
 
 

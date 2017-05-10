@@ -88,11 +88,7 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
       console.log('applicationData-' + JSON.stringify(this.applicationData));
       this.checkInitProcess();
     }).catch((err) => {
-<<<<<<< HEAD
-      console.log("err-" + JSON.stringify(err));
-=======
       console.log('err-' + JSON.stringify(err));
->>>>>>> activity-event-making-step-1
       this.noProject();
     });
 
@@ -108,11 +104,7 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
   }
 
   noProject() {
-<<<<<<< HEAD
-    alert("No app data");
-=======
     alert('No app data');
->>>>>>> activity-event-making-step-1
     this.appDataService.removeRecentProjectList();
     this.router.navigate(['/init']);
   }

@@ -423,24 +423,15 @@ export class ApplicationDataServiceService {
   }
 
   findImplentEventByTriggerEventId(triggerEventId: string) {
-<<<<<<< HEAD
-
-    for (var i = 0; i < this.activityData.implementEventList.length; i++) {
-      var aEvent = this.activityData.implementEventList[i];
-      if (aEvent.triggerEventId == triggerEventId) {
-=======
     for (let i = 0; i < this.activityData.implementEventList.length; i++) {
       const aEvent = this.activityData.implementEventList[i];
       if (aEvent.triggerEventId === triggerEventId) {
->>>>>>> activity-event-making-step-1
         return aEvent;
       }
     }
     return null;
   }
 
-<<<<<<< HEAD
-=======
   deleteTriggerEvent(triggerEvent: any) {
     let index = -1;
     for (let i = 0; i < this.activityData.triggerEventList.length; i++) {
@@ -502,22 +493,14 @@ export class ApplicationDataServiceService {
     }
     this.activityData.stateEventList = afterArray;
   }
->>>>>>> activity-event-making-step-1
 
 
   findStateChangeEventByImplementEventId(implementEventId: string) {
 
-<<<<<<< HEAD
-    var result = [];
-    for (var i = 0; i < this.activityData.stateEventList.length; i++) {
-      var aEvent = this.activityData.stateEventList[i];
-      if (aEvent.implementEventId == implementEventId) {
-=======
     const result = [];
     for (let i = 0; i < this.activityData.stateEventList.length; i++) {
       const aEvent = this.activityData.stateEventList[i];
       if (aEvent.implementEventId === implementEventId) {
->>>>>>> activity-event-making-step-1
         result.push(aEvent);
       }
     }
@@ -566,17 +549,6 @@ export class ApplicationDataServiceService {
     for (let i = 0; i < this.activityData.stateList.length; i++) {
       const aState = this.activityData.stateList[i];
       if (aState.stageId === stageId) {
-        result.push(aState);
-      }
-    }
-    return result;
-  }
-
-  findAllStateByStageId(stageId: string) {
-    var result = [];
-    for (var i = 0; i < this.activityData.stateList.length; i++) {
-      var aState = this.activityData.stateList[i];
-      if (aState.stageId == stageId) {
         result.push(aState);
       }
     }

@@ -1,13 +1,8 @@
 <div *ngIf="!selectedTriggerEvent">
     <div *ngIf="triggerEventList">
         {{triggerEventList.length}}
-<<<<<<< HEAD
-        <div *ngFor="let event of triggerEventList" (click)="clickDetailEvent(event)">
-            {{event.name}} - {{getImplement(event.id).name}}
-=======
         <div *ngFor="let aEvent of triggerEventList" (click)="clickDetailEvent(aEvent)">
             {{aEvent.name}} -{{getImplement(aEvent.id).name}} <button (click)="clickDeleteEvent($event,aEvent)">X</button>
->>>>>>> activity-event-making-step-1
         </div>
     </div>
     <button (click)="clickNewEvent()">New Event</button>

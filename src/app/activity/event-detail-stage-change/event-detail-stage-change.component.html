@@ -1,11 +1,5 @@
 <div *ngIf="selectedImplementEvent">
     <div *ngIf="selectedImplementEvent.type=='stageChange'">
-<<<<<<< HEAD
-        event-detail-stage-change works!---{{selectedImplementEvent.type}}
-        <div *ngFor="let aStateEvent of stateEventList">{{aStateEvent.id}}</div>
-
-        <button (click)="clickAddAfterAnimation()">AfterAnimation</button>
-=======
         {{selectedImplementEvent.type}}- {{stateEventList.length}}
         <div *ngFor="let aStateEvent of stateEventList">
             {{getObjectName(aStateEvent.objectId).name}}, {{aStateEvent.duration}}, {{aStateEvent.startDelay}}, {{aStateEvent.cubicValue}}
@@ -16,6 +10,5 @@
         </div>
         <button (click)="clickAddAfterAnimation()">AfterAnimation</button>
         <button (click)="clickCancel()">Cancel</button>
->>>>>>> activity-event-making-step-1
     </div>
 </div>

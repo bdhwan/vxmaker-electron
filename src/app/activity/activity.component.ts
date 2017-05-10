@@ -16,26 +16,6 @@ import { EventGeneratorComponent } from '../activity/event-generator/event-gener
 import { ApplicationDataServiceService } from '../service/application-data-service.service';
 import { UUID } from 'angular2-uuid';
 
-<<<<<<< HEAD
-import { StageListComponent } from '../activity/stage-list/stage-list.component'
-
-import { ResourceComponent } from '../common/resource/resource.component'
-import { EventListComponent } from '../activity/event-list/event-list.component'
-
-import { EventDetailStageChangeComponent } from '../activity/event-detail-stage-change/event-detail-stage-change.component';
-import { EventDetailStartActivityComponent } from '../activity/event-detail-start-activity/event-detail-start-activity.component';
-import { EventDetailFinishActivityComponent } from '../activity/event-detail-finish-activity/event-detail-finish-activity.component';
-
-
-
-
-
-import { EventGeneratorComponent } from '../activity/event-generator/event-generator.component'
-import { ApplicationDataServiceService } from '../service/application-data-service.service'
-=======
->>>>>>> activity-event-making-step-1
-
-
 
 import 'rxjs/add/operator/switchMap';
 
@@ -215,11 +195,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         this.activityData.objectList = [newObject];
 
         //3. state
-<<<<<<< HEAD
-        var newState = this.appDataService.createNewState(newObject.id, stage.id, "FrameLayout");
-=======
         var newState = this.appDataService.createNewState(newObject.id, stage.id, 'FrameLayout');
->>>>>>> activity-event-making-step-1
         this.activityData.stateList = [newState];
 
         //4. triggerEventList;
@@ -264,15 +240,9 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   onCompleteEvent(event) {
-<<<<<<< HEAD
-
-    console.log("onCompleteEvent");
-
-=======
 
     // console.log("onCompleteEvent");
 
->>>>>>> activity-event-making-step-1
   }
 
 
@@ -371,28 +341,11 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log("onNewStage");
     //make new stage
     //1. stage
-<<<<<<< HEAD
-    var stage = this.onMakeNewStage();
-=======
     const stage = this.onMakeNewStage();
->>>>>>> activity-event-making-step-1
     this.onSelectStage(stage);
   }
 
   onMakeNewStage() {
-<<<<<<< HEAD
-    var now = new Date().getTime();
-    var stage = {
-      id: "stage_" + now,
-      name: "stage-" + this.activityData.stageList.length
-    }
-    this.activityData.stageList.push(stage);
-    var allStateList = this.appDataService.getAllSelectedState();
-    for (var i = 0; i < allStateList.length; i++) {
-      var aState = Object.assign({}, allStateList[i]);
-      aState.stageId = stage.id;
-      aState.id = "state_" + new Date().getTime();
-=======
     const stage = {
       id: 'stage_' + UUID.UUID(),
       name: 'stage-' + this.activityData.stageList.length
@@ -404,7 +357,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
       const aState = Object.assign({}, allStateList[i]);
       aState.stageId = stage.id;
       aState.id = 'state_' + UUID.UUID();
->>>>>>> activity-event-making-step-1
       this.activityData.stateList.push(aState);
     }
     return stage;
@@ -489,36 +441,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.eventGenerator.resetData();
     this.eventGenerator.makeAfterTrigger(target);
     this.eventGenerator.showDialog();
-<<<<<<< HEAD
-
-  }
-
-  onNewEvent() {
-    //check stage count
-    if (this.activityData.stageList.length == 1) {
-      this.onMakeNewStage();
-    }
-    this.eventGenerator.resetData();
-    this.eventGenerator.showDialog();
-
-  }
-
-  onClickDetailEvent(triggerEvent) {
-    console.log("event = " + triggerEvent.id);
-    this.appDataService.setSelectedTriggerEvent(triggerEvent);
-    var impEvent =  this.appDataService.findImplentEventByTriggerEventId(triggerEvent.id);
-     console.log("impEvent = " + impEvent.id);
-    this.appDataService.setSelectedImplementEvent(impEvent);
-
-
-
-    //notify data set changed
-    this.notifySelectedObjectChanged();
-    console.log("end event = " + triggerEvent.id);
-
-
-  }
-=======
 
   }
 
@@ -535,7 +457,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   onClickDetailEvent(triggerEvent) {
 
     console.log("onClickDetailEvent = " + JSON.stringify(triggerEvent));
->>>>>>> activity-event-making-step-1
 
     this.appDataService.setSelectedTriggerEvent(triggerEvent);
     const impEvent = this.appDataService.findImplentEventByTriggerEventId(triggerEvent.id);
