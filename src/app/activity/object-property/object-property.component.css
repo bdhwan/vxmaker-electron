@@ -1,0 +1,47 @@
+.label-properties {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 6px 10px;
+    background-color: #fff;
+    color: #454545;
+    position: relative;
+}
+
+.object-property {
+    background:#f9fafb;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.object-property input {
+        height: 28px;
+    width: 100%;
+    padding: 4px 8px;
+    font-size: 13px;
+    border-radius: 4px;
+    border: none;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+.object-property .property-input {
+    width:65%;
+    float: right;
+     padding-left: 15px;
+    padding-right: 15px;
+}
+
+.object-property .property-input-wrap {
+    overflow: hidden;
+}
+
+.object-property label {
+    width:30%;
+    font-size: 12px;
+    font-weight: 400;
+    color:#898989;
+    padding-top: 7px;
+    float: left;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+

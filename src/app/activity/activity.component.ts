@@ -115,11 +115,11 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getPreviewWidth() {
-    return (window.innerWidth - 400) + 'px';
+    return (window.innerWidth - 608) + 'px';
   }
 
   getPreviewHeight() {
-    return (window.innerHeight - 80) + 'px';
+    return (window.innerHeight - 50) + 'px';
   }
 
 

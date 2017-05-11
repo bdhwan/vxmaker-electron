@@ -1,12 +1,18 @@
-<div style="width: 100%;height:100px;">
-    object-new works!
+<div class="object-new">
 
-    <button *ngFor="let aType of objectTypeData" (click)="clickNewObject(aType.type)">
+    <div class="label-properties">New Layers</div>
+
+
+    <div class="layers-btn" style="width: 100%;height:100px;">
+
+        <button class="btn-object-new" *ngFor="let aType of objectTypeData" (click)="clickNewObject(aType.type)">
     {{aType.name}}
     </button>
 
 
-    <div>
-        <button (click)="clickResource()">Resource</button>
+        <div >
+            <button  class="btn-object-new" (click)="clickResource()">Resource</button>
+        </div>
     </div>
+
 </div>

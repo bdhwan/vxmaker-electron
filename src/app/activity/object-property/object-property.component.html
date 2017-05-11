@@ -1,21 +1,33 @@
-<div *ngIf="!selectedTriggerEvent">
-    <div *ngIf="selectedObject">
-        <div *ngIf="selectedObject.type=='ImageView'">
-            <button (click)="clickSelectImage()"> ImageSelect</button>
+<div class="object-property">
+
+    <div class="label-properties">Properties</div>
+
+    <div *ngIf="!selectedTriggerEvent">
+        <div *ngIf="selectedObject">
+            <div *ngIf="selectedObject.type=='ImageView'">
+                <button (click)="clickSelectImage()"> ImageSelect</button>
+            </div>
+
+            <div *ngIf="selectedObject.type=='LottieView'||selectedObject.type=='VideoView'">
+                <button (click)="clickSelectFile()"> ImageFile</button>
+            </div>
+
+
+            <div class="property-input-wrap" *ngFor="let key of getAllKeys(selectedObject)">
+               <label> {{ key }}:</label>
+               <div class="property-input">
+                <input [(ngModel)]="selectedObject[key]">
+               </div>
+            </div>
         </div>
-
-        <div *ngIf="selectedObject.type=='LottieView'||selectedObject.type=='VideoView'">
-            <button (click)="clickSelectFile()"> ImageFile</button>
+        <div *ngIf="selectedState">
+            <div class="property-input-wrap" *ngFor="let key of getAllKeys(selectedState)">
+                <label> {{ key }}: </label>
+                 <div class="property-input">
+                <input [(ngModel)]="selectedState[key]">
+                 </div>
+            </div>
         </div>
-
-
-        <li *ngFor="let key of getAllKeys(selectedObject)">
-            {{ key }}:<input [(ngModel)]="selectedObject[key]">
-        </li>
     </div>
-    <div *ngIf="selectedState">
-        <li *ngFor="let key of getAllKeys(selectedState)">
-            {{ key }}:<input [(ngModel)]="selectedState[key]">
-        </li>
-    </div>
+
 </div>
