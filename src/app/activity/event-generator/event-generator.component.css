@@ -36,6 +36,7 @@
     background: rgba(0, 0, 0, 0.7);
     transition: opacity 500ms;
     opacity: 1;
+    z-index: 9999;
 }
 
 .overlay:target {
@@ -45,7 +46,7 @@
 
 .popup {
     margin: 70px auto;
-    padding: 20px;
+ 
     background: #fff;
     border-radius: 5px;
     width: 800px;
@@ -134,3 +135,153 @@
 
 
 /*popup test finish */
+
+
+.col-4 {
+    width:33.3333%;
+    float:left;
+    height: 100%;
+}
+
+.generator-wrap {
+    overflow: hidden;
+    height: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  
+}
+
+.popup .generator-footer {
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    height: 50px;
+    border-top: 1px solid #ececec;
+    background: #fff;
+    padding:12px;
+    text-align: right;
+box-shadow: 0px -1px 6px 0px rgba(0,0,0,0.2);
+}
+
+.popup .generator-footer button {
+    background: transparent;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    color:#454545;
+}
+
+.popup .generator-footer button:hover {
+
+ cursor: pointer;
+ 
+    color:#46a2ba;
+}
+
+.popup .generator-nav {
+    position: absolute;
+   top:0;
+    left:0;
+    right:0;
+    height: 50px;
+    border-bottom: 1px solid #ececec;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
+    padding:12px;
+}
+
+.trigger-select {
+    border-right:1px solid #ececec;
+    height: 100%;
+    background: #fff;
+    overflow-y: auto;
+}
+
+.event-select {
+    border-right: 1px solid #ececec;
+    height: 100%;
+       background: #fff;
+           overflow-y: auto;
+}
+
+.trigger-select img{
+    width:40px;
+
+}
+
+.trigger-select p {
+    margin:2px;
+}
+
+.event-select img{
+    width:40px;
+
+}
+
+.event-select p {
+    margin:2px;
+}
+
+.generator-title {
+    font-size: 14px;
+    padding:6px;
+    text-align: center;
+    border-bottom: 1px solid #ececec;
+}
+
+.trigger-intro {
+   height: 100%;
+    background: #dde3eb;
+    padding:15px;
+    padding-left: 36%;
+}
+
+.trigger-intro p {
+    font-size: 13px;
+    color:#454545;
+}
+
+.event-intro {
+   height: 100%;
+    background: #dde3eb;
+    padding:15px;
+    padding-left: 69%;
+}
+
+.event-intro p {
+    font-size: 13px;
+    color:#454545;
+}
+
+
+
+.btn-trigger {
+    height:80px;
+    border-bottom: 1px solid #ececec;
+    text-align: center;
+    font-size: 13px;
+    color:#454545;
+    padding: 10px;
+}
+
+.btn-trigger:hover {
+    cursor:pointer;
+    background: #46a2ba;
+    color:#fff;
+}
+
+
+.btn-trigger:hover p{
+  margin-top: -20px;
+}
+
+
+.event-detail {
+    font-size: 13px;
+    color:#454545;
+    
+}
+
+.detail-content {
+    padding:15px;
+}
