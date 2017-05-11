@@ -13,3 +13,29 @@
     /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
+
+
+.preview-dot {
+    width:10px;
+    height: 10px;
+    background-color: #46a2ba;
+    position: absolute;
+    border-radius: 30px;
+}
+
+.dot-1 {
+    left:0;top:0; margin-left: -5px;margin-top: -5px; cursor:nw-resize;
+}
+
+.dot-2 {
+right:0;top:0; margin-right: -5px;margin-top: -5px; cursor:ne-resize;
+}
+
+
+.dot-3 {
+left:0;bottom:0; margin-left: -5px;margin-bottom: -5px; cursor:sw-resize;
+}
+
+.dot-4 {
+right:0;bottom:0; margin-right: -5px;margin-bottom: -5px; cursor:se-resize;
+}
