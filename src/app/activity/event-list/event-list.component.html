@@ -1,16 +1,39 @@
 <div class="event-list">
 
 
-    <div class="label-properties">Properties</div>
+    <div class="label-properties">
 
-    <div *ngIf="!selectedTriggerEvent">
-        <div *ngIf="triggerEventList">
-            {{triggerEventList.length}}
-            <div *ngFor="let aEvent of triggerEventList" (click)="clickDetailEvent(aEvent)">
-                {{aEvent.name}} -{{getImplement(aEvent.id).name}} <button (click)="clickDeleteEvent($event,aEvent)">X</button>
+
+        <div class="col-8" style="padding-left: 0;">
+            Properties
+        </div>
+        <div class="col-4" align="right" style="padding:0;">
+            <div>
+                <img (click)="clickNewEvent()" src="assets/images/btn_motion_add.png" class="img-responsive">
             </div>
         </div>
-        <button (click)="clickNewEvent()">New Event</button>
+
+
+    </div>
+
+    <div *ngIf="!selectedTriggerEvent">
+        <div *ngIf="triggerEventList" class="go-event-detail">
+            {{triggerEventList.length}}
+            <div *ngFor="let aEvent of triggerEventList" (click)="clickDetailEvent(aEvent)" >
+                {{aEvent.name}} -{{getImplement(aEvent.id).name}} 
+                <button (click)="clickDeleteEvent($event,aEvent)">X</button>
+            </div>
+        </div>
+
+        <div *ngIf="!triggerEventList" class="noti-addmotions">
+            <img src="assets/images/ic_motion.png" alt="add-motions">
+
+            <a (click)="clickNewEvent()">
+                <h3>Add motions</h3>
+            </a>
+
+            <p>Add the motion blah blah</p>
+        </div>
     </div>
 
 </div>

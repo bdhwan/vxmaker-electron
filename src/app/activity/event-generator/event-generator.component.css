@@ -188,6 +188,9 @@ box-shadow: 0px -1px 6px 0px rgba(0,0,0,0.2);
     border-bottom: 1px solid #ececec;
     box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
     padding:12px;
+    font-weight: bold;
+      font-family: Tahoma, Arial, sans-serif;
+
 }
 
 .trigger-select {
@@ -227,6 +230,8 @@ box-shadow: 0px -1px 6px 0px rgba(0,0,0,0.2);
     padding:6px;
     text-align: center;
     border-bottom: 1px solid #ececec;
+        font-family: Tahoma, Arial, sans-serif;
+font-weight: bold;
 }
 
 .trigger-intro {
@@ -284,4 +289,19 @@ box-shadow: 0px -1px 6px 0px rgba(0,0,0,0.2);
 
 .detail-content {
     padding:15px;
+}
+
+.detail-content select {
+    width:100%;
+    margin-top: 10px;
+}
+
+.event-kind {
+    text-align: center;
+    background: #f9fafb;
+    padding:3px;
+    font-size: 12px;
+    border-bottom: 1px solid #ececec;
+    font-family: Tahoma, Arial, sans-serif;
+font-weight: bold;
 }

@@ -67,29 +67,45 @@
                     <div class="generator-title">Event</div>
                     <div class="btn-scroll">
                         <div class="btn-trigger" (click)="clickImplement('stageChange')">
-                             <img src="assets/images/btn_stagechange.png" />
+                            <img src="assets/images/btn_stagechange.png" />
                             <p>stageChange</p>
-                            </div>
+                        </div>
                         <div class="btn-trigger" (click)="clickImplement('startActivity')">
-                             <img src="assets/images/btn_startactivity.png" />
+                            <img src="assets/images/btn_startactivity.png" />
                             <p>startActivity</p>
-                            </div>
+                        </div>
                         <div class="btn-trigger" (click)="clickImplement('finishActivity')">
-                             <img src="assets/images/btn_finishactivity.png" />
+                            <img src="assets/images/btn_finishactivity.png" />
                             <p>finishActivity</p>
-                            </div>
+                        </div>
 
-                        <div>-----Lottie-------</div>
-                        <button (click)="clickImplement('startLottie')">startLottie</button>
-                        <button (click)="clickImplement('stopLottie')">stopLottie</button>
+                        <div class="event-kind">Lottie</div>
+                        <div class="btn-trigger" (click)="clickImplement('startLottie')">
+                            <img src="assets/images/btn_startlottie.png" />
+                            <p>startLottie</p>
 
-                        <div>-----Camera-------</div>
-                        <button (click)="clickImplement('takePicture')">takePicture</button>
+                        </div>
+                        <div class="btn-trigger" (click)="clickImplement('stopLottie')">
+                            <img src="assets/images/btn_stoplottie.png" />
+                            <p>stopLottie</p>
+                        </div>
+
+                        <div class="event-kind">Camera</div>
+                        <div class="btn-trigger" (click)="clickImplement('takePicture')">
+                            <img src="assets/images/btn_takepicture.png" />
+                            <p>takePicture</p>
+                        </div>
 
 
-                        <div>-----VideoView-------</div>
-                        <button (click)="clickImplement('startVideo')">startVideo</button>
-                        <button (click)="clickImplement('stopVideo')">stopVideo</button>
+                        <div class="event-kind">VideoView</div>
+                        <div class="btn-trigger" (click)="clickImplement('startVideo')">
+                            <img src="assets/images/btn_startvideo.png" />
+                           <p> startVideo</p>
+                        </div>
+                        <div class="btn-trigger" (click)="clickImplement('stopVideo')">
+                            <img src="assets/images/btn_stopvideo.png" />
+                           <p> stopVideo</p>
+                        </div>
                     </div>
                 </div>
 
@@ -120,9 +136,9 @@
 
                         <div class="generator-title">Event Detail</div>
                         <div *ngIf="implementEvent.type=='stageChange'" class="detail-content">
-                            
 
-                            from: {{currentSelectedStageId}} select target stage
+
+                            From <b>{{currentSelectedStageId}}</b> select target stage
                             <select [(ngModel)]="selectedStageId" (change)="onChangeStage($event.target.value)"> 
                         <option *ngFor="let aStage of stageList" [value]="aStage.id">{{aStage.name}}</option>
                     </select>
@@ -186,8 +202,9 @@
             </div>
 
             <div class="generator-footer">
-                <button *ngIf="readyEvent" (click)="completeEvent()">Done</button>
                 <button (click)="hideDialog()">Cancel</button>
+                <button *ngIf="readyEvent" (click)="completeEvent()">Done</button>
+
             </div>
 
 

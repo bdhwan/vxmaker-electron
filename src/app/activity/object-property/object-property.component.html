@@ -3,7 +3,7 @@
     <div class="label-properties">Properties</div>
 
     <div *ngIf="!selectedTriggerEvent">
-        <div *ngIf="selectedObject">
+        <div *ngIf="selectedObject" class="btn-img">
             <div *ngIf="selectedObject.type=='ImageView'">
                 <button (click)="clickSelectImage()"> ImageSelect</button>
             </div>

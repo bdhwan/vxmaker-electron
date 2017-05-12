@@ -45,3 +45,16 @@
     padding-right: 15px;
 }
 
+.btn-img button{
+    width:290px;height: 28px;
+    margin:15px;
+   background: #fff;
+   border:1px solid #ccc;
+   border-radius: 2px;
+   color:#454545;
+}
+
+.btn-img button:hover {
+    background: #f9f9f9;
+    cursor: pointer;
+}

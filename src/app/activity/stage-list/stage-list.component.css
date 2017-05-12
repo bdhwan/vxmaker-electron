@@ -3,7 +3,7 @@
     width: 100%;
     z-index: 66;
     background-color: #b1b6bc;
-    min-width: 385px !important;
+    min-width:600px !important;
 }
 
 .stage-line {
@@ -22,10 +22,30 @@
     border-radius: 3px;
     padding: 4px 14px 3px 14px;
     margin: 2px;
-        background: #46a2ba;
+        
     color: #fff;
     font-size: 12px;
+
+}
+
+.tab-class:hover {
+    cursor: pointer;
+
+}
+
+
+.stage-current {
+background: #46a2ba;
     border: 2px solid #46a2ba;
+}
+
+.stage-notcurrent {
+    background: #aaa;
+    margin-top: 4px;
+}
+
+.stage-notcurrent:hover {
+    background: #898989;
 }
 
 .btn-new-stage {
@@ -42,3 +62,4 @@
     color:#fff;
     cursor: pointer;
 }
+

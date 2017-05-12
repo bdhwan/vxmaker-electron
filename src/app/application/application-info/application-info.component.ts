@@ -48,5 +48,6 @@ export class ApplicationInfoComponent implements OnInit {
     this.showImageDialog = !this.showImageDialog;
   }
  
+ 
 
 }
