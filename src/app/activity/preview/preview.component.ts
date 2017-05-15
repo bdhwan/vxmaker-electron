@@ -21,14 +21,24 @@ export class PreviewComponent implements OnInit {
   previewWidth = 0;
   previewHeight = 0;
   topMargin = 80;
-  leftMargin = 200;
-  rightMargin = 200;
+  leftMargin = 288;
+  rightMargin = 320;
 
 
   selectedObject;
   selectedStage;
   selectedState;
   activityData;
+
+  isMouseDown = false;
+  isResizeDown = false;
+  resizeIndex;
+
+  startX;
+  startY;
+  beforeX;
+  beforeY;
+  zoom;
 
 
   constructor(private appDataService: ApplicationDataServiceService) {
@@ -42,24 +52,7 @@ export class PreviewComponent implements OnInit {
 
 
 
-  isMouseDown = false;
-  isResizeDown = false;
-  resizeIndex;
-
-  startX;
-  startY;
-  beforeX;
-  beforeY;
-
-
-
-  zoom;
-
   mouseDown(event: MouseEvent) {
-    console.log("down");
-
-
-
 
     this.startX = event.clientX;
     this.startY = event.clientY;
