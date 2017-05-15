@@ -10,6 +10,11 @@
             <div>시간 :<input [(ngModel)]="aStateEvent.duration"></div>
             <div>인터폴레이터 : <input [(ngModel)]="aStateEvent.cubicValue[0]">, <input [(ngModel)]="aStateEvent.cubicValue[1]">,<input [(ngModel)]="aStateEvent.cubicValue[2]">,<input [(ngModel)]="aStateEvent.cubicValue[3]"></div>
 
+            <select (change)="onChangeInterpolator($event.target.value, aStateEvent)"> 
+                        <option  *ngFor="let aSet of presetInterpolatorList" [value]="aSet.value">{{aSet.name}}</option>
+            </select>
+
+
             <div>
                 활성화:
                 <label class="switch">

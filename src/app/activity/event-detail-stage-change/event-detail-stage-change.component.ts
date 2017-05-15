@@ -17,6 +17,25 @@ export class EventDetailStageChangeComponent implements OnInit {
   stateEventList = [];
 
 
+  presetInterpolatorList = [
+    {
+      'name': 'easyInOut',
+      'value': [0, 0, 0.5, 1]
+    },
+    {
+      'name': 'easyInOut1',
+      'value': [0, 0, 0.6, 1]
+    },
+    {
+      'name': 'easyInOut2',
+      'value': [0, 0, 0.7, 1]
+    },
+    {
+      'name': 'easyInOut3',
+      'value': [0, 0, 0.8, 1]
+    }
+  ];
+
 
   constructor(private appDataService: ApplicationDataServiceService) { }
 
@@ -29,21 +48,25 @@ export class EventDetailStageChangeComponent implements OnInit {
     this.onNewAfterAnimationEvent.emit(this.selectedImplementEvent.id);
   }
 
-  clickCancel(){
+  clickCancel() {
 
     this.onCloseEvent.emit();
 
   }
 
 
-  getAfterAnimation(){
+  getAfterAnimation() {
 
 
   }
 
 
-  getObjectName(objectId){
+  getObjectName(objectId) {
     return this.appDataService.findObjectById(objectId);
+  }
+
+  onChangeInterpolator(interpolator, target) {
+    target.cubicValue = interpolator.split(',').map(Number);
   }
 
 
