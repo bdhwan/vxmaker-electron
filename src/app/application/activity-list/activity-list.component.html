@@ -10,7 +10,7 @@
 
                 <div class="list-img">
 
-                    <img [src]="prefix+applicationFolderPath+'/'+activity.previewPath" width="100px" height="150px">
+                    <img class="preview-img" [src]="prefix+applicationFolderPath+'/'+activity.previewPath" >
                     <div class="list-hover">
                         <button (click)="clickActivity(activity.activityId)">Edit</button>
                         <button (click)="clickDuplicateActivity(activity.activityId)">Duplicate</button>
