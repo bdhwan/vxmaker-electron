@@ -5,7 +5,7 @@
     <div *ngIf="!selectedTriggerEvent">
         <div *ngIf="selectedObject" class="btn-img">
             <div *ngIf="selectedObject.type=='ImageView'">
-                <button (click)="clickSelectImage()"> ImageSelect</button>
+                <img [src]="prefix+applicationFolderPath+'/'+selectedObject.dataUrl" *ngIf="selectedObject.dataUrl" /> <button (click)="clickSelectImage()"> ImageSelect</button>
             </div>
 
             <div *ngIf="selectedObject.type=='LottieView'||selectedObject.type=='VideoView'">
@@ -13,19 +13,25 @@
             </div>
 
 
-            <div class="property-input-wrap" *ngFor="let key of getAllKeys(selectedObject)">
-               <label> {{ key }}:</label>
-               <div class="property-input">
-                <input [(ngModel)]="selectedObject[key]">
-               </div>
+            <div class="property-input-wrap">
+                <div *ngFor="let key of showPropertyKeys">
+                    <div *ngIf="selectedObject[key]">
+                        <label> {{ key }}:</label>
+                        <div class="property-input">
+                            <input [(ngModel)]="selectedObject[key]">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div *ngIf="selectedState">
-            <div class="property-input-wrap" *ngFor="let key of getAllKeys(selectedState)">
+
+        <button (click)='toggleDetail()'>more</button>
+        <div *ngIf="selectedState&&needShowState">
+            <div class="property-input-wrap" *ngFor="let key of detailKeys">
                 <label> {{ key }}: </label>
-                 <div class="property-input">
-                <input [(ngModel)]="selectedState[key]">
-                 </div>
+                <div class="property-input">
+                    <input [(ngModel)]="selectedState[key]">
+                </div>
             </div>
         </div>
     </div>

@@ -1,12 +1,22 @@
 <div *ngIf="selectedImplementEvent">
     <div *ngIf="selectedImplementEvent.type=='stageChange'">
-        {{selectedImplementEvent.type}}- {{stateEventList.length}}
+
+
+        {{selectedImplementEvent.type}}
         <div *ngFor="let aStateEvent of stateEventList">
-            {{getObjectName(aStateEvent.objectId).name}}, {{aStateEvent.duration}}, {{aStateEvent.startDelay}}, {{aStateEvent.cubicValue}}
 
-            <input type="checkbox" [checked]="aStateEvent.isEnabled" (change)="aStateEvent.isEnabled = !aStateEvent.isEnabled" />
+            <div>오브젝트 이름 : {{getObjectName(aStateEvent.objectId).name}}</div>
+            <div>시작딜레이 : <input [(ngModel)]="aStateEvent.startDelay"></div>
+            <div>시간 :<input [(ngModel)]="aStateEvent.duration"></div>
+            <div>인터폴레이터 : <input [(ngModel)]="aStateEvent.cubicValue[0]">, <input [(ngModel)]="aStateEvent.cubicValue[1]">,<input [(ngModel)]="aStateEvent.cubicValue[2]">,<input [(ngModel)]="aStateEvent.cubicValue[3]"></div>
 
-
+            <div>
+                활성화:
+                <label class="switch">
+                <input type="checkbox" [checked]="aStateEvent.isEnabled" (change)="aStateEvent.isEnabled = !aStateEvent.isEnabled" >
+                <div class="slider round"></div>
+                </label>
+            </div>
         </div>
         <button (click)="clickAddAfterAnimation()">AfterAnimation</button>
         <button (click)="clickCancel()">Cancel</button>
