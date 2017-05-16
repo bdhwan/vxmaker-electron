@@ -1,29 +1,121 @@
 <div *ngIf="selectedImplementEvent">
-    <div *ngIf="selectedImplementEvent.type=='stageChange'">
+    <div *ngIf="selectedImplementEvent.type=='stageChange'" class="event-stageChange">
 
+        <div class="event-detail">
+            {{selectedImplementEvent.type}}
 
-        {{selectedImplementEvent.type}}
-        <div *ngFor="let aStateEvent of stateEventList">
-
-            <div>오브젝트 이름 : {{getObjectName(aStateEvent.objectId).name}}</div>
-            <div>시작딜레이 : <input [(ngModel)]="aStateEvent.startDelay"></div>
-            <div>시간 :<input [(ngModel)]="aStateEvent.duration"></div>
-            <div>인터폴레이터 : <input [(ngModel)]="aStateEvent.cubicValue[0]">, <input [(ngModel)]="aStateEvent.cubicValue[1]">,<input [(ngModel)]="aStateEvent.cubicValue[2]">,<input [(ngModel)]="aStateEvent.cubicValue[3]"></div>
-
-            <select (change)="onChangeInterpolator($event.target.value, aStateEvent)"> 
-                        <option  *ngFor="let aSet of presetInterpolatorList" [value]="aSet.value">{{aSet.name}}</option>
-            </select>
-
-
+            <!-- 이벤트에 대한 상세 정보 -->
             <div>
-                활성화:
-                <label class="switch">
-                <input type="checkbox" [checked]="aStateEvent.isEnabled" (change)="aStateEvent.isEnabled = !aStateEvent.isEnabled" >
-                <div class="slider round"></div>
-                </label>
+                rootStage > Stage 03
             </div>
+
         </div>
-        <button (click)="clickAddAfterAnimation()">AfterAnimation</button>
-        <button (click)="clickCancel()">Cancel</button>
+
+
+
+        <!-- 각 오브젝트별 이벤트 인터폴레이터 -->
+
+
+        <div *ngFor="let aStateEvent of stateEventList" class="object-list-wrap">
+
+            <!-- 오브젝트 리스트 -->
+            <div class="object-list">
+
+                <!-- 오브젝트 이름-->
+                <div class="object-name object-list-main">
+                    {{getObjectName(aStateEvent.objectId).name}}
+                </div>
+
+                <!-- 그래프 요약 : 클릭하면 상세화면 드롭다운-->
+                <label for="toggle" class="object-preview object-list-main">
+                   &#8801;
+                </label>
+
+                <!-- 인터폴레이터 진행 그래프 : delay & duration-->
+                <div class="delay-graph object-list-main">
+                    <div class="graph">
+                        <div class="graph-bar" style="width: 90%;">
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 활성화 버튼-->
+                <div class="object-switch object-list-main">
+                    <label class="switch">
+                        <input type="checkbox" [checked]="aStateEvent.isEnabled" (change)="aStateEvent.isEnabled = !aStateEvent.isEnabled" >
+                        <div class="slider round"></div>
+                    </label>
+                </div>
+
+
+                <br>
+
+                <!-- 인터폴레이터 상세화면 드롭다운 -->
+                <input type="checkbox" id="toggle">
+                <div id="nav" class="object-dropdown">
+
+                    <div class="tri"></div>
+
+                    <!-- 시작 시간 및 동작 시간-->
+                    <div class="event-time">
+                        <div class="event-delay">
+                            Delay <input [(ngModel)]="aStateEvent.startDelay">
+                        </div>
+                        <div class="event-duration">
+                            Duration<input [(ngModel)]="aStateEvent.duration">
+                        </div>
+                    </div>
+
+                    <!-- 인터폴레이터 종류 선택-->
+                    <select class="interpolator-select" (change)="onChangeInterpolator($event.target.value, aStateEvent)"> 
+                        <option  *ngFor="let aSet of presetInterpolatorList" [value]="aSet.value">{{aSet.name}}</option>
+                    </select>
+
+                    <!-- 인터폴레이터 수치 그래프 -->
+
+                    <div class="curve-graph">
+
+                        <div class="coordinate-plane" data-time="31" data-progression="-32">
+                            <span class="control-point" id="P0"></span>
+                            <button class="control-point" id="P1" style="left:50px; top: 50px;"></button>
+                            <button class="control-point" id="P2" style="left: 230px; top: 194px;"></button>
+                            <span class="control-point" id="P3"></span>
+
+                            <canvas height="260" width="260" id="curve"></canvas>
+                        </div>
+
+                    </div>
+
+                    <!-- 인터폴레이터 수치 조절-->
+                    <div class="curve-input">
+                        <input class="input-left" [(ngModel)]="aStateEvent.cubicValue[0]"><input class="input-right" [(ngModel)]="aStateEvent.cubicValue[1]">
+                        <input class="input-left" [(ngModel)]="aStateEvent.cubicValue[2]"><input class="input-right" [(ngModel)]="aStateEvent.cubicValue[3]">
+                    </div>
+
+                </div>
+                <!-- 인터폴레이터 상세화면 드롭다운@ -->
+
+            </div>
+            <!-- 오브젝트 리스트@ -->
+
+
+
+
+        </div>
+
+        <!-- 각 오브젝트별 이벤트 인터폴레이터 @-->
+
+
+
     </div>
+
+    <!-- 이벤트 디테일 하단 : 애프터애니메이션 클릭시 이벤트생성 팝업-->
+    <div class="event-detail-footer">
+        <button class="btn-afterAni" (click)="clickAddAfterAnimation()">AfterAnimation</button>
+        <button (click)="clickCancel()">Cancel</button>
+        <button>Done</button>
+    </div>
+
+
 </div>

@@ -17,12 +17,17 @@
     </div>
 
     <div *ngIf="!selectedTriggerEvent">
+
+
+        <!-- 이벤트리스트 -->
         <div *ngIf="triggerEventList" class="go-event-detail">
             <div *ngFor="let aEvent of triggerEventList" (click)="clickDetailEvent(aEvent)">
                 {{aEvent.name}} -{{getImplement(aEvent.id).name}}
-                <button (click)="clickDeleteEvent($event,aEvent)">X</button>
+                <button class="btn-trash" (click)="clickDeleteEvent($event,aEvent)"><i class="fa fa-trash-o"></i></button>
             </div>
         </div>
+        <!-- 이벤트리스트 @ -->
+
 
         <div *ngIf="!triggerEventList" class="noti-addmotions">
             <img src="assets/images/ic_motion.png" alt="add-motions">

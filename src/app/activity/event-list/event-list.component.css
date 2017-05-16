@@ -47,4 +47,23 @@
     padding:15px;
     font-size: 13px;
     color:#454545;
+    position: relative;
+}
+
+.go-event-detail .btn-trash {
+    background: transparent;
+    border:none;
+    position: absolute;
+    right:0;
+    top:0;
+    padding:15px;
+}
+
+.go-event-detail .btn-trash i {
+    font-size: 16px;
+    opacity: 0.3;
+}
+
+.go-event-detail .btn-trash:hover i {
+    opacity: 0.5;
 }

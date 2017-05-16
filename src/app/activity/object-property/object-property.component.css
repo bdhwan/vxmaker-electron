@@ -58,3 +58,8 @@
     background: #f9f9f9;
     cursor: pointer;
 }
+
+.go-event-detail .btn-trash {
+    background: transparent;
+    border:none;
+}
