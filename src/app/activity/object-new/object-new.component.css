@@ -25,3 +25,21 @@
     -ms-transition: 0.1s all ease;
     cursor: pointer;
 }
+
+
+.layers-btn .motion-btn img {
+    max-width: 45px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 13px;
+}
+
+.layers-btn .motion-btn p {
+    text-align: center;
+    width: 100%;
+    font-size: 12px;
+    color: #454545;
+    position: absolute;
+    bottom: 1px;
+    margin-bottom: 6px;
+}

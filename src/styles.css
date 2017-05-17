@@ -18,6 +18,10 @@ input, textarea, keygen, select, button {
     box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+display: none;
+}
+
 ::selection{background:#bec9e5;}
 
 :focus {
