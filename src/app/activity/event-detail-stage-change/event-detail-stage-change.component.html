@@ -21,6 +21,9 @@
             <!-- 오브젝트 리스트 -->
             <div class="object-list">
 
+                <app-event-stage-change-cell></app-event-stage-change-cell>
+
+
                 <!-- 오브젝트 이름-->
                 <div class="object-name object-list-main">
                     {{getObjectName(aStateEvent.objectId).name}}
@@ -76,7 +79,7 @@
 
                     <div class="curve-graph">
 
-                        <div class="coordinate-plane" data-time="31" data-progression="-32">
+                        <div class="coordinate-plane" data-time="61" data-progression="-32">
                             <span class="control-point" id="P0"></span>
                             <button class="control-point" id="P1" style="left:50px; top: 50px;"></button>
                             <button class="control-point" id="P2" style="left: 230px; top: 194px;"></button>

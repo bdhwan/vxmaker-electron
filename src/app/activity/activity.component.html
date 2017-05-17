@@ -10,7 +10,7 @@
                 <button class="btn-back" (click)="clickBack()">◄ Back</button>
             </div>
 
-         
+
 
             <div class="dropdown nav-page" role="menu" style="float:left;">
                 <input type="text" [(ngModel)]="activityMetaData.activityName" (blur)="changeActivityName()" />
@@ -34,8 +34,7 @@
 
         <div class="activity-left">
             <app-object-tree #objectTree (onChangeNode)="onChangeNodeFromTree($event)" (onClickNewFile)="clickNewFile($event)" (onSelectNode)="onSelectNodeFromTree($event)"></app-object-tree>
-            <app-object-new #objectNew (onShowResourceDialog)="onShowResourceDialog($event)" (onClickNewObject)="clickNewObject($event)"
-                (onChangeTreeData)="changeTreeData($event)"></app-object-new>
+            <app-object-new #objectNew (onShowResourceDialog)="onShowResourceDialog($event)" (onClickNewObject)="clickNewObject($event)" (onChangeTreeData)="changeTreeData($event)"></app-object-new>
         </div>
 
         <!-- activity left@-->

@@ -31,6 +31,7 @@ import { ResourceComponent } from './common/resource/resource.component';
 import { EventDetailStageChangeComponent } from './activity/event-detail-stage-change/event-detail-stage-change.component';
 import { EventDetailStartActivityComponent } from './activity/event-detail-start-activity/event-detail-start-activity.component';
 import { EventDetailFinishActivityComponent } from './activity/event-detail-finish-activity/event-detail-finish-activity.component';
+import { EventStageChangeCellComponent } from './activity/event-stage-change-cell/event-stage-change-cell.component';
 
 
 
@@ -72,7 +73,8 @@ const appRoutes: Routes = [
     EventGeneratorComponent,
     EventDetailStageChangeComponent,
     EventDetailStartActivityComponent,
-    EventDetailFinishActivityComponent
+    EventDetailFinishActivityComponent,
+    EventStageChangeCellComponent
   ],
   imports: [
     BrowserModule,
