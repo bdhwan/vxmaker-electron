@@ -5,7 +5,9 @@
     <div *ngIf="!selectedTriggerEvent">
         <div *ngIf="selectedObject" class="btn-img">
             <div *ngIf="selectedObject.type=='ImageView'">
-                <img [src]="prefix+applicationFolderPath+'/'+selectedObject.dataUrl" *ngIf="selectedObject.dataUrl" /> <button (click)="clickSelectImage()"> ImageSelect</button>
+                <img [src]="prefix+applicationFolderPath+'/'+selectedObject.dataUrl" *ngIf="selectedObject.dataUrl" />
+                <button
+                    (click)="clickSelectImage()"> ImageSelect</button>
             </div>
 
             <div *ngIf="selectedObject.type=='LottieView'||selectedObject.type=='VideoView'">
@@ -25,7 +27,10 @@
             </div>
         </div>
 
-        <button (click)='toggleDetail()'>more</button>
+        <div class="btn-img">
+            <button (click)='toggleDetail()'>more</button>
+        </div>
+        
         <div *ngIf="selectedState&&needShowState">
             <div class="property-input-wrap" *ngFor="let key of detailKeys">
                 <label> {{ key }}: </label>
