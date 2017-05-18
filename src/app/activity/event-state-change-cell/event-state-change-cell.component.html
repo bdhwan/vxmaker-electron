@@ -1,0 +1,29 @@
+<div #cellRoot>
+    <!-- 오브젝트 이름-->
+    <div class="object-name object-list-main">
+        {{getObjectName(stateEventData.objectId).name}}
+        <app-event-state-change-graph #graphSmall [stateEventData]="stateEventData" [graphSize]="40"></app-event-state-change-graph>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="stateEventData.isEnabled">
+          <div class="slider round"></div>
+      </label>
+    </div>
+
+
+    <app-event-state-change-timeline #timeLine (onChangeTimeLine)="onChangeTimeLineFromTimeLine($event)" [stateEventData]="stateEventData" [timeLineSizeW]="200" [timeLineSizeH]="40" [maxTime]="maxTotalTime"></app-event-state-change-timeline>
+
+    <button (click)="toggleDetail()">상세</button>
+    <div [hidden]="!isExpaned">
+        <input class="input-left" [(ngModel)]="stateEventData.startDelay"><input class="input-right" [(ngModel)]="stateEventData.duration">
+
+        <app-event-state-change-graph #graphBig (onChangeGraph)="onChangeGraph($event)" [needHandler]="true" [stateEventData]="stateEventData" [graphSize]="200" [paddingSize]="20"></app-event-state-change-graph>
+        <input class="input-left" [(ngModel)]="stateEventData.cubicValue[0]"><input class="input-right" [(ngModel)]="stateEventData.cubicValue[1]">
+        <input class="input-left" [(ngModel)]="stateEventData.cubicValue[2]"><input class="input-right" [(ngModel)]="stateEventData.cubicValue[3]">
+
+        <!-- 인터폴레이터 종류 선택-->
+        <select class="interpolator-select" (change)="onChangeInterpolator($event.target.value, stateEventData)"> 
+        <option *ngFor="let aSet of presetInterpolatorList" [value]="aSet.value">{{aSet.name}}</option>
+    </select>
+
+    </div>
+</div>

@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-import { ApplicationDataServiceService } from '../../service/application-data-service.service'
+import { ApplicationDataServiceService } from '../../service/application-data-service.service';
 
-import { PreviewSizeComponent } from '../preview-size/preview-size.component'
+import { PreviewSizeComponent } from '../preview-size/preview-size.component';
 
 
 

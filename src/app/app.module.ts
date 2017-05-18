@@ -32,6 +32,9 @@ import { EventDetailStageChangeComponent } from './activity/event-detail-stage-c
 import { EventDetailStartActivityComponent } from './activity/event-detail-start-activity/event-detail-start-activity.component';
 import { EventDetailFinishActivityComponent } from './activity/event-detail-finish-activity/event-detail-finish-activity.component';
 import { EventStageChangeCellComponent } from './activity/event-stage-change-cell/event-stage-change-cell.component';
+import { EventStateChangeCellComponent } from './activity/event-state-change-cell/event-state-change-cell.component';
+import { EventStateChangeGraphComponent } from './activity/event-state-change-graph/event-state-change-graph.component';
+import { EventStateChangeTimelineComponent } from './activity/event-state-change-timeline/event-state-change-timeline.component';
 
 
 
@@ -74,7 +77,10 @@ const appRoutes: Routes = [
     EventDetailStageChangeComponent,
     EventDetailStartActivityComponent,
     EventDetailFinishActivityComponent,
-    EventStageChangeCellComponent
+    EventStageChangeCellComponent,
+    EventStateChangeCellComponent,
+    EventStateChangeGraphComponent,
+    EventStateChangeTimelineComponent
   ],
   imports: [
     BrowserModule,

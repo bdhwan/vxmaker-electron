@@ -1,23 +1,28 @@
-import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
-import { ApplicationDataServiceService } from '../../service/application-data-service.service'
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { ApplicationDataServiceService } from '../../service/application-data-service.service';
+
 
 @Component({
-  selector: 'app-event-detail-stage-change',
-  templateUrl: './event-detail-stage-change.component.html',
-  styleUrls: ['./event-detail-stage-change.component.css']
+  selector: 'app-event-state-change-cell',
+  templateUrl: './event-state-change-cell.component.html',
+  styleUrls: ['./event-state-change-cell.component.css']
 })
-export class EventDetailStageChangeComponent implements OnInit, AfterViewInit {
+export class EventStateChangeCellComponent implements OnInit {
 
-  @Output() onNewAfterAnimationEvent = new EventEmitter<string>();
-  @Output() onCloseEvent = new EventEmitter<string>();
+  @Input('stateEventData') stateEventData;
+  @Input('maxTotalTime') maxTotalTime;
 
-  // selectedTriggerEvent;
-  selectedImplementEvent;
+  @ViewChild('graphSmall') graphSmall;
+  @ViewChild('graphBig') graphBig;
+  @ViewChild('timeLine') timeLine;
 
-  stateEventList;
+  @Output() onChangeTimeLineFromStateCell = new EventEmitter<string>();
 
-  maxTotalTime;
-  initTotalTime = 0;
+
+
+
+
+  isExpaned;
 
   presetInterpolatorList = [
     {
@@ -140,87 +145,47 @@ export class EventDetailStageChangeComponent implements OnInit, AfterViewInit {
       'name': 'easeInOutBack',
       'value': [0.68, -0.55, 0.265, 1.55]
     }
+
   ];
+
+
 
 
   constructor(private appDataService: ApplicationDataServiceService) { }
 
-
   ngOnInit() {
-
+    console.log("maxtime =" + this.maxTotalTime);
   }
 
-  ngAfterViewInit() {
-
-  }
-
-  getMaxTotalTime() {
-    let tempTotalTime = 0;
-    for (let i = 0; i < this.stateEventList.length; i++) {
-      const time = Number(this.stateEventList[i].startDelay) + Number(this.stateEventList[i].duration);
-      if (time > tempTotalTime) {
-        tempTotalTime = time;
-      }
-    }
-    return tempTotalTime+500;
-  }
-
-  calculateMaxTotalTime() {
-
-    const tempTotalTime = this.getMaxTotalTime();
-    if (this.initTotalTime === 0) {
-      this.initTotalTime = tempTotalTime + 1000;
-    }
-
-
-    if (this.initTotalTime > tempTotalTime) {
-      this.maxTotalTime = this.initTotalTime;
-    } else {
-      this.maxTotalTime = tempTotalTime;
-    }
-    this.initTotalTime = this.maxTotalTime;
-  }
-
-  clickAddAfterAnimation() {
-    this.onNewAfterAnimationEvent.emit(this.selectedImplementEvent.id);
-  }
-
-  clickCancel() {
-
-    this.onCloseEvent.emit();
-
-  }
-
-
-  getAfterAnimation() {
-
-
-  }
 
 
   getObjectName(objectId) {
     return this.appDataService.findObjectById(objectId);
   }
 
+  onChangeGraph(value) {
+    this.graphSmall.updateGraph();
+  }
+
+  onChangeTimeLineFromTimeLine(value) {
+
+    console.log("call onChangeTimeLineFromTimeLine 1");
+    this.onChangeTimeLineFromStateCell.emit('change');
+  }
+
+
+
+
   onChangeInterpolator(interpolator, target) {
     target.cubicValue = interpolator.split(',').map(Number);
-  }
-
-  onChangeTimeLineFromStateCell(value) {
-    console.log("ok here will update all");
-    this.calculateMaxTotalTime();
-  }
-
-  public onChangeData() {
-    // this.selectedTriggerEvent = this.appDataService.getSelectedTriggerEvent();
-    this.selectedImplementEvent = this.appDataService.getSelectedImplementEvent();
-    if (this.selectedImplementEvent) {
-      this.stateEventList = this.appDataService.findStateChangeEventByImplementEventId(this.selectedImplementEvent.id);
-      this.calculateMaxTotalTime();
-    }
+    this.graphSmall.updateGraph();
+    this.graphBig.updateGraph();
   }
 
 
+  toggleDetail() {
+    this.isExpaned = !this.isExpaned;
+  }
 
 
 

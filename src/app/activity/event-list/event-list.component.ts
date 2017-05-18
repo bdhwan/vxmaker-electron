@@ -58,11 +58,8 @@ export class EventListComponent implements OnInit {
       // const implEvent = this.appDataService.findImplentEventByTriggerEventId(triggerEvent.id);
       this.appDataService.deleteTriggerEvent(triggerEvent);
     }
-
-
-
-
   }
+
 
 
 

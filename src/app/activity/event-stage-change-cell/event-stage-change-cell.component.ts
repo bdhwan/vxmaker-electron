@@ -1,4 +1,5 @@
-import { Component, OnInit, NgZone, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, NgZone, AfterViewInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { ApplicationDataServiceService } from '../../service/application-data-service.service';
 
 @Component({
   selector: 'app-event-stage-change-cell',
@@ -9,8 +10,11 @@ export class EventStageChangeCellComponent implements OnInit, AfterViewInit {
 
 
   context: CanvasRenderingContext2D;
-
+  @ViewChild('myCanvasS') myCanvasS;
   @ViewChild('myCanvas') myCanvas;
+  
+  @Input('stateEventData') stateEventData;
+
 
   w = 200;
   h = 200;
@@ -27,26 +31,47 @@ export class EventStageChangeCellComponent implements OnInit, AfterViewInit {
   isSelectedLeftPoint;
   isSelectedRightPoint;
 
-  constructor() { }
+  isExpanded;
+
+  constructor(private elementRef: ElementRef, private appDataService: ApplicationDataServiceService) { }
 
   ngOnInit() {
-
-
+    console.log('state event data = ' + JSON.stringify(this.stateEventData));
   }
 
 
-  ngAfterViewInit() {
+  getObjectName(objectId) {
+    return this.appDataService.findObjectById(objectId);
+  }
 
+
+  toggleDetail() {
+    this.isExpanded = !this.isExpanded;
+    console.log("isExpanded = " + this.isExpanded);
+    if (this.isExpanded) {
+
+    }
+  }
+
+
+  makeGraphe() {
     const canvas = this.myCanvas.nativeElement;
     this.context = canvas.getContext('2d');
+    this.w = this.myCanvas.nativeElement.getAttribute('canvasW');
+    this.h = this.myCanvas.nativeElement.getAttribute('canvasH');
     this.updateGraph();
   }
 
+  ngAfterViewInit() {
+    this.makeGraphe();
+
+  }
+
   updateGraph() {
-    const needHandler = true;
-    var ctx = this.context;
-    let left = this.leftPoint;
-    let right = this.rightPoint;
+
+    const ctx = this.context;
+    const left = this.leftPoint;
+    const right = this.rightPoint;
 
     ctx.clearRect(0, 0, this.w, this.h);
 
@@ -55,6 +80,13 @@ export class EventStageChangeCellComponent implements OnInit, AfterViewInit {
     ctx.bezierCurveTo(left.x * this.w, (1 - left.y) * this.h, right.x * this.w, (1 - right.y) * this.h, this.w, 0);
     ctx.stroke();
     ctx.closePath();
+
+
+    let needHandler = true;
+    if (this.w < 110) {
+      needHandler = false;
+    }
+
 
     if (needHandler) {
 
