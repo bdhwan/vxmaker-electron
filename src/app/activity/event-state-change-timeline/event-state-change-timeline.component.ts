@@ -34,7 +34,7 @@ export class EventStateChangeTimelineComponent implements OnInit, AfterViewInit 
   beforeX;
   beforeY;
 
-  handlerRadius = 10;
+  handlerRadius = 5;
 
   constructor() { }
   ngOnInit() {
@@ -58,11 +58,29 @@ export class EventStateChangeTimelineComponent implements OnInit, AfterViewInit 
 
   public updateGraph() {
 
+    const ctx = this.context;
 
-    this.context.clearRect(0, 0, this.timeLineSizeW, this.timeLineSizeH);
-    this.context.lineWidth = 1;
-    this.context.rect(this.p, this.p, this.timeLineSizeW - this.p * 2, this.timeLineSizeH - this.p * 2);
-    this.context.stroke();
+
+    ctx.clearRect(0, 0, this.timeLineSizeW, this.timeLineSizeH);
+       // 눈금
+    for (var i = 0; i < 30; i++) {
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(this.p + 10*i, 1);
+    ctx.lineTo(this.p + 10*i, (this.timeLineSizeH - this.p * 2)-2 );
+    ctx.strokeStyle = "#ececec";
+    ctx.stroke();
+    }
+    ctx.lineWidth = 1;
+    ctx.rect(this.p, this.p, this.timeLineSizeW - this.p * 2, this.timeLineSizeH - this.p * 2);
+    ctx.strokeStyle = "#898989";
+    ctx.stroke();
+
+
+
+ 
+
+
 
     //draw duration
     const contentW = this.timeLineSizeW - this.p * 2;
@@ -71,12 +89,17 @@ export class EventStateChangeTimelineComponent implements OnInit, AfterViewInit 
     const left = this.stateEventData.startDelay / this.maxTime * contentW;
     const duration = this.stateEventData.duration / this.maxTime * contentW;
 
-    this.context.fillStyle = '#ff0000';
-    this.context.fillRect(this.p + left, this.p, this.handlerRadius, contentH);
-    this.context.fillStyle = '#00ff00';
-    this.context.fillRect(this.p + left + this.handlerRadius, this.p, duration - this.handlerRadius * 2, contentH);
-    this.context.fillStyle = '#ff0000';
-    this.context.fillRect(this.p + left + duration - this.handlerRadius, this.p, this.handlerRadius, contentH);
+    //타임라인 왼쪽 핸들러
+    ctx.fillStyle = '#288097';
+    ctx.fillRect(this.p + left, this.p, this.handlerRadius, contentH);
+
+    //타임라인
+    ctx.fillStyle = '#46a2ba';
+    ctx.fillRect(this.p + left + this.handlerRadius, this.p, duration - this.handlerRadius * 2, contentH);
+
+    //타임라인 오른쪽 핸들러
+    ctx.fillStyle = '#288097';
+    ctx.fillRect(this.p + left + duration - this.handlerRadius, this.p, this.handlerRadius, contentH);
 
   }
 

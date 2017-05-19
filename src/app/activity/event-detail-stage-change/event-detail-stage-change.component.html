@@ -2,12 +2,13 @@
     <div *ngIf="selectedImplementEvent.type=='stageChange'" class="event-stageChange">
 
         <div class="event-detail">
-            {{selectedImplementEvent.type}}
+            <!--{{selectedImplementEvent.type}}-->
 
             <!-- 이벤트에 대한 상세 정보 -->
-            <div>
-                rootStage > Stage 03
-            </div>
+
+            <img src="assets/images/btn_stagechange.png" />
+            <h4>rootStage > Stage 03</h4>
+
 
         </div>
 
@@ -20,7 +21,8 @@
 
             <!-- 오브젝트 리스트 -->
             <div class="object-list">
-                <app-event-state-change-cell [maxTotalTime]="maxTotalTime" (onChangeTimeLineFromStateCell)="onChangeTimeLineFromStateCell($event)" [stateEventData]="aStateEvent"></app-event-state-change-cell>
+                <app-event-state-change-cell [maxTotalTime]="maxTotalTime" (onChangeTimeLineFromStateCell)="onChangeTimeLineFromStateCell($event)"
+                    [stateEventData]="aStateEvent"></app-event-state-change-cell>
             </div>
             <!-- 오브젝트 리스트@ -->
         </div>

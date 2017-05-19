@@ -44,10 +44,14 @@
 .go-event-detail {
     background: #f9fafb;
     border-bottom: 1px solid #ececec;
-    padding:15px;
+    padding:12px 15px;
     font-size: 13px;
     color:#454545;
     position: relative;
+}
+
+.go-event-detail:hover {
+    cursor: pointer;
 }
 
 .go-event-detail .btn-trash {
@@ -57,6 +61,7 @@
     right:0;
     top:0;
     padding:15px;
+    margin-top: 5px;
 }
 
 .go-event-detail .btn-trash i {
@@ -66,4 +71,26 @@
 
 .go-event-detail .btn-trash:hover i {
     opacity: 0.5;
+}
+
+/* event-detail */
+
+.event-detail{
+    overflow: hidden;
+      background: #f9fafb;
+  
+}
+
+.event-detail img {
+width:28px;
+float:left;
+}
+
+.event-detail h4 {
+    float: left;
+    margin:0;
+    font-size: 13px;
+    color:#454545;
+    margin-top: 4px;
+    padding-left: 10px;
 }

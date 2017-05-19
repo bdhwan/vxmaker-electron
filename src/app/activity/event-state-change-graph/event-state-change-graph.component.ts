@@ -28,7 +28,7 @@ export class EventStateChangeGraphComponent implements OnInit, AfterViewInit {
   beforeX;
   beforeY;
 
-  handlerRadius = 10;
+  handlerRadius = 8;
 
   isSelectedLeftPoint;
   isSelectedRightPoint;
@@ -64,52 +64,99 @@ export class EventStateChangeGraphComponent implements OnInit, AfterViewInit {
     const ctx = this.context;
 
     ctx.clearRect(0, 0, this.w, this.h);
+  
 
     // ctx.rect(this.p, this.p, this.w - this.p * 2, this.h - this.p * 2);
     // ctx.stroke();
 
+    if (this.needHandler) {
+
+      //가운데 기준선
+      ctx.beginPath();
+      ctx.strokeStyle = "#ececec";
+      ctx.moveTo(this.p, this.h - this.p);
+      ctx.lineTo(this.w - this.p, this.p);
+      ctx.lineWidth = 3;
+      ctx.stroke();
+      ctx.closePath();
+
+    }
+
     //그래프 곡선
     ctx.beginPath();
-    ctx.strokeStyle="#ff0000";
+    ctx.strokeStyle = "#454545";
+    
     ctx.moveTo(this.p, this.h - this.p);
     ctx.bezierCurveTo(this.p + this.stateEventData.cubicValue[0] * (this.w - this.p * 2), this.p + (1 - this.stateEventData.cubicValue[1]) * (this.h - this.p * 2), this.p + this.stateEventData.cubicValue[2] * (this.w - this.p * 2), this.p + (1 - this.stateEventData.cubicValue[3]) * (this.h - this.p * 2), this.w - this.p, this.p);
+    if (this.needHandler) {
+      ctx.lineWidth = 4;
+    }
+    else {
+      ctx.lineWidth = 2;
+    }
     ctx.stroke();
     ctx.closePath();
 
 
     if (this.needHandler) {
 
-      //가운데 기준선
-      ctx.beginPath();
-      ctx.strokeStyle="#00ff00";
-      ctx.moveTo(this.p, this.h - this.p);
-      ctx.lineTo(this.w - this.p, this.p);
-      ctx.stroke();
-      ctx.closePath();
+
 
       //왼쪽 핸들러 직선
       ctx.beginPath();
-      ctx.strokeStyle="#0000ff";
+      ctx.strokeStyle = "#898989";
       ctx.moveTo(this.p, this.h - this.p);
       ctx.lineTo(this.p + this.stateEventData.cubicValue[0] * (this.w - this.p * 2), this.p + (1 - this.stateEventData.cubicValue[1]) * (this.h - this.p * 2));
+      ctx.lineWidth = 2;
       ctx.stroke();
       ctx.closePath();
 
+      //왼쪽 중심 원
       ctx.beginPath();
+      ctx.strokeStyle = "#898989";
+      ctx.fillStyle = "#fff";
+      ctx.arc(this.p, this.h - this.p, this.handlerRadius * 0.6 , 0, 2 * Math.PI);
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.closePath();
+      ctx.fill();
+
+      //왼쪽 핸들러 원
+      ctx.beginPath();
+      ctx.fillStyle = "#f08";
       ctx.arc(this.p + this.stateEventData.cubicValue[0] * (this.w - this.p * 2), this.p + (1 - this.stateEventData.cubicValue[1]) * (this.h - this.p * 2), this.handlerRadius, 0, 2 * Math.PI);
       ctx.stroke();
+      ctx.lineWidth = 1;
       ctx.closePath();
+      ctx.fill();
 
+
+
+      //오른쪽 핸들러 직선
       ctx.beginPath();
       ctx.moveTo(this.w - this.p, this.p);
       ctx.lineTo(this.p + this.stateEventData.cubicValue[2] * (this.w - this.p * 2), this.p + (1 - this.stateEventData.cubicValue[3]) * (this.h - this.p * 2));
       ctx.closePath();
+      ctx.lineWidth = 2;
       ctx.stroke();
 
+      //오른쪽 중심 원
       ctx.beginPath();
+      ctx.fillStyle = "#fff";
+      ctx.arc(this.w - this.p, this.p, this.handlerRadius * 0.6 , 0, 2 * Math.PI);
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.closePath();
+      ctx.fill();
+
+      //오른쪽 핸들러 원
+      ctx.beginPath();
+      ctx.fillStyle = "#0ab";
       ctx.arc(this.p + this.stateEventData.cubicValue[2] * (this.w - this.p * 2), this.p + (1 - this.stateEventData.cubicValue[3]) * (this.h - this.p * 2), this.handlerRadius, 0, 2 * Math.PI);
       ctx.closePath();
+      ctx.lineWidth = 1;
       ctx.stroke();
+      ctx.fill();
     }
   }
 
@@ -131,9 +178,9 @@ export class EventStateChangeGraphComponent implements OnInit, AfterViewInit {
     this.isSelectedLeftPoint = false;
     this.isSelectedRightPoint = false;
 
-    if (distancLeft < this.handlerRadius * 3) {
+    if (distancLeft < this.handlerRadius * 5) {
       this.isSelectedLeftPoint = true;
-    } else if (distancRight < this.handlerRadius * 3) {
+    } else if (distancRight < this.handlerRadius * 5) {
       this.isSelectedRightPoint = true;
     }
 
@@ -152,11 +199,11 @@ export class EventStateChangeGraphComponent implements OnInit, AfterViewInit {
     const differY = (this.beforeY - currentY);
 
     if (this.isSelectedLeftPoint) {
-      this.stateEventData.cubicValue[0] = Math.round((Number(this.stateEventData.cubicValue[0]) - (differX / (this.w-this.p*2))) * 1000) / 1000;
-      this.stateEventData.cubicValue[1] = Math.round((Number(this.stateEventData.cubicValue[1]) + (differY / (this.h-this.p*2))) * 1000) / 1000;
+      this.stateEventData.cubicValue[0] = Math.round((Number(this.stateEventData.cubicValue[0]) - (differX / (this.w - this.p * 2))) * 1000) / 1000;
+      this.stateEventData.cubicValue[1] = Math.round((Number(this.stateEventData.cubicValue[1]) + (differY / (this.h - this.p * 2))) * 1000) / 1000;
     } else if (this.isSelectedRightPoint) {
-      this.stateEventData.cubicValue[2] = Math.round((Number(this.stateEventData.cubicValue[2]) - (differX / (this.w-this.p*2))) * 1000) / 1000;
-      this.stateEventData.cubicValue[3] = Math.round((Number(this.stateEventData.cubicValue[3]) + (differY / (this.h-this.p*2))) * 1000) / 1000;
+      this.stateEventData.cubicValue[2] = Math.round((Number(this.stateEventData.cubicValue[2]) - (differX / (this.w - this.p * 2))) * 1000) / 1000;
+      this.stateEventData.cubicValue[3] = Math.round((Number(this.stateEventData.cubicValue[3]) + (differY / (this.h - this.p * 2))) * 1000) / 1000;
     }
 
     this.updateGraph();

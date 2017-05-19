@@ -3,8 +3,8 @@
 .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 40px;
+    height: 24px;
 }
 
 
@@ -32,8 +32,8 @@
 .slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
+    height: 16px;
+    width: 16px;
     left: 4px;
     bottom: 4px;
     background-color: white;
@@ -68,6 +68,7 @@ input:checked+.slider:before {
 
 .object-list-wrap {
     padding:15px;
+    padding-bottom: 150px;
     border-bottom: 1px solid #ececec;
 }
 
@@ -185,7 +186,27 @@ margin-left: 10px;
     overflow: hidden;
     position: relative;
     height:100%;
-    background: #f9fafb;
+  
+}
+
+.event-detail{
+    overflow: hidden;
+      background: #f9fafb;
+      padding:15px;
+}
+
+.event-detail img {
+width:28px;
+float:left;
+}
+
+.event-detail h4 {
+    float: left;
+    margin:0;
+    font-size: 13px;
+    color:#454545;
+    margin-top: 4px;
+    padding-left: 10px;
 }
 
 .event-detail-footer {
@@ -376,6 +397,3 @@ canvas#curve {
     margin-left: 4px;
 }
 
-.event-detail {
-    padding:15px;
-}

@@ -22,7 +22,16 @@
         <!-- 이벤트리스트 -->
         <div *ngIf="triggerEventList" class="go-event-detail">
             <div *ngFor="let aEvent of triggerEventList" (click)="clickDetailEvent(aEvent)">
-                {{aEvent.name}} -{{getImplement(aEvent.id).name}}
+
+                <div class="event-detail">
+
+                    <!-- 이벤트에 대한 상세 정보 -->
+                    <img src="assets/images/btn_stagechange.png" />
+                    <h4> {{aEvent.name}} -{{getImplement(aEvent.id).name}}</h4>
+
+                </div>
+
+               
                 <button class="btn-trash" (click)="clickDeleteEvent($event,aEvent)"><i class="fa fa-trash-o"></i></button>
             </div>
         </div>
