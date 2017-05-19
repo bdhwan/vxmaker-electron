@@ -4,6 +4,8 @@
 
     <div *ngIf="!selectedTriggerEvent">
         <div *ngIf="selectedObject" class="btn-img">
+
+            <!-- 이미지, 파일 선택버튼 -->
             <div *ngIf="selectedObject.type=='ImageView'">
                 <img [src]="prefix+applicationFolderPath+'/'+selectedObject.dataUrl" *ngIf="selectedObject.dataUrl" />
                 <button
@@ -13,6 +15,7 @@
             <div *ngIf="selectedObject.type=='LottieView'||selectedObject.type=='VideoView'">
                 <button (click)="clickSelectFile()"> ImageFile</button>
             </div>
+            <!-- 이미지, 파일 선택버튼@ -->
 
 
             <div class="property-input-wrap">
@@ -30,7 +33,7 @@
         <div class="btn-img">
             <button (click)='toggleDetail()'>more</button>
         </div>
-        
+
         <div *ngIf="selectedState&&needShowState">
             <div class="property-input-wrap" *ngFor="let key of detailKeys">
                 <label> {{ key }}: </label>
