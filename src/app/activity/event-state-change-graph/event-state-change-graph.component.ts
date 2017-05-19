@@ -64,12 +64,16 @@ export class EventStateChangeGraphComponent implements OnInit, AfterViewInit {
     const ctx = this.context;
 
     ctx.clearRect(0, 0, this.w, this.h);
-  
+
 
     // ctx.rect(this.p, this.p, this.w - this.p * 2, this.h - this.p * 2);
     // ctx.stroke();
 
     if (this.needHandler) {
+
+      ctx.fillStyle="#ffffff";
+      ctx.fillRect(0, 0, this.w, this.h);
+      ctx.fill();
 
       //가운데 기준선
       ctx.beginPath();
@@ -85,7 +89,7 @@ export class EventStateChangeGraphComponent implements OnInit, AfterViewInit {
     //그래프 곡선
     ctx.beginPath();
     ctx.strokeStyle = "#454545";
-    
+
     ctx.moveTo(this.p, this.h - this.p);
     ctx.bezierCurveTo(this.p + this.stateEventData.cubicValue[0] * (this.w - this.p * 2), this.p + (1 - this.stateEventData.cubicValue[1]) * (this.h - this.p * 2), this.p + this.stateEventData.cubicValue[2] * (this.w - this.p * 2), this.p + (1 - this.stateEventData.cubicValue[3]) * (this.h - this.p * 2), this.w - this.p, this.p);
     if (this.needHandler) {
@@ -115,7 +119,7 @@ export class EventStateChangeGraphComponent implements OnInit, AfterViewInit {
       ctx.beginPath();
       ctx.strokeStyle = "#898989";
       ctx.fillStyle = "#fff";
-      ctx.arc(this.p, this.h - this.p, this.handlerRadius * 0.6 , 0, 2 * Math.PI);
+      ctx.arc(this.p, this.h - this.p, this.handlerRadius * 0.6, 0, 2 * Math.PI);
       ctx.lineWidth = 2;
       ctx.stroke();
       ctx.closePath();
@@ -143,7 +147,7 @@ export class EventStateChangeGraphComponent implements OnInit, AfterViewInit {
       //오른쪽 중심 원
       ctx.beginPath();
       ctx.fillStyle = "#fff";
-      ctx.arc(this.w - this.p, this.p, this.handlerRadius * 0.6 , 0, 2 * Math.PI);
+      ctx.arc(this.w - this.p, this.p, this.handlerRadius * 0.6, 0, 2 * Math.PI);
       ctx.lineWidth = 2;
       ctx.stroke();
       ctx.closePath();

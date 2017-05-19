@@ -67,12 +67,12 @@ input:checked+.slider:before {
 }
 
 .object-list-wrap {
-    padding:15px;
-    padding-bottom: 150px;
+    padding: 15px;
+    padding-bottom: 0px;
     border-bottom: 1px solid #ececec;
 }
 
-.object-list-wrap P{
+.object-list-wrap P {
     font-size: 12px;
 }
 
@@ -82,7 +82,7 @@ input:checked+.slider:before {
 }
 
 .object-list-main {
-    float:left;
+    float: left;
 }
 
 .object-name {
@@ -93,7 +93,7 @@ input:checked+.slider:before {
 
 .object-preview {
     background: #fff;
-    border:1px solid #ececec;
+    border: 1px solid #ececec;
     margin-left: 5px;
 }
 
@@ -103,26 +103,26 @@ input:checked+.slider:before {
 
 .object-dropdown {
     margin-top: 15px;
-    padding:10px;
+    padding: 10px;
     padding-top: 20px;
     padding-bottom: 10px;
     border-radius: 3px;
     background: #fff;
-position: relative;
+    position: relative;
 }
 
-.tri{
-  width: 0px;
-  height: 0px;
-  border-top:10px solid none;
-  border-bottom:10px solid white;
-  border-right: 15px solid transparent;
-  border-left: 15px solid  transparent;
-  position: absolute;
-  top:0;
-  margin-top: -10px;
-  left:0;
-  margin-left: 66px;
+.tri {
+    width: 0px;
+    height: 0px;
+    border-top: 10px solid none;
+    border-bottom: 10px solid white;
+    border-right: 15px solid transparent;
+    border-left: 15px solid transparent;
+    position: absolute;
+    top: 0;
+    margin-top: -10px;
+    left: 0;
+    margin-left: 66px;
 }
 
 .object-switch {
@@ -134,22 +134,24 @@ position: relative;
 }
 
 .event-time div {
-    width:50%;
-    float:left;
+    width: 50%;
+    float: left;
 }
 
 .event-time input {
-width:73px;
-margin-left: 10px;
+    width: 73px;
+    margin-left: 10px;
 }
 
 .interpolator-select {
-    width:100%;
+    width: 100%;
     margin-top: 15px;
     margin-bottom: 20px;
 }
 
+
 /* 토글버튼 */
+
 
 /*.toggle_button {
     cursor:pointer;
@@ -172,108 +174,107 @@ margin-left: 10px;
     padding:10px;
 }*/
 
+
 /* 토글버튼 @ */
 
-#nav,#toggle {
+#nav,
+#toggle {
     display: none;
 }
 
-#toggle:checked + #nav {
-       display: inline-block;
+#toggle:checked+#nav {
+    display: inline-block;
 }
 
 .event-stageChange {
     overflow: hidden;
     position: relative;
-    height:100%;
-  
+    height: 100%;
 }
 
-.event-detail{
+.event-detail {
     overflow: hidden;
-      background: #f9fafb;
-      padding:15px;
+    background: #f9fafb;
+    padding: 15px;
 }
 
 .event-detail img {
-width:28px;
-float:left;
+    width: 28px;
+    float: left;
 }
 
 .event-detail h4 {
     float: left;
-    margin:0;
+    margin: 0;
     font-size: 13px;
-    color:#454545;
+    color: #454545;
     margin-top: 4px;
     padding-left: 10px;
 }
 
 .event-detail-footer {
     position: absolute;
-    bottom:0;
-       right:0;
-    width:320px;
+    bottom: 0;
+    right: 0;
+    width: 320px;
     background: #ebebeb;
-    padding:15px;
+    padding: 15px;
 }
 
 .event-detail-footer .btn-afterAni {
-    width:100%;
+    width: 100%;
     border-radius: 50px;
-    border:2px solid #46abca;
+    border: 2px solid #46abca;
     background: transparent;
     margin-bottom: 10px;
-    color:#46abca;
-    padding:8px;
+    color: #46abca;
+    padding: 8px;
 }
 
 .event-detail-footer button {
     background: #46abca;
-    color:#fff;
-    width:142px;
-    padding:8px;
+    color: #fff;
+    width: 142px;
+    padding: 8px;
     border-radius: 50px;
-    border:none;
+    border: none;
 }
 
 .event-detail-footer button:hover {
     cursor: pointer;
-    background:#3a97af;
+    background: #3a97af;
 }
 
 .event-detail-footer .btn-afterAni:hover {
-    background: rgba(255,255,255,0.5);
+    background: rgba(255, 255, 255, 0.5);
 }
-
 
 
 /* 인터폴레이터 막대그래프 */
 
 .graph {
-  height: 6px;
-  width:180px;
-  margin-bottom: 0.5em;
-  margin-left: 10px;
-  overflow: hidden;
-  background-color: #fff;
-  border-radius: 0.0725em;
-  text-align: center;
-  margin-top: 5px;
+    height: 6px;
+    width: 180px;
+    margin-bottom: 0.5em;
+    margin-left: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 0.0725em;
+    text-align: center;
+    margin-top: 5px;
 }
-
 
 .graph-bar {
-  float: left;
-  width: 0;
-  height: 100%;
-  color: #ffffff;
-  background-color: #46abca;
-  box-sizing: border-box;
+    float: left;
+    width: 0;
+    height: 100%;
+    color: #ffffff;
+    background-color: #46abca;
+    box-sizing: border-box;
 }
+
+
 /* 인터폴레이터 막대그래프 @*/
-
-
 
 
 /* 인터폴레이터 커브 그래프 */
@@ -296,7 +297,7 @@ float:left;
     z-index: 1;
     height: 16px;
     width: 16px;
-    border: 1px solid rgba(0,0,0,.3);
+    border: 1px solid rgba(0, 0, 0, .3);
     margin: -8px 0 0 -8px;
     outline: none;
     -moz-box-sizing: border-box;
@@ -305,8 +306,8 @@ float:left;
     border-radius: 20px;
 }
 
-
-#P0, #P3 {
+#P0,
+#P3 {
     background: white;
 }
 
@@ -328,17 +329,18 @@ float:left;
     top: 0;
 }
 
-#P1, #P2 {
+#P1,
+#P2 {
     cursor: pointer;
 }
 
 canvas#curve {
     background: #f0f0f0;
-    background: -moz-linear-gradient(-45deg, transparent 50%, rgba(0,0,0,.1) 49%, rgba(0,0,0,.1) 51%, transparent 51%, transparent) center no-repeat, -moz-repeating-linear-gradient(white, white 20px, transparent 20px, transparent 40px) no-repeat, -moz-linear-gradient( rgba(0,0,0,.06) 25%, rgba(0,0,0,.06) 75%);
-    background: -ms-linear-gradient(-45deg, transparent 50%, rgba(0,0,0,.1) 49%, rgba(0,0,0,.1) 51%, transparent 51%) center no-repeat, -ms-repeating-linear-gradient(white, white 20px, transparent 20px, transparent 40px) no-repeat, -ms-linear-gradient( rgba(0,0,0,.06) 25%, rgba(0,0,0,.06) 75%);
-    background: -o-linear-gradient(-45deg, transparent 50%, rgba(0,0,0,.1) 49%, rgba(0,0,0,.1) 51%, transparent 51%) center no-repeat, -o-repeating-linear-gradient(white, white 20px, transparent 20px, transparent 40px) no-repeat, -o-linear-gradient( rgba(0,0,0,.06) 25%, rgba(0,0,0,.06) 75%);
-    background: -webkit-linear-gradient(-45deg, transparent 50%, rgba(0,0,0,.1) 49%, rgba(0,0,0,.1) 51%, transparent 51%) center no-repeat, -webkit-repeating-linear-gradient(white, white 20px, transparent 20px, transparent 40px) no-repeat, -webkit-linear-gradient( rgba(0,0,0,.06) 25%, rgba(0,0,0,.06) 75%);
-    background: linear-gradient(-45deg, transparent 50%, rgba(0,0,0,.1) 49%, rgba(0,0,0,.1) 51%, transparent 51%) center no-repeat, repeating-linear-gradient(white, white 20px, transparent 20px, transparent 40px) no-repeat, linear-gradient(rgba(0,0,0,.06) 25%, rgba(0,0,0,.06) 75%);
+    background: -moz-linear-gradient(-45deg, transparent 50%, rgba(0, 0, 0, .1) 49%, rgba(0, 0, 0, .1) 51%, transparent 51%, transparent) center no-repeat, -moz-repeating-linear-gradient(white, white 20px, transparent 20px, transparent 40px) no-repeat, -moz-linear-gradient( rgba(0, 0, 0, .06) 25%, rgba(0, 0, 0, .06) 75%);
+    background: -ms-linear-gradient(-45deg, transparent 50%, rgba(0, 0, 0, .1) 49%, rgba(0, 0, 0, .1) 51%, transparent 51%) center no-repeat, -ms-repeating-linear-gradient(white, white 20px, transparent 20px, transparent 40px) no-repeat, -ms-linear-gradient( rgba(0, 0, 0, .06) 25%, rgba(0, 0, 0, .06) 75%);
+    background: -o-linear-gradient(-45deg, transparent 50%, rgba(0, 0, 0, .1) 49%, rgba(0, 0, 0, .1) 51%, transparent 51%) center no-repeat, -o-repeating-linear-gradient(white, white 20px, transparent 20px, transparent 40px) no-repeat, -o-linear-gradient( rgba(0, 0, 0, .06) 25%, rgba(0, 0, 0, .06) 75%);
+    background: -webkit-linear-gradient(-45deg, transparent 50%, rgba(0, 0, 0, .1) 49%, rgba(0, 0, 0, .1) 51%, transparent 51%) center no-repeat, -webkit-repeating-linear-gradient(white, white 20px, transparent 20px, transparent 40px) no-repeat, -webkit-linear-gradient( rgba(0, 0, 0, .06) 25%, rgba(0, 0, 0, .06) 75%);
+    background: linear-gradient(-45deg, transparent 50%, rgba(0, 0, 0, .1) 49%, rgba(0, 0, 0, .1) 51%, transparent 51%) center no-repeat, repeating-linear-gradient(white, white 20px, transparent 20px, transparent 40px) no-repeat, linear-gradient(rgba(0, 0, 0, .06) 25%, rgba(0, 0, 0, .06) 75%);
     background-size: 100% 100%, 100% 100%, auto;
     background-position: 25%, 0, 0;
     -moz-user-select: none;
@@ -367,7 +369,8 @@ canvas#curve {
     margin-bottom: -1.5em;
 }
 
-.coordinate-plane:before, .coordinate-plane:after {
+.coordinate-plane:before,
+.coordinate-plane:after {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -375,7 +378,7 @@ canvas#curve {
     padding: .3em .5em;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    color: rgba(0,0,0,.6);
+    color: rgba(0, 0, 0, .6);
     text-transform: uppercase;
     font-size: 75%;
     line-height: 1;
@@ -384,8 +387,8 @@ canvas#curve {
 
 /* 인터폴레이터 커브그래프 @*/
 
-.curve-input input{
-    width:131px;
+.curve-input input {
+    width: 131px;
     margin-bottom: 6px;
 }
 
@@ -396,4 +399,3 @@ canvas#curve {
 .curve-input .input-right {
     margin-left: 4px;
 }
-
