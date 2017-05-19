@@ -12,6 +12,8 @@ export class EventStateChangeTimelineComponent implements OnInit, AfterViewInit 
   @Input('timeLineSizeW') timeLineSizeW;
   @Input('timeLineSizeH') timeLineSizeH;
   @Input('maxTime') maxTime;
+  @Input('timeLinePadding') timeLinePadding;
+
   @ViewChild('myCanvas') myCanvas;
 
   @Output() onChangeTimeLine = new EventEmitter<string>();
@@ -48,6 +50,7 @@ export class EventStateChangeTimelineComponent implements OnInit, AfterViewInit 
   makeGraphe() {
     const canvas = this.myCanvas.nativeElement;
     this.context = canvas.getContext('2d');
+    this.p = Number(this.timeLinePadding);
     this.updateGraph();
   }
 
@@ -57,7 +60,7 @@ export class EventStateChangeTimelineComponent implements OnInit, AfterViewInit 
 
 
     this.context.clearRect(0, 0, this.timeLineSizeW, this.timeLineSizeH);
-    this.context.lineWidth=1;
+    this.context.lineWidth = 1;
     this.context.rect(this.p, this.p, this.timeLineSizeW - this.p * 2, this.timeLineSizeH - this.p * 2);
     this.context.stroke();
 
@@ -72,7 +75,7 @@ export class EventStateChangeTimelineComponent implements OnInit, AfterViewInit 
     this.context.fillRect(this.p + left, this.p, this.handlerRadius, contentH);
     this.context.fillStyle = '#00ff00';
     this.context.fillRect(this.p + left + this.handlerRadius, this.p, duration - this.handlerRadius * 2, contentH);
-     this.context.fillStyle = '#ff0000';
+    this.context.fillStyle = '#ff0000';
     this.context.fillRect(this.p + left + duration - this.handlerRadius, this.p, this.handlerRadius, contentH);
 
   }

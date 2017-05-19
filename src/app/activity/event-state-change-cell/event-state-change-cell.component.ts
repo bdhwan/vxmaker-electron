@@ -14,12 +14,10 @@ export class EventStateChangeCellComponent implements OnInit {
 
   @ViewChild('graphSmall') graphSmall;
   @ViewChild('graphBig') graphBig;
-  @ViewChild('timeLine') timeLine;
+  @ViewChild('timeLineBig') timeLineBig;
+  @ViewChild('timeLineSmall') timeLineSmall;
 
   @Output() onChangeTimeLineFromStateCell = new EventEmitter<string>();
-
-
-
 
 
   isExpaned;
