@@ -68,21 +68,28 @@ export class EventStateChangeGraphComponent implements OnInit, AfterViewInit {
     // ctx.rect(this.p, this.p, this.w - this.p * 2, this.h - this.p * 2);
     // ctx.stroke();
 
+    //그래프 곡선
     ctx.beginPath();
+    ctx.strokeStyle="#ff0000";
     ctx.moveTo(this.p, this.h - this.p);
     ctx.bezierCurveTo(this.p + this.stateEventData.cubicValue[0] * (this.w - this.p * 2), this.p + (1 - this.stateEventData.cubicValue[1]) * (this.h - this.p * 2), this.p + this.stateEventData.cubicValue[2] * (this.w - this.p * 2), this.p + (1 - this.stateEventData.cubicValue[3]) * (this.h - this.p * 2), this.w - this.p, this.p);
     ctx.stroke();
     ctx.closePath();
 
+
     if (this.needHandler) {
 
+      //가운데 기준선
       ctx.beginPath();
+      ctx.strokeStyle="#00ff00";
       ctx.moveTo(this.p, this.h - this.p);
       ctx.lineTo(this.w - this.p, this.p);
       ctx.stroke();
       ctx.closePath();
 
+      //왼쪽 핸들러 직선
       ctx.beginPath();
+      ctx.strokeStyle="#0000ff";
       ctx.moveTo(this.p, this.h - this.p);
       ctx.lineTo(this.p + this.stateEventData.cubicValue[0] * (this.w - this.p * 2), this.p + (1 - this.stateEventData.cubicValue[1]) * (this.h - this.p * 2));
       ctx.stroke();

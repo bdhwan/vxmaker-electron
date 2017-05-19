@@ -57,6 +57,7 @@ export class EventStateChangeTimelineComponent implements OnInit, AfterViewInit 
 
 
     this.context.clearRect(0, 0, this.timeLineSizeW, this.timeLineSizeH);
+    this.context.lineWidth=1;
     this.context.rect(this.p, this.p, this.timeLineSizeW - this.p * 2, this.timeLineSizeH - this.p * 2);
     this.context.stroke();
 
@@ -67,8 +68,11 @@ export class EventStateChangeTimelineComponent implements OnInit, AfterViewInit 
     const left = this.stateEventData.startDelay / this.maxTime * contentW;
     const duration = this.stateEventData.duration / this.maxTime * contentW;
 
+    this.context.fillStyle = '#ff0000';
     this.context.fillRect(this.p + left, this.p, this.handlerRadius, contentH);
+    this.context.fillStyle = '#00ff00';
     this.context.fillRect(this.p + left + this.handlerRadius, this.p, duration - this.handlerRadius * 2, contentH);
+     this.context.fillStyle = '#ff0000';
     this.context.fillRect(this.p + left + duration - this.handlerRadius, this.p, this.handlerRadius, contentH);
 
   }
@@ -116,7 +120,7 @@ export class EventStateChangeTimelineComponent implements OnInit, AfterViewInit 
     if (!this.isSelectedLeftPoint && !this.isSelectedRightPoint && !this.isSelectedCenter) {
       return;
     }
-   
+
     const currentX = event.offsetX - this.p;
     const currentY = event.offsetY - this.p;
 
@@ -131,7 +135,7 @@ export class EventStateChangeTimelineComponent implements OnInit, AfterViewInit 
       const exStart = Math.round((Number(this.stateEventData.startDelay) - (differX / contentW * this.maxTime)));
       if (exStart < 0) {
         this.stateEventData.startDelay = 0;
-      } 
+      }
       else {
         this.stateEventData.startDelay = exStart;
         this.stateEventData.duration = Math.round((Number(this.stateEventData.duration) + (differX / contentW * this.maxTime)));
