@@ -4,23 +4,30 @@
     <!-- 오브젝트 이름-->
     <div class="object-name object-list-main">
 
+        <!--<input type="checkbox" [(ngModel)]="stateEventData.isEnabled">-->
+
         <!-- 오브젝트 이벤트 활성화 온오프 버튼 -->
-        <label class="switch object-list">
-          <input type="checkbox" [(ngModel)]="stateEventData.isEnabled">
-          <div class="slider round"></div>
-         </label>
+  
+        <label class="control control--checkbox object-id object-list">
+            {{getObjectName(stateEventData.objectId).name}}
+            <input type="checkbox" checked="checked"  [(ngModel)]="stateEventData.isEnabled"/>
+            <div class="control__indicator"></div>
+        </label>
+
+
 
         <!-- 오브젝트 이름 -->
-        <div class="object-id object-list">
+        <!--<div class="object-id object-list">
             {{getObjectName(stateEventData.objectId).name}}
-        </div>
+        </div>-->
 
         <!-- 그래프 미리보기 -->
-        <app-event-state-change-graph class="go-graph object-list" (click)="toggleDetail()" #graphSmall [stateEventData]="stateEventData" [graphSize]="22"></app-event-state-change-graph>
+        <app-event-state-change-graph class="go-graph object-list" (click)="toggleDetail()" #graphSmall [stateEventData]="stateEventData"
+            [graphSize]="18"></app-event-state-change-graph>
 
         <!-- 타임라인 미리보기 -->
         <app-event-state-change-timeline class="timeline-preview object-list" #timeLineSmall (onChangeTimeLine)="onChangeTimeLineFromTimeLine($event)"
-            [stateEventData]="stateEventData" [timeLinePadding]="1" [timeLineSizeW]="163" [timeLineSizeH]="10" [maxTime]="maxTotalTime"></app-event-state-change-timeline>
+            [stateEventData]="stateEventData" [timeLinePadding]="1" [timeLineSizeW]="120" [timeLineSizeH]="8" [maxTime]="maxTotalTime"></app-event-state-change-timeline>
 
         <!--<button (click)="toggleDetail()">상세</button>-->
     </div>
@@ -32,14 +39,14 @@
         <div class="object-detail">
 
             <!-- 오브젝트 디테일 말풍선 삼각형 -->
-            <div class="tri"></div>
+            <!--<div class="tri"></div>-->
 
 
             <!-- 그래프 전체-->
 
             <div class="graph-wrap">
 
-                <p>Graph</p>
+                <p style="padding-top:0;">Graph</p>
 
                 <!-- 인터폴레이터 종류 선택-->
                 <select class="interpolator-select" (change)="onChangeInterpolator($event.target.value, stateEventData)"> 
@@ -48,7 +55,7 @@
 
                 <!-- 인터폴레이터 그래프 -->
                 <app-event-state-change-graph #graphBig (onChangeGraph)="onChangeGraph($event)" [needHandler]="true" [stateEventData]="stateEventData"
-                    [graphSize]="268" [paddingSize]="20"></app-event-state-change-graph>
+                    [graphSize]="288" [paddingSize]="20"></app-event-state-change-graph>
 
                 <!-- 인터폴레이터 수치 입력-->
                 <div class="curve-input">
@@ -68,7 +75,7 @@
 
                 <!-- 타임라인 에디트 -->
                 <app-event-state-change-timeline #timeLineBig (onChangeTimeLine)="onChangeTimeLineFromTimeLine($event)" [stateEventData]="stateEventData"
-                    [timeLinePadding]="0" [timeLineSizeW]="268" [timeLineSizeH]="20" [maxTime]="maxTotalTime"></app-event-state-change-timeline>
+                    [timeLinePadding]="0" [timeLineSizeW]="288" [timeLineSizeH]="20" [maxTime]="maxTotalTime"></app-event-state-change-timeline>
 
 
                 <!-- 시작 시간 및 동작 시간-->

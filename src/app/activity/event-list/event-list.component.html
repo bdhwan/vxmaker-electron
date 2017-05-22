@@ -21,7 +21,7 @@
 
         <!-- 이벤트리스트 -->
         <div *ngIf="triggerEventList" class="go-event-detail">
-            <div *ngFor="let aEvent of triggerEventList" (click)="clickDetailEvent(aEvent)">
+            <div *ngFor="let aEvent of triggerEventList" class="event-detail-wrap" (click)="clickDetailEvent(aEvent)">
 
                 <div class="event-detail">
 
@@ -31,22 +31,23 @@
 
                 </div>
 
-               
+
                 <button class="btn-trash" (click)="clickDeleteEvent($event,aEvent)"><i class="fa fa-trash-o"></i></button>
             </div>
         </div>
         <!-- 이벤트리스트 @ -->
 
 
-        <div *ngIf="!triggerEventList" class="noti-addmotions">
-            <img src="assets/images/ic_motion.png" alt="add-motions">
 
-            <a (click)="clickNewEvent()">
-                <h3>Add motions</h3>
-            </a>
+    </div>
 
-            <p>Add the motion blah blah</p>
-        </div>
+    <div *ngIf="!selectedTriggerEvent" class="noti-addmotions">
+        <img src="assets/images/ic_motion.png" alt="add-motions">
+
+        <a (click)="clickNewEvent()">
+            <h3>Add motions</h3>
+        </a>
+        <p>Add the motion blah blah</p>
     </div>
 
 </div>

@@ -1,15 +1,12 @@
-<div class="object-property">
-
-    <div class="label-properties">Properties</div>
-
-    <div *ngIf="!selectedTriggerEvent">
+<div *ngIf="!selectedTriggerEvent">
+    <div class="object-property" style="padding-top:0;">
+        <div class="label-properties" style="margin-bottom:15px;">Properties</div>
         <div *ngIf="selectedObject" class="btn-img">
 
             <!-- 이미지, 파일 선택버튼 -->
             <div *ngIf="selectedObject.type=='ImageView'">
                 <img [src]="prefix+applicationFolderPath+'/'+selectedObject.dataUrl" *ngIf="selectedObject.dataUrl" />
-                <button
-                    (click)="clickSelectImage()"> ImageSelect</button>
+                <button (click)="clickSelectImage()"> ImageSelect</button>
             </div>
 
             <div *ngIf="selectedObject.type=='LottieView'||selectedObject.type=='VideoView'">

@@ -1,19 +1,16 @@
 <div class="stage-list">
 
-    <div  *ngIf="stageList">
+    <div *ngIf="stageList">
         <div style="overflow: hidden;overflow: auto; max-height: 60px; padding-left:10px;">
-        <div style="float: left" *ngFor="let aStage of stageList" (click)="clickSelectStage(aStage)">
-            <div class="stage-current tab-class" *ngIf="currentSelectedStage.id==aStage.id">{{aStage.name}}</div>
-            <div class="stage-notcurrent tab-class" *ngIf="currentSelectedStage.id!=aStage.id">{{aStage.name}}</div>
-        </div>
-        <button class="btn-new-stage" (click)="clickNewStage()"><i class="fa fa-plus"></i></button>
+            <div class="stage-list-wrap" style="float: left" *ngFor="let aStage of stageList" (click)="clickSelectStage(aStage)">
+                <div class="stage-current tab-class" *ngIf="currentSelectedStage.id==aStage.id">{{aStage.name}}</div>
+                <div class="stage-notcurrent tab-class" *ngIf="currentSelectedStage.id!=aStage.id">{{aStage.name}}</div>
+                <div class="btn-delete"><i class="fa fa-trash-o"></i></div>
+            </div>
+            <button class="btn-new-stage" (click)="clickNewStage()"><i class="fa fa-plus"></i></button>
         </div>
     </div>
 
     <div class="stage-line"></div>
 
 </div>
-
-
-
-

@@ -67,8 +67,7 @@ input:checked+.slider:before {
 }
 
 .object-list-wrap {
-    padding: 15px;
-    padding-bottom: 0px;
+   
     border-bottom: 1px solid #ececec;
 }
 
@@ -190,6 +189,7 @@ input:checked+.slider:before {
     overflow: hidden;
     position: relative;
     height: 100%;
+    padding-bottom: 108px;
 }
 
 .event-detail {

@@ -14,6 +14,7 @@
 
                 <div class="trigger-select col-4">
 
+                    <!-- 트리거 선택하기 -->
                     <div *ngIf="!afterTriggerEventId">
                         <div class="generator-title">Trigger</div>
 
@@ -33,8 +34,14 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="afterTriggerEventId">
-                        After Animation
+
+                    <!-- 애프터 애니메이션 -->
+                    <div *ngIf="afterTriggerEventId" align="center">
+                        <div class="generator-title">After Animation</div>
+                        <div class="after-animation">
+                            <h3>rootStage > Stage 03</h3>
+                            <p>후 일어날 이벤트를 설정해 주세요.</p>
+                        </div>
                     </div>
 
                 </div>
@@ -100,11 +107,11 @@
                         <div class="event-kind">VideoView</div>
                         <div class="btn-trigger" (click)="clickImplement('startVideo')">
                             <img src="assets/images/btn_startvideo.png" />
-                           <p> startVideo</p>
+                            <p> startVideo</p>
                         </div>
                         <div class="btn-trigger" (click)="clickImplement('stopVideo')">
                             <img src="assets/images/btn_stopvideo.png" />
-                           <p> stopVideo</p>
+                            <p> stopVideo</p>
                         </div>
                     </div>
                 </div>
@@ -144,25 +151,25 @@
                     </select>
                         </div>
                         <div *ngIf="implementEvent.type=='startActivity'" class="detail-content">
-                            select target activity
+                            Select target activity
                             <select [(ngModel)]="selectedActivityId" (change)="onChangeActivity($event.target.value)"> 
                         <option  *ngFor="let aActivity of activityList" [value]="aActivity.activityId">{{aActivity.activityName}}</option>
                     </select>
                         </div>
                         <div *ngIf="implementEvent.type=='finishActivity'" class="detail-content">
-                            will finish activity
+                            Will finish activity
                         </div>
 
 
                         <div *ngIf="implementEvent.type=='startLottie'" class="detail-content">
-                            select Lottie to start
+                            Select Lottie to start
                             <select [(ngModel)]="selectedLottieViewId" (change)="onChangeActivity($event.target.value)"> 
                         <option  *ngFor="let aObject of getLottieViewList()" [value]="aObject.id">{{aObject.name}}</option>
                     </select>
                         </div>
 
                         <div *ngIf="implementEvent.type=='stopLottie'" class="detail-content">
-                            select Lottie to start
+                            Select Lottie to start
                             <select [(ngModel)]="selectedLottieViewId" (change)="onChangeLottiView($event.target.value)"> 
                         <option *ngFor="let aObject of getLottieViewList()" [value]="aObject.id">{{aObject.name}}</option>
                     </select>
@@ -170,14 +177,14 @@
 
 
                         <div *ngIf="implementEvent.type=='startVideo'" class="detail-content">
-                            select Lottie to start
+                            Select Lottie to start
                             <select [(ngModel)]="selectedVideoViewId" (change)="onChangeVideoView($event.target.value)"> 
                         <option  *ngFor="let aObject of getVideoViewList()" [value]="aObject.id">{{aObject.name}}</option>
                     </select>
                         </div>
 
                         <div *ngIf="implementEvent.type=='stopVideo'" class="detail-content">
-                            select Lottie to start
+                            Select Lottie to start
                             <select [(ngModel)]="selectedVideoViewId" (change)="onChangeVideoView($event.target.value)"> 
                         <option *ngFor="let aObject of getVideoViewList()" [value]="aObject.id">{{aObject.name}}</option>
                     </select>
@@ -187,7 +194,7 @@
 
 
                         <div *ngIf="implementEvent.type=='takePicture'" class="detail-content">
-                            select view to picture
+                            Select view to picture
                             <select [(ngModel)]="selectedTakePictureObjectViewId" (change)="onChangeCameraPictureView($event.target.value)"> 
                         <option  *ngFor="let aObject of getImageViewList()" [value]="aObject.id">{{aObject.name}}</option>
                     </select>
