@@ -65,6 +65,8 @@ background: #46a2ba;
     position: relative;
 }
 
+.stage-current
+
 .btn-delete {
   position: absolute;
   display: none;

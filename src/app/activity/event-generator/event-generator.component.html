@@ -145,31 +145,31 @@
                         <div *ngIf="implementEvent.type=='stageChange'" class="detail-content">
 
 
-                            From <b>{{currentSelectedStageId}}</b> select target stage
+                            <p>From <b>{{currentSelectedStageId}}</b> select target stage</p>
                             <select [(ngModel)]="selectedStageId" (change)="onChangeStage($event.target.value)"> 
                         <option *ngFor="let aStage of stageList" [value]="aStage.id">{{aStage.name}}</option>
                     </select>
                         </div>
                         <div *ngIf="implementEvent.type=='startActivity'" class="detail-content">
-                            Select target activity
+                            <p> Select target activity</p>
                             <select [(ngModel)]="selectedActivityId" (change)="onChangeActivity($event.target.value)"> 
                         <option  *ngFor="let aActivity of activityList" [value]="aActivity.activityId">{{aActivity.activityName}}</option>
                     </select>
                         </div>
                         <div *ngIf="implementEvent.type=='finishActivity'" class="detail-content">
-                            Will finish activity
+                            <p> Will finish activity</p>
                         </div>
 
 
                         <div *ngIf="implementEvent.type=='startLottie'" class="detail-content">
-                            Select Lottie to start
+                             <p>Select Lottie to start</p>
                             <select [(ngModel)]="selectedLottieViewId" (change)="onChangeActivity($event.target.value)"> 
                         <option  *ngFor="let aObject of getLottieViewList()" [value]="aObject.id">{{aObject.name}}</option>
                     </select>
                         </div>
 
                         <div *ngIf="implementEvent.type=='stopLottie'" class="detail-content">
-                            Select Lottie to start
+                             <p>Select Lottie to start</p>
                             <select [(ngModel)]="selectedLottieViewId" (change)="onChangeLottiView($event.target.value)"> 
                         <option *ngFor="let aObject of getLottieViewList()" [value]="aObject.id">{{aObject.name}}</option>
                     </select>
@@ -177,14 +177,14 @@
 
 
                         <div *ngIf="implementEvent.type=='startVideo'" class="detail-content">
-                            Select Lottie to start
+                             <p>Select Lottie to start</p>
                             <select [(ngModel)]="selectedVideoViewId" (change)="onChangeVideoView($event.target.value)"> 
                         <option  *ngFor="let aObject of getVideoViewList()" [value]="aObject.id">{{aObject.name}}</option>
                     </select>
                         </div>
 
                         <div *ngIf="implementEvent.type=='stopVideo'" class="detail-content">
-                            Select Lottie to start
+                             <p>Select Lottie to start</p>
                             <select [(ngModel)]="selectedVideoViewId" (change)="onChangeVideoView($event.target.value)"> 
                         <option *ngFor="let aObject of getVideoViewList()" [value]="aObject.id">{{aObject.name}}</option>
                     </select>
@@ -194,7 +194,7 @@
 
 
                         <div *ngIf="implementEvent.type=='takePicture'" class="detail-content">
-                            Select view to picture
+                             <p>Select view to picture</p>
                             <select [(ngModel)]="selectedTakePictureObjectViewId" (change)="onChangeCameraPictureView($event.target.value)"> 
                         <option  *ngFor="let aObject of getImageViewList()" [value]="aObject.id">{{aObject.name}}</option>
                     </select>
