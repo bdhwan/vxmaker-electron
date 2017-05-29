@@ -10,13 +10,13 @@
 
                 <div class="list-img">
 
-                    <img class="preview-img" [src]="prefix+applicationFolderPath+'/'+activity.previewPath" >
+                    <div *ngIf="activity.activityId===applicationData.launcherActivityId">Home</div>
+                    <img class="preview-img" [src]="prefix+applicationFolderPath+'/'+activity.previewPath">
                     <div class="list-hover">
                         <button (click)="clickActivity(activity.activityId)">Edit</button>
                         <button (click)="clickDuplicateActivity(activity.activityId)">Duplicate</button>
                         <button (click)="clickDeleteActivity(activity.activityId)">Delete</button>
-
-                        <div class="btn-home"></div>
+                        <div class="btn-home" (click)="clickLauncherActivity(activity.activityId)"></div>
                     </div>
 
                 </div>

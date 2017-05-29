@@ -19,6 +19,7 @@ export class ActivityListComponent implements OnInit {
   @Output() onClickNewActivity = new EventEmitter<string>();
   @Output() onClickDeleteActivity = new EventEmitter<string>();
   @Output() onClickDuplicatewActivity = new EventEmitter<string>();
+  @Output() onClickLauncherActivity = new EventEmitter<string>();
 
   constructor() {
 
@@ -50,7 +51,9 @@ export class ActivityListComponent implements OnInit {
     this.onClickNewActivity.emit();
   }
 
-
+ clickLauncherActivity(activityId): void {
+    this.onClickLauncherActivity.emit(activityId);
+  }
 
 
 

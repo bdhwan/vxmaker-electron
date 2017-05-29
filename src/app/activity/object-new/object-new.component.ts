@@ -22,6 +22,10 @@ export class ObjectNewComponent implements OnInit {
 
   public setObjectTypeData(objectTypeData: any) {
     this.objectTypeData = objectTypeData;
+
+    for (var i = 0; i < this.objectTypeData.length; i++) {
+      console.log("type = " + JSON.stringify(this.objectTypeData[i]));
+    }
   }
 
   clickResource() {

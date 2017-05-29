@@ -6,7 +6,7 @@
     <div class="layers-btn" style="width: 100%;height:100px;">
 
         <!-- 이미지 들어있는 버튼 예시 -->
-
+        <!--
         <div class="motion-btn-wrap">
 
             <div class="motion-btn btn-object-new">
@@ -24,13 +24,15 @@
                 <p> TextView</p>
             </div>
 
-        </div>
+        </div>-->
 
-          <!-- 이미지 들어있는 버튼 예시 @-->
+        <!-- 이미지 들어있는 버튼 예시 @-->
 
         <button class="btn-object-new" *ngFor="let aType of objectTypeData" (click)="clickNewObject(aType.type)">
-    {{aType.name}}
-    </button>
+             <img [src]="aType.icon" class="img-responsive">
+            {{aType.name}}
+         
+        </button>
 
 
         <div>

@@ -123,6 +123,10 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
       activityId: activityId
     };
 
+    if (this.applicationData.activityList.length === 0) {
+      this.applicationData.launcherActivityId = activityId;
+    }
+
     this.applicationData.activityList.push(newActivityMetaData);
 
 
@@ -181,6 +185,14 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
     this.clickActivity(newActivityId);
 
   }
+
+  onClickLauncherActivity(activityId): void {
+    this.applicationData.launcherActivityId = activityId;
+    this.appDataService.saveApplicationData(this.applicationData);
+  }
+
+
+
 
   clickSave(): void {
     this.appDataService.saveApplicationData(this.applicationData);

@@ -20,7 +20,6 @@ export class PreviewObjectComponent implements OnInit {
   @Input() objectData: any;
   @Output() onShowResourceDialog = new EventEmitter<string>();
 
-
   state: any;
   zoom;
 
@@ -30,6 +29,7 @@ export class PreviewObjectComponent implements OnInit {
     this.state = this.appDataService.findStateByObjectId(this.objectData.id);
     this.applicationFolderPath = this.appDataService.getApplicationPath();
   }
+
 
 
 

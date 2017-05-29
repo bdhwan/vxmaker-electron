@@ -508,6 +508,7 @@ export class ApplicationDataServiceService {
   }
 
 
+
   findObjectById(objectId: string) {
     return this.findObjectByIdWithList(this.activityData.objectList, objectId);
   }
@@ -621,15 +622,30 @@ export class ApplicationDataServiceService {
 
   getSelectedObjectStyle(state) {
     const tempObjectData = this.findObjectById(state.objectId);
-    const objectStyle = {
-      'position': 'absolute',
-      'width': state.width * this.zoom + 'px',
-      'height': state.height * this.zoom + 'px',
-      'border': '1px solid gold',
-      'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
-      'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
+    if (tempObjectData.id === 'root') {
+      const objectStyle = {
+        'position': 'absolute',
+        'width': state.width * this.zoom + 'px',
+        'height': state.height * this.zoom + 'px',
+        'border': '0px solid grey',
+        'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
+        'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
+      };
+      return objectStyle;
+    } else {
+      const objectStyle = {
+        'position': 'absolute',
+        'width': state.width * this.zoom + 'px',
+        'height': state.height * this.zoom + 'px',
+        'border': '1px solid gold',
+        'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
+        'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
+      };
+      return objectStyle;
     }
-    return objectStyle;
+
+
+
   }
 
 

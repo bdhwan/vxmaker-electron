@@ -392,6 +392,12 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
+  onSelectNodeFromOther(objectId){
+    console.log("onSelectNodeFromOther-"+objectId);
+    
+    this.objectTreeComponent.selectObjectNode(this.appDataService.findObjectById(objectId));
+  }
+
   onSelectNodeFromTree(objectId: string) {
 
     const selectedObject = this.appDataService.findObjectById(objectId);
@@ -480,7 +486,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   onResize(event) {
 
   }
-
 
 
 

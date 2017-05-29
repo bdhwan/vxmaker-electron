@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
 import { ApplicationDataServiceService } from '../../service/application-data-service.service'
 
 declare var rasterizeHTML: any;
@@ -16,6 +15,9 @@ export class PreviewComponent implements OnInit {
 
   // @ViewChild('mainScreen') elementView: ElementRef;
   @ViewChild('previewScreen') elementView: ElementRef;
+  @Output() onSelectNodeFromOther = new EventEmitter<string>();
+  @ViewChild('myPreview') myPreview: ElementRef;
+
 
 
   previewWidth = 0;
@@ -41,6 +43,9 @@ export class PreviewComponent implements OnInit {
   zoom;
 
 
+  isKeyCTRL = false;
+
+
   constructor(private appDataService: ApplicationDataServiceService) {
 
   }
@@ -52,6 +57,21 @@ export class PreviewComponent implements OnInit {
 
 
 
+  keyDown($event) {
+    console.log("keyDown-" + $event.keyCode);
+    if ($event.keyCode === 17) {
+      this.isKeyCTRL = true;
+    }
+  }
+
+  keyUp($event) {
+    console.log("keyUp-" + $event.keyCode);
+    if ($event.keyCode === 17) {
+      this.isKeyCTRL = false;
+    }
+  }
+
+
   mouseDown(event: MouseEvent) {
 
     this.startX = event.clientX;
@@ -60,11 +80,30 @@ export class PreviewComponent implements OnInit {
     this.beforeY = event.clientY;
 
 
+    if (this.isKeyCTRL) {
+
+
+      const x = (event.clientX - this.elementView.nativeElement.offsetLeft) / this.zoom;
+      const y = (event.clientY - this.elementView.nativeElement.offsetTop) / this.zoom;
+      const targetList = this.appDataService.getAllSelectedState();
+      for (let i = targetList.length - 1; i >= 0; i--) {
+        const state = targetList[i];
+        const left = state.translationX + state.marginLeft;
+        const top = state.translationY + state.marginTop;
+        const right = left + state.width;
+        const bottom = top + state.height;
+        if (x > left && x < right && y > top && y < bottom) {
+          this.onSelectNodeFromOther.emit(state.objectId);
+          break;
+        }
+      }
+    }
+
+
 
     if (this.selectedObject.id !== 'root') {
       this.isMouseDown = true;
     }
-
 
   }
 
@@ -122,6 +161,10 @@ export class PreviewComponent implements OnInit {
   }
 
 
+  isRoot() {
+    return this.appDataService.getSelectedState().objectId === 'root';
+  }
+
   mouseUp(event: MouseEvent) {
     console.log('up');
     this.isMouseDown = false;
@@ -134,8 +177,11 @@ export class PreviewComponent implements OnInit {
 
   resizeDown(event: MouseEvent, index) {
     console.log('resizeDown =' + index);
-    this.isResizeDown = true;
-    this.resizeIndex = index;
+    if (this.selectedObject.id !== 'root') {
+      this.isResizeDown = true;
+      this.resizeIndex = index;
+    }
+
   }
 
 
@@ -164,15 +210,23 @@ export class PreviewComponent implements OnInit {
     const zoom = this.appDataService.getZoom();
     const marginLeft = (this.previewWidth - rootState.width * zoom) / 2;
     const marginTop = (this.previewHeight - rootState.height * zoom) / 2;
+
+    let cursor = 'move';
+    if (this.isKeyCTRL) {
+      cursor = 'context-menu';
+    }
+
+
     return {
       'margin-left': marginLeft + 'px',
       'margin-top': marginTop + 'px',
       'position': 'relative',
-      'cursor': 'move',
+      'cursor': cursor
     };
   }
 
   public getSelectedObjectStyle() {
+
     return this.appDataService.getSelectedObjectStyle(this.appDataService.getSelectedState());
   }
 
@@ -195,6 +249,10 @@ export class PreviewComponent implements OnInit {
   }
 
 
+  onSelectNodeFromPreview(objectId) {
+    console.log("onSelectNodeFromPreview event-" + objectId);
+    this.onSelectNodeFromOther.emit(objectId);
+  }
 
 
   public captureScreen() {
