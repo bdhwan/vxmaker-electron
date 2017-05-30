@@ -1,4 +1,72 @@
 <div class="preview-size">
-  
-    <input [(ngModel)]="zoom" (blur)="changeZoom()">
+
+    <!--<input [(ngModel)]="zoom" (blur)="changeZoom()">-->
+
+
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="dropdown mobile-size" role="menu">
+                <!--{{getStateById('root').width}}*{{getStateById('root').height}}-->
+                <div style="padding:3px; padding-left: 0px; padding-top: 0;" class="canvas-size">
+                    <div class="properties-wrap" style="width:42%;">
+                        <span class="properties-text">X:</span>
+                        <input class="properties-padding " type="number">
+                    </div>
+                    <div class="properties-wrap" style="width:42%;">
+                        <span class="properties-text">Y:</span>
+                        <input class="properties-padding " type="number">
+                    </div>
+
+                    <button type="button" data-toggle="dropdown">
+                                        <img class="ic-mobile" src="assets/images/mobile.png">
+                                    </button>
+                    <div class="dropdown-menu">
+                      
+                        <div class="root-size ">
+                            <img style=" max-width:15px;" class="img-responsive" src="assets/images/ic_galaxy_s7.png">                            Galaxy S7
+                            <br><b>1440*2560</b></div>
+                 
+                        <div class="root-size ">
+                            <img style=" max-width:15px;"  class="img-responsive" src="assets/images/ic_galaxy_s5.png">                            Galaxy S5
+                            <br><b>1080*1920</b></div>
+                    
+                        <div class="root-size ">
+                            <img style=" max-width:15px;"  class="img-responsive" src="assets/images/ic_galaxy_note.png">                            Galaxy Note 10.1
+                            <br><b>1600*2560</b></div>
+               
+                        <div class="root-size ">
+                            <img style=" max-width:15px;"  class="img-responsive" src="assets/images/ic_galaxy_s3.png">                            Galaxy S3
+                            <br><b>720*1280</b></div>
+                       
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="dropdown" role="menu">
+                <button type="button" data-toggle="dropdown">25%</button>
+                <div class="dropdown-menu dropdown-menu-padding">
+                    <div>10%</div>
+                    <div>15%</div>
+                    <div>20%</div>
+                    <div>25%</div>
+                    <div>50%</div>
+                    <div>75%</div>
+                    <div>100%</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="dropdown" role="menu">
+                <button type="button" data-toggle="dropdown">FullScreen</button>
+                <div class="dropdown-menu dropdown-menu-padding" style="margin-left: -20px;">
+                    <div>FullScreen</div>
+                    <div>ShowStatusBar</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>

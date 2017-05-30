@@ -1,7 +1,7 @@
 {
     "name": "CameraView",
     "type": "CameraView",
-    "icon": "assets/images/btn_camera.png",
+    "icon": "assets/images/btn_takepicture.png",
     "objectProperties": [{
             "name": "type",
             "type": "string",

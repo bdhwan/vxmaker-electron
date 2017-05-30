@@ -158,6 +158,17 @@
     height: 150px;
 }
 
+.list-img .btn-home-on {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-image: url(../../../assets/images/homebutton_on.png);
+    background-size: cover;
+    width: 17px;
+    height: 18px;
+    margin: 8px;
+}
+
 .list-hover .btn-home {
     position: absolute;
     top: 0;

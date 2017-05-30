@@ -1,6 +1,7 @@
 {
     "name": "ImageView",
     "type": "ImageView",
+     "icon": "assets/images/btn_imageview.png",
     "objectProperties": [{
             "name": "type",
             "type": "string",

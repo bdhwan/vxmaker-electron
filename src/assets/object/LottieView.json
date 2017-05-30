@@ -1,6 +1,7 @@
 {
     "name": "LottieView",
     "type": "LottieView",
+     "icon": "assets/images/btn_startlottie.png",
     "objectProperties": [{
             "name": "type",
             "type": "string",

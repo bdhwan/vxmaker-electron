@@ -10,7 +10,8 @@
 
                 <div class="list-img">
 
-                    <div *ngIf="activity.activityId===applicationData.launcherActivityId">Home</div>
+
+                    <div class="btn-home-on" *ngIf="activity.activityId===applicationData.launcherActivityId"></div>
                     <img class="preview-img" [src]="prefix+applicationFolderPath+'/'+activity.previewPath">
                     <div class="list-hover">
                         <button (click)="clickActivity(activity.activityId)">Edit</button>

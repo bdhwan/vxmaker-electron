@@ -1,7 +1,7 @@
 {
     "name": "FrameLayout",
     "type": "FrameLayout",
-    "icon": "assets/images/btn_button.png",
+    "icon": "assets/images/btn_frame.png",
     "objectProperties": [{
             "name": "type",
             "type": "string",
