@@ -408,6 +408,9 @@ function createWindow() {
         win = new BrowserWindow({ width: minWidth, height: minHeight, minWidth: minWidth, minHeight: minHeight })
 
 
+        // var targetUrl = `file://${__dirname}/index.html`;
+
+
         var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true })
             // and load the index.html of the app.
         win.loadURL(targetUrl)

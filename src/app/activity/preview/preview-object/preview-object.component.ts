@@ -13,8 +13,19 @@ import * as glob from "../../../globals";
 })
 export class PreviewObjectComponent implements OnInit {
 
+  @ViewChild('videoView') videoView;
+
+
+
+
   prefix = glob.imgPrefix;
   applicationFolderPath;
+
+
+  public lottieConfig: Object;
+  private anim: any;
+  private animationSpeed: number = 1;
+
 
 
   @Input() objectData: any;
@@ -22,8 +33,23 @@ export class PreviewObjectComponent implements OnInit {
 
   state: any;
   zoom;
+  lottieUrl = 'assets/sample/processing.json';
 
-  constructor(private appDataService: ApplicationDataServiceService) { }
+  constructor(private appDataService: ApplicationDataServiceService, private elementRef: ElementRef) {
+    this.lottieConfig = {
+      path: this.lottieUrl,
+      autoplay: true,
+      loop: true
+    };
+  }
+
+
+
+  clickTest() {
+    console.log("clickTest");
+  }
+
+
 
   ngOnInit() {
     this.state = this.appDataService.findStateByObjectId(this.objectData.id);
@@ -34,15 +60,43 @@ export class PreviewObjectComponent implements OnInit {
 
 
   getObjectStyle() {
+
+
+    if (this.objectData.type === 'LottiView') {
+      if (this.objectData.dataUrl) {
+        const url = this.prefix + this.applicationFolderPath + '/' + this.objectData.dataUrl;
+        this.lottieConfig['path'] = url;
+      } else {
+        this.lottieConfig['path'] = 'assets/sample/heart.json';
+      }
+    }
+
+
+
+
     this.state = this.appDataService.findStateByObjectId(this.objectData.id);
     if (this.state) {
       return this.appDataService.getObjectStyle(this.state);
-    }
-    else {
-
+    } else {
       return null;
     }
   }
+
+
+  handleAnimation(anim: any) {
+    this.anim = anim;
+  }
+
+  stop() {
+    this.anim.stop();
+  }
+
+  play() {
+    this.anim.play();
+  }
+
+
+
 
 
 

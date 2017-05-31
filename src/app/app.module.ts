@@ -21,7 +21,7 @@ import { EventListComponent } from './activity/event-list/event-list.component';
 import { PreviewComponent } from './activity/preview/preview.component';
 import { StageListComponent } from './activity/stage-list/stage-list.component';
 import { PreviewSizeComponent } from './activity/preview-size/preview-size.component';
-import { EventGeneratorComponent } from './activity/event-generator/event-generator.component'
+import { EventGeneratorComponent } from './activity/event-generator/event-generator.component';
 
 import { TreeModule } from 'angular2-tree-component';
 import { PreviewObjectComponent } from './activity/preview/preview-object/preview-object.component';
@@ -35,6 +35,8 @@ import { EventStageChangeCellComponent } from './activity/event-stage-change-cel
 import { EventStateChangeCellComponent } from './activity/event-state-change-cell/event-state-change-cell.component';
 import { EventStateChangeGraphComponent } from './activity/event-state-change-graph/event-state-change-graph.component';
 import { EventStateChangeTimelineComponent } from './activity/event-state-change-timeline/event-state-change-timeline.component';
+import { LottieAnimationViewModule } from 'ng-lottie';
+
 
 
 
@@ -87,6 +89,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     TreeModule,
+    LottieAnimationViewModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
   providers: [ApplicationDataServiceService],

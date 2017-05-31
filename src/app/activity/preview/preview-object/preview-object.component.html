@@ -1,5 +1,13 @@
 <div [ngStyle]="getObjectStyle()">
-    <img *ngIf="objectData.type=='ImageView' " [src]="prefix+applicationFolderPath+ '/'+objectData.dataUrl " onError="this.src='assets/images/ic_preview.png' " style="width:100%;height:100%; ">
+    <img *ngIf="objectData.type=='ImageView' " [src]="prefix+applicationFolderPath+ '/'+objectData.dataUrl" onError="this.src='assets/images/ic_preview.png' " style="width:100%;height:100%;">
     <p *ngIf="objectData.type=='TextView' ||objectData.type=='Button' ||objectData.type=='EditText' ">{{objectData.text}}</p>
+
+    <lottie-animation-view *ngIf="objectData.type==='LottieView'" [options]="lottieConfig" (animCreated)="handleAnimation($event)" style="width:100%;height:100%;">
+    </lottie-animation-view>
+
+    <video #videoView *ngIf="objectData.type==='VideoView'" [src]="prefix+applicationFolderPath+ '/'+objectData.dataUrl" autoplay loop style="width:100%;height:100%;">
+    </video>
+    <p> {{objectData.dataUrl}}</p>
+
 </div>
 <app-preview-object [objectData]="aObject " *ngFor="let aObject of objectData.children "></app-preview-object>
