@@ -204,6 +204,7 @@ opacity: 0.3;
     padding:8px;
     background: transparent;
     border:2px solid #46a2ba;    
+    border-radius: 5px;
     color:#46a2ba;
     font-weight: bold;
     font-size: 14px;
@@ -211,5 +212,7 @@ opacity: 0.3;
 
 .btn-resource:hover {
     cursor: pointer;
-    background: rgba(255,255,255,0.5);
+    background: #46a2ba;
+    color:#fff;
+  
 }
