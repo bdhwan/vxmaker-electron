@@ -161,27 +161,29 @@
 .list-img .btn-home-on {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     background-image: url(../../../assets/images/homebutton_on.png);
     background-size: cover;
-    width: 17px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     margin: 8px;
 }
 
 .list-hover .btn-home {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     background-image: url(../../../assets/images/homebutton.png);
     background-size: cover;
-    width: 17px;
-    height: 18px;
+  width: 20px;
+    height: 20px;
     margin: 8px;
 }
 
 .list-hover .btn-home:hover {
     background-image: url(../../../assets/images/homebutton_hover.png);
+     width: 21px;
+    height: 21px;
     cursor: pointer;
 }
 

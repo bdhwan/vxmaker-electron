@@ -5,7 +5,14 @@
 
             <!-- 이미지, 파일 선택버튼 -->
             <div *ngIf="selectedObject.type=='ImageView'">
-                <img [src]="prefix+applicationFolderPath+'/'+selectedObject.dataUrl" *ngIf="selectedObject.dataUrl" />
+
+                <div *ngIf="selectedObject.dataUrl" class="img-selected">
+                    <img [src]="prefix+applicationFolderPath+'/'+selectedObject.dataUrl" />
+                    <div class="img-sub">
+                        <p>ImageTitle</p>
+                        <p class="img-sub-size">ImageSize</p>
+                    </div>
+                </div>
                 <button (click)="clickSelectImage()"> ImageSelect</button>
             </div>
 

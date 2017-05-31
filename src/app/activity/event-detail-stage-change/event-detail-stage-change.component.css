@@ -224,7 +224,7 @@ input:checked+.slider:before {
 .event-detail-footer .btn-afterAni {
     width: 100%;
     border-radius: 50px;
-    border: 2px solid #46abca;
+    border: 2px solid #46a2ba;
     background: transparent;
     margin-bottom: 10px;
     color: #46abca;
@@ -232,7 +232,7 @@ input:checked+.slider:before {
 }
 
 .event-detail-footer button {
-    background: #46abca;
+    background: #46a2ba;
     color: #fff;
     width: 142px;
     padding: 8px;
