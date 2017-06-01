@@ -20,17 +20,29 @@
 
                         <div class="btn-scroll">
 
-                            <div class="btn-trigger" (click)="clickTrigger('click')">
+                            <div class="btn-trigger btn-click" (click)="clickTrigger('click')">
                                 <img src="assets/images/btn_click.png" />
                                 <p>click</p>
+                                <div *ngIf="!triggerEvent" class="click-info trigger-hover">
+                                    <h2>Click</h2>
+                                    <p>한 손가락으로 한번 누르고 즉시 들어올리기.</p>
+                                </div>
                             </div>
-                            <div class="btn-trigger" (click)="clickTrigger('onCreate')">
+                            <div class="btn-trigger btn-oncreate" (click)="clickTrigger('onCreate')">
                                 <img src="assets/images/btn_oncreate.png" />
                                 <p>onCreate</p>
+                                <div *ngIf="!triggerEvent" class="oncreate-info trigger-hover">
+                                    <h2>OnCreate</h2>
+                                    <p>액티비티가 시작함과 동시에 이벤트 시작.</p>
+                                </div>
                             </div>
-                            <div class="btn-trigger" (click)="clickTrigger('backKey')">
+                            <div class="btn-trigger btn-backkey" (click)="clickTrigger('backKey')">
                                 <img src="assets/images/btn_backkey.png" />
                                 <p>backKey</p>
+                                <div *ngIf="!triggerEvent" class="backkey-info trigger-hover">
+                                    <h2>BackKey</h2>
+                                    <p>디바이스의 뒤로가기 소프트키를 누르면 이벤트 실행.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -49,16 +61,21 @@
                 <!--트리거 관련 설명 -->
 
                 <div class="trigger-intro" *ngIf="!triggerEvent">
+                    <div class="trigger-sub">
+                        <h2>Trigger</h2>
+                        <p>Object와 Event의 사이에서 State의 변화. Activity의 전환과 같은 Event를 실행시키기 위하여 조건을 지정합니다. 좌측의 원하는 버튼을 눌러 이벤트를 생성해
+                            보세요.
+                        </p>
 
-                    <h2>Trigger</h2>
-                    <p>Object와 Event의 사이에서 State의 변화. Activity의 전환과 같은 Event를 실행시키기 위하여 조건을 지정합니다. 좌측의 원하는 버튼을 눌러 이벤트를 생성해 보세요.</p>
+                        <h4>Click</h4>
+                        <p>한 손가락으로 한번 누르고 즉시 들어올리기.</p>
+                        <h4>OnCreate</h4>
+                        <p>액티비티가 시작함과 동시에 이벤트 시작.</p>
+                        <h4>BackKey</h4>
+                        <p>디바이스의 뒤로가기 소프트키를 누르면 이벤트 실행.</p>
+                    </div>
 
-                    <h4>Tab</h4>
-                    <p>한 손가락으로 한번 누르고 즉시 들어올리기.</p>
-                    <h4>LongPress</h4>
-                    <p>일정 시간 누르고 있으면 이벤트가 실행.</p>
-                    <h4>BackKey</h4>
-                    <p>디바이스의 뒤로가기 소프트키를 누르면 이벤트 실행.</p>
+
                 </div>
 
                 <!--트리거 관련 설명@ -->
@@ -73,45 +90,76 @@
 
                     <div class="generator-title">Event</div>
                     <div class="btn-scroll">
-                        <div class="btn-trigger" (click)="clickImplement('stageChange')">
+                        <div class="btn-trigger btn-stagechange" (click)="clickImplement('stageChange')">
                             <img src="assets/images/btn_stagechange.png" />
                             <p>stageChange</p>
+                            <div *ngIf="!implementEvent" class="stage-info event-hover">
+                                <h2>stageChange</h2>
+                                <p>트리거 실행시 스테이지 이동.</p>
+                            </div>
                         </div>
-                        <div class="btn-trigger" (click)="clickImplement('startActivity')">
+                        <div class="btn-trigger btn-startactivity" (click)="clickImplement('startActivity')">
                             <img src="assets/images/btn_startactivity.png" />
                             <p>startActivity</p>
+                             <div *ngIf="!implementEvent" class="startactivity-info event-hover">
+                                <h2>startActivity</h2>
+                                <p>트리거 실행시 액티비티 이동.</p>
+                            </div>
                         </div>
-                        <div class="btn-trigger" (click)="clickImplement('finishActivity')">
+                        <div class="btn-trigger btn-finishactivity" (click)="clickImplement('finishActivity')">
                             <img src="assets/images/btn_finishactivity.png" />
                             <p>finishActivity</p>
+                             <div *ngIf="!implementEvent" class="finishactivity-info event-hover">
+                                <h2>finishActivity</h2>
+                                <p>트리거 실행시 액티비티 종료.</p>
+                            </div>
                         </div>
 
                         <div class="event-kind">Lottie</div>
-                        <div class="btn-trigger" (click)="clickImplement('startLottie')">
+                        <div class="btn-trigger btn-startlottie" (click)="clickImplement('startLottie')">
                             <img src="assets/images/btn_startlottie.png" />
                             <p>startLottie</p>
-
+ <div *ngIf="!implementEvent" class="startlottie-info event-hover">
+                                <h2>startLottie</h2>
+                                <p>Lottie 시작 <br>Json파일을 삽입하여 동작</p>
+                            </div>
                         </div>
-                        <div class="btn-trigger" (click)="clickImplement('stopLottie')">
+                        <div class="btn-trigger btn-stoplottie" (click)="clickImplement('stopLottie')">
                             <img src="assets/images/btn_stoplottie.png" />
                             <p>stopLottie</p>
+                             <div *ngIf="!implementEvent" class="stoplottie-info event-hover">
+                                <h2>stopLottie</h2>
+                                <p>Lottie 중지<br>Json파일을 삽입하여 동작</p>
+                            </div>
                         </div>
 
                         <div class="event-kind">Camera</div>
-                        <div class="btn-trigger" (click)="clickImplement('takePicture')">
+                        <div class="btn-trigger btn-takepicture" (click)="clickImplement('takePicture')">
                             <img src="assets/images/btn_takepicture.png" />
                             <p>takePicture</p>
+                             <div *ngIf="!implementEvent" class="takepicture-info event-hover">
+                                <h2>takePicture</h2>
+                                <p>카메라뷰로 사진촬영하기.</p>
+                            </div>
                         </div>
 
 
                         <div class="event-kind">VideoView</div>
-                        <div class="btn-trigger" (click)="clickImplement('startVideo')">
+                        <div class="btn-trigger btn-startvideo" (click)="clickImplement('startVideo')">
                             <img src="assets/images/btn_startvideo.png" />
                             <p> startVideo</p>
+                             <div *ngIf="!implementEvent" class="startvideo-info event-hover">
+                                <h2>startVideo</h2>
+                                <p>동영상 플레이하기.</p>
+                            </div>
                         </div>
-                        <div class="btn-trigger" (click)="clickImplement('stopVideo')">
+                        <div class="btn-trigger btn-stopvideo" (click)="clickImplement('stopVideo')">
                             <img src="assets/images/btn_stopvideo.png" />
                             <p> stopVideo</p>
+                            <div *ngIf="!implementEvent" class="stopvideo-info event-hover">
+                                <h2>stopVideo</h2>
+                                <p>동영상 플레이중지.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -162,14 +210,14 @@
 
 
                         <div *ngIf="implementEvent.type=='startLottie'" class="detail-content">
-                             <p>Select Lottie to start</p>
+                            <p>Select Lottie to start</p>
                             <select [(ngModel)]="selectedLottieViewId" (change)="onChangeActivity($event.target.value)"> 
                         <option  *ngFor="let aObject of getLottieViewList()" [value]="aObject.id">{{aObject.name}}</option>
                     </select>
                         </div>
 
                         <div *ngIf="implementEvent.type=='stopLottie'" class="detail-content">
-                             <p>Select Lottie to start</p>
+                            <p>Select Lottie to start</p>
                             <select [(ngModel)]="selectedLottieViewId" (change)="onChangeLottiView($event.target.value)"> 
                         <option *ngFor="let aObject of getLottieViewList()" [value]="aObject.id">{{aObject.name}}</option>
                     </select>
@@ -177,14 +225,14 @@
 
 
                         <div *ngIf="implementEvent.type=='startVideo'" class="detail-content">
-                             <p>Select Lottie to start</p>
+                            <p>Select Lottie to start</p>
                             <select [(ngModel)]="selectedVideoViewId" (change)="onChangeVideoView($event.target.value)"> 
                         <option  *ngFor="let aObject of getVideoViewList()" [value]="aObject.id">{{aObject.name}}</option>
                     </select>
                         </div>
 
                         <div *ngIf="implementEvent.type=='stopVideo'" class="detail-content">
-                             <p>Select Lottie to start</p>
+                            <p>Select Lottie to start</p>
                             <select [(ngModel)]="selectedVideoViewId" (change)="onChangeVideoView($event.target.value)"> 
                         <option *ngFor="let aObject of getVideoViewList()" [value]="aObject.id">{{aObject.name}}</option>
                     </select>
@@ -194,7 +242,7 @@
 
 
                         <div *ngIf="implementEvent.type=='takePicture'" class="detail-content">
-                             <p>Select view to picture</p>
+                            <p>Select view to picture</p>
                             <select [(ngModel)]="selectedTakePictureObjectViewId" (change)="onChangeCameraPictureView($event.target.value)"> 
                         <option  *ngFor="let aObject of getImageViewList()" [value]="aObject.id">{{aObject.name}}</option>
                     </select>

@@ -60,12 +60,17 @@
     font-size: 13px;
 }
 
+.preview-size .dropdown button:hover {
+    cursor: pointer;
+}
+
 .preview-size .mobile-size button {
     border: none;
     background-color: rgba(255,255,255,0.8);
     border-radius: 4px;
     color: #898989;
     font-size: 13px;
+    padding-left:4px;
     width: 15% !important;
     margin-left: 1px;
 }
@@ -117,8 +122,10 @@
 }
 
 .mobile-size .ic-mobile {
-    width: 10px;
+    width: 12px;
+    opacity: 0.6;
 }
+
 
 .root-size {
     padding: 3px 10px;

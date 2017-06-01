@@ -173,6 +173,14 @@
 
 }
 
+.list-img .btn-home-on p {
+      margin: 0px;
+    margin-top: -28px;
+    font-size: 12px;
+    margin-left: -14px;
+    color: #46a2ba;
+}
+
 .list-img .btn-home-on:after {
         content: "";
     width: 0;

@@ -2,12 +2,12 @@
     <p>{{applicationData.activityList.length}} Activities </p>
 </div>
 
-<div class="home-tag-wrap">
-<div class="home-tag">
-    <img src="assets/images/homebutton.png"/>
-</div>
-<p>Home</p>
-</div>
+<!--<div class="home-tag-wrap">
+    <div class="home-tag">
+        <img src="assets/images/homebutton.png" />
+    </div>
+    <p>Home</p>
+</div>-->
 
 <div class="list-scroll">
     <div class="col-wrap ">
@@ -18,7 +18,10 @@
                 <div class="list-img">
 
 
-                    <div class="btn-home-on" *ngIf="activity.activityId===applicationData.launcherActivityId"></div>
+                    <div class="btn-home-on" *ngIf="activity.activityId===applicationData.launcherActivityId">
+
+                    <p>Home</p>
+                    </div>
                     <img class="preview-img" [src]="prefix+applicationFolderPath+'/'+activity.previewPath">
                     <div class="list-hover">
                         <button (click)="clickActivity(activity.activityId)">Edit</button>

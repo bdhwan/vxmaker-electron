@@ -339,3 +339,82 @@ font-weight: bold;
     font-size: 14px;
     font-size: 13px;
 }
+
+.trigger-hover {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin-top: 70px;
+    margin-left: 285px;
+    text-align: left;
+    width: 800px;
+    height: 400px;
+    background: #dde3eb;
+    display: none;
+}
+
+.trigger-hover p {
+    margin-top: 15px!important;
+    color:#454545;
+}
+
+.btn-click:hover .click-info {
+    display: block;
+}
+
+.btn-oncreate:hover .oncreate-info {
+    display: block;
+}
+
+.btn-backkey:hover .backkey-info {
+    display: block;
+}
+
+
+.event-hover {
+    position: absolute;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin-top: 70px;
+    margin-left: 550px;
+    text-align: left;
+    padding: 1px;
+    width: 240px;
+    height: 400px;
+    background: #dde3eb;
+   display: none;
+}
+
+.event-hover p {
+    margin-top: 15px!important;
+    color:#454545;
+}
+
+.btn-stagechange:hover .stage-info {
+    display: block;
+}
+
+.btn-startactivity:hover .startactivity-info {
+    display: block;
+}
+.btn-finishactivity:hover .finishactivity-info {
+    display: block;
+}
+.btn-startlottie:hover .startlottie-info {
+    display: block;
+}
+.btn-stoplottie:hover .stoplottie-info {
+    display: block;
+}
+.btn-takepicture:hover .takepicture-info {
+    display: block;
+}
+.btn-startvideo:hover .startvideo-info {
+    display: block;
+}
+.btn-stopvideo:hover .stopvideo-info {
+    display: block;
+}

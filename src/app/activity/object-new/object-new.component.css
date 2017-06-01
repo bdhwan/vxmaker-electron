@@ -103,8 +103,8 @@
     width: 31%;
     height: 80px;
     border: 1px solid #ccc;
-background: url(../../../assets/images/bg_transparent.png);    position: relative;
-position: relative;
+    background: url(../../../assets/images/bg_transparent.png);    position: relative;
+    position: relative;
     margin: 3px;
     float: left;
 }
