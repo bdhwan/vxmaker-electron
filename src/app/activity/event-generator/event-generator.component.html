@@ -22,10 +22,10 @@
 
                             <div class="btn-trigger btn-click" (click)="clickTrigger('click')">
                                 <img src="assets/images/btn_click.png" />
-                                <p>click</p>
+                                <p>Tap</p>
                                 <div *ngIf="!triggerEvent" class="click-info trigger-hover">
-                                    <h2>Click</h2>
-                                    <p>한 손가락으로 한번 누르고 즉시 들어올리기.</p>
+                                    <h2>Tap</h2>
+                                    <p>Press once with one finger and lift immediately.</p>
                                 </div>
                             </div>
                             <div class="btn-trigger btn-oncreate" (click)="clickTrigger('onCreate')">
@@ -33,7 +33,7 @@
                                 <p>onCreate</p>
                                 <div *ngIf="!triggerEvent" class="oncreate-info trigger-hover">
                                     <h2>OnCreate</h2>
-                                    <p>액티비티가 시작함과 동시에 이벤트 시작.</p>
+                                    <p>Executing an event at the same time that the Activity starts.</p>
                                 </div>
                             </div>
                             <div class="btn-trigger btn-backkey" (click)="clickTrigger('backKey')">
@@ -41,7 +41,7 @@
                                 <p>backKey</p>
                                 <div *ngIf="!triggerEvent" class="backkey-info trigger-hover">
                                     <h2>BackKey</h2>
-                                    <p>디바이스의 뒤로가기 소프트키를 누르면 이벤트 실행.</p>
+                                    <p>Tap the backkey once on the android navigation bar.</p>
                                 </div>
                             </div>
                         </div>
@@ -63,16 +63,16 @@
                 <div class="trigger-intro" *ngIf="!triggerEvent">
                     <div class="trigger-sub">
                         <h2>Trigger</h2>
-                        <p>Object와 Event의 사이에서 State의 변화. Activity의 전환과 같은 Event를 실행시키기 위하여 조건을 지정합니다. 좌측의 원하는 버튼을 눌러 이벤트를 생성해
-                            보세요.
+                        <p>A user action to trigger an event, such as changing the state of objects or switching between Activities.
+                            Select the trigger you want on the left.
                         </p>
 
-                        <h4>Click</h4>
-                        <p>한 손가락으로 한번 누르고 즉시 들어올리기.</p>
+                        <h4>Tap</h4>
+                        <p>Press once with one finger and lift immediately.</p>
                         <h4>OnCreate</h4>
-                        <p>액티비티가 시작함과 동시에 이벤트 시작.</p>
+                        <p>Executing an event at the same time that the Activity starts.</p>
                         <h4>BackKey</h4>
-                        <p>디바이스의 뒤로가기 소프트키를 누르면 이벤트 실행.</p>
+                        <p>Tap the backkey once on the android navigation bar.</p>
                     </div>
 
 
@@ -84,81 +84,86 @@
 
 
                 <!-- 이벤트 종류 정하기 -->
-
-                <div *ngIf="triggerEvent" class="event-select col-4">
-
-
+                <div *ngIf="triggerEvent " class="col-4">
                     <div class="generator-title">Event</div>
-                    <div class="btn-scroll">
-                        <div class="btn-trigger btn-stagechange" (click)="clickImplement('stageChange')">
-                            <img src="assets/images/btn_stagechange.png" />
-                            <p>stageChange</p>
-                            <div *ngIf="!implementEvent" class="stage-info event-hover">
-                                <h2>stageChange</h2>
-                                <p>트리거 실행시 스테이지 이동.</p>
-                            </div>
-                        </div>
-                        <div class="btn-trigger btn-startactivity" (click)="clickImplement('startActivity')">
-                            <img src="assets/images/btn_startactivity.png" />
-                            <p>startActivity</p>
-                             <div *ngIf="!implementEvent" class="startactivity-info event-hover">
-                                <h2>startActivity</h2>
-                                <p>트리거 실행시 액티비티 이동.</p>
-                            </div>
-                        </div>
-                        <div class="btn-trigger btn-finishactivity" (click)="clickImplement('finishActivity')">
-                            <img src="assets/images/btn_finishactivity.png" />
-                            <p>finishActivity</p>
-                             <div *ngIf="!implementEvent" class="finishactivity-info event-hover">
-                                <h2>finishActivity</h2>
-                                <p>트리거 실행시 액티비티 종료.</p>
-                            </div>
-                        </div>
-
-                        <div class="event-kind">Lottie</div>
-                        <div class="btn-trigger btn-startlottie" (click)="clickImplement('startLottie')">
-                            <img src="assets/images/btn_startlottie.png" />
-                            <p>startLottie</p>
- <div *ngIf="!implementEvent" class="startlottie-info event-hover">
-                                <h2>startLottie</h2>
-                                <p>Lottie 시작 <br>Json파일을 삽입하여 동작</p>
-                            </div>
-                        </div>
-                        <div class="btn-trigger btn-stoplottie" (click)="clickImplement('stopLottie')">
-                            <img src="assets/images/btn_stoplottie.png" />
-                            <p>stopLottie</p>
-                             <div *ngIf="!implementEvent" class="stoplottie-info event-hover">
-                                <h2>stopLottie</h2>
-                                <p>Lottie 중지<br>Json파일을 삽입하여 동작</p>
-                            </div>
-                        </div>
-
-                        <div class="event-kind">Camera</div>
-                        <div class="btn-trigger btn-takepicture" (click)="clickImplement('takePicture')">
-                            <img src="assets/images/btn_takepicture.png" />
-                            <p>takePicture</p>
-                             <div *ngIf="!implementEvent" class="takepicture-info event-hover">
-                                <h2>takePicture</h2>
-                                <p>카메라뷰로 사진촬영하기.</p>
-                            </div>
-                        </div>
+                    <div class="event-select ">
 
 
-                        <div class="event-kind">VideoView</div>
-                        <div class="btn-trigger btn-startvideo" (click)="clickImplement('startVideo')">
-                            <img src="assets/images/btn_startvideo.png" />
-                            <p> startVideo</p>
-                             <div *ngIf="!implementEvent" class="startvideo-info event-hover">
-                                <h2>startVideo</h2>
-                                <p>동영상 플레이하기.</p>
+
+                        <div class="btn-scroll">
+                            <div class="btn-trigger btn-stagechange" (click)="clickImplement('stageChange')">
+                                <img src="assets/images/btn_stagechange.png" />
+                                <p>stageChange</p>
+                                <div *ngIf="!implementEvent" class="stage-info event-hover">
+                                    <h2>stageChange</h2>
+                                    <p>All states such as object position, size, shape and color can be changed through 'StageChange'.</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="btn-trigger btn-stopvideo" (click)="clickImplement('stopVideo')">
-                            <img src="assets/images/btn_stopvideo.png" />
-                            <p> stopVideo</p>
-                            <div *ngIf="!implementEvent" class="stopvideo-info event-hover">
-                                <h2>stopVideo</h2>
-                                <p>동영상 플레이중지.</p>
+                            <div class="btn-trigger btn-startactivity" (click)="clickImplement('startActivity')">
+                                <img src="assets/images/btn_startactivity.png" />
+                                <p>startActivity</p>
+                                <div *ngIf="!implementEvent" class="startactivity-info event-hover">
+                                    <h2>startActivity</h2>
+                                    <p>This event starts another new Activity. It is used to move from the current Activity
+                                        to another Activity.</p>
+                                </div>
+                            </div>
+                            <div class="btn-trigger btn-finishactivity" (click)="clickImplement('finishActivity')">
+                                <img src="assets/images/btn_finishactivity.png" />
+                                <p>finishActivity</p>
+                                <div *ngIf="!implementEvent" class="finishactivity-info event-hover">
+                                    <h2>finishActivity</h2>
+                                    <p>This event closes the current Activity and returns it to the previous Activity. We often
+                                        use backkeys inside apps.</p>
+                                </div>
+                            </div>
+
+                            <div class="event-kind">Lottie</div>
+                            <div class="btn-trigger btn-startlottie" (click)="clickImplement('startLottie')">
+                                <img src="assets/images/btn_startlottie.png" />
+                                <p>startLottie</p>
+                                <div *ngIf="!implementEvent" class="startlottie-info event-hover">
+                                    <h2>startLottie</h2>
+                                    <p>Play the motion graphics of LottieView with JSON file applied</p>
+                                </div>
+                            </div>
+                            <div class="btn-trigger btn-stoplottie" (click)="clickImplement('stopLottie')">
+                                <img src="assets/images/btn_stoplottie.png" />
+                                <p>stopLottie</p>
+                                <div *ngIf="!implementEvent" class="stoplottie-info event-hover">
+                                    <h2>stopLottie</h2>
+                                    <p>Stop motion graphics of LottieView.</p>
+                                </div>
+                            </div>
+
+                            <div class="event-kind">Camera</div>
+                            <div class="btn-trigger btn-takepicture" (click)="clickImplement('takePicture')">
+                                <img src="assets/images/btn_takepicture.png" />
+                                <p>takePicture</p>
+                                <div *ngIf="!implementEvent" class="takepicture-info event-hover">
+                                    <h2>takePicture</h2>
+                                    <p>It acts as a camera shutter when shooting with 'CameraView'. You can also select a layer
+                                        to show the captured image.</p>
+                                </div>
+                            </div>
+
+
+                            <div class="event-kind">VideoView</div>
+                            <div class="btn-trigger btn-startvideo" (click)="clickImplement('startVideo')">
+                                <img src="assets/images/btn_startvideo.png" />
+                                <p> startVideo</p>
+                                <div *ngIf="!implementEvent" class="startvideo-info event-hover">
+                                    <h2>startVideo</h2>
+                                    <p>Play video from VideoView.</p>
+                                </div>
+                            </div>
+                            <div class="btn-trigger btn-stopvideo" (click)="clickImplement('stopVideo')">
+                                <img src="assets/images/btn_stopvideo.png" />
+                                <p> stopVideo</p>
+                                <div *ngIf="!implementEvent" class="stopvideo-info event-hover">
+                                    <h2>stopVideo</h2>
+                                    <p>Stop video playing in VideoView.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -169,14 +174,26 @@
                 <div class="event-intro" *ngIf="!implementEvent">
 
                     <h2>Event</h2>
-                    <p>트리거로 인해 일어나는 일련의 효과들을 일컫는다. VXMaker에는 3개의 이벤트가 있으며 이를 사용해 모션 인터렉션 생성, 화면전환 등을 설정할 수 있습니다.</p>
+                    <p>The movement within the app that works to interact with the user. Select the event you want to activate.</p>
 
                     <h4>StageChange</h4>
-                    <p>트리거 실행시 스테이지 이동.</p>
+                    <p>All states such as object position, size, shape and color can be changed through 'StageChange'.</p>
                     <h4>StartActivity</h4>
-                    <p>트리거 실행시 액티비티 이동.</p>
+                    <p>This event starts another new Activity. It is used to move from the current Activity to another Activity.</p>
                     <h4>FinishActivity</h4>
-                    <p>트리거 실행시 액티비티 종료.</p>
+                    <p>This event closes the current Activity and returns it to the previous Activity. We often use backkeys
+                        inside apps.</p>
+                    <h4>startLottie</h4>
+                    <p>Play the motion graphics of LottieView with JSON file applied</p>
+                    <h4>stopLottie</h4>
+                    <p>Stop motion graphics of LottieView.</p>
+                    <h4>takePicture</h4>
+                    <p>It acts as a camera shutter when shooting with 'CameraView'. You can also select a layer to show the
+                        captured image.</p>
+                    <h4>startVideo</h4>
+                    <p>Play video from VideoView.</p>
+                    <h4>stopVideo</h4>
+                    <p>Stop video playing in VideoView.</p>
                 </div>
 
                 <!--입ㄴ트 관련 설명@ -->
@@ -257,6 +274,7 @@
             </div>
 
             <div class="generator-footer">
+
                 <button (click)="hideDialog()">Cancel</button>
                 <button *ngIf="readyEvent" (click)="completeEvent()">Done</button>
 

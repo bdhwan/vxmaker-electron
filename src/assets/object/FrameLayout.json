@@ -15,7 +15,7 @@
         {
             "name": "backgroundColor",
             "type": "string",
-            "default": "#999999"
+           "default": "transparent"
         },
         {
             "name": "backgroundImage",

@@ -13,6 +13,11 @@
             "default": "LottieView"
         },
         {
+            "name": "backgroundColor",
+            "type": "string",
+            "default": "#999999"
+        },
+        {
             "name": "dataUrl",
             "type": "string",
             "default": null

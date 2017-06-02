@@ -191,11 +191,14 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         //2. object
         var newObject = this.appDataService.createNewObject('FrameLayout');
         newObject.id = 'root';
-        newObject['name'] = 'root';
+        newObject['name'] = 'root'; 
+        newObject['backgroundColor'] = '#ffffff'; 
         this.activityData.objectList = [newObject];
 
         //3. state
         var newState = this.appDataService.createNewState(newObject.id, stage.id, 'FrameLayout');
+
+
         this.activityData.stateList = [newState];
 
         //4. triggerEventList;

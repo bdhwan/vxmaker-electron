@@ -15,17 +15,22 @@
             "type": "string",
             "default": "Button"
         },
-
+        {
+            "name": "backgroundColor",
+            "type": "string",
+            "default": "#999999"
+        },
         {
             "name": "text",
             "type": "string",
-            "default": "button"
+            "default": "Button"
         },
         {
             "name": "textSize",
             "type": "int",
             "default": 20
         },
+     
         {
             "name": "textColor",
             "type": "string",
@@ -37,12 +42,21 @@
             "default": false
         }
 
-
     ],
     "stateProperties": [{
             "name": "width",
             "type": "int",
             "default": 400
+        },
+           {
+            "name": "borderRadius",
+            "type": "int",
+            "default":50
+        },
+            {
+            "name": "fontWeight",
+            "type": "string",
+            "default":"bold"
         },
         {
             "name": "height",

@@ -15,11 +15,15 @@
             "type": "string",
             "default": "TextView"
         },
-
+{
+            "name": "backgroundColor",
+            "type": "string",
+            "default": "#d8d8d8"
+        },
         {
             "name": "text",
             "type": "string",
-            "default": "text-view"
+            "default": "Write something"
         },
         {
             "name": "textSize",
@@ -37,16 +41,16 @@
             "default": false
         }
     ],
+   
     "stateProperties": [{
             "name": "width",
             "type": "int",
-            "default": 400
+            "default": 600
         },
         {
             "name": "height",
             "type": "int",
-            "default": 200
+            "default": 220
         }
     ]
-
 }
