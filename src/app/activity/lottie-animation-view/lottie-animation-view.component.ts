@@ -22,6 +22,7 @@ export class LottieAnimationViewComponent implements OnInit {
   public viewHeight: string;
   private _options: any;
   private url: string;
+  private anim;
 
 
   ngOnInit() {
@@ -33,6 +34,9 @@ export class LottieAnimationViewComponent implements OnInit {
     if (this.url !== url) {
       this.url = url;
       if (this.url) {
+        // if (this.anim) {
+        //   this.anim.stop();
+        // }
         bodymovin.destroy();
         this.resetAnimator();
       }
@@ -47,8 +51,8 @@ export class LottieAnimationViewComponent implements OnInit {
       autoplay: true,
       path: this.url
     };
-    const anim: any = bodymovin.loadAnimation(this._options);
-
+    this.anim = bodymovin.loadAnimation(this._options);
+    // this.anim.play();
   }
 
 }
