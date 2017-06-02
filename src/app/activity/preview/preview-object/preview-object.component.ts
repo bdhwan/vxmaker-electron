@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
-import { ApplicationDataServiceService } from '../../../service/application-data-service.service'
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, ViewContainerRef, ReflectiveInjector, ComponentFactoryResolver } from '@angular/core';
+import { ApplicationDataServiceService } from '../../../service/application-data-service.service';
+import { LottieAnimationViewComponent } from '../../lottie-animation-view/lottie-animation-view.component';
 
 
 
@@ -9,23 +10,18 @@ import * as glob from "../../../globals";
 @Component({
   selector: 'app-preview-object',
   templateUrl: './preview-object.component.html',
+  entryComponents: [LottieAnimationViewComponent],
   styleUrls: ['./preview-object.component.css']
 })
 export class PreviewObjectComponent implements OnInit {
 
   @ViewChild('videoView') videoView;
-
-
-
+  @ViewChild('lottieView') lottieView: LottieAnimationViewComponent;
 
   prefix = glob.imgPrefix;
   applicationFolderPath;
 
-
-  public lottieConfig: Object;
-  private anim: any;
-  private animationSpeed: number = 1;
-
+  currentComponent = null;
 
 
   @Input() objectData: any;
@@ -33,46 +29,29 @@ export class PreviewObjectComponent implements OnInit {
 
   state: any;
   zoom;
-  lottieUrl = 'assets/sample/processing.json';
+  // lottieUrl = 'assets/sample/processing.json';
 
-  constructor(private appDataService: ApplicationDataServiceService, private elementRef: ElementRef) {
-    this.lottieConfig = {
-      path: this.lottieUrl,
-      autoplay: true,
-      loop: true
-    };
+  constructor(private appDataService: ApplicationDataServiceService, private elementRef: ElementRef, private resolver: ComponentFactoryResolver) {
+
   }
-
-
-
-  clickTest() {
-    console.log("clickTest");
-  }
-
-
 
   ngOnInit() {
     this.state = this.appDataService.findStateByObjectId(this.objectData.id);
     this.applicationFolderPath = this.appDataService.getApplicationPath();
   }
 
-
-
-
   getObjectStyle() {
 
 
-    if (this.objectData.type === 'LottiView') {
+
+    if (this.objectData.type === 'LottieView') {
       if (this.objectData.dataUrl) {
         const url = this.prefix + this.applicationFolderPath + '/' + this.objectData.dataUrl;
-        this.lottieConfig['path'] = url;
-      } else {
-        this.lottieConfig['path'] = 'assets/sample/heart.json';
+        if (this.lottieView) {
+          this.lottieView.setDataUrl(url);
+        }
       }
     }
-
-
-
 
     this.state = this.appDataService.findStateByObjectId(this.objectData.id);
     if (this.state) {
@@ -81,28 +60,6 @@ export class PreviewObjectComponent implements OnInit {
       return null;
     }
   }
-
-
-  handleAnimation(anim: any) {
-    this.anim = anim;
-  }
-
-  stop() {
-    this.anim.stop();
-  }
-
-  play() {
-    this.anim.play();
-  }
-
-
-
-
-
-
-
-
-
 
 
 }

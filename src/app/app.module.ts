@@ -35,7 +35,7 @@ import { EventStageChangeCellComponent } from './activity/event-stage-change-cel
 import { EventStateChangeCellComponent } from './activity/event-state-change-cell/event-state-change-cell.component';
 import { EventStateChangeGraphComponent } from './activity/event-state-change-graph/event-state-change-graph.component';
 import { EventStateChangeTimelineComponent } from './activity/event-state-change-timeline/event-state-change-timeline.component';
-import { LottieAnimationViewModule } from 'ng-lottie';
+import { LottieAnimationViewComponent } from './activity/lottie-animation-view/lottie-animation-view.component';
 
 
 
@@ -82,14 +82,14 @@ const appRoutes: Routes = [
     EventStageChangeCellComponent,
     EventStateChangeCellComponent,
     EventStateChangeGraphComponent,
-    EventStateChangeTimelineComponent
+    EventStateChangeTimelineComponent,
+    LottieAnimationViewComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     TreeModule,
-    LottieAnimationViewModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
   providers: [ApplicationDataServiceService],

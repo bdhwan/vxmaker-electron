@@ -2,8 +2,10 @@
     <img *ngIf="objectData.type=='ImageView' " [src]="prefix+applicationFolderPath+ '/'+objectData.dataUrl" onError="this.src='assets/images/ic_preview.png' " style="width:100%;height:100%;">
     <p class="img-data" *ngIf="objectData.type=='TextView' ||objectData.type=='Button' ||objectData.type=='EditText' ">{{objectData.text}}</p>
 
-    <lottie-animation-view *ngIf="objectData.type==='LottieView'" [options]="lottieConfig" (animCreated)="handleAnimation($event)" style="width:100%;height:100%;">
-    </lottie-animation-view>
+
+    <div #dynamicComponentContainer></div>
+    <app-lottie-animation-view #lottieView *ngIf="objectData.type==='LottieView'" style="width:100%;height:100%;">
+    </app-lottie-animation-view>
 
     <video #videoView *ngIf="objectData.type==='VideoView'" [src]="prefix+applicationFolderPath+ '/'+objectData.dataUrl" autoplay loop style="width:100%;height:100%;">
     </video>
