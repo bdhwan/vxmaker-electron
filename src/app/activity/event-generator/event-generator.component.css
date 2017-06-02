@@ -400,21 +400,35 @@ font-weight: bold;
 .btn-startactivity:hover .startactivity-info {
     display: block;
 }
+
 .btn-finishactivity:hover .finishactivity-info {
     display: block;
 }
+
 .btn-startlottie:hover .startlottie-info {
     display: block;
 }
+
 .btn-stoplottie:hover .stoplottie-info {
     display: block;
 }
+
 .btn-takepicture:hover .takepicture-info {
     display: block;
 }
+
 .btn-startvideo:hover .startvideo-info {
     display: block;
 }
+
 .btn-stopvideo:hover .stopvideo-info {
     display: block;
+}
+
+
+.trigger-sub h4 {
+    margin-bottom: 5px;
+}
+.trigger-sub p {
+    margin-top: 7px;
 }

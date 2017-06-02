@@ -148,7 +148,7 @@
 }
 
 .list-box .list-img img {
-    background: #fff;
+    background: transparent;
     border: none;
     outline: none;
 }
