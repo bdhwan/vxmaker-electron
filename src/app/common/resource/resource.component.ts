@@ -29,7 +29,6 @@ export class ResourceComponent implements OnInit {
 
   }
 
-
   ngOnInit() {
 
   }
@@ -37,10 +36,10 @@ export class ResourceComponent implements OnInit {
 
   ngAfterViewInit() {
     this.applicationFolderPath = this.appDataService.getApplicationPath();
-    this.appDataService.loadImageResourceList().then((result:any) => {
+    this.appDataService.loadImageResourceList().then((result: any) => {
       this.imageList = result.reverse();
       return this.appDataService.loadFileResourceList();
-    }).then((result:any) => {
+    }).then((result: any) => {
       this.fileList = result.reverse();
     });
   }
@@ -72,39 +71,32 @@ export class ResourceComponent implements OnInit {
 
     this.onSelectFile.emit(target);
     this.hideDialog();
-    
+
   }
   nothing(event) {
-    console.log("nothing");
-        event.stopPropagation();
+    event.stopPropagation();
   }
 
   clickNewFile(event, target) {
-    console.log("target = " + target);
-
-
-    if (target == 'image') {
-      var newImagePath = this.appDataService.selectImageFile();
-      if (newImagePath) {
-
-        var fileName = this.appDataService.getUniqueImageName(newImagePath);
-        var targetPath = this.applicationFolderPath + "/" + target + "/" + fileName;
-        var result = this.appDataService.copyFile(newImagePath, targetPath);
-        if (result) {
-          this.refreshImageList();
-        }
-      }
+    let files = [];
+    if (target === 'image') {
+      files = this.appDataService.selectImageFiles();
     } else {
-      var newFilePath = this.appDataService.selectFile();
-      if (newFilePath) {
+      files = this.appDataService.selectFile();
+    }
 
-        var fileName = this.appDataService.getUniqueFileName(newFilePath);
-        var targetPath = this.applicationFolderPath + "/" + target + "/" + fileName;
-        var result = this.appDataService.copyFile(newFilePath, targetPath);
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        const newImagePath = files[i];
+        const fileName = this.appDataService.getUniqueImageName(newImagePath);
+        const targetPath = this.applicationFolderPath + '/' + target + '/' + fileName;
+        const result = this.appDataService.copyFile(newImagePath, targetPath);
         if (result) {
-          this.refreshFileList();
+
         }
       }
+      this.refreshImageList();
+      this.refreshFileList();
     }
   }
 
@@ -115,6 +107,7 @@ export class ResourceComponent implements OnInit {
       this.imageList = this.appDataService.getImageResourceList().reverse();
     });
   }
+
 
   refreshFileList() {
     this.appDataService.loadFileResourceList().then((result) => {

@@ -5,8 +5,7 @@
 
             <div class="resource-nav">
                 <button style="color:#46a2ba;" *ngIf="tab=='image'" (click)="clickTab($event,'image')">Image</button>
-                <button *ngIf="tab=='file'" (click)="clickTab($event,'image')">Image</button>/<button style="color:#46a2ba;"
-                    *ngIf="tab=='file'" (click)="clickTab($event,'file')">File</button>
+                <button *ngIf="tab=='file'" (click)="clickTab($event,'image')">Image</button>/<button style="color:#46a2ba;" *ngIf="tab=='file'" (click)="clickTab($event,'file')">File</button>
                 <button *ngIf="tab=='image'" (click)="clickTab($event,'file')">File</button>
 
                 <div class="resource-add">
@@ -20,7 +19,6 @@
             <div class="resource-wrap">
                 <div *ngIf="tab=='image'">
                     <h3>Uploaded Image</h3>
-
                     <div class="image-list">
                         <div *ngFor="let imageUrl of imageList" class="bg-img">
                             <img [src]="prefix+applicationFolderPath+'/'+imageUrl" (click)="clickFile(imageUrl)">
@@ -41,7 +39,7 @@
                 <button>Delete</button>
                 <div class="resource-apply">
                     <button (click)="hideDialog()">Cancel</button>
-                    <button >Apply</button>
+                    <button>Apply</button>
                 </div>
 
             </div>

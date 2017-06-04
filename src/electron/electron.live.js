@@ -253,11 +253,59 @@ ipcMain.on('select-image-file', (event, arg) => {
 })
 
 //select image
-ipcMain.on('select-file', (event, arg) => {
+ipcMain.on('select-image-files', (event, arg) => {
     console.log(arg) // prints "ping"
 
     var files = dialog.showOpenDialog({
-        properties: ['openFile'],
+        properties: ['openFile', 'multiSelections'],
+        filters: [
+            { name: 'Images', extensions: ['png', 'jpeg', 'jpg', 'bmp'] }
+        ]
+    });
+
+
+    if (files) {
+        event.returnValue = files;
+    } else {
+        event.returnValue = null;
+    }
+})
+
+
+
+//select image
+ipcMain.on('select-file', (event, arg) => {
+        console.log(arg) // prints "ping"
+
+        var files = dialog.showOpenDialog({
+            properties: ['openFile'],
+            filters: [
+                { name: 'Files', extensions: ['*'] }
+            ]
+        });
+
+
+        if (files) {
+            var file = files[0];
+            event.returnValue = file;
+            // var result = sizeOf(file);
+            // var realPath = workspace + "/images/" + fileName;
+
+            // fse.copySync(file, realPath);
+
+            // result.filePath = "images/" + fileName;
+            // promise.resolve(result);
+
+        } else {
+            event.returnValue = null;
+        }
+    })
+    //select image
+ipcMain.on('select-files', (event, arg) => {
+    console.log(arg) // prints "ping"
+
+    var files = dialog.showOpenDialog({
+        properties: ['openFile', 'multiSelections'],
         filters: [
             { name: 'Files', extensions: ['*'] }
         ]
@@ -265,21 +313,11 @@ ipcMain.on('select-file', (event, arg) => {
 
 
     if (files) {
-        var file = files[0];
-        event.returnValue = file;
-        // var result = sizeOf(file);
-        // var realPath = workspace + "/images/" + fileName;
-
-        // fse.copySync(file, realPath);
-
-        // result.filePath = "images/" + fileName;
-        // promise.resolve(result);
-
+        event.returnValue = files;
     } else {
         event.returnValue = null;
     }
 })
-
 
 //copy file
 ipcMain.on('copy-file', (event, src, dst) => {

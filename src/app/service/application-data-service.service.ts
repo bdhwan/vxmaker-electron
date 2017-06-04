@@ -102,8 +102,16 @@ export class ApplicationDataServiceService {
     return electron.ipcRenderer.sendSync('select-image-file');
   }
 
+  selectImageFiles() {
+    return electron.ipcRenderer.sendSync('select-image-files');
+  }
+
   selectFile() {
     return electron.ipcRenderer.sendSync('select-file');
+  }
+
+  selectFiles() {
+    return electron.ipcRenderer.sendSync('select-files');
   }
 
   selectWorkspaceFolderPath() {
