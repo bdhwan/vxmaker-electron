@@ -103,6 +103,7 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
     this.selectedTriggerEvent = this.appDataService.getSelectedTriggerEvent();
     this.selectedObject = this.appDataService.getSelectedObject();
     this.selectedState = this.appDataService.getSelectedState();
+    
   }
 
 

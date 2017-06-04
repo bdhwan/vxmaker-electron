@@ -191,8 +191,8 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         //2. object
         var newObject = this.appDataService.createNewObject('FrameLayout');
         newObject.id = 'root';
-        newObject['name'] = 'root'; 
-        newObject['backgroundColor'] = '#ffffff'; 
+        newObject['name'] = 'root';
+        newObject['backgroundColor'] = '#ffffff';
         this.activityData.objectList = [newObject];
 
         //3. state
@@ -376,6 +376,9 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     // console.log("onSelectFile = " + target);
     const selectedObject = this.appDataService.getSelectedObject();
     if (selectedObject) {
+      if (selectedObject.objectType === 'LottieView') {
+        // this.appDataService.getActivityData();
+      }
       selectedObject.dataUrl = target;
     }
 
@@ -395,9 +398,9 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
-  onSelectNodeFromOther(objectId){
-    console.log("onSelectNodeFromOther-"+objectId);
-    
+  onSelectNodeFromOther(objectId) {
+    console.log("onSelectNodeFromOther-" + objectId);
+
     this.objectTreeComponent.selectObjectNode(this.appDataService.findObjectById(objectId));
   }
 

@@ -321,6 +321,25 @@ export class ApplicationDataServiceService {
     });
   }
 
+  readFileSync(filePath) {
+    return electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + '/' + filePath);
+  }
+
+
+  readFile(filePath) {
+    return new Promise((resolve, reject) => {
+      const result = electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + '/' + filePath);
+      resolve(result);
+    });
+  }
+
+  readFileAbsolutePath(filePath) {
+    return new Promise((resolve, reject) => {
+      const result = electron.ipcRenderer.sendSync('read-file-data', filePath);
+      resolve(result);
+    });
+  }
+
 
   setSelectedStage(value) {
     this.selectedStage = value;
