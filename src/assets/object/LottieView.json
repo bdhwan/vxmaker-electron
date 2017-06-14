@@ -15,7 +15,7 @@
         {
             "name": "backgroundColor",
             "type": "string",
-            "default": "#999999"
+             "default": "#f9f9f9"
         },
         {
             "name": "dataUrl",
