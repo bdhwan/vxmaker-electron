@@ -14,6 +14,10 @@
     background-color: #ebebeb;
 }
 
+.layers-btn::after
+{content:””; display:block; clear:both;}
+
+
 .object-new .btn-object-new:hover {
     transform: scale(1.02);
     -webkit-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.23);
@@ -31,6 +35,8 @@
 .layers-btn .motion-btn {
     float: left;
 }
+
+
 
 .motion-btn-wrap {
     overflow: hidden;
@@ -101,8 +107,8 @@
 
 
 .object-new .btn-resource{
-    width: 31%;
-    height: 80px;
+    width: 22.5%;
+    height: 56px;
     border: 1px solid #ccc;
     background: url(../../../assets/images/bg_transparent.png);    position: relative;
     position: relative;
@@ -110,3 +116,30 @@
     float: left;
 }
 
+
+
+.select-file div {
+margin: 0;
+font-size: 12px;
+color:#898989;
+text-align: center;
+padding:5px;
+
+}
+
+.select-file div a {
+    text-decoration: none;
+    color:#898989;
+}
+
+.select-file div a:hover {
+    color:#454545;
+}
+
+.select-file div .active {
+    color:#46a2ba;
+}
+
+.select-file div .active:hover {
+    color:#1e839d;
+}

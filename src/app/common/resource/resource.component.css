@@ -182,7 +182,16 @@ box-shadow: 0px -1px 6px 0px rgba(0,0,0,0.2);
     height: 50px;
     border-bottom: 1px solid #ececec;
     box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
-    padding:12px;
+  
+}
+
+.resource-nav .btn-tab {
+padding:16px;
+width: 100px;
+}
+
+.resource-nav .btn-select {
+    border-bottom: 3px solid #46a2ba!important;
 }
 
 .popup .resource-nav .resource-add {

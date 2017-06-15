@@ -4,9 +4,13 @@
 
 
             <div class="resource-nav">
-                <button style="color:#46a2ba;" *ngIf="tab=='image'" (click)="clickTab($event,'image')">Image</button>
-                <button *ngIf="tab=='file'" (click)="clickTab($event,'image')">Image</button>/<button style="color:#46a2ba;" *ngIf="tab=='file'" (click)="clickTab($event,'file')">File</button>
-                <button *ngIf="tab=='image'" (click)="clickTab($event,'file')">File</button>
+                <button class="btn-image btn-select btn-tab" style="color:#46a2ba;" *ngIf="tab=='image'" (click)="clickTab($event,'image')">Image</button>
+                <button class="btn-image  btn-tab" *ngIf="tab=='file'" (click)="clickTab($event,'image')">Image</button>
+                
+                
+                <button class="btn-file btn-select btn-tab" style="color:#46a2ba;" *ngIf="tab=='file'" (click)="clickTab($event,'file')">File</button>
+                <button class="btn-file btn-tab" *ngIf="tab=='image'" (click)="clickTab($event,'file')">File</button>
+            
 
                 <div class="resource-add">
                     <button *ngIf="tab=='image'" (click)="clickNewFile($event,'image')">+ New Image</button>
