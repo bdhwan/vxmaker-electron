@@ -84,6 +84,9 @@ tree-viewport {
     clear: both;
 }
 
+.col-xs-7 {
+    width:58.3333%
+}
 
 .col-xs-6 {
     width: 50%;
