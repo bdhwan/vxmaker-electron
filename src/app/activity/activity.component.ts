@@ -6,6 +6,8 @@ import { ObjectTreeComponent } from '../activity/object-tree/object-tree.compone
 import { ObjectNewComponent } from '../activity/object-new/object-new.component';
 import { ObjectPropertyComponent } from '../activity/object-property/object-property.component';
 import { PreviewComponent } from '../activity/preview/preview.component';
+import { PreviewSizeComponent } from '../activity/preview-size/preview-size.component';
+
 import { StageListComponent } from '../activity/stage-list/stage-list.component';
 import { ResourceComponent } from '../common/resource/resource.component';
 import { EventListComponent } from '../activity/event-list/event-list.component';
@@ -26,7 +28,8 @@ declare var rasterizeHTML: any;
 @Component({
   selector: 'app-activity',
   templateUrl: './activity.component.html',
-  styleUrls: ['./activity.component.css']
+  styleUrls: ['./activity.component.css'],
+  providers: [BroadcastService, MessageEventService]
 })
 export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -63,6 +66,10 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('eventDetailFinishActivity')
   private eventDetailFinishActivity: EventDetailFinishActivityComponent;
+
+  @ViewChild('previewSize')
+  private previewSize: PreviewSizeComponent;
+
 
 
 
@@ -126,7 +133,20 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   registerStringBroadcast() {
     this.broadcaster.on<any>('activity')
       .subscribe(message => {
-        console.log("1111message received!! = " + message.kind);
+
+        const kind = message.kind;
+        console.log("message received!! = " + kind);
+
+        if (kind === 'save') {
+          this.saveActivityData();
+        } else if (kind === 'save-refresh-activity') {
+          this.saveActivityData();
+          this.notifySelectedObjectChanged();
+
+        } else if (kind === 'reload') {
+          window.location.reload();
+        }
+
       });
   }
 
@@ -392,16 +412,23 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onSelectFile(target) {
 
-    // console.log("onSelectFile = " + target);
+    console.log("onSelectFile = " + target);
     const selectedObject = this.appDataService.getSelectedObject();
+
+    console.log("selectedObject.objectType  = " + JSON.stringify(selectedObject));
+
     if (selectedObject) {
-      if (selectedObject.objectType === 'LottieView') {
-        // this.appDataService.getActivityData();
-      }
+
+      const tempUrl = selectedObject.dataUrl;
       selectedObject.dataUrl = target;
+      this.saveActivityData();
+      this.saveApplicationData();
+      if (selectedObject.type === 'LottieView') {
+        if (tempUrl && tempUrl !== target) {
+          window.location.reload();
+        }
+      }
     }
-
-
   }
 
 
@@ -446,6 +473,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   notifySelectedObjectChanged() {
 
     this.previewComponent.onChangeData();
+    this.previewSize.onChangeData();
     this.objectPropertyComponent.onChangeData();
     this.stageList.onChangeData();
     this.eventList.onChangeData();

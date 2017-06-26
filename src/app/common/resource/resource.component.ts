@@ -82,7 +82,7 @@ export class ResourceComponent implements OnInit {
     if (target === 'image') {
       files = this.appDataService.selectImageFiles();
     } else {
-      files = this.appDataService.selectFile();
+      files = this.appDataService.selectFiles();
     }
 
     if (files) {

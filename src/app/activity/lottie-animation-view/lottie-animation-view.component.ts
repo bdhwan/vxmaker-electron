@@ -48,10 +48,7 @@ export class LottieAnimationViewComponent implements OnInit {
   }
 
   public resetAnimator() {
-
-
     const temp = this.appDataService.readFileSync(this.url);
-    console.log("temp =" + temp);
     this.animationData = JSON.parse(JSON.stringify(temp));
     if (!this._options) {
       this._options = {

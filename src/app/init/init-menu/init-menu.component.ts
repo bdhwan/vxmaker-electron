@@ -46,13 +46,12 @@ export class InitMenuComponent implements OnInit {
 
   clickOpenApplication(): void {
     console.log("clickOpenApplication");
-    var folder = this.appDataService.selectWorkspaceFolderPath();
+    const folder = this.appDataService.selectWorkspaceFolderPath();
     if (folder) {
-      var applicationData = this.appDataService.readFileData(folder + "/app.json");// JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('read-file-data', folder + "/app.json")));
+      const applicationData = this.appDataService.readFileData(folder + "/app.json");// JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('read-file-data', folder + "/app.json")));
       if (applicationData) {
         this.router.navigate(['/application', folder]);
-      }
-      else {
+      } else {
         alert("no data");
       }
     }

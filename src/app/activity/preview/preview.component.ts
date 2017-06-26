@@ -200,10 +200,14 @@ export class PreviewComponent implements OnInit {
     this.selectedStage = this.appDataService.getSelectedStage();
     this.selectedObject = this.appDataService.getSelectedObject();
     this.selectedState = this.appDataService.getSelectedState();
-
     this.zoom = this.appDataService.getZoom();
-
   }
+
+
+  public emptyObject(){
+    this.activityData = null;
+  }
+
 
   getCenterStyle() {
     const rootState = this.appDataService.findStateByObjectId('root');

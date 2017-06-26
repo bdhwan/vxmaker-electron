@@ -441,7 +441,6 @@ export class ApplicationDataServiceService {
       const aProperty = defaultObject.stateProperties[i];
       newState[aProperty.name] = aProperty.default;
     }
-
     return newState;
   }
 
