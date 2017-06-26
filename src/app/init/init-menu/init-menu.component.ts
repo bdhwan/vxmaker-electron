@@ -34,8 +34,12 @@ export class InitMenuComponent implements OnInit {
 
   clickNewApplication(): void {
     console.log("clickNewApplication");
-    // this.router.navigate(['/new-application']);
-    this.broadcaster.broadcast('message', 'message from menu222');
+    this.router.navigate(['/new-application']);
+    // const test = {
+    //   kind:'test',
+    //   detail:'detail'
+    // }
+    // this.broadcaster.broadcast('message', test);
   }
 
 

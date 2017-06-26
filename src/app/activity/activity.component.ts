@@ -15,6 +15,8 @@ import { EventDetailFinishActivityComponent } from '../activity/event-detail-fin
 import { EventGeneratorComponent } from '../activity/event-generator/event-generator.component';
 import { ApplicationDataServiceService } from '../service/application-data-service.service';
 import { UUID } from 'angular2-uuid';
+import { BroadcastService } from '../service/broadcast.service';
+import { MessageEventService } from '../service/message-event.service';
 
 
 import 'rxjs/add/operator/switchMap';
@@ -94,7 +96,9 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router,
     private location: Location,
     public zone: NgZone,
-    private appDataService: ApplicationDataServiceService
+    private appDataService: ApplicationDataServiceService,
+    private broadcaster: BroadcastService,
+    private messageEvent: MessageEventService
   ) {
     this.isReadyToRender = false;
     // console.log("construct application =" + window.screen.height + ", test");
@@ -112,7 +116,22 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.appDataService.initApplicationPath(this.applicationFolderPath);
     this.appDataService.initActivityId(this.activityId);
+
+    this.registerStringBroadcast();
+
+
   }
+
+
+  registerStringBroadcast() {
+    this.broadcaster.on<any>('activity')
+      .subscribe(message => {
+        console.log("1111message received!! = " + message.kind);
+      });
+  }
+
+
+
 
   getPreviewWidth() {
     return (window.innerWidth - 608) + 'px';

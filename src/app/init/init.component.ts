@@ -28,9 +28,9 @@ export class InitComponent implements OnInit {
   }
 
   registerStringBroadcast() {
-    this.broadcaster.on<string>('message')
+    this.broadcaster.on<any>('message')
       .subscribe(message => {
-        console.log("1111message received!! = " + message);
+        console.log("1111message received!! = " + message.kind);
       });
   }
 
