@@ -158,7 +158,12 @@ ipcMain.on('make-folder', (event, folder) => {
 })
 
 
+//open url external browser
+ipcMain.on('open-url', (event, url) => {
 
+    shell.openExternal(url);
+    event.returnValue = true;
+})
 
 
 //file check

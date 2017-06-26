@@ -63,6 +63,12 @@ export class ApplicationDataServiceService {
     return this.applicationFolderPath;
   }
 
+  openUrl(url) {
+    electron.ipcRenderer.sendSync('open-url', url);
+  }
+
+
+
   changeWindowSize(width, height, resizeable) {
     electron.ipcRenderer.sendSync('change-window', width, height, resizeable);
   }
