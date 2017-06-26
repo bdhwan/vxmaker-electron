@@ -105,12 +105,11 @@
     overflow: hidden;
 }
 
-
 .object-new .btn-resource{
     width: 22.5%;
     height: 56px;
     border: 1px solid #ccc;
-    background: url(../../../assets/images/bg_transparent.png);    position: relative;
+    background: url(../../../assets/images/bg_transparent.png);   
     position: relative;
     margin: 3px;
     float: left;
@@ -118,28 +117,28 @@
 
 
 
-.select-file div {
+.select-file {
 margin: 0;
 font-size: 12px;
 color:#898989;
 text-align: center;
-padding:5px;
-
+margin-top: 10px;
 }
 
-.select-file div a {
+.select-file a {
     text-decoration: none;
     color:#898989;
+padding: 5px 10px;
 }
 
-.select-file div a:hover {
+.select-file a:hover {
     color:#454545;
 }
 
-.select-file div .active {
+.select-file .active {
     color:#46a2ba;
 }
 
-.select-file div .active:hover {
+.select-file .active:hover {
     color:#1e839d;
 }

@@ -1,15 +1,16 @@
 <div class="device-status">
 
-    <p class="device-connected" *ngIf="deviceList.length > 0">
+    <!--<p class="device-connected" *ngIf="deviceList.length > 0">
         Device Connected
-    </p>
+    </p>-->
     <p class="device-unconnected" *ngIf="deviceList.length == 0">
-        Device Not Connected
+        
+Please connect the device. <span>How to connect <i class="fa fa-question-circle-o"></i></span>
     </p>
 
 
-    <p class="btn-preview nav-btn" (click)='clickSendFile()'>
-        <span><img src="assets/images/ic_send.png" class="nav-btn-img"/></span>Send
+    <p class="btn-preview nav-btn" (click)='clickSendFile()' *ngIf="deviceList.length > 0">
+       <i class="fa fa-mobile"></i>Send
     </p>
     <!--<p class="btn-preview nav-btn">
         <span><img src="assets/images/ic_preview_2.png"  class="nav-btn-img-2"/></span>Preview
