@@ -2,29 +2,40 @@ import { Component, OnInit } from '@angular/core';
 
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { ApplicationDataServiceService } from '../../service/application-data-service.service'
-
-
+import { ApplicationDataServiceService } from '../../service/application-data-service.service';
+import { BroadcastService } from '../../service/broadcast.service';
+import { MessageEventService } from '../../service/message-event.service';
 
 
 @Component({
   selector: 'app-init-menu',
   templateUrl: './init-menu.component.html',
-  styleUrls: ['./init-menu.component.css']
+  styleUrls: ['./init-menu.component.css'],
+  providers: [MessageEventService]
 })
 export class InitMenuComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private router: Router,private appDataService: ApplicationDataServiceService) {
+  constructor(private route: ActivatedRoute, private router: Router, private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService,
+    private messageEvent: MessageEventService) {
 
   }
 
   ngOnInit() {
-
+    // this.registerStringBroadcast();
   }
+
+  // registerStringBroadcast() {
+  //   this.broadcaster.on<string>('message')
+  //     .subscribe(message => {
+  //       console.log("message received!! = " + message);
+  //     });
+  // }
+
 
   clickNewApplication(): void {
     console.log("clickNewApplication");
-    this.router.navigate(['/new-application']);
+    // this.router.navigate(['/new-application']);
+    this.broadcaster.broadcast('message', 'message from menu222');
   }
 
 

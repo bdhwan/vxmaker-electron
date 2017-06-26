@@ -27,6 +27,8 @@ import { TreeModule } from 'angular2-tree-component';
 import { PreviewObjectComponent } from './activity/preview/preview-object/preview-object.component';
 
 import { ApplicationDataServiceService } from './service/application-data-service.service';
+import { BroadcastService } from './service/broadcast.service';
+
 import { ResourceComponent } from './common/resource/resource.component';
 import { EventDetailStageChangeComponent } from './activity/event-detail-stage-change/event-detail-stage-change.component';
 import { EventDetailStartActivityComponent } from './activity/event-detail-start-activity/event-detail-start-activity.component';
@@ -92,7 +94,7 @@ const appRoutes: Routes = [
     TreeModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ApplicationDataServiceService],
+  providers: [ApplicationDataServiceService, BroadcastService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
