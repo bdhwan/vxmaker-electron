@@ -204,8 +204,17 @@ export class PreviewComponent implements OnInit {
   }
 
 
-  public emptyObject(){
+  public recreateObjectList() {
+
     this.activityData = null;
+    const self = this;
+    setTimeout(function () {
+      self.activityData = self.appDataService.getActivityData();
+    }, 100);
+  }
+
+  public emptyObject() {
+
   }
 
 

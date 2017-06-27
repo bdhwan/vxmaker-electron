@@ -144,7 +144,9 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           this.notifySelectedObjectChanged();
 
         } else if (kind === 'reload') {
-          window.location.reload();
+          // window.location.reload();
+          // this.previewComponent.recreateObjectList();
+
         }
 
       });
@@ -423,9 +425,10 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
       selectedObject.dataUrl = target;
       this.saveActivityData();
       this.saveApplicationData();
+      
       if (selectedObject.type === 'LottieView') {
         if (tempUrl && tempUrl !== target) {
-          window.location.reload();
+          this.previewComponent.recreateObjectList();
         }
       }
     }
