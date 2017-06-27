@@ -49,8 +49,8 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
     // this.onClickSendDevice.emit('send');
   }
 
-  clickHowToConnect() {
-
+  clickHowToConnect(url) {
+    this.appDataService.openUrl(url);
   }
 
 
