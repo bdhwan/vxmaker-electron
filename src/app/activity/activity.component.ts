@@ -139,8 +139,13 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           this.notifySelectedObjectChanged();
         } else if (kind === 'send-device') {
           this.onClickSendDevice(null);
+        } else if (kind === 'delete-object') {
+          const objectId = message.objectId;
+          if (objectId !== 'root') {
+            this.appDataService.deleteObject(objectId);
+            this.onClickSendDevice(null);
+          }
         }
-
       });
   }
 

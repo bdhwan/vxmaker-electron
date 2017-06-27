@@ -69,6 +69,9 @@ export class PreviewComponent implements OnInit {
     if ($event.keyCode === 17) {
       this.isKeyCTRL = false;
     }
+    else if($event.keyCode === 48){
+      
+    }
   }
 
 

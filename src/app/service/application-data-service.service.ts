@@ -675,10 +675,87 @@ export class ApplicationDataServiceService {
       };
       return objectStyle;
     }
+  }
+
+
+  deleteObject(objectId) {
+
+
+    //remove object
+    const result = [];
+    const targetList = this.activityData.objectList;
+    for (let i = 0; i < targetList.length; i++) {
+      const aObject = targetList[i];
+      if (aObject.id === objectId) {
+        continue;
+      }
+      result.push(aObject);
+      if (aObject.children && aObject.children.length > 0) {
+        const childResult = this.getAllObjectList(aObject.children);
+        for (let j = 0; j < childResult.length; j++) {
+          result.push(childResult[j]);
+        }
+      }
+    }
+    this.activityData.objectList = result;
+
+    //remove state
+    const stateresult = [];
+    const targetStateList = this.activityData.stateList;
+    for (let i = 0; i < targetStateList.length; i++) {
+      const aState = targetStateList[i];
+      if (aState.objectId === objectId) {
+        continue;
+      }
+      stateresult.push(aState);
+    }
+    this.activityData.stateList = stateresult;
+
+    //remove trigger event
+    const triggerEventResult = [];
+    const triggerEventList = this.activityData.triggerEventList;
+    for (let i = 0; i < triggerEventList.length; i++) {
+      const aTrigger = triggerEventList[i];
+      if (aTrigger.objectId === objectId) {
+        continue;
+      }
+      triggerEventResult.push(aTrigger);
+    }
+    this.activityData.triggerEventList = triggerEventResult;
+
+
+
+
+  //remove impl event
+    const implEventResult = [];
+    const implEventList = this.activityData.implementEventList;
+    for (let i = 0; i < implEventList.length; i++) {
+      const aEvent = implEventList[i];
+      if (aEvent.objectId === objectId) {
+        continue;
+      }
+      implEventResult.push(aEvent);
+    }
+    this.activityData.implementEventList = implEventResult;
+
+
+
+  //remove state event
+    const stateEventResult = [];
+    const stateEventList = this.activityData.stateEventList;
+    for (let i = 0; i < stateEventList.length; i++) {
+      const aEvent = stateEventList[i];
+      if (aEvent.objectId === objectId) {
+        continue;
+      }
+      stateEventResult.push(aEvent);
+    }
+    this.activityData.stateEventList = stateEventResult;
 
 
 
   }
+
 
 
 
