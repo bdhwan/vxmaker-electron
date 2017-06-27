@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
 import { ApplicationDataServiceService } from '../../service/application-data-service.service'
+import { BroadcastService } from '../../service/broadcast.service';
+
 
 declare var rasterizeHTML: any;
 
@@ -46,7 +48,7 @@ export class PreviewComponent implements OnInit {
   isKeyCTRL = false;
 
 
-  constructor(private appDataService: ApplicationDataServiceService) {
+  constructor(private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) {
 
   }
 
@@ -68,9 +70,11 @@ export class PreviewComponent implements OnInit {
     console.log("keyUp-" + $event.keyCode);
     if ($event.keyCode === 17) {
       this.isKeyCTRL = false;
-    }
-    else if($event.keyCode === 48){
-      
+    } else if ($event.keyCode === 46) {
+      const message = {
+        kind: 'delete-current-object',
+      };
+      this.broadcaster.broadcast('activity', message);
     }
   }
 
@@ -113,36 +117,29 @@ export class PreviewComponent implements OnInit {
 
   mouseOver(event: MouseEvent) {
 
-    let currentX = event.clientX;
-    let currentY = event.clientY;
+    const currentX = event.clientX;
+    const currentY = event.clientY;
 
-    let differX = (this.beforeX - currentX) / this.zoom;
-    let differY = (this.beforeY - currentY) / this.zoom;
+    const differX = (this.beforeX - currentX) / this.zoom;
+    const differY = (this.beforeY - currentY) / this.zoom;
 
     let fixDiffer = differX;
     if (Math.abs(differX) < Math.abs(differY)) {
       fixDiffer = differY;
     }
-
-
     if (this.isResizeDown) {
-
       if (this.resizeIndex === 0) {
         this.appDataService.getSelectedState().marginTop -= differY;
         this.appDataService.getSelectedState().marginLeft -= differX;
         this.appDataService.getSelectedState().width += differX;
         this.appDataService.getSelectedState().height += differY;
-
       } else if (this.resizeIndex === 1) {
-
         // this.appDataService.getSelectedState().marginLeft -= differX;
         this.appDataService.getSelectedState().marginTop -= differY;
-
         this.appDataService.getSelectedState().width -= differX;
         this.appDataService.getSelectedState().height += differY;
 
       } else if (this.resizeIndex === 2) {
-
         this.appDataService.getSelectedState().marginLeft -= differX;
         this.appDataService.getSelectedState().width += differX;
         this.appDataService.getSelectedState().height -= differY;
@@ -152,14 +149,14 @@ export class PreviewComponent implements OnInit {
         this.appDataService.getSelectedState().height -= differY;
       }
     } else if (this.isMouseDown) {
-
       this.appDataService.getSelectedState().marginLeft -= differX;
       this.appDataService.getSelectedState().marginTop -= differY;
-
     }
 
     this.beforeX = currentX;
     this.beforeY = currentY;
+
+
 
   }
 
@@ -172,7 +169,6 @@ export class PreviewComponent implements OnInit {
     console.log('up');
     this.isMouseDown = false;
     this.isResizeDown = false;
-
   }
 
 

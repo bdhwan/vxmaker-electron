@@ -20,6 +20,8 @@ export class ApplicationDataServiceService {
   activityData;
 
   selectedObject;
+  hoverObject;
+  
   selectedStage;
   selectedState;
 
@@ -463,12 +465,11 @@ export class ApplicationDataServiceService {
     }
     return null;
   }
-
-  deleteTriggerEvent(triggerEvent: any) {
+  deleteTriggerEventByTriggerEventId(triggerEventid: any) {
     let index = -1;
     for (let i = 0; i < this.activityData.triggerEventList.length; i++) {
       const aEvent = this.activityData.triggerEventList[i];
-      if (aEvent.id === triggerEvent.id) {
+      if (aEvent.id === triggerEventid) {
         index = i;
         break;
       }
@@ -479,6 +480,10 @@ export class ApplicationDataServiceService {
       this.activityData.triggerEventList.splice(index, 1);
       this.deleteImplementEventByTriggerEventId(removed.id);
     }
+  }
+
+  deleteTriggerEvent(triggerEvent: any) {
+    this.deleteTriggerEventByTriggerEventId(triggerEvent.id);
 
   }
 
@@ -654,6 +659,8 @@ export class ApplicationDataServiceService {
 
   getSelectedObjectStyle(state) {
     const tempObjectData = this.findObjectById(state.objectId);
+    if (tempObjectData === null) return {};
+
     if (tempObjectData.id === 'root') {
       const objectStyle = {
         'position': 'absolute',
@@ -678,29 +685,41 @@ export class ApplicationDataServiceService {
   }
 
 
-  deleteObject(objectId) {
-
-
-    //remove object
+  deleteObjectChild(object, objectId) {
     const result = [];
-    const targetList = this.activityData.objectList;
-    for (let i = 0; i < targetList.length; i++) {
-      const aObject = targetList[i];
-      if (aObject.id === objectId) {
-        continue;
-      }
-      result.push(aObject);
-      if (aObject.children && aObject.children.length > 0) {
-        const childResult = this.getAllObjectList(aObject.children);
-        for (let j = 0; j < childResult.length; j++) {
-          result.push(childResult[j]);
+    if (object.children && object.children.length > 0) {
+      for (let i = 0; i < object.children.length; i++) {
+        const aObject = object.children[i];
+        if (objectId !== aObject.id) {
+          result.push(aObject);
+        }
+        else {
+          this.deleteObjectWithStateEvent(aObject);
+        }
+        if (aObject.children && aObject.children.length > 0) {
+          this.deleteObjectChild(aObject, objectId);
         }
       }
     }
-    this.activityData.objectList = result;
+    object.children = result;
+  }
 
+  deleteObjectWithStateEvent(object) {
+
+    this.deleteObjectState(object.id);
+    this.deleteObjectEvent(object.id);
+    if (object.children && object.children.length > 0) {
+      for (let i = 0; i < object.children.length; i++) {
+        this.deleteObjectWithStateEvent(object.children[i]);
+      }
+    }
+  }
+
+
+  deleteObjectState(objectId) {
     //remove state
     const stateresult = [];
+    console.log("will remove state = " + objectId);
     const targetStateList = this.activityData.stateList;
     for (let i = 0; i < targetStateList.length; i++) {
       const aState = targetStateList[i];
@@ -711,48 +730,33 @@ export class ApplicationDataServiceService {
     }
     this.activityData.stateList = stateresult;
 
+  }
+
+  deleteObjectEvent(objectId) {
     //remove trigger event
-    const triggerEventResult = [];
+
     const triggerEventList = this.activityData.triggerEventList;
     for (let i = 0; i < triggerEventList.length; i++) {
       const aTrigger = triggerEventList[i];
       if (aTrigger.objectId === objectId) {
+        this.deleteTriggerEvent(aTrigger);
         continue;
       }
-      triggerEventResult.push(aTrigger);
     }
-    this.activityData.triggerEventList = triggerEventResult;
+  }
 
 
 
 
-  //remove impl event
-    const implEventResult = [];
-    const implEventList = this.activityData.implementEventList;
-    for (let i = 0; i < implEventList.length; i++) {
-      const aEvent = implEventList[i];
-      if (aEvent.objectId === objectId) {
-        continue;
-      }
-      implEventResult.push(aEvent);
-    }
-    this.activityData.implementEventList = implEventResult;
 
+  deleteObject(objectId) {
 
+    const targetObject = this.findObjectById(objectId);
+    const parentObject = this.findObjectById(targetObject.parentId);
 
-  //remove state event
-    const stateEventResult = [];
-    const stateEventList = this.activityData.stateEventList;
-    for (let i = 0; i < stateEventList.length; i++) {
-      const aEvent = stateEventList[i];
-      if (aEvent.objectId === objectId) {
-        continue;
-      }
-      stateEventResult.push(aEvent);
-    }
-    this.activityData.stateEventList = stateEventResult;
-
-
+    // const targetList = this.activityData.objectList;
+    this.deleteObjectChild(this.activityData.objectList[0], objectId);
+    this.setSelectedObject(parentObject);
 
   }
 

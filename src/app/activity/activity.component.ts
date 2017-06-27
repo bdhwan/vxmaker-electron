@@ -133,10 +133,13 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         console.log("message received!! = " + kind);
 
         if (kind === 'save') {
-          this.saveActivityData();
+          this.onClickSendDevice(null);
+
         } else if (kind === 'save-refresh-activity') {
-          this.saveActivityData();
+
           this.notifySelectedObjectChanged();
+          this.onClickSendDevice(null);
+
         } else if (kind === 'send-device') {
           this.onClickSendDevice(null);
         } else if (kind === 'delete-object') {
@@ -145,6 +148,22 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
             this.appDataService.deleteObject(objectId);
             this.onClickSendDevice(null);
           }
+        } else if (kind === 'delete-current-object') {
+          const selectedObject = this.appDataService.getSelectedObject();
+          if (selectedObject) {
+            const objectId = selectedObject.id;
+            if (objectId !== 'root') {
+              this.appDataService.deleteObject(objectId);
+
+              this.notifySelectedObjectChanged();
+              this.objectTreeComponent.initObjectData();
+              this.onClickSendDevice(null);
+            }
+          }
+        } else if (kind === 'delete-event') {
+          this.appDataService.deleteTriggerEventByTriggerEventId(message.triggerEventId);
+          this.notifySelectedObjectChanged();
+          this.onClickSendDevice(null);
         }
       });
   }

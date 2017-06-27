@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ApplicationDataServiceService } from '../../service/application-data-service.service';
-
+import { BroadcastService } from '../../service/broadcast.service';
 
 @Component({
   selector: 'app-event-list',
@@ -19,7 +19,7 @@ export class EventListComponent implements OnInit {
   triggerEventList;
 
 
-  constructor(private appDataService: ApplicationDataServiceService) { }
+  constructor(private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) { }
 
   ngOnInit() {
 
@@ -49,14 +49,14 @@ export class EventListComponent implements OnInit {
   }
 
   clickDeleteEvent(event, triggerEvent) {
-
     event.stopPropagation();
-
     const result = confirm('will you delete ' + triggerEvent.name + '?');
     if (result) {
-      console.log('clickDelete = ' + triggerEvent.id);
-      // const implEvent = this.appDataService.findImplentEventByTriggerEventId(triggerEvent.id);
-      this.appDataService.deleteTriggerEvent(triggerEvent);
+      const message = {
+        kind: 'delete-event',
+        triggerEventId: triggerEvent.id
+      };
+      this.broadcaster.broadcast('activity', message);
     }
   }
 
