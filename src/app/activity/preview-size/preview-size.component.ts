@@ -43,6 +43,9 @@ export class PreviewSizeComponent implements OnInit {
 
   clickZoomToggle() {
     this.showZoom = !this.showZoom;
+    if (this.showRootSize) {
+      this.showRootSize = false;
+    }
   }
 
   changeW(event) {
@@ -80,6 +83,9 @@ export class PreviewSizeComponent implements OnInit {
 
   clickRootSizeToggle() {
     this.showRootSize = !this.showRootSize;
+    if (this.showZoom) {
+      this.showZoom = false;
+    }
   }
 
 

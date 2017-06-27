@@ -72,6 +72,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
+  sendStatus: Boolean = false;
 
 
   isReadyToRender: Boolean = false;
@@ -142,11 +143,8 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         } else if (kind === 'save-refresh-activity') {
           this.saveActivityData();
           this.notifySelectedObjectChanged();
-
-        } else if (kind === 'reload') {
-          // window.location.reload();
-          // this.previewComponent.recreateObjectList();
-
+        } else if (kind === 'send-device') {
+          this.onClickSendDevice(null);
         }
 
       });
@@ -336,6 +334,10 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onClickSendDevice(value: string): void {
     console.log("onClickSendDevice");
+
+    this.sendStatus = true;
+
+
     this.saveApplicationData();
     this.saveActivityData();
     const self = this;
@@ -351,6 +353,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         self.appDataService.sendFileToDevice();
         // self.location.back();
         console.log("done send data");
+        this.sendStatus = false;
       });
     });
   }
@@ -425,7 +428,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
       selectedObject.dataUrl = target;
       this.saveActivityData();
       this.saveApplicationData();
-      
+
       if (selectedObject.type === 'LottieView') {
         if (tempUrl && tempUrl !== target) {
           this.previewComponent.recreateObjectList();

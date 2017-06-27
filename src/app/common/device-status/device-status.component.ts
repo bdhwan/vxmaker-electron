@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy, NgZone, Output, EventEmitter  } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, Output, Input, EventEmitter } from '@angular/core';
 
 import { ApplicationDataServiceService } from '../../service/application-data-service.service';
+import { BroadcastService } from '../../service/broadcast.service';
 
 
 declare var electron: any;
@@ -17,8 +18,8 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
   deviceList = [];
 
   @Output() onClickSendDevice = new EventEmitter<string>();
-
-  constructor(public zone: NgZone,  private appDataService: ApplicationDataServiceService) { }
+  @Input() sendStatus: Boolean;
+  constructor(public zone: NgZone, private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) { }
 
   ngOnInit() {
     electron.ipcRenderer.sendSync('regist-device-connect-status');
@@ -40,10 +41,19 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
   }
 
   public clickSendFile(): void {
-    this.onClickSendDevice.emit('send');
-
-    // this.appDataService.saveActivityData
-    // this.appDataService.sendFileToDevice();
+    const message = {
+      kind: 'send-device'
+    };
+    this.broadcaster.broadcast('activity', message);
+    this.broadcaster.broadcast('application', message);
+    // this.onClickSendDevice.emit('send');
   }
+
+  clickHowToConnect() {
+
+  }
+
+
+
 
 }

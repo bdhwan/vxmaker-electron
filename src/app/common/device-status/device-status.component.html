@@ -4,14 +4,18 @@
         Device Connected
     </p>-->
     <p class="device-unconnected" *ngIf="deviceList.length == 0">
-        
-Please connect the device. <span>How to connect <i class="fa fa-question-circle-o"></i></span>
+
+        Please connect the device. <span (click)='clickHowToConnect()'>How to connect <i class="fa fa-question-circle-o"></i></span>
     </p>
 
 
-    <p class="btn-preview nav-btn" (click)='clickSendFile()' *ngIf="deviceList.length > 0">
-       <i class="fa fa-mobile"></i>Send
-    </p>
+    <div *ngIf="deviceList.length > 0">
+        <p [hidden]="sendStatus" class="btn-preview nav-btn" (click)='clickSendFile()'>
+            <i class="fa fa-mobile"></i>Send
+        </p>
+        <p [hidden]="!sendStatus">Sending...</p>
+    </div>
+
     <!--<p class="btn-preview nav-btn">
         <span><img src="assets/images/ic_preview_2.png"  class="nav-btn-img-2"/></span>Preview
     </p>-->
