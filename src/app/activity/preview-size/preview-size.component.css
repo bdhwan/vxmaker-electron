@@ -86,8 +86,19 @@
     margin-top: 10px;
 }
 
+.dropdown-menu div:hover {
+    background: #f9f9f9;
+}
+
 .dropdown-menu-padding {
-    padding:3px 10px;
+
+    min-width: 120px;
+    text-align: center;
+}
+
+.dropdown-menu-padding div {
+    padding-top: 6px;
+    padding-bottom: 6px;
     border-bottom: 1px solid #ececec;
 }
 
