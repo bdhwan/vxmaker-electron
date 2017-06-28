@@ -287,10 +287,7 @@ export class PreviewComponent implements OnInit {
     });
 
 
-
   }
-
-
 
 
 }
