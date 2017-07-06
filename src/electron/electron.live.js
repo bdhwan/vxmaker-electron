@@ -12,7 +12,7 @@ var sizeOf = require('image-size');
 var tar = require('tar');
 var fstream = require("fstream");
 var Promise = require('bluebird');
-
+var PsdUtil = require('./psd-util.js');
 
 var settings = new ElectronData({
     path: app.getPath('userData'),
@@ -68,6 +68,32 @@ ipcMain.on('remove-recent-project-list', (event, arg) => {
     removeRecentProjectList(arg);
     event.returnValue = true;
 })
+
+//select psd
+ipcMain.on('select-psd-file', (event, arg) => {
+    console.log(arg) // prints "ping"
+
+    var files = dialog.showOpenDialog({
+        properties: ['openFile'],
+        filters: [
+            { name: 'PSD', extensions: ['psd', 'PSD'] }
+        ]
+    });
+    if (files) {
+        var file = files[0];
+        event.returnValue = file;
+
+    } else {
+        event.returnValue = null;
+    }
+})
+
+//parse psd
+ipcMain.on('parse-psd', (event, psdFilePath, applicationFolderPath) => {
+    var psdUtil = new PsdUtil();
+    event.returnValue = psdUtil.parse(psdFilePath, applicationFolderPath);
+})
+
 
 
 function getRecentProjectList() {

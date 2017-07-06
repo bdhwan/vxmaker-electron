@@ -21,7 +21,7 @@ export class ApplicationDataServiceService {
 
   selectedObject;
   hoverObject;
-  
+
   selectedStage;
   selectedState;
 
@@ -104,6 +104,16 @@ export class ApplicationDataServiceService {
 
   deleteActivity(activityId) {
     electron.ipcRenderer.sendSync('delete-file', this.applicationFolderPath + '/activity/' + activityId + '.json');
+  }
+
+
+  parsePsdFile(psdFilePath, applicationFolderPath) {
+    return electron.ipcRenderer.sendSync('parse-psd', psdFilePath, applicationFolderPath);
+  }
+
+
+  selectPsdFile() {
+    return electron.ipcRenderer.sendSync('select-psd-file');
   }
 
   selectImageFile() {

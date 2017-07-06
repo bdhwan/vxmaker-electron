@@ -134,12 +134,9 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
         if (kind === 'save') {
           this.onClickSendDevice(null);
-
         } else if (kind === 'save-refresh-activity') {
-
           this.notifySelectedObjectChanged();
           this.onClickSendDevice(null);
-
         } else if (kind === 'send-device') {
           this.onClickSendDevice(null);
         } else if (kind === 'delete-object') {
@@ -164,7 +161,19 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           this.appDataService.deleteTriggerEventByTriggerEventId(message.triggerEventId);
           this.notifySelectedObjectChanged();
           this.onClickSendDevice(null);
+        } else if (kind === 'select-psd') {
+
+          const selectedPSD = this.appDataService.selectPsdFile();
+          console.log("selectedPSD = " + selectedPSD);
+          const parsePSDResult = this.appDataService.parsePsdFile(selectedPSD, this.applicationFolderPath);
+
+          console.log("parsePSDResult = " + parsePSDResult);
+
+
+
+
         }
+
       });
   }
 

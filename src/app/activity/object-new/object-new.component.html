@@ -31,8 +31,15 @@
         <button class="btn-object-new motion-btn" *ngFor="let aType of objectTypeData" (click)="clickNewObject(aType.type)">
              <img [src]="aType.icon" class="img-responsive">
             {{aType.name}}
-         
         </button>
+
+
+        <button class="btn-object-new motion-btn" (click)="clickPSD()">
+             <img class="img-responsive">
+            PSD
+        </button>
+
+
 
     </div>
 
