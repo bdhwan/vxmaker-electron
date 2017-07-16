@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { UUID } from 'angular2-uuid';
+import { BroadcastService } from './broadcast.service';
 
 declare var electron: any;
 
@@ -43,12 +44,28 @@ export class ApplicationDataServiceService {
 
 
 
+  parsePsdPromise: any;
 
-  constructor(private http: Http) {
 
+  constructor(private http: Http, private broadcaster: BroadcastService) {
 
+    const self = this;
+    electron.ipcRenderer.on('parse-psd-result', (event, arg) => {
+      this.parsePsdPromise(arg);
+    });
+    
   }
 
+
+
+
+
+  parsePsdFile(psdFilePath, applicationFolderPath) {
+     return new Promise((resolve, reject) => {
+      this.parsePsdPromise = resolve;
+      electron.ipcRenderer.sendSync('parse-psd', psdFilePath, applicationFolderPath);
+    });
+  }
 
 
 
@@ -107,9 +124,7 @@ export class ApplicationDataServiceService {
   }
 
 
-  parsePsdFile(psdFilePath, applicationFolderPath) {
-    return electron.ipcRenderer.sendSync('parse-psd', psdFilePath, applicationFolderPath);
-  }
+
 
 
   selectPsdFile() {
@@ -268,7 +283,7 @@ export class ApplicationDataServiceService {
       }).catch(function (err) {
         console.log('catch = ' + JSON.stringify(err));
         reject(err);
-      });;
+      });
     });
   }
 

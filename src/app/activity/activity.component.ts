@@ -164,18 +164,27 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         } else if (kind === 'select-psd') {
 
           const selectedPSD = this.appDataService.selectPsdFile();
-          console.log("selectedPSD = " + selectedPSD);
-          const parsePSDResult = this.appDataService.parsePsdFile(selectedPSD, this.applicationFolderPath);
+          if (selectedPSD) {
+            this.parsePsd(selectedPSD);
+          }
+        } else if (kind === 'parse-psd-result') {
 
-          console.log("parsePSDResult = " + parsePSDResult);
-
-
-
+          const parsePsdData = message.result;
+          console.log("parsePsdData =" + parsePsdData);
 
         }
-
       });
   }
+
+
+  parsePsd(selectedPSD) {
+    console.log("selectedPSD = " + selectedPSD);
+    this.appDataService.parsePsdFile(selectedPSD, this.applicationFolderPath).then(function (result) {
+      console.log("parse result = " + result);
+    });
+  }
+
+  // public onParseResult
 
 
 

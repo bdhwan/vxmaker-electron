@@ -90,8 +90,14 @@ ipcMain.on('select-psd-file', (event, arg) => {
 
 //parse psd
 ipcMain.on('parse-psd', (event, psdFilePath, applicationFolderPath) => {
-    var psdUtil = new PsdUtil();
-    event.returnValue = psdUtil.parse(psdFilePath, applicationFolderPath);
+    const psdUtil = new PsdUtil();
+    const self = this;
+    psdUtil.parsePSD(psdFilePath, applicationFolderPath).then(function(result) {
+        console.log("will return to web = " + result);
+        event.sender.send('parse-psd-result', result);
+        console.log("done return to web = " + result);
+    });
+    event.returnValue = true;
 })
 
 
