@@ -173,7 +173,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   parsePsd(selectedPSD) {
-    console.log("selectedPSD = " + selectedPSD);
     const self = this;
     this.appDataService.parsePsdFile(selectedPSD, this.applicationFolderPath).then(function (result) {
       console.log("parse result = " + result);
@@ -182,18 +181,12 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   insertParsedPsdData(psdDataString) {
-    console.log("insertParsedPsdData");
     const psdData = JSON.parse(psdDataString);
-this.insertPsdObject(psdData);
-    // for (let i = 0; i < psdData.children.length; i++) {
-    //   const aChild = psdData.children[i];
-    //   this.insertPsdObject(aChild);
-    // }
-
+    this.insertPsdObject(psdData);
   }
+
+
   insertPsdObject(aObject) {
-
-
     let parentObject = this.appDataService.getSelectedObject();
     if (!parentObject.children) {
       parentObject = this.appDataService.findObjectById(this.appDataService.getSelectedObject().parentId);

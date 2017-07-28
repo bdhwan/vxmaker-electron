@@ -23,14 +23,21 @@ export class InitComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.appDataService.changeWindowSize(800, 502, true);
+    // this.appDataService.changeWindowSize(800, 502, true);
     this.registerStringBroadcast();
   }
 
   registerStringBroadcast() {
-    this.broadcaster.on<any>('message')
+    this.broadcaster.on<any>('init')
       .subscribe(message => {
-        console.log("1111message received!! = " + message.kind);
+        const kind = message.kind;
+        console.log("message received!! = " + kind);
+        // if (kind === 'go-application') {
+        //     const path = '/application/' + encodeURIComponent(message.folderPath);
+        //     this.appDataService.openMainWindowUrl(path);
+        // }
+
+
       });
   }
 

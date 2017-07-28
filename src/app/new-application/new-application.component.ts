@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ApplicationDataServiceService } from '../service/application-data-service.service'
+
+
 declare var electron: any;
 
 
@@ -18,7 +21,8 @@ export class NewApplicationComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+        private appDataService: ApplicationDataServiceService
   ) { }
 
   ngOnInit() {
@@ -75,7 +79,12 @@ export class NewApplicationComponent implements OnInit {
 
     const filePath = applicationFolder + '/app.json';
     electron.ipcRenderer.sendSync('save-file-data', filePath, data);
-    this.router.navigate(['/application', applicationFolder]);
+    
+
+    
+    const path = '/application/' + encodeURIComponent(applicationFolder);
+    this.appDataService.openMainWindowUrl(path);
+
 
   }
 

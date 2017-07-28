@@ -38,6 +38,7 @@ import { EventStateChangeCellComponent } from './activity/event-state-change-cel
 import { EventStateChangeGraphComponent } from './activity/event-state-change-graph/event-state-change-graph.component';
 import { EventStateChangeTimelineComponent } from './activity/event-state-change-timeline/event-state-change-timeline.component';
 import { LottieAnimationViewComponent } from './activity/lottie-animation-view/lottie-animation-view.component';
+import { GuideComponent } from './guide/guide.component';
 
 
 
@@ -45,6 +46,7 @@ import { LottieAnimationViewComponent } from './activity/lottie-animation-view/l
 const appRoutes: Routes = [
   { path: 'init/:workspaceFolder', component: InitComponent },
   { path: 'init', component: InitComponent },
+  { path: 'guide', component: GuideComponent },
   { path: 'setting', component: SettingComponent },
   { path: 'new-application', component: NewApplicationComponent },
   { path: 'application/:applicationFolderPath', component: ApplicationComponent },
@@ -85,7 +87,8 @@ const appRoutes: Routes = [
     EventStateChangeCellComponent,
     EventStateChangeGraphComponent,
     EventStateChangeTimelineComponent,
-    LottieAnimationViewComponent
+    LottieAnimationViewComponent,
+    GuideComponent
   ],
   imports: [
     BrowserModule,

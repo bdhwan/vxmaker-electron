@@ -86,6 +86,12 @@ export class ApplicationDataServiceService {
     electron.ipcRenderer.sendSync('open-url', url);
   }
 
+  openMainWindowUrl(path) {
+    console.log("path = "+path);
+    return electron.ipcRenderer.sendSync('go-main-window', path);
+  }
+
+
 
 
   changeWindowSize(width, height, resizeable) {
