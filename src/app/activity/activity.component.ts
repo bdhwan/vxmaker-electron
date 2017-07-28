@@ -167,11 +167,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           if (selectedPSD) {
             this.parsePsd(selectedPSD);
           }
-        } else if (kind === 'parse-psd-result') {
-
-          const parsePsdData = message.result;
-          console.log("parsePsdData =" + parsePsdData);
-
         }
       });
   }
@@ -179,12 +174,63 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   parsePsd(selectedPSD) {
     console.log("selectedPSD = " + selectedPSD);
+    const self = this;
     this.appDataService.parsePsdFile(selectedPSD, this.applicationFolderPath).then(function (result) {
       console.log("parse result = " + result);
+      self.insertParsedPsdData(result);
     });
   }
 
+  insertParsedPsdData(psdDataString) {
+    console.log("insertParsedPsdData");
+    const psdData = JSON.parse(psdDataString);
+this.insertPsdObject(psdData);
+    // for (let i = 0; i < psdData.children.length; i++) {
+    //   const aChild = psdData.children[i];
+    //   this.insertPsdObject(aChild);
+    // }
+
+  }
+  insertPsdObject(aObject) {
+
+
+    let parentObject = this.appDataService.getSelectedObject();
+    if (!parentObject.children) {
+      parentObject = this.appDataService.findObjectById(this.appDataService.getSelectedObject().parentId);
+    }
+
+    const newObject = this.appDataService.createNewObject(aObject.type);
+    newObject['parentId'] = parentObject.id;
+    newObject['name'] = aObject.text;
+    if (aObject.dataUrl) {
+      newObject['dataUrl'] = aObject.dataUrl;
+    }
+
+    for (let i = 0; i < this.activityData.stageList.length; i++) {
+      const aStage = this.activityData.stageList[i];
+      const aState = this.appDataService.createNewState(newObject.id, aStage.id, aObject.type);
+
+      aState['width'] = aObject.width;
+      aState['height'] = aObject.height;
+      aState['marginLeft'] = aObject.marginLeft;
+      aState['marginTop'] = aObject.marginTop;
+      this.activityData.stateList.push(aState);
+    }
+
+    parentObject.children.push(newObject);
+    this.objectTreeComponent.updateTreeModel();
+    this.objectTreeComponent.selectObjectNode(newObject);
+    this.objectTreeComponent.expandAll();
+
+    for (let i = 0; i < aObject.children.length; i++) {
+      const aChild = aObject.children[i];
+      this.insertPsdObject(aChild);
+    }
+
+  }
+
   // public onParseResult
+
 
 
 

@@ -9,7 +9,7 @@ var path = require("path");
 function PsdUtil() {
 
     this.rootData = {
-        nodes: []
+        children: []
     };
 
     this.applicationFolderPath = null;
@@ -24,6 +24,12 @@ function PsdUtil() {
         const self = this;
         this.applicationFolderPath = applicationFolderPath;
         this.file = file;
+
+
+        this.rootData.text = path.parse(file).name;
+        this.rootData.marginLeft = 0;
+        this.rootData.marginTop = 0;
+
 
         const imageFolder = applicationFolderPath + "/image";
 
@@ -80,7 +86,7 @@ function PsdUtil() {
         var aData = { id: id };
         aData.parent = parent.id;
         aData.text = node.get('name').substring(0, 200);
-        aData.nodes = [];
+        aData.children = [];
 
         aData.width = node.get("width");
         aData.height = node.get("height");
@@ -113,7 +119,7 @@ function PsdUtil() {
         }
 
         aData.alpha = node.get("opacity") / 255;
-        parent.nodes.push(aData);
+        parent.children.push(aData);
         if (node.hasChildren()) {
             var children = node.children().reverse();
             for (var i = 0; i < children.length; i++) {
