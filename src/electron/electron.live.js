@@ -542,7 +542,10 @@ function initMainWindow(path) {
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
         mainWindow = null;
-        initIntroWindow();
+        if (!introWindow) {
+            initIntroWindow();
+        }
+
     })
     mainWindow.app = app;
 }
@@ -560,6 +563,7 @@ ipcMain.on('go-main-window', (event, targetPath) => {
 
 //copy file
 ipcMain.on('close-main-window', (event) => {
+    initIntroWindow();
     mainWindow.close();
     event.returnValue = true;
 })
