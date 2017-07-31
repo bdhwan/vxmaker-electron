@@ -223,7 +223,11 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
 
 
   clickBack(): void {
-    this.router.navigate(['/init']);
+    this.appDataService.closeMainWindowUrl();
+
+
+
+    // this.router.navigate(['/init']);
   }
 
 

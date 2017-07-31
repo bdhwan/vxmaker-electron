@@ -91,6 +91,10 @@ export class ApplicationDataServiceService {
     return electron.ipcRenderer.sendSync('go-main-window', path);
   }
 
+  closeMainWindowUrl() {
+    console.log("close main window");
+    return electron.ipcRenderer.sendSync('close-main-window');
+  }
 
 
 

@@ -25,10 +25,12 @@
             <div class="property-input-wrap">
                 <div *ngFor="let key of showPropertyKeys">
                     <div *ngIf="selectedObject[key]">
-                        <label> {{ key }}:</label>
-                        <div class="property-input">
-                            <input [(ngModel)]="selectedObject[key]">
-                        </div>
+                    </div>
+
+
+                    <label> {{ key }}:</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedObject[key]">
                     </div>
                 </div>
             </div>

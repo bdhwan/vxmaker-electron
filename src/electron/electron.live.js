@@ -558,6 +558,11 @@ ipcMain.on('go-main-window', (event, targetPath) => {
     event.returnValue = true;
 })
 
+//copy file
+ipcMain.on('close-main-window', (event) => {
+    mainWindow.close();
+    event.returnValue = true;
+})
 
 
 function createWindow() {
