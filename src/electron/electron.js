@@ -12,7 +12,7 @@ var sizeOf = require('image-size');
 var tar = require('tar');
 var fstream = require("fstream");
 var Promise = require('bluebird');
-
+var PsdUtil = require('./psd-util.js');
 
 var settings = new ElectronData({
     path: app.getPath('userData'),
@@ -20,6 +20,11 @@ var settings = new ElectronData({
 });
 
 console.log("userDatapath = " + app.getPath('userData'));
+
+
+
+let mainWindow = null;
+let introWindow = null;
 
 
 
@@ -51,11 +56,13 @@ ipcMain.on('synchronous-message', (event, arg) => {
 
 
 //change window size and resizable 
-ipcMain.on('change-window', (event, width, height, resizable) => {
-    win.setSize(width, height, true);
-    win.setResizable(resizable);
-    event.returnValue = 'done';
-})
+// ipcMain.on('change-window', (event, width, height, resizable) => {
+//     win.setSize(width, height, true);
+//     win.setResizable(resizable);
+//     event.returnValue = 'done';
+// })
+
+
 
 //get recent project list
 ipcMain.on('get-recent-project-list', (event, arg) => {
@@ -68,6 +75,38 @@ ipcMain.on('remove-recent-project-list', (event, arg) => {
     removeRecentProjectList(arg);
     event.returnValue = true;
 })
+
+//select psd
+ipcMain.on('select-psd-file', (event, arg) => {
+    console.log(arg) // prints "ping"
+
+    var files = dialog.showOpenDialog({
+        properties: ['openFile'],
+        filters: [
+            { name: 'PSD', extensions: ['psd', 'PSD'] }
+        ]
+    });
+    if (files) {
+        var file = files[0];
+        event.returnValue = file;
+
+    } else {
+        event.returnValue = null;
+    }
+})
+
+//parse psd
+ipcMain.on('parse-psd', (event, psdFilePath, applicationFolderPath) => {
+    const psdUtil = new PsdUtil();
+    const self = this;
+    psdUtil.parsePSD(psdFilePath, applicationFolderPath).then(function(result) {
+        console.log("will return to web = " + result);
+        event.sender.send('parse-psd-result', result);
+        console.log("done return to web = " + result);
+    });
+    event.returnValue = true;
+})
+
 
 
 function getRecentProjectList() {
@@ -158,7 +197,12 @@ ipcMain.on('make-folder', (event, folder) => {
 })
 
 
+//open url external browser
+ipcMain.on('open-url', (event, url) => {
 
+    shell.openExternal(url);
+    event.returnValue = true;
+})
 
 
 //file check
@@ -253,11 +297,59 @@ ipcMain.on('select-image-file', (event, arg) => {
 })
 
 //select image
-ipcMain.on('select-file', (event, arg) => {
+ipcMain.on('select-image-files', (event, arg) => {
     console.log(arg) // prints "ping"
 
     var files = dialog.showOpenDialog({
-        properties: ['openFile'],
+        properties: ['openFile', 'multiSelections'],
+        filters: [
+            { name: 'Images', extensions: ['png', 'jpeg', 'jpg', 'bmp'] }
+        ]
+    });
+
+
+    if (files) {
+        event.returnValue = files;
+    } else {
+        event.returnValue = null;
+    }
+})
+
+
+
+//select image
+ipcMain.on('select-file', (event, arg) => {
+        console.log(arg) // prints "ping"
+
+        var files = dialog.showOpenDialog({
+            properties: ['openFile'],
+            filters: [
+                { name: 'Files', extensions: ['*'] }
+            ]
+        });
+
+
+        if (files) {
+            var file = files[0];
+            event.returnValue = file;
+            // var result = sizeOf(file);
+            // var realPath = workspace + "/images/" + fileName;
+
+            // fse.copySync(file, realPath);
+
+            // result.filePath = "images/" + fileName;
+            // promise.resolve(result);
+
+        } else {
+            event.returnValue = null;
+        }
+    })
+    //select image
+ipcMain.on('select-files', (event, arg) => {
+    console.log(arg) // prints "ping"
+
+    var files = dialog.showOpenDialog({
+        properties: ['openFile', 'multiSelections'],
         filters: [
             { name: 'Files', extensions: ['*'] }
         ]
@@ -265,21 +357,11 @@ ipcMain.on('select-file', (event, arg) => {
 
 
     if (files) {
-        var file = files[0];
-        event.returnValue = file;
-        // var result = sizeOf(file);
-        // var realPath = workspace + "/images/" + fileName;
-
-        // fse.copySync(file, realPath);
-
-        // result.filePath = "images/" + fileName;
-        // promise.resolve(result);
-
+        event.returnValue = files;
     } else {
         event.returnValue = null;
     }
 })
-
 
 //copy file
 ipcMain.on('copy-file', (event, src, dst) => {
@@ -397,8 +479,94 @@ ipcMain.on('send-file-to-device', (event, tarFilePath, deviceId, devicePath) => 
 
 
 
+function initIntroWindow() {
+
+    // Create the browser window.
+    introWindow = new BrowserWindow({ width: minWidth, height: minHeight, minWidth: minWidth, minHeight: minHeight })
+        // var targetUrl = `file://${__dirname}/index.html`;
+    var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true })
+        // and load the index.html of the app.
+    introWindow.loadURL(targetUrl)
+
+    // Open the DevTools when in dev mode.
+    // if (process.env.NODE_ENV == 'development')
+    introWindow.webContents.openDevTools()
+
+    // Emitted when the window is closed.
+    introWindow.on('closed', () => {
+        // Dereference the window object, usually you would store windows
+        // in an array if your app supports multi windows, this is the time
+        // when you should delete the corresponding element.
+        introWindow = null
+    })
+}
+
+function initIntroWindowTimeout() {
 
 
+    setTimeout(() => {
+        initIntroWindow();
+    }, 12000)
+}
+
+
+
+
+function initMainWindow(path) {
+
+
+    // Create the browser window.
+    mainWindow = new BrowserWindow({
+        width: maxWidth,
+        height: maxHeight,
+        minWidth: minWidth,
+        minHeight: minHeight,
+        center: true,
+        resizable: true
+    })
+
+
+    // var targetUrl = `file://${__dirname}/index.html`;
+    // var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true })
+    var targetUrl = 'http://localhost:4200' + path;
+    // and load the index.html of the app.
+    console.log("electron path = " + targetUrl);
+
+    mainWindow.loadURL(targetUrl)
+        // Open the DevTools when in dev mode.
+        // if (process.env.NODE_ENV == 'development')
+    mainWindow.webContents.openDevTools()
+        // Emitted when the window is closed.
+    mainWindow.on('closed', () => {
+        // Dereference the window object, usually you would store windows
+        // in an array if your app supports multi windows, this is the time
+        // when you should delete the corresponding element.
+        mainWindow = null;
+        if (!introWindow) {
+            initIntroWindow();
+        }
+
+    })
+    mainWindow.app = app;
+}
+
+
+
+
+ipcMain.on('go-main-window', (event, targetPath) => {
+
+    console.log("go-main-window path = " + targetPath);
+    initMainWindow(targetPath);
+    introWindow.close();
+    event.returnValue = true;
+})
+
+//copy file
+ipcMain.on('close-main-window', (event) => {
+    initIntroWindow();
+    mainWindow.close();
+    event.returnValue = true;
+})
 
 
 function createWindow() {
@@ -409,15 +577,13 @@ function createWindow() {
 
 
         var targetUrl = `file://${__dirname}/index.html`;
-
-
         // var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true })
         // and load the index.html of the app.
         win.loadURL(targetUrl)
 
         // Open the DevTools when in dev mode.
         // if (process.env.NODE_ENV == 'development')
-        // win.webContents.openDevTools()
+        win.webContents.openDevTools()
 
         // Emitted when the window is closed.
         win.on('closed', () => {

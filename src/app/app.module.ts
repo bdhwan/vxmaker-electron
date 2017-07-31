@@ -39,6 +39,7 @@ import { EventStateChangeGraphComponent } from './activity/event-state-change-gr
 import { EventStateChangeTimelineComponent } from './activity/event-state-change-timeline/event-state-change-timeline.component';
 import { LottieAnimationViewComponent } from './activity/lottie-animation-view/lottie-animation-view.component';
 import { GuideComponent } from './guide/guide.component';
+import { WindowProxyComponent } from './window-proxy/window-proxy.component';
 
 
 
@@ -88,7 +89,8 @@ const appRoutes: Routes = [
     EventStateChangeGraphComponent,
     EventStateChangeTimelineComponent,
     LottieAnimationViewComponent,
-    GuideComponent
+    GuideComponent,
+    WindowProxyComponent
   ],
   imports: [
     BrowserModule,

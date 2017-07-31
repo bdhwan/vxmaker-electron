@@ -80,9 +80,12 @@ export class NewApplicationComponent implements OnInit {
     const filePath = applicationFolder + '/app.json';
     electron.ipcRenderer.sendSync('save-file-data', filePath, data);
 
-    //new window
-    const path = '/application/' + encodeURIComponent(applicationFolder);
-    this.appDataService.openMainWindowUrl(path);
+
+    this.router.navigate(['/application', applicationFolder]);
+
+    // //new window
+    // const path = '/application/' + encodeURIComponent(applicationFolder);
+    // this.appDataService.openMainWindowUrl(path);
 
 
   }
