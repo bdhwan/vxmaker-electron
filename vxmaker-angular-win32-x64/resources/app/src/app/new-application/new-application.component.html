@@ -1,0 +1,20 @@
+<div class="new-project-top" style="padding:25px;">
+    <button class="btn-back" (click)="clickBack()">◄ back</button></div>
+<div>
+    <div class="ic-newproject">
+        <img src="assets/images/ic_newproject.png">
+    </div>
+    <div class="application-name">
+        <h5>Application Name</h5>
+        <input class="form-control" type="text" [(ngModel)]="applicationName" />
+        <h5 style="margin-top: 15px; margin-bottom: 5px;">Project Folder </h5>
+        <div class="project-folder">
+            <input class="form-control" type="text" [(ngModel)]="workspaceFolderPath" />
+            <button class="btn-change" (click)="clickChangeFolder()">···</button>
+        </div>
+    </div>
+
+</div>
+<div class="btn-new-save">
+    <button (click)="clickNext()">next ►</button>
+</div>

@@ -1,0 +1,43 @@
+{
+    "name": "ScrollView",
+    "type": "ScrollView",
+    "objectProperties": [{
+            "name": "type",
+            "type": "string",
+            "default": "ScrollView"
+        },
+        {
+            "name": "name",
+            "type": "string",
+            "default": "ScrollView"
+        },
+
+        {
+            "name": "backgroundColor",
+            "type": "string",
+            "default": "#009900"
+        },
+        {
+            "name": "backgroundImage",
+            "type": "string",
+            "default": null
+        },
+        {
+            "name": "canHaveChildren",
+            "type": "boolean",
+            "default": true
+        }
+    ],
+    "stateProperties": [{
+            "name": "width",
+            "type": "int",
+            "default": 1440
+        },
+        {
+            "name": "height",
+            "type": "int",
+            "default": 2560
+        }
+    ]
+
+}
