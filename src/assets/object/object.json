@@ -1,14 +1,12 @@
 {
     "objectType": [
         "FrameLayout.json",
-        "RelativeLayout.json",
         "ImageView.json",
         "TextView.json",
         "Button.json",
         "LottieView.json",
         "CameraView.json",
-        "VideoView.json",
-        "ScrollView.json"
+        "VideoView.json"
     ],
     "defaultState": {
         "width": 1440,

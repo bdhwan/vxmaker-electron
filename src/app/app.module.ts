@@ -21,22 +21,33 @@ import { EventListComponent } from './activity/event-list/event-list.component';
 import { PreviewComponent } from './activity/preview/preview.component';
 import { StageListComponent } from './activity/stage-list/stage-list.component';
 import { PreviewSizeComponent } from './activity/preview-size/preview-size.component';
-import { EventGeneratorComponent } from './activity/event-generator/event-generator.component'
+import { EventGeneratorComponent } from './activity/event-generator/event-generator.component';
 
 import { TreeModule } from 'angular2-tree-component';
 import { PreviewObjectComponent } from './activity/preview/preview-object/preview-object.component';
 
 import { ApplicationDataServiceService } from './service/application-data-service.service';
+import { BroadcastService } from './service/broadcast.service';
+
 import { ResourceComponent } from './common/resource/resource.component';
 import { EventDetailStageChangeComponent } from './activity/event-detail-stage-change/event-detail-stage-change.component';
 import { EventDetailStartActivityComponent } from './activity/event-detail-start-activity/event-detail-start-activity.component';
 import { EventDetailFinishActivityComponent } from './activity/event-detail-finish-activity/event-detail-finish-activity.component';
+import { EventStageChangeCellComponent } from './activity/event-stage-change-cell/event-stage-change-cell.component';
+import { EventStateChangeCellComponent } from './activity/event-state-change-cell/event-state-change-cell.component';
+import { EventStateChangeGraphComponent } from './activity/event-state-change-graph/event-state-change-graph.component';
+import { EventStateChangeTimelineComponent } from './activity/event-state-change-timeline/event-state-change-timeline.component';
+import { LottieAnimationViewComponent } from './activity/lottie-animation-view/lottie-animation-view.component';
+import { GuideComponent } from './guide/guide.component';
+import { WindowProxyComponent } from './window-proxy/window-proxy.component';
+
 
 
 
 const appRoutes: Routes = [
   { path: 'init/:workspaceFolder', component: InitComponent },
   { path: 'init', component: InitComponent },
+  { path: 'guide', component: GuideComponent },
   { path: 'setting', component: SettingComponent },
   { path: 'new-application', component: NewApplicationComponent },
   { path: 'application/:applicationFolderPath', component: ApplicationComponent },
@@ -72,7 +83,14 @@ const appRoutes: Routes = [
     EventGeneratorComponent,
     EventDetailStageChangeComponent,
     EventDetailStartActivityComponent,
-    EventDetailFinishActivityComponent
+    EventDetailFinishActivityComponent,
+    EventStageChangeCellComponent,
+    EventStateChangeCellComponent,
+    EventStateChangeGraphComponent,
+    EventStateChangeTimelineComponent,
+    LottieAnimationViewComponent,
+    GuideComponent,
+    WindowProxyComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +99,7 @@ const appRoutes: Routes = [
     TreeModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ApplicationDataServiceService],
+  providers: [ApplicationDataServiceService, BroadcastService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

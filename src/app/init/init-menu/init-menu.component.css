@@ -14,12 +14,16 @@ border:none;
 
 .menu-main-list {
 
-    margin-top: 45px;
+    margin-top: 25px;
 max-width:270px;
 margin-left: auto;
 margin-right: auto;
 
 
+}
+
+.menu-main-list .main-img {
+    width:140px;
 }
 
 /*.hc {
@@ -49,10 +53,12 @@ margin-right: auto;
     padding:6px;
 }
 
+
+
 .menu-list {
     vertical-align: middle;
 }
 
 .menu-list {
-    margin-top: 45px;
+    margin-top: 55px;
 }

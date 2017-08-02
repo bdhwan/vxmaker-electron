@@ -2,6 +2,13 @@
     <p>{{applicationData.activityList.length}} Activities </p>
 </div>
 
+<!--<div class="home-tag-wrap">
+    <div class="home-tag">
+        <img src="assets/images/homebutton.png" />
+    </div>
+    <p>Home</p>
+</div>-->
+
 <div class="list-scroll">
     <div class="col-wrap ">
         <div *ngFor="let activity of applicationData.activityList" class="col-3">
@@ -10,13 +17,17 @@
 
                 <div class="list-img">
 
-                    <img [src]="prefix+applicationFolderPath+'/'+activity.previewPath" width="100px" height="150px">
+
+                    <div class="btn-home-on" *ngIf="activity.activityId===applicationData.launcherActivityId">
+
+                        <p>Home</p>
+                    </div>
+                    <img class="preview-img" [src]="prefix+applicationFolderPath+'/'+activity.previewPath">
                     <div class="list-hover">
                         <button (click)="clickActivity(activity.activityId)">Edit</button>
                         <button (click)="clickDuplicateActivity(activity.activityId)">Duplicate</button>
                         <button (click)="clickDeleteActivity(activity.activityId)">Delete</button>
-
-                        <div class="btn-home"></div>
+                        <div class="btn-home" (click)="clickLauncherActivity(activity.activityId)"></div>
                     </div>
 
                 </div>

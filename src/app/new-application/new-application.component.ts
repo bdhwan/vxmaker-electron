@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ApplicationDataServiceService } from '../service/application-data-service.service';
+
+
 declare var electron: any;
 
 
@@ -18,11 +21,12 @@ export class NewApplicationComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+        private appDataService: ApplicationDataServiceService
   ) { }
 
   ngOnInit() {
-    this.applicationName = "UntitledApplication";
+    this.applicationName = 'UntitledApplication';
     this.workspaceFolderPath = electron.ipcRenderer.sendSync('get-workspace-folder-path');
   }
 
@@ -45,19 +49,19 @@ export class NewApplicationComponent implements OnInit {
   clickNext(): void {
 
     if (!this.applicationName) {
-      alert("enter application name");
+      alert('enter application name');
       return;
     }
 
     const applicationFolder = this.workspaceFolderPath + '/' + this.applicationName;
     electron.ipcRenderer.sendSync('make-folder', applicationFolder);
-    electron.ipcRenderer.sendSync('make-folder', applicationFolder + "/activity");
-    electron.ipcRenderer.sendSync('make-folder', applicationFolder + "/image");
-    electron.ipcRenderer.sendSync('make-folder', applicationFolder + "/file");
-    electron.ipcRenderer.sendSync('make-folder', applicationFolder + "/export");
-    electron.ipcRenderer.sendSync('make-folder', applicationFolder + "/preview");
+    electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/activity');
+    electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/image');
+    electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/file');
+    electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/export');
+    electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/preview');
 
-    electron.ipcRenderer.sendSync('copy-from-root-file', 'template/source_template/ic_launcher.png' ,applicationFolder + "/image/ic_launcher.png");
+    electron.ipcRenderer.sendSync('copy-from-root-file', 'template/source_template/ic_launcher.png' ,applicationFolder + '/image/ic_launcher.png');
 
 
 
@@ -75,7 +79,14 @@ export class NewApplicationComponent implements OnInit {
 
     const filePath = applicationFolder + '/app.json';
     electron.ipcRenderer.sendSync('save-file-data', filePath, data);
+
+
     this.router.navigate(['/application', applicationFolder]);
+
+    // //new window
+    // const path = '/application/' + encodeURIComponent(applicationFolder);
+    // this.appDataService.openMainWindowUrl(path);
+
 
   }
 

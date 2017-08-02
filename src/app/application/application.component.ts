@@ -6,8 +6,7 @@ import { ApplicationInfoComponent } from './application-info/application-info.co
 import { ResourceComponent } from '../common/resource/resource.component';
 import { ApplicationDataServiceService } from '../service/application-data-service.service';
 import { UUID } from 'angular2-uuid';
-
-
+import { BroadcastService } from '../service/broadcast.service';
 
 import 'rxjs/add/operator/switchMap';
 // declare var electron: any;
@@ -24,6 +23,8 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
   applicationFolderPath: string;
   applicationData: any;
 
+  sendStatus: Boolean = false;
+
   @ViewChild('resourceAppDialog')
   private resourceDialog: ResourceComponent;
 
@@ -32,7 +33,8 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
-    private appDataService: ApplicationDataServiceService
+    private appDataService: ApplicationDataServiceService,
+    private broadcaster: BroadcastService
   ) {
 
 
@@ -61,12 +63,15 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
   }
 
 
-
   onClickSendDevice(value: string): void {
-    this.applicationData.updatedAt = new Date().getTime();
-    this.appDataService.saveApplicationData(this.applicationData);
-    this.appDataService.sendFileToDevice();
-
+    this.sendStatus = true;
+    const self = this;
+    setTimeout(function () {
+      self.applicationData.updatedAt = new Date().getTime();
+      self.appDataService.saveApplicationData(self.applicationData);
+      self.appDataService.sendFileToDevice();
+      self.sendStatus = false;
+    }, 100);
   };
 
 
@@ -92,7 +97,25 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
       this.noProject();
     });
 
+    this.registerStringBroadcast();
+
   }
+
+
+
+  registerStringBroadcast() {
+    this.broadcaster.on<any>('application')
+      .subscribe(message => {
+
+        const kind = message.kind;
+        console.log("application message received!! = " + kind);
+        if (kind === 'send-device') {
+          this.onClickSendDevice(null);
+        }
+      });
+  }
+
+
 
   checkInitProcess() {
     if (!this.applicationData) {
@@ -122,6 +145,10 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
     const newActivityData = {
       activityId: activityId
     };
+
+    if (this.applicationData.activityList.length === 0) {
+      this.applicationData.launcherActivityId = activityId;
+    }
 
     this.applicationData.activityList.push(newActivityMetaData);
 
@@ -182,12 +209,21 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
 
   }
 
+  onClickLauncherActivity(activityId): void {
+    this.applicationData.launcherActivityId = activityId;
+    this.appDataService.saveApplicationData(this.applicationData);
+  }
+
+
+
+
   clickSave(): void {
     this.appDataService.saveApplicationData(this.applicationData);
   }
 
 
   clickBack(): void {
+    // this.appDataService.closeMainWindowUrl();
     this.router.navigate(['/init']);
   }
 

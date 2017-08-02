@@ -1,4 +1,75 @@
 <div class="preview-size">
-  
-    <input [(ngModel)]="zoom" (blur)="changeZoom()">
+
+    <!--<input [(ngModel)]="zoom" (blur)="changeZoom()">-->
+
+
+    <div class="row">
+        <div class="col-xs-7">
+            <div class="dropdown mobile-size" role="menu">
+                <!--{{getStateById('root').width}}*{{getStateById('root').height}}-->
+                <div style="padding:3px; padding-left: 0px; padding-top: 0;" class="canvas-size">
+                    <div class="properties-wrap" style="width:42%;">
+                        <span class="properties-text">W:</span>
+                        <input class="properties-padding " type="number" [(ngModel)]="rootWidth" (change)="changeW(event)">
+                    </div>
+                    <div class="properties-wrap" style="width:42%;">
+                        <span class="properties-text">H:</span>
+                        <input class="properties-padding " type="number" [(ngModel)]="rootHeight" (change)="changeH(event)">
+                    </div>
+
+                    <button type="button" (click)="clickRootSizeToggle()">
+                                        <img class="ic-mobile" src="assets/images/ic_size.png">
+                                    </button>
+                    <div class="dropdown-menu" style="margin-left:20px;" [hidden]="!showRootSize">
+
+                        <div class="root-size " (click)="changeRootSize(1440,2960)">
+                            <img style=" max-width:15px;" class="img-responsive" src="assets/images/ic_galaxy_s7.png"> Galaxy S8
+                            <br><b>1440*2960</b></div>
+
+                        <div class="root-size " (click)="changeRootSize(1440,2560)">
+                            <img style=" max-width:15px;" class="img-responsive" src="assets/images/ic_galaxy_s7.png"> Galaxy S7
+                            <br><b>1440*2560</b></div>
+
+                        <div class="root-size " (click)="changeRootSize(1080,1920)">
+                            <img style=" max-width:15px;" class="img-responsive" src="assets/images/ic_galaxy_s5.png"> Galaxy S5
+                            <br><b>1080*1920</b></div>
+
+                        <div class="root-size " (click)="changeRootSize(1600,2560)">
+                            <img style=" max-width:18px; margin-left:12px; margin-top:2px;" class="img-responsive" src="assets/images/ic_galaxy_note.png"> Galaxy Note 10.1
+                            <br><b>1600*2560</b></div>
+
+                        <div class="root-size " (click)="changeRootSize(720,1280)">
+                            <img style=" max-width:15px;" class="img-responsive" src="assets/images/ic_galaxy_s3.png"> Galaxy S3
+                            <br><b>720*1280</b></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-5" style="width:40%; padding:0;">
+            <div class="dropdown" role="menu">
+                <button type="button" (click)="clickZoomToggle()">{{zoomLevel}}%</button>
+                <div class="dropdown-menu dropdown-menu-padding" [hidden]="!showZoom">
+                    <div (click)="changeZoom(10)">10%</div>
+                    <div (click)="changeZoom(15)">15%</div>
+                    <div (click)="changeZoom(20)">20%</div>
+                    <div (click)="changeZoom(25)">25%</div>
+                    <div (click)="changeZoom(50)">50%</div>
+                    <div (click)="changeZoom(75)">75%</div>
+                    <div (click)="changeZoom(100)">100%</div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="col-xs-4">
+            <div class="dropdown" role="menu">
+                <button type="button" data-toggle="dropdown">FullScreen</button>
+                <div class="dropdown-menu dropdown-menu-padding" style="margin-left: -20px;">
+                    <div>FullScreen</div>
+                    <div>ShowStatusBar</div>
+                </div>
+            </div>
+        </div>-->
+    </div>
+
+
 </div>

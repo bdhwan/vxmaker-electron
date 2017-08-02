@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { UUID } from 'angular2-uuid';
+import { BroadcastService } from './broadcast.service';
 
 declare var electron: any;
 
@@ -20,6 +21,8 @@ export class ApplicationDataServiceService {
   activityData;
 
   selectedObject;
+  hoverObject;
+
   selectedStage;
   selectedState;
 
@@ -41,12 +44,28 @@ export class ApplicationDataServiceService {
 
 
 
+  parsePsdPromise: any;
 
-  constructor(private http: Http) {
 
+  constructor(private http: Http, private broadcaster: BroadcastService) {
 
+    const self = this;
+    electron.ipcRenderer.on('parse-psd-result', (event, arg) => {
+      this.parsePsdPromise(arg);
+    });
+    
   }
 
+
+
+
+
+  parsePsdFile(psdFilePath, applicationFolderPath) {
+     return new Promise((resolve, reject) => {
+      this.parsePsdPromise = resolve;
+      electron.ipcRenderer.sendSync('parse-psd', psdFilePath, applicationFolderPath);
+    });
+  }
 
 
 
@@ -62,6 +81,22 @@ export class ApplicationDataServiceService {
   getApplicationPath() {
     return this.applicationFolderPath;
   }
+
+  openUrl(url) {
+    electron.ipcRenderer.sendSync('open-url', url);
+  }
+
+  openMainWindowUrl(path) {
+    console.log("path = "+path);
+    return electron.ipcRenderer.sendSync('go-main-window', path);
+  }
+
+  closeMainWindowUrl() {
+    console.log("close main window");
+    return electron.ipcRenderer.sendSync('close-main-window');
+  }
+
+
 
   changeWindowSize(width, height, resizeable) {
     electron.ipcRenderer.sendSync('change-window', width, height, resizeable);
@@ -98,12 +133,28 @@ export class ApplicationDataServiceService {
     electron.ipcRenderer.sendSync('delete-file', this.applicationFolderPath + '/activity/' + activityId + '.json');
   }
 
+
+
+
+
+  selectPsdFile() {
+    return electron.ipcRenderer.sendSync('select-psd-file');
+  }
+
   selectImageFile() {
     return electron.ipcRenderer.sendSync('select-image-file');
   }
 
+  selectImageFiles() {
+    return electron.ipcRenderer.sendSync('select-image-files');
+  }
+
   selectFile() {
     return electron.ipcRenderer.sendSync('select-file');
+  }
+
+  selectFiles() {
+    return electron.ipcRenderer.sendSync('select-files');
   }
 
   selectWorkspaceFolderPath() {
@@ -242,7 +293,7 @@ export class ApplicationDataServiceService {
       }).catch(function (err) {
         console.log('catch = ' + JSON.stringify(err));
         reject(err);
-      });;
+      });
     });
   }
 
@@ -318,6 +369,25 @@ export class ApplicationDataServiceService {
       console.log('will read = this.activityId =' + this.activityId);
       this.activityData = electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + '/activity/' + this.activityId + '.json');
       resolve(true);
+    });
+  }
+
+  readFileSync(filePath) {
+    return electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + '/' + filePath);
+  }
+
+
+  readFile(filePath) {
+    return new Promise((resolve, reject) => {
+      const result = electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + '/' + filePath);
+      resolve(result);
+    });
+  }
+
+  readFileAbsolutePath(filePath) {
+    return new Promise((resolve, reject) => {
+      const result = electron.ipcRenderer.sendSync('read-file-data', filePath);
+      resolve(result);
     });
   }
 
@@ -408,7 +478,6 @@ export class ApplicationDataServiceService {
       const aProperty = defaultObject.stateProperties[i];
       newState[aProperty.name] = aProperty.default;
     }
-
     return newState;
   }
 
@@ -431,12 +500,11 @@ export class ApplicationDataServiceService {
     }
     return null;
   }
-
-  deleteTriggerEvent(triggerEvent: any) {
+  deleteTriggerEventByTriggerEventId(triggerEventid: any) {
     let index = -1;
     for (let i = 0; i < this.activityData.triggerEventList.length; i++) {
       const aEvent = this.activityData.triggerEventList[i];
-      if (aEvent.id === triggerEvent.id) {
+      if (aEvent.id === triggerEventid) {
         index = i;
         break;
       }
@@ -447,6 +515,10 @@ export class ApplicationDataServiceService {
       this.activityData.triggerEventList.splice(index, 1);
       this.deleteImplementEventByTriggerEventId(removed.id);
     }
+  }
+
+  deleteTriggerEvent(triggerEvent: any) {
+    this.deleteTriggerEventByTriggerEventId(triggerEvent.id);
 
   }
 
@@ -506,6 +578,7 @@ export class ApplicationDataServiceService {
     }
     return result;
   }
+
 
 
   findObjectById(objectId: string) {
@@ -621,16 +694,107 @@ export class ApplicationDataServiceService {
 
   getSelectedObjectStyle(state) {
     const tempObjectData = this.findObjectById(state.objectId);
-    const objectStyle = {
-      'position': 'absolute',
-      'width': state.width * this.zoom + 'px',
-      'height': state.height * this.zoom + 'px',
-      'border': '1px solid gold',
-      'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
-      'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
+    if (tempObjectData === null) return {};
+
+    if (tempObjectData.id === 'root') {
+      const objectStyle = {
+        'position': 'absolute',
+        'width': state.width * this.zoom + 'px',
+        'height': state.height * this.zoom + 'px',
+        'border': '0px solid grey',
+        'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
+        'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
+      };
+      return objectStyle;
+    } else {
+      const objectStyle = {
+        'position': 'absolute',
+        'width': state.width * this.zoom + 'px',
+        'height': state.height * this.zoom + 'px',
+        'border': '1px solid gold',
+        'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
+        'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
+      };
+      return objectStyle;
     }
-    return objectStyle;
   }
+
+
+  deleteObjectChild(object, objectId) {
+    const result = [];
+    if (object.children && object.children.length > 0) {
+      for (let i = 0; i < object.children.length; i++) {
+        const aObject = object.children[i];
+        if (objectId !== aObject.id) {
+          result.push(aObject);
+        }
+        else {
+          this.deleteObjectWithStateEvent(aObject);
+        }
+        if (aObject.children && aObject.children.length > 0) {
+          this.deleteObjectChild(aObject, objectId);
+        }
+      }
+    }
+    object.children = result;
+  }
+
+  deleteObjectWithStateEvent(object) {
+
+    this.deleteObjectState(object.id);
+    this.deleteObjectEvent(object.id);
+    if (object.children && object.children.length > 0) {
+      for (let i = 0; i < object.children.length; i++) {
+        this.deleteObjectWithStateEvent(object.children[i]);
+      }
+    }
+  }
+
+
+  deleteObjectState(objectId) {
+    //remove state
+    const stateresult = [];
+    console.log("will remove state = " + objectId);
+    const targetStateList = this.activityData.stateList;
+    for (let i = 0; i < targetStateList.length; i++) {
+      const aState = targetStateList[i];
+      if (aState.objectId === objectId) {
+        continue;
+      }
+      stateresult.push(aState);
+    }
+    this.activityData.stateList = stateresult;
+
+  }
+
+  deleteObjectEvent(objectId) {
+    //remove trigger event
+
+    const triggerEventList = this.activityData.triggerEventList;
+    for (let i = 0; i < triggerEventList.length; i++) {
+      const aTrigger = triggerEventList[i];
+      if (aTrigger.objectId === objectId) {
+        this.deleteTriggerEvent(aTrigger);
+        continue;
+      }
+    }
+  }
+
+
+
+
+
+  deleteObject(objectId) {
+
+    const targetObject = this.findObjectById(objectId);
+    const parentObject = this.findObjectById(targetObject.parentId);
+
+    // const targetList = this.activityData.objectList;
+    this.deleteObjectChild(this.activityData.objectList[0], objectId);
+    this.setSelectedObject(parentObject);
+
+  }
+
 
 
 

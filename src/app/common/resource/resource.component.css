@@ -36,6 +36,7 @@
     background: rgba(0, 0, 0, 0.7);
     transition: opacity 500ms;
     opacity: 1;
+    z-index: 9999;
 }
 
 .overlay:target {
@@ -44,8 +45,10 @@
 }
 
 .popup {
-    margin: 70px auto;
+    margin: 90px auto;
     padding: 20px;
+    padding-top: 50px;
+    padding-bottom: 50px;
     background: #fff;
     border-radius: 5px;
     width: 800px;
@@ -134,3 +137,134 @@
 
 
 /*popup test finish */
+
+
+.popup .resource-footer {
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    height: 50px;
+    border-top: 1px solid #ececec;
+    background: #fff;
+    padding:12px;
+    
+box-shadow: 0px -1px 6px 0px rgba(0,0,0,0.2);
+}
+
+.popup .resource-footer button {
+    background: transparent;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    color:#454545;
+}
+
+.popup .resource-footer button:hover {
+
+ cursor: pointer;
+ 
+    color:#46a2ba;
+}
+
+.resource-apply {
+    position: absolute;
+    bottom:0;
+    right:0;
+    padding:12px;
+}
+
+.popup .resource-nav {
+    position: absolute;
+   top:0;
+    left:0;
+    right:0;
+    height: 50px;
+    border-bottom: 1px solid #ececec;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
+  
+}
+
+.resource-nav .btn-tab {
+padding:16px;
+width: 100px;
+}
+
+.resource-nav .btn-select {
+    border-bottom: 3px solid #46a2ba!important;
+}
+
+.popup .resource-nav .resource-add {
+    position: absolute;
+    right:0;
+    top:0;
+    padding:12px;
+}
+
+.popup .resource-nav .resource-add button {
+    font-weight: normal;
+    font-family: inherit;    
+}
+
+.popup .resource-nav button {
+      background: transparent;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    color:#898989;
+    font-weight: bold;
+     font-family: Tahoma, Arial, sans-serif;
+}
+
+.popup .resource-nav button:hover {
+    cursor: pointer;
+    color: #46a2ba;
+}
+
+.resource-wrap {
+    overflow: hidden;
+    height: 100%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  overflow-y: auto;
+}
+
+.resource-wrap h3 {
+    margin-top: 0;
+}
+
+.image-list {
+    overflow: hidden;
+}
+
+.image-list .bg-img img {
+    width: 96px;
+    height: 96px;
+}
+
+.image-list .bg-img {
+    float: left;
+    margin:5px;
+   background: url(../../../assets/images/bg_transparent.png);
+   border:1px solid #ececec;
+}
+
+.image-list .bg-img:hover {
+    border-color: #ccc;
+}
+
+.image-list:hover {
+    cursor: pointer;
+}
+
+.file-list {
+    padding:8px;
+    font-size: 15px;
+    color:#454545;
+    border-bottom: 1px solid #ececec;
+}
+
+.file-list:hover {
+    color:#46a2ba;
+    cursor: pointer;
+}

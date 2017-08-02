@@ -1,19 +1,37 @@
 <div class="device-status">
 
-    <p class="device-connected" *ngIf="deviceList.length > 0">
+    <!--<p class="device-connected" *ngIf="deviceList.length > 0">
         Device Connected
-    </p>
+    </p>-->
     <p class="device-unconnected" *ngIf="deviceList.length == 0">
-        Device Not Connected
+
+        Please connect the device. <span (click)="clickHowToConnect('http://vxmaker.com')">How to connect <i class="fa fa-question-circle-o"></i></span>
     </p>
 
 
-    <p class="btn-preview nav-btn" (click)='clickSendFile()'>
-        <span><img src="assets/images/ic_preview.png" class="nav-btn-img"/></span>Send
-    </p>
+    <div *ngIf="deviceList.length > 0">
+        <p [hidden]="sendStatus" class="btn-preview nav-btn" (click)='clickSendFile()'>
+            <i class="fa fa-mobile"></i>Send
+        </p>
+        <div  class="btn-preview nav-btn nav-btn-sending" [hidden]="!sendStatus">
+            	<div class="loader10"></div>
+        </div>
+    </div>
 
-    <p class="btn-source nav-btn">
+    <!--<div *ngIf="deviceList.length > 0">
+      
+        <div class="btn-preview nav-btn nav-btn-sending" >
+            <div class="loader10"></div>
+        </div>
+    </div>-->
+
+
+    <!--<p class="btn-preview nav-btn">
+        <span><img src="assets/images/ic_preview_2.png"  class="nav-btn-img-2"/></span>Preview
+    </p>-->
+
+    <!--<p class="btn-source nav-btn">
         <span><img src="assets/images/ic_source.png" class="nav-btn-img"/></span>Source
-    </p>
+    </p>-->
 
 </div>

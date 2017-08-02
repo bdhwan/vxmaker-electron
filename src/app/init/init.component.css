@@ -41,8 +41,38 @@ padding:30px;
 
 .go-download {
     position: absolute;
-    right:0;
-    bottom:0;
-    margin-right: 20px;
-    margin-bottom: 20px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding-right: 20px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    margin-left: 250px;
+    padding-left: 140px;
+    border-top: 1px solid rgba(255,255,255, 0.3);
+    padding-top: 10px;
+}
+
+.go-download p {
+ font-size: 11px;
+ color:rgba(255,255,255, 0.8);
+ font-weight: lighter;
+ float: left;
+ margin: 6px;
+ margin-top: 10px;
+}
+
+.go-download img {
+    float: left;
+    width:128px;
+}
+
+.go-download img:hover {
+    cursor: pointer;
+}
+
+@media screen and (max-height: 460px) {
+    .go-download {
+        display: none;
+    }
 }

@@ -39,3 +39,7 @@ left:0;bottom:0; margin-left: -5px;margin-bottom: -5px; cursor:sw-resize;
 .dot-4 {
 right:0;bottom:0; margin-right: -5px;margin-bottom: -5px; cursor:se-resize;
 }
+
+app-preview-object div:hover {
+border:1px solid #000000;
+}

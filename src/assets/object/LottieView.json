@@ -1,6 +1,7 @@
 {
     "name": "LottieView",
     "type": "LottieView",
+     "icon": "assets/images/btn_startlottie.png",
     "objectProperties": [{
             "name": "type",
             "type": "string",
@@ -10,6 +11,11 @@
             "name": "name",
             "type": "string",
             "default": "LottieView"
+        },
+        {
+            "name": "backgroundColor",
+            "type": "string",
+             "default": "#f9f9f9"
         },
         {
             "name": "dataUrl",
