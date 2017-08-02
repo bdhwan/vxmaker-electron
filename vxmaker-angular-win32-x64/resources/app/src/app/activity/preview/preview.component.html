@@ -1,0 +1,13 @@
+<div #myPreview (mousemove)="mouseOver($event)" (mousedown)="mouseDown($event)" (mouseup)="mouseUp($event)" class="noselect" (window:keydown)="keyDown($event)" (window:keyup)="keyUp($event)">
+    <div (window:resize)="onResize($event)" *ngIf="activityData">
+        <div #previewScreen *ngFor="let aObject of activityData.objectList" [ngStyle]="getCenterStyle()">
+            <app-preview-object [objectData]="aObject"></app-preview-object>
+            <div [ngStyle]="getSelectedObjectStyle()">
+                <div class="preview-dot dot-1" (mousedown)="resizeDown($event,0)" *ngIf="!isRoot()"></div>
+                <div class="preview-dot dot-2" (mousedown)="resizeDown($event,1)" *ngIf="!isRoot()"></div>
+                <div class="preview-dot dot-3" (mousedown)="resizeDown($event,2)" *ngIf="!isRoot()"></div>
+                <div class="preview-dot dot-4" (mousedown)="resizeDown($event,3)" *ngIf="!isRoot()"></div>
+            </div>
+        </div>
+    </div>
+</div>

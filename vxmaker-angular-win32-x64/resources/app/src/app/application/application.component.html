@@ -1,0 +1,46 @@
+<div *ngIf="applicationData">
+
+    <!-- nav bar top -->
+    <div class="navbar">
+        <button class="btn-back" (click)="clickBack()">◄ Back</button>
+
+
+
+        <div class="nav-right">
+            <app-device-status [sendStatus]="sendStatus"></app-device-status>
+        </div>
+    </div>
+
+
+
+    <div *ngIf="!resourceAppDialog" class="connect-wrap">
+
+        <div class="howtoconnect" id="#how">
+            <span><b><a target="_blank" href="http://www.vxmaker.com">How to connect</a></b></span>
+        </div>
+
+        <a href="#how"><i class="fa fa-close" ></i></a>
+
+    </div>
+
+    <!-- navbar top finish -->
+
+    <!-- list-wrap -->
+
+    <div class="list-wrap">
+
+        <div class="list-left">
+            <app-application-info [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath" (onChangeData)="onChangeData($event)" (onClickChangeIcon)="onClickChangeIcon($event)"></app-application-info>
+        </div>
+        <div class="list-right">
+            <div>
+                <app-activity-list *ngIf="applicationData" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath" (onChangeActivityData)="onChangeData($event)" (onClickActivity)="clickActivity($event)" (onClickNewActivity)="clickNewActivity($event)"
+                    (onClickDuplicatewActivity)="clickDuplicateActivity($event)" (onClickDeleteActivity)="clickDeleteActivity($event)" (onClickLauncherActivity)="onClickLauncherActivity($event)"></app-activity-list>
+            </div>
+        </div>
+
+        <app-resource #resourceAppDialog (onSelectFile)="onSelectFile($event)"></app-resource>
+
+    </div>
+    <!-- list-wrap finish -->
+</div>

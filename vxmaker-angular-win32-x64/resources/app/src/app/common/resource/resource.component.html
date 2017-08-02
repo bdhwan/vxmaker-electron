@@ -1,0 +1,55 @@
+<div class="popup-wrap" *ngIf="visibility">
+    <div id="popup1" class="overlay" (click)="hideDialog()">
+        <div class="popup" (click)="nothing($event)">
+
+
+            <div class="resource-nav">
+                <button class="btn-image btn-select btn-tab" style="color:#46a2ba;" *ngIf="tab=='image'" (click)="clickTab($event,'image')">Image</button>
+                <button class="btn-image  btn-tab" *ngIf="tab=='file'" (click)="clickTab($event,'image')">Image</button>
+                
+                
+                <button class="btn-file btn-select btn-tab" style="color:#46a2ba;" *ngIf="tab=='file'" (click)="clickTab($event,'file')">File</button>
+                <button class="btn-file btn-tab" *ngIf="tab=='image'" (click)="clickTab($event,'file')">File</button>
+            
+
+                <div class="resource-add">
+                    <button *ngIf="tab=='image'" (click)="clickNewFile($event,'image')">+ New Image</button>
+                    <button *ngIf="tab=='file'" align="left" (click)="clickNewFile($event,'file')">+ New File</button>
+                </div>
+            </div>
+
+
+
+            <div class="resource-wrap">
+                <div *ngIf="tab=='image'">
+                    <h3>Uploaded Image</h3>
+                    <div class="image-list">
+                        <div *ngFor="let imageUrl of imageList" class="bg-img">
+                            <img [src]="prefix+applicationFolderPath+'/'+imageUrl" (click)="clickFile(imageUrl)">
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="tab=='file'">
+                    <h3>Uploaded File</h3>
+                    <div class="file-list" *ngFor="let fileUrl of fileList" (click)="clickFile(fileUrl)">
+                        {{fileUrl}}
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="resource-footer">
+                <button>Delete</button>
+                <div class="resource-apply">
+                    <button (click)="hideDialog()">Cancel</button>
+                    <button>Apply</button>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>

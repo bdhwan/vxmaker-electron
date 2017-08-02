@@ -1,0 +1,72 @@
+<div class="activity-wrap" (window:resize)="onResize($event)">
+
+
+    <!-- activity navbar -->
+
+    <nav id="topSide" class="navbar navbar-default activity-nav" *ngIf="activityMetaData" style="height:50px;">
+        <div class="container-fluid" style="padding-left: 0;">
+            <div style="float:left;" class="nav-project">
+                <button class="btn-back" (click)="clickBack()">{{applicationData.applicationName}}</button>
+            </div>
+
+            <div class="dropdown nav-page" role="menu" style="float:left;">
+                <input type="text" [(ngModel)]="activityMetaData.activityName" (blur)="changeActivityName()" />
+            </div>
+
+            <div class="nav navbar-nav navbar-right">
+                <app-device-status [sendStatus]="sendStatus"></app-device-status>
+            </div>
+        </div>
+    </nav>
+
+    <!-- activity navbar @ -->
+
+
+    <!-- activity content -->
+
+    <div class="activity-root">
+
+
+        <!-- activity left-->
+
+        <div class="activity-left">
+            <app-object-tree #objectTree (onChangeNode)="onChangeNodeFromTree($event)" (onClickNewFile)="clickNewFile($event)" (onSelectNode)="onSelectNodeFromTree($event)"></app-object-tree>
+            <app-object-new #objectNew (onShowResourceDialog)="onShowResourceDialog($event)" (onClickNewObject)="clickNewObject($event)" (onChangeTreeData)="changeTreeData($event)"></app-object-new>
+        </div>
+
+        <!-- activity left@-->
+
+        <!-- activity canvas-->
+
+        <div class="activity-canvas" [style.width]="getPreviewWidth()" [style.height]="getPreviewHeight()">
+            <app-stage-list #stageList (onSelectStage)="onSelectStage($event)" (onNewStage)="onNewStage()"></app-stage-list>
+            <app-preview #previewCanvas (onSelectNodeFromOther)="onSelectNodeFromOther($event)" (onShowResourceDialog)="onShowResourceDialog($event)"></app-preview>
+
+        </div>
+
+        <!-- activity canvas@-->
+
+
+        <!-- activity right-->
+
+        <div class="activity-right" id="rightSide">
+
+            <app-preview-size #previewSize></app-preview-size>
+            <app-object-property #objectProperty (onShowResourceDialog)="onShowResourceDialog($event)" (onChangeTreeData)="changePropertyData($event)"></app-object-property>
+            <app-event-list #eventList (onNewEvent)="onNewEvent($event)" (onClickDetailEvent)="onClickDetailEvent($event)"></app-event-list>
+            <app-event-detail-stage-change #eventDetailStageChange (onNewAfterAnimationEvent)="onNewAfterAnimationEvent($event)" (onCloseEvent)="onCloseEvent($event)"></app-event-detail-stage-change>
+            <app-event-detail-start-activity #eventDetailStartActivity></app-event-detail-start-activity>
+            <app-event-detail-finish-activity #eventDetailFinishActivity></app-event-detail-finish-activity>
+
+        </div>
+
+        <!-- activity right@-->
+
+    </div>
+
+    <!-- activity content @ -->
+
+</div>
+
+<app-resource #resourceDialog (onSelectFile)="onSelectFile($event)"></app-resource>
+<app-event-generator #eventGenerator (onCompleteEvent)="onCompleteEvent($event)"></app-event-generator>

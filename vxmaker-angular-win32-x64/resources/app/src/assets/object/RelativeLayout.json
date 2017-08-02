@@ -1,0 +1,43 @@
+{
+    "name": "RelativeLayout",
+    "type": "RelativeLayout",
+    "objectProperties": [{
+            "name": "type",
+            "type": "string",
+            "default": "RelativeLayout"
+        },
+        {
+            "name": "name",
+            "type": "string",
+            "default": "RelativeLayout"
+        },
+
+        {
+            "name": "backgroundColor",
+            "type": "string",
+            "default": "#009900"
+        },
+        {
+            "name": "backgroundImage",
+            "type": "string",
+            "default": null
+        },
+        {
+            "name": "canHaveChildren",
+            "type": "boolean",
+            "default": true
+        }
+    ],
+    "stateProperties": [{
+            "name": "width",
+            "type": "int",
+            "default": 1440
+        },
+        {
+            "name": "height",
+            "type": "int",
+            "default": 2560
+        }
+    ]
+
+}

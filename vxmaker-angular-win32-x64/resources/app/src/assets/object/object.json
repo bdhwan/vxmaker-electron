@@ -1,0 +1,29 @@
+{
+    "objectType": [
+        "FrameLayout.json",
+        "ImageView.json",
+        "TextView.json",
+        "Button.json",
+        "LottieView.json",
+        "CameraView.json",
+        "VideoView.json"
+    ],
+    "defaultState": {
+        "width": 1440,
+        "height": 2560,
+        "marginTop": 0,
+        "marginLeft": 0,
+        "marginRight": 0,
+        "marginBottom": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0,
+        "translationX": 0,
+        "translationY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "rotate": 0,
+        "alpha": 1
+    }
+}

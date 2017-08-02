@@ -1,0 +1,43 @@
+{
+    "name": "ImageView",
+    "type": "ImageView",
+     "icon": "assets/images/btn_imageview.png",
+    "objectProperties": [{
+            "name": "type",
+            "type": "string",
+            "default": "ImageView"
+        },
+        {
+            "name": "name",
+            "type": "string",
+            "default": "ImageView"
+        },
+        {
+            "name": "dataUrl",
+            "type": "string",
+            "default": null
+        },
+        {
+            "name": "backgroundColor",
+            "type": "string",
+            "default": "#f1f1f1"
+        },
+        {
+            "name": "canHaveChildren",
+            "type": "boolean",
+            "default": false
+        }
+    ],
+    "stateProperties": [{
+            "name": "width",
+            "type": "int",
+            "default": 600
+        },
+        {
+            "name": "height",
+            "type": "int",
+            "default": 580
+        }
+    ]
+
+}

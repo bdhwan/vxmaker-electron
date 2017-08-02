@@ -1,0 +1,175 @@
+.preview-size {
+    background-color: #efeff0;
+    padding:10px;
+    padding-bottom: 6px;
+}
+
+
+
+.preview-size input {
+
+        height: 23px;
+    width: 100%;
+    padding: 4px 8px;
+    font-size: 13px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-top: none;
+    border-bottom: none;
+
+}
+
+.preview-size .row {
+    margin: 0;
+}
+
+.preview-size .row .col-xs-7 {
+    padding-right: 2px;
+    padding-left: 2px;
+}
+
+.preview-size .dropdown {
+    width: 100%;
+    text-align: center;
+}
+
+.dropdown {
+    display: inline-block;
+}
+
+.mobile-size {
+    position: relative;
+}
+
+.preview-size .properties-wrap {
+    z-index: 9999;
+}
+
+.properties-wrap {
+    position: relative;
+    width: 50%;
+    float: left;
+}
+
+.preview-size .dropdown button {
+    width: 100%;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 4px;
+    color: #898989;
+    font-size: 13px;
+}
+
+.preview-size .dropdown button:hover {
+    cursor: pointer;
+}
+
+.preview-size .mobile-size button {
+    border: none;
+    background-color: rgba(255,255,255,0.8);
+    border-radius: 4px;
+    color: #898989;
+    font-size: 13px;
+    padding-left:4px;
+    width: 15% !important;
+    margin-left: 1px;
+}
+
+.dropdown-menu {
+       min-width: 60px;
+    font-size: 13px;
+    text-align: left;
+    position: absolute;
+    z-index: 999;
+    background: #fff;
+  box-shadow: 0px 3px 10px 1px rgba(0,0,0,0.29);
+    margin-top: 10px;
+}
+
+.dropdown-menu div:hover {
+    background: #f9f9f9;
+}
+
+.dropdown-menu-padding {
+
+    min-width: 120px;
+    text-align: center;
+}
+
+.dropdown-menu-padding div {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #ececec;
+}
+
+
+.preview-size .properties-wrap .properties-text {
+    top: 5px;
+}
+
+.properties-wrap .properties-text {
+    position: absolute;
+    top: 9px;
+    font-size: 10px;
+    left: 6px;
+    color: #ccc;
+}
+
+.preview-size .properties-wrap .properties-padding {
+    padding-left: 20px;
+    padding-right: 0px;
+}
+
+.dropdown input {
+    height: 23px;
+    width: 100%;
+    padding: 4px 8px;
+    font-size: 13px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-top: none;
+    border-bottom: none;
+}
+
+.preview-size .row .col-xs-2 {
+    padding-right: 2px;
+    padding-left: 2px;
+}
+
+.preview-size .row .col-xs-4 {
+    padding-right: 2px;
+    padding-left: 2px;
+}
+
+.mobile-size .ic-mobile {
+    width: 12px;
+    opacity: 0.6;
+}
+
+.dropdown-menu-padding div:hover {
+    cursor: pointer;
+}
+
+.root-size {
+    padding: 3px 10px;
+    padding-left: 40px;
+    font-size: 12px;
+    border-bottom: 1px solid #ececec;
+    position: relative;
+}
+
+.root-size:hover {
+    cursor: pointer;
+}
+
+.root-size img {
+    position: absolute;
+    left: 0;
+    margin-left: 13px;
+    opacity: 0.8;
+}
+
+
+
+
+

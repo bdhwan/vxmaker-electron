@@ -1,0 +1,112 @@
+.label-properties {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 6px 10px;
+    background-color: #fff;
+    color: #454545;
+    position: relative;
+}
+
+.object-property {
+    background:#f9fafb;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.object-property input {
+        height: 28px;
+    width: 100%;
+    padding: 4px 8px;
+    font-size: 13px;
+    border-radius: 4px;
+    border: none;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+.object-property .property-input {
+    width:65%;
+    float: right;
+     padding-left: 15px;
+    padding-right: 15px;
+}
+
+.object-property .property-input-wrap {
+    overflow: hidden;
+}
+
+.object-property label {
+    width:30%;
+    font-size: 11px;
+    font-weight: 400;
+    color:#898989;
+    padding-top: 7px;
+    float: left;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.btn-img button{
+    width:290px;height: 28px;
+    margin:15px;
+   background: #fff;
+   border:1px solid #ccc;
+   border-radius: 2px;
+   color:#454545;
+}
+
+.btn-img button:hover {
+    background: #f9f9f9;
+    cursor: pointer;
+}
+
+.go-event-detail .btn-trash {
+    background: transparent;
+    border:none;
+}
+
+.btn-more button {
+        width: 290px;
+    height: 28px;
+    margin: 15px;
+    background: #f1f1f1;
+    border: none;
+    border-radius: 2px;
+    color: #454545;
+    border: 1px solid #ececec;
+}
+
+.btn-more button:hover {
+    background: #e9e9e9;
+    cursor: pointer;
+}
+
+.object-property .img-selected {
+    padding-left: 15px;
+    padding-right: 15px;
+    overflow: hidden;
+}
+
+.object-property .img-selected img {
+    width:60px;
+    border:1px solid #ececec;
+    padding:6px;
+    float: left;
+margin-right: 15px;
+}
+
+.object-property .img-selected .img-sub {
+    float: left;
+    padding-top: 8px;
+}
+
+.object-property .img-selected .img-sub p {
+    margin-bottom: 0px;
+font-size: 12px;
+color:#898989;
+margin-top: 3px;
+}
+
+.object-property .img-selected .img-sub .img-sub-size {
+    font-size: 11px;
+    color:#ccc;
+}

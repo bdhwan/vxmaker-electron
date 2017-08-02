@@ -1,0 +1,103 @@
+.stage-list {
+        padding-top: 10px;
+    width: 100%;
+    z-index: 66;
+    background-color: #b1b6bc;
+    min-width:600px !important;
+}
+
+.stage-line {
+    height: 3px;
+    width: 100%;
+    background: radial-gradient(ellipse farthest-side at 100% 130%, #8a94d9 10%, #5aadb1 110%);
+    margin-top: 5px;
+    z-index: 899;
+}
+
+.stage-list p {
+    margin:0;
+}
+
+.tab-class {
+    border-radius: 3px;
+    padding: 4px 13px 3px 14px;
+    margin: 2px;
+        
+    color: #fff;
+    font-size: 12px;
+
+}
+
+.tab-class:hover {
+    cursor: pointer;
+
+}
+
+
+.stage-current {
+background: #46a2ba;
+
+}
+
+.stage-notcurrent {
+    background: #aaa;
+
+}
+
+
+
+.btn-new-stage {
+    border-bottom-width: 0;
+    padding: 8px 15px 7px 15px;
+    background-color: transparent;
+    font-size: 12px;
+    color: #ececec;
+    border: none;
+    z-index: 22;
+}
+
+.btn-new-stage:hover {
+    color:#fff;
+    cursor: pointer;
+}
+
+.stage-list-wrap {
+    position: relative;
+    margin-bottom: 3px;
+}
+
+.btn-delete {
+  position: absolute;
+  display: none;
+    right: 0;
+    top: 0;
+    font-size: 12px;
+    color: #fff;
+    opacity: 0.4;
+    padding: 8px;
+    padding-right: 10px;
+}
+
+.stage-list-wrap:hover .tab-class {
+        padding: 4px 25px 3px 14px;
+}
+
+.stage-list-wrap:hover .btn-delete {
+    display: block;
+   
+}
+
+.stage-list-wrap:hover .btn-delete:hover {
+    opacity: 1;
+}
+
+.stage-list-wrap:hover {
+    cursor: pointer;
+}
+
+.stage-list-wrap:hover .stage-notcurrent {
+ background: #898989;
+}
+
+
+
