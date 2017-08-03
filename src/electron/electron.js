@@ -569,11 +569,14 @@ ipcMain.on('close-main-window', (event) => {
 })
 
 
+
 function createWindow() {
 
     setTimeout(() => {
         // Create the browser window.
         win = new BrowserWindow({ width: maxWidth, height: maxHeight, minWidth: minWidth, minHeight: minHeight })
+
+
         var targetUrl = `file://${__dirname}/index.html`;
         // var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true })
         // and load the index.html of the app.
@@ -581,7 +584,7 @@ function createWindow() {
 
         // Open the DevTools when in dev mode.
         // if (process.env.NODE_ENV == 'development')
-        // win.webContents.openDevTools()
+        win.webContents.openDevTools()
 
         // Emitted when the window is closed.
         win.on('closed', () => {
