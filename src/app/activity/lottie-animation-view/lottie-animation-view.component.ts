@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef, Injector } from '@angular/core';
 declare let require: any;
 const bodymovin: any = require('bodymovin/build/player/bodymovin.js');
-import { ApplicationDataServiceService } from '../../service/application-data-service.service'
+import { ApplicationDataServiceService } from '../../service/application-data-service.service';
 
 
 @Component({

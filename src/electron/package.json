@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "main": "electron.js",
     "dependencies": {
-        "adbkit": "^2.7.0",
+        "adbkit": "^2.10.0",
         "bluebird": "^3.5.0",
         "electron-data": "^1.2.1",
         "fs-extra": "^2.0.0",

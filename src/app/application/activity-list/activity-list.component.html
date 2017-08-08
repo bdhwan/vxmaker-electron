@@ -14,12 +14,8 @@
         <div *ngFor="let activity of applicationData.activityList" class="col-3">
 
             <div class="list-box">
-
                 <div class="list-img">
-
-
                     <div class="btn-home-on" *ngIf="activity.activityId===applicationData.launcherActivityId">
-
                         <p>Home</p>
                     </div>
                     <img class="preview-img" [src]="prefix+applicationFolderPath+'/'+activity.previewPath">
