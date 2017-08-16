@@ -3,20 +3,27 @@
     <!--<p class="device-connected" *ngIf="deviceList.length > 0">
         Device Connected
     </p>-->
-    <p class="device-unconnected" *ngIf="deviceList.length == 0">
 
+    deviceList.length: {{deviceList.length}}
+    <p class="device-unconnected" *ngIf="deviceList.length == 0">
         Please connect the device. <span (click)="clickHowToConnect('http://vxmaker.com')">How to connect <i class="fa fa-question-circle-o"></i></span>
     </p>
 
+    <p [hidden]="sendStatus" class="btn-preview nav-btn" (click)='clickSendFile()'>
+        <i class="fa fa-mobile"></i>Send
+    </p>
 
-    <div *ngIf="deviceList.length > 0">
-        <p [hidden]="sendStatus" class="btn-preview nav-btn" (click)='clickSendFile()'>
-            <i class="fa fa-mobile"></i>Send
-        </p>
-        <div  class="btn-preview nav-btn nav-btn-sending" [hidden]="!sendStatus">
-            	<div class="loader10"></div>
-        </div>
-    </div>
+    <p [hidden]="sendStatus" class="btn-preview nav-btn" (click)='clickSaveFile()'>
+        <i class="fa fa-mobile"></i>Save
+    </p>
+
+    <p class="btn-preview nav-btn" (click)='clickExportCode()'>
+        <i class="fa fa-mobile"></i>Code
+    </p>
+    <p class="btn-preview nav-btn" (click)='clickExportGuide()'>
+        <i class="fa fa-mobile"></i>Guide
+    </p>
+
 
     <!--<div *ngIf="deviceList.length > 0">
       

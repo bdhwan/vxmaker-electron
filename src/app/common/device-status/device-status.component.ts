@@ -40,19 +40,49 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
     this.deviceList = this.appDataService.getDeviceList();
   }
 
+  public clickSaveFile(): void {
+    const message = {
+      kind: 'save'
+    };
+    this.broadcaster.broadcast('activity', message);
+    this.broadcaster.broadcast('application', message);
+  }
+
   public clickSendFile(): void {
     const message = {
       kind: 'send-device'
     };
     this.broadcaster.broadcast('activity', message);
     this.broadcaster.broadcast('application', message);
+  }
+
+
+  public clickExportCode(): void {
+    const message = {
+      kind: 'export-code'
+    };
+    this.broadcaster.broadcast('activity', message);
+    this.broadcaster.broadcast('application', message);
+  }
+
+
+  public clickExportGuide(): void {
+    const message = {
+      kind: 'export-guide'
+    };
+    this.broadcaster.broadcast('activity', message);
+    this.broadcaster.broadcast('application', message);
     // this.onClickSendDevice.emit('send');
   }
+
 
   clickHowToConnect(url) {
     this.appDataService.openUrl(url);
   }
 
+
+
+  
 
 
 
