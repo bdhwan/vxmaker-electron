@@ -5,6 +5,8 @@ var PSD = require('psd');
 var Promise = require('bluebird');
 var util = require('util');
 var path = require("path");
+var trycatch = require('trycatch');
+
 
 function PsdUtil() {
 
@@ -16,6 +18,8 @@ function PsdUtil() {
     this.file = null;
     this.fileList = [];
     this.newfileList = [];
+
+    this.checkFileIndex = 0;
 
 
 
@@ -165,37 +169,69 @@ function PsdUtil() {
     }
 
     this.saveImage = function() {
-
-
         const self = this;
-
+        console.log("will save image");
         return new Promise(function(resolve, reject) {
-            var files = [];
-            for (var i = 0; i < self.newfileList.length; i++) {
-                files.push(self.createdPNGFile(self.newfileList[i]));
-            }
-            Promise.all(files).then(function() {
-                console.log("all the files were created");
-                resolve("done");
-            });
+            console.log("self.newfileList.length= " + self.newfileList.length);
+            this.checkFileIndex = 0;
+            self.saveImageList(self.newfileList, resolve, reject);
         });
     }
 
 
+    this.saveImageList = function(list, resolve, reject) {
+
+        let size = list.length;
+        var files = [];
+        const self = this;
+        const from = this.checkFileIndex;
+
+
+        for (var i = from; i < size; i++) {
+            console.log(i + ", " + list[i].filePath);
+            files.push(self.createdPNGFile(list[i]));
+            this.checkFileIndex = i;
+            if (i - from > 9) {
+                break;
+            }
+        }
+
+        console.log("this.checkFileIndex =" + this.checkFileIndex + ", size = " + list.length);
+        if (size - 1 == this.checkFileIndex) {
+            Promise.all(files).then(function() {
+                console.log("all the files were created");
+                resolve("done");
+            });
+        } else {
+            Promise.all(files).then(function() {
+                console.log("will repeat  -" + self.checkFileIndex);
+                self.saveImageList(list, resolve, reject);
+            });
+        }
+    }
+
+
+
+
     this.createdPNGFile = function(data) {
+        const self = this;
         return new Promise(function(resolve, reject) {
 
             var filePath = data.filePath;
-            try {
-                data.node.saveAsPng(filePath).then(function(data) {
+            console.log("createdPNGFile- " + filePath);
+
+            trycatch(function() {
+                // do something error-prone
+                data.node.saveAsPng(filePath).then(function() {
                     console.log("save success - " + filePath);
                     resolve(filePath);
                 });
+            }, function(err) {
+                console.log("error = " + err.stack);
+                reject(err.stack);
+            })
 
-            } catch (err) {
-                console.log("err = " + JSON.stringify(err));
-                reject(err);
-            }
+
         });
     }
 
