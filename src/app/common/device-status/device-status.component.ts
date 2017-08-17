@@ -19,6 +19,8 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
 
   @Output() onClickSendDevice = new EventEmitter<string>();
   @Input() sendStatus: Boolean;
+
+  
   constructor(public zone: NgZone, private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) { }
 
   ngOnInit() {

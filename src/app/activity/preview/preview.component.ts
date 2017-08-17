@@ -114,6 +114,12 @@ export class PreviewComponent implements OnInit {
 
   }
 
+  mouseLeave(event: MouseEvent) {
+    console.log("leave");
+    this.mouseUp(null);
+  }
+
+
 
   mouseOver(event: MouseEvent) {
 

@@ -4,7 +4,6 @@
         Device Connected
     </p>-->
 
-    deviceList.length: {{deviceList.length}}
     <p class="device-unconnected" *ngIf="deviceList.length == 0">
         Please connect the device. <span (click)="clickHowToConnect('http://vxmaker.com')">How to connect <i class="fa fa-question-circle-o"></i></span>
     </p>
@@ -13,7 +12,7 @@
         <i class="fa fa-mobile"></i>Send
     </p>
 
-    <p [hidden]="sendStatus" class="btn-preview nav-btn" (click)='clickSaveFile()'>
+    <p class="btn-preview nav-btn" (click)='clickSaveFile()'>
         <i class="fa fa-mobile"></i>Save
     </p>
 

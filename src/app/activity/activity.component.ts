@@ -137,14 +137,14 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           this.onClickSave();
         } else if (kind === 'save-refresh-activity') {
           this.notifySelectedObjectChanged();
-          this.onClickSendDevice(null);
+          this.onClickSave();
         } else if (kind === 'send-device') {
           this.onClickSendDevice(null);
         } else if (kind === 'delete-object') {
           const objectId = message.objectId;
           if (objectId !== 'root') {
             this.appDataService.deleteObject(objectId);
-            this.onClickSendDevice(null);
+            this.onClickSave();
           }
         } else if (kind === 'delete-current-object') {
           const selectedObject = this.appDataService.getSelectedObject();
@@ -152,16 +152,15 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
             const objectId = selectedObject.id;
             if (objectId !== 'root') {
               this.appDataService.deleteObject(objectId);
-
               this.notifySelectedObjectChanged();
               this.objectTreeComponent.initObjectData();
-              this.onClickSendDevice(null);
+              this.onClickSave();
             }
           }
         } else if (kind === 'delete-event') {
           this.appDataService.deleteTriggerEventByTriggerEventId(message.triggerEventId);
           this.notifySelectedObjectChanged();
-          this.onClickSendDevice(null);
+          this.onClickSave();
         } else if (kind === 'select-psd') {
 
           const selectedPSD = this.appDataService.selectPsdFile();
