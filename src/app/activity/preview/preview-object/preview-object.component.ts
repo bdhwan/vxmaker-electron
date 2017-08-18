@@ -4,7 +4,8 @@ import { LottieAnimationViewComponent } from '../../lottie-animation-view/lottie
 
 
 
-import * as glob from "../../../globals";
+
+import { environment } from '../../../../environments/environment';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class PreviewObjectComponent implements OnInit {
   @ViewChild('videoView') videoView;
   @ViewChild('lottieView') lottieView: LottieAnimationViewComponent;
 
-  prefix = glob.imgPrefix;
+  prefix = environment.imgPrefix;
   applicationFolderPath;
 
   currentComponent = null;

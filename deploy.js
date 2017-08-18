@@ -44,7 +44,6 @@ var rmdir = function(dir) {
 try {
     console.log("will remove");
     rmdir(__dirname + "/dist/upload");
-
 } catch (error) {
     console.log("rm error = " + error);
 }
@@ -52,7 +51,6 @@ try {
 try {
     console.log("will make");
     mkdirpath(__dirname + "/dist/upload");
-
 } catch (error) {
     console.log("mk error = " + error);
 }

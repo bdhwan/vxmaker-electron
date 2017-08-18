@@ -583,8 +583,9 @@ function createWindow() {
         win.loadURL(targetUrl)
 
         // Open the DevTools when in dev mode.
-        // if (process.env.NODE_ENV == 'development')
-        win.webContents.openDevTools()
+        if (process.env.NODE_ENV == 'development') {
+            win.webContents.openDevTools()
+        }
 
         // Emitted when the window is closed.
         win.on('closed', () => {
@@ -686,8 +687,7 @@ client.trackDevices()
             if (deviceListener) {
                 deviceListener.sender.send('device-status', 'add');
             }
-        });
-
+        })
         tracker.on('remove', function(device) {
             console.log('Device %s was unplugged', device.id)
             var index = deviceList.indexOf(device.id); // <-- Not supported in <IE9
@@ -699,13 +699,10 @@ client.trackDevices()
                 deviceListener.sender.send('device-status', 'remove');
             }
 
-        });
-
-
+        })
         tracker.on('end', function() {
             console.log('Tracking stopped')
-        });
-
+        })
     })
     .catch(function(err) {
         console.error('Something went wrong:', err.stack)

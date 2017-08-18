@@ -4,6 +4,9 @@ import 'rxjs/add/operator/switchMap';
 import { ApplicationDataServiceService } from '../service/application-data-service.service';
 import { BroadcastService } from '../service/broadcast.service';
 import { MessageEventService } from '../service/message-event.service';
+import { environment } from '../../environments/environment';
+
+
 
 
 @Component({
@@ -13,7 +16,8 @@ import { MessageEventService } from '../service/message-event.service';
   providers: [BroadcastService, MessageEventService]
 })
 export class InitComponent implements OnInit {
-
+  imgPrefix = environment.imgPrefix;
+  
   constructor(
     private route: ActivatedRoute,
     private router: Router,

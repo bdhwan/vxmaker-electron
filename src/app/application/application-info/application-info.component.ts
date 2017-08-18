@@ -2,7 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { ApplicationComponent } from '../../application/application.component'
 
-import * as glob from "../../globals";
+
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -13,7 +14,7 @@ import * as glob from "../../globals";
 export class ApplicationInfoComponent implements OnInit {
 
 
-  prefix = glob.imgPrefix;
+  prefix = environment.imgPrefix;
 
 
 

@@ -5,7 +5,7 @@ import { PreviewSizeComponent } from '../preview-size/preview-size.component';
 
 
 
-import * as glob from '../../globals';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-object-property',
@@ -16,7 +16,7 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
 
 
   @Output() onShowResourceDialog = new EventEmitter<string>();
-  prefix = glob.imgPrefix;
+  prefix = environment.imgPrefix;
   applicationFolderPath;
   selectedTriggerEvent;
   selectedObject;

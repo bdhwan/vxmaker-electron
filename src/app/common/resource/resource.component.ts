@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ApplicationDataServiceService } from '../../service/application-data-service.service'
 
-import * as glob from "../../globals";
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -14,7 +14,7 @@ export class ResourceComponent implements OnInit {
   applicationFolderPath;
   imageList;
   fileList;
-  prefix = glob.imgPrefix;
+  prefix = environment.imgPrefix;
 
   visibility = false;
   tab = "image";

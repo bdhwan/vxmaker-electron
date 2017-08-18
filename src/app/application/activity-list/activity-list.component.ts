@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import * as glob from "../../globals";
+
+
+import { environment } from '../../../environments/environment';
+
 
 @Component({
   selector: 'app-activity-list',
@@ -8,7 +11,7 @@ import * as glob from "../../globals";
 })
 export class ActivityListComponent implements OnInit {
 
-  prefix = glob.imgPrefix;
+  prefix = environment.imgPrefix;
 
   @Input() applicationData: any;
   @Input() applicationFolderPath: string;
