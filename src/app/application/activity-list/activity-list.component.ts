@@ -54,7 +54,7 @@ export class ActivityListComponent implements OnInit {
     this.onClickNewActivity.emit();
   }
 
- clickLauncherActivity(activityId): void {
+  clickLauncherActivity(activityId): void {
     this.onClickLauncherActivity.emit(activityId);
   }
 

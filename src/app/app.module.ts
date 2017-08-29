@@ -40,6 +40,8 @@ import { EventStateChangeTimelineComponent } from './activity/event-state-change
 import { LottieAnimationViewComponent } from './activity/lottie-animation-view/lottie-animation-view.component';
 import { GuideComponent } from './guide/guide.component';
 import { WindowProxyComponent } from './window-proxy/window-proxy.component';
+import { CodeActivityLayoutComponent } from './activity/code-preview/code-activity-layout/code-activity-layout.component';
+import { Ng2HandySyntaxHighlighterModule } from 'ng2-handy-syntax-highlighter';
 
 
 
@@ -90,13 +92,15 @@ const appRoutes: Routes = [
     EventStateChangeTimelineComponent,
     LottieAnimationViewComponent,
     GuideComponent,
-    WindowProxyComponent
+    WindowProxyComponent,
+    CodeActivityLayoutComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     TreeModule,
+    Ng2HandySyntaxHighlighterModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [ApplicationDataServiceService, BroadcastService],

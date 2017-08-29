@@ -9,8 +9,8 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "build-electron": "ng build --base-href ./ && cp -r src/electron/* dist/",
-        "electron": "npm run build-electron && electron dist/",
+        "build-electron": "ng build --base-href ./ --environment=prod && cp -r src/electron/* dist/",
+        "electron": "npm run build-electron --environment=prod && electron dist/",
         "build-angular": "ng build --base-href ./ && cp -r src/electron/* dist/",
         "deploy": "npm run build-electron && ls && cd dist && ls && electron-packager . --platform=win32 --electron-version=1.6.8 && zip -r win32.zip angular-electron-win32-x64 && node ../deploy.js  --base-href ./"
     },
@@ -33,6 +33,7 @@
         "image-size": "^0.5.1",
         "js-beautify": "^1.6.14",
         "jsbeautify": "^0.3.6",
+        "ng2-handy-syntax-highlighter": "^1.0.9",
         "node-sass": "^4.5.3",
         "rasterizehtml": "^1.2.4",
         "rxjs": "^5.1.0",

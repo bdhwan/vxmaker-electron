@@ -42,6 +42,9 @@ export class ApplicationDataServiceService {
 
   zoom = 0.2;
 
+  templeteFolderPath = './assets/template';
+  templateHash = {};
+
 
 
   parsePsdPromise: any;
@@ -53,7 +56,7 @@ export class ApplicationDataServiceService {
     electron.ipcRenderer.on('parse-psd-result', (event, arg) => {
       this.parsePsdPromise(arg);
     });
-    
+
   }
 
 
@@ -61,7 +64,7 @@ export class ApplicationDataServiceService {
 
 
   parsePsdFile(psdFilePath, applicationFolderPath) {
-     return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.parsePsdPromise = resolve;
       electron.ipcRenderer.sendSync('parse-psd', psdFilePath, applicationFolderPath);
     });
@@ -87,12 +90,12 @@ export class ApplicationDataServiceService {
   }
 
   openMainWindowUrl(path) {
-    console.log("path = "+path);
+    console.log('path = ' + path);
     return electron.ipcRenderer.sendSync('go-main-window', path);
   }
 
   closeMainWindowUrl() {
-    console.log("close main window");
+    console.log('close main window');
     return electron.ipcRenderer.sendSync('close-main-window');
   }
 
@@ -182,7 +185,7 @@ export class ApplicationDataServiceService {
 
   makeSmallEnglish(origin) {
     let result = this.makeEnglish(origin.toLowerCase());
-    if (!isNaN(parseInt(result[0], 10)) || result.length == 0 || result.startsWith('_')) {
+    if (!isNaN(parseInt(result[0], 10)) || result.length === 0 || result.startsWith('_')) {
       // Is a number
       result = 'image' + result;
     }
@@ -372,6 +375,32 @@ export class ApplicationDataServiceService {
     });
   }
 
+  loadTemplateString(file) {
+    return new Promise((resolve, reject) => {
+      if (this.templateHash[file]) {
+        resolve(this.templateHash[file]);
+      } else {
+        this.http.get(this.templeteFolderPath + '/' + file)
+          .subscribe(res => {
+            this.templateHash[file] = res['_body'];
+            resolve(this.templateHash[file]);
+          });
+      }
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
   readFileSync(filePath) {
     return electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + '/' + filePath);
   }
@@ -509,7 +538,7 @@ export class ApplicationDataServiceService {
         break;
       }
     }
-    console.log("will delete = " + index);
+    console.log('will delete = ' + index);
     if (index !== -1) {
       const removed = this.activityData.triggerEventList[index];
       this.activityData.triggerEventList.splice(index, 1);
@@ -756,7 +785,7 @@ export class ApplicationDataServiceService {
   deleteObjectState(objectId) {
     //remove state
     const stateresult = [];
-    console.log("will remove state = " + objectId);
+    console.log('will remove state = ' + objectId);
     const targetStateList = this.activityData.stateList;
     for (let i = 0; i < targetStateList.length; i++) {
       const aState = targetStateList[i];
@@ -795,6 +824,7 @@ export class ApplicationDataServiceService {
     this.deleteObjectChild(this.activityData.objectList[0], objectId);
     this.setSelectedObject(parentObject);
 
+
   }
 
 
@@ -814,7 +844,7 @@ export class ApplicationDataServiceService {
   getParentMarginTop(targetObjectId) {
     const targetObject = this.findObjectById(targetObjectId);
     const tempState = this.findStateByObjectId(targetObject.id);
-    if (targetObjectId == 'root') {
+    if (targetObjectId === 'root') {
       return Number(tempState.marginTop);
     } else {
       return Number(tempState.marginTop) + this.getParentMarginTop(targetObject.parentId);
@@ -885,6 +915,160 @@ export class ApplicationDataServiceService {
       }
     });
   }
+
+
+
+
+  insertChild(objectId) {
+    console.log('insertChild = ' + objectId);
+    let xmlString = '';
+    const object = this.findObjectById(objectId);
+    if (object) {
+      const state = this.findStateByObjectId(objectId);
+      if (state) {
+        xmlString += this.getObjectString(object, state);
+        if (object.children) {
+          for (let i = 0; i < object.children.length; i++) {
+            xmlString += this.insertChild(object.children[i].id);
+          }
+        }
+        xmlString += '\n';
+        xmlString += this.getCloseString(object);
+      }
+    }
+    return xmlString;
+  }
+  pxToDp(px) {
+    return px * (160 / 640);
+  }
+
+
+  getObjectString(object, state) {
+
+    if (object.type === '#') {
+      return '<FrameLayout\n' + this.getStateStringById(object, state) + '>\n';
+    } else if (object.type === 'FrameLayout') {
+      return '\n<FrameLayout\n' + this.getStateStringById(object, state) + '>\n';
+    } else if (object.type === 'RelativeLayout') {
+      return '\n<RelativeLayout\n' + this.getStateStringById(object, state) + '>\n';
+    } else if (object.type === 'LinearLayout') {
+      return '\n<LinearLayout\n' + this.getStateStringById(object, state) + '>\n';
+    } else if (object.type === 'ScrollView') {
+      return '\n<ScrollView\n' + this.getStateStringById(object, state) + '>\n';
+    } else if (object.type === 'HorizontalScrollView') {
+      return '\n<HorizontalScrollView\n' + this.getStateStringById(object, state) + '>\n';
+    } else if (object.type === 'ImageView') {
+      return '\n<ImageView\n' + this.getStateStringById(object, state) + ' />';
+    } else if (object.type === 'Button') {
+      return '\n<Button\n' + this.getStateStringById(object, state) + ' />';
+    } else if (object.type === 'TextView') {
+      return '\n<TextView\n' + this.getStateStringById(object, state) + ' />';
+    } else if (object.type === 'EditText') {
+      return '\n<EditText\n' + this.getStateStringById(object, state) + ' />';
+    }
+    console.log('getObjectString finish');
+
+    return '';
+  }
+
+
+  getCloseString(object) {
+
+    if (object.type === '#') {
+      return '</FrameLayout >';
+    } else if (object.type === 'FrameLayout') {
+
+      return '</FrameLayout >';
+    } else if (object.type === 'RelativeLayout') {
+
+      return '</RelativeLayout >';
+    } else if (object.type === 'LinearLayout') {
+
+      return '</LinearLayout >';
+
+    } else if (object.type === 'HorizontalScrollView') {
+
+      return '</HorizontalScrollView >';
+
+    } else if (object.type === 'ScrollView') {
+
+      return '</ScrollView>';
+    } else if (object.type === 'ImageView') {
+      return '';
+    }
+
+    return '';
+  }
+
+  getStateStringById(object, state) {
+
+    var result = '\n';
+    if (state === null) {
+      console.log('null state!!!');
+    } else {
+
+      result = '\nandroid:id=\'@+id/' + object.id + '\'\nandroid:tag=\'' + object.stateId + '\'\nandroid:layout_width=\'' + this.pxToDp(state.width) + 'dp\'\nandroid:layout_height=\'' + this.pxToDp(state.height) + 'dp\'\n';
+
+      if (state.marginLeft) {
+        result += 'android:layout_marginLeft=\'' + this.pxToDp(state.marginLeft) + 'dp\'\n';
+      }
+      if (state.marginTop) {
+        result += 'android:layout_marginTop=\'' + this.pxToDp(state.marginTop) + 'dp\'\n';
+      }
+
+
+      if (state.translationX) {
+        result += 'android:translationX=\'' + this.pxToDp(state.translationX) + 'dp\'\n';
+      }
+      if (state.translationY) {
+        result += 'android:translationY=\'' + this.pxToDp(state.translationY) + 'dp\'\n';
+      }
+
+      if (state.alpha !== 1) {
+        result += 'android:alpha=\'' + state.alpha + '\'\n';
+      }
+
+
+      if (state.scaleX !== 1) {
+        result += 'android:scaleX=\'' + state.scaleX + '\'\n';
+      }
+      if (state.scaleY !== 1) {
+        result += 'android:scaleY=\'' + state.scaleY + '\'\n';
+      }
+
+      //object data
+      if (object.background) {
+
+        result += 'android:background=\'' + object.background + '\'\n';
+      }
+
+
+      //TextView
+      if (object.contentText) {
+        result += 'android:text=\'' + object.contentText + '\'\n';
+      }
+
+      if (object.textColor) {
+
+        result += 'android:textColor=\'' + object.textColor + '\'\n';
+      }
+
+      if (object.textSize) {
+        result += 'android:textSize=\'' + object.textSize + 'sp\'\n';
+      }
+
+      //ImageView
+      if (object.dataUrl) {
+        result += 'android:scaleType=\'fitXY\'\n';
+        result += 'android:src=\'@mipmap/' + object.dataUrl + '\'\n';
+      }
+    }
+    console.log('getStateStringById done');
+    return result;
+
+  }
+
+
 
 
 

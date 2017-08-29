@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  imgPrefix:'http://localhost:8080'
+  imgPrefix: 'http://localhost:8080'
 };
 
 

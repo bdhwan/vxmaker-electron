@@ -26,7 +26,7 @@ export class RecentProjectComponent implements OnInit {
   clickApplication(folderPath) {
 
 
-   this.router.navigate(['/application', folderPath]);
+    this.router.navigate(['/application', folderPath]);
 
     // const path = '/application/' + encodeURIComponent(folderPath);
     // this.appDataService.openMainWindowUrl(path);

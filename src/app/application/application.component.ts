@@ -86,6 +86,7 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
 
     this.applicationFolderPath = this.route.snapshot.params['applicationFolderPath'];
 
+
     console.log('this.applicationFolderPath =' + this.applicationFolderPath);
     this.appDataService.initApplicationPath(this.applicationFolderPath);
     this.appDataService.loadApplicationData().then((result) => {

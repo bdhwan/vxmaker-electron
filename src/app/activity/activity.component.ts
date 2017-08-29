@@ -14,6 +14,9 @@ import { EventListComponent } from '../activity/event-list/event-list.component'
 import { EventDetailStageChangeComponent } from '../activity/event-detail-stage-change/event-detail-stage-change.component';
 import { EventDetailStartActivityComponent } from '../activity/event-detail-start-activity/event-detail-start-activity.component';
 import { EventDetailFinishActivityComponent } from '../activity/event-detail-finish-activity/event-detail-finish-activity.component';
+import { CodeActivityLayoutComponent } from '../activity/code-preview/code-activity-layout/code-activity-layout.component';
+
+
 import { EventGeneratorComponent } from '../activity/event-generator/event-generator.component';
 import { ApplicationDataServiceService } from '../service/application-data-service.service';
 import { UUID } from 'angular2-uuid';
@@ -69,6 +72,11 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('previewSize')
   private previewSize: PreviewSizeComponent;
+
+
+  @ViewChild('codeActivityLayout')
+  private codeActivityLayout: CodeActivityLayoutComponent;
+
 
 
   saveStatus: Boolean = false;
@@ -243,22 +251,15 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.defaultStateData = this.appDataService.getDefaultStateData();
       this.objectTypeData = this.appDataService.getObjectTypeData();
-
       return this.appDataService.loadApplicationData();
     })
-
       .then((result) => {
         return this.appDataService.loadImageResourceList();
       })
-
       .then((result) => {
-
-
         return this.appDataService.loadFileResourceList();
       })
-
       .then((result) => {
-
         this.fileList = this.appDataService.getFileResourceList();
         this.imageList = this.appDataService.getImageResourceList();
         this.applicationData = this.appDataService.getApplicationData();
@@ -266,7 +267,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         this.activityData = this.appDataService.getActivityData();
         this.selectedTriggerEvent = this.appDataService.getSelectedTriggerEvent();
         return this.checkEmptyActivityData();
-
       }).then((result) => {
         return this.initDataToView();
       }).then((result) => {
@@ -618,6 +618,9 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.stageList.onChangeData();
     this.eventList.onChangeData();
     this.eventGenerator.onChangeData();
+
+    this.codeActivityLayout.setActivityData(this.activityData);
+    this.codeActivityLayout.onChangeData();
 
 
 

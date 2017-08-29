@@ -8,6 +8,5 @@
 
     <video #videoView *ngIf="objectData.type==='VideoView'" [src]="prefix+applicationFolderPath+ '/'+objectData.dataUrl" onError="this.src='assets/images/ic_video.png' " autoplay loop style="width:100%;height:100%;">
     </video>
-
 </div>
 <app-preview-object [objectData]="aObject " *ngFor="let aObject of objectData.children "></app-preview-object>
