@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApplicationDataServiceService } from '../../../service/application-data-service.service';
 
-declare var beautify_html: any;
+// declare var beautify: any;
+
+
 
 
 @Component({
@@ -40,9 +42,7 @@ export class CodeActivityLayoutComponent implements OnInit {
     this.appDataService.loadTemplateString('ImageView.js').then(result => {
       console.log("result = " + result);
       const temp = result + '';
-      const tempLayoutData = this.appDataService.insertChild('root');
-      this.layoutData = beautify_html(tempLayoutData, { indent_size: 4, wrap_line_length: 70 });
-
+      this.layoutData = this.appDataService.makeLayoutData();
 
     }).then(result => {
 

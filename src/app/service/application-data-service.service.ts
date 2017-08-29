@@ -4,7 +4,9 @@ import { UUID } from 'angular2-uuid';
 import { BroadcastService } from './broadcast.service';
 
 declare var electron: any;
-
+declare var html_beautify: any;
+declare var js_beautify: any;
+declare var css_beautify: any;
 
 
 
@@ -917,11 +919,17 @@ export class ApplicationDataServiceService {
   }
 
 
+  makeLayoutData() {
+    const result = this.insertChild('root');
+    return html_beautify(result, { indent_size: 4, wrap_line_length: 70 });
+  }
+
 
 
   insertChild(objectId) {
     console.log('insertChild = ' + objectId);
     let xmlString = '';
+
     const object = this.findObjectById(objectId);
     if (object) {
       const state = this.findStateByObjectId(objectId);
@@ -1007,60 +1015,60 @@ export class ApplicationDataServiceService {
       console.log('null state!!!');
     } else {
 
-      result = '\nandroid:id=\'@+id/' + object.id + '\'\nandroid:tag=\'' + object.stateId + '\'\nandroid:layout_width=\'' + this.pxToDp(state.width) + 'dp\'\nandroid:layout_height=\'' + this.pxToDp(state.height) + 'dp\'\n';
+      result = '\nandroid:id=\"@+id/' + object.id + '\"\nandroid:tag=\"' + object.stateId + '\"\nandroid:layout_width=\"' + this.pxToDp(state.width) + 'dp\"\nandroid:layout_height=\"' + this.pxToDp(state.height) + 'dp\"\n';
 
       if (state.marginLeft) {
-        result += 'android:layout_marginLeft=\'' + this.pxToDp(state.marginLeft) + 'dp\'\n';
+        result += 'android:layout_marginLeft=\"' + this.pxToDp(state.marginLeft) + 'dp\"\n';
       }
       if (state.marginTop) {
-        result += 'android:layout_marginTop=\'' + this.pxToDp(state.marginTop) + 'dp\'\n';
+        result += 'android:layout_marginTop=\"' + this.pxToDp(state.marginTop) + 'dp\"\n';
       }
 
 
       if (state.translationX) {
-        result += 'android:translationX=\'' + this.pxToDp(state.translationX) + 'dp\'\n';
+        result += 'android:translationX=\"' + this.pxToDp(state.translationX) + 'dp\"\n';
       }
       if (state.translationY) {
-        result += 'android:translationY=\'' + this.pxToDp(state.translationY) + 'dp\'\n';
+        result += 'android:translationY=\"' + this.pxToDp(state.translationY) + 'dp\"\n';
       }
 
       if (state.alpha !== 1) {
-        result += 'android:alpha=\'' + state.alpha + '\'\n';
+        result += 'android:alpha=\"' + state.alpha + '\"\n';
       }
 
 
       if (state.scaleX !== 1) {
-        result += 'android:scaleX=\'' + state.scaleX + '\'\n';
+        result += 'android:scaleX=\"' + state.scaleX + '\"\n';
       }
       if (state.scaleY !== 1) {
-        result += 'android:scaleY=\'' + state.scaleY + '\'\n';
+        result += 'android:scaleY=\"' + state.scaleY + '\"\n';
       }
 
       //object data
       if (object.background) {
 
-        result += 'android:background=\'' + object.background + '\'\n';
+        result += 'android:background=\"' + object.background + '\"\n';
       }
 
 
       //TextView
       if (object.contentText) {
-        result += 'android:text=\'' + object.contentText + '\'\n';
+        result += 'android:text=\"' + object.contentText + '\"\n';
       }
 
       if (object.textColor) {
 
-        result += 'android:textColor=\'' + object.textColor + '\'\n';
+        result += 'android:textColor=\"' + object.textColor + '\"\n';
       }
 
       if (object.textSize) {
-        result += 'android:textSize=\'' + object.textSize + 'sp\'\n';
+        result += 'android:textSize=\"' + object.textSize + 'sp\"\n';
       }
 
       //ImageView
       if (object.dataUrl) {
-        result += 'android:scaleType=\'fitXY\'\n';
-        result += 'android:src=\'@mipmap/' + object.dataUrl + '\'\n';
+        result += 'android:scaleType=\"fitXY\"\n';
+        result += 'android:src=\"@mipmap/' + object.dataUrl + '\"\n';
       }
     }
     console.log('getStateStringById done');
