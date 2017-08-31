@@ -27,6 +27,9 @@ import { TreeModule } from 'angular2-tree-component';
 import { PreviewObjectComponent } from './activity/preview/preview-object/preview-object.component';
 
 import { ApplicationDataServiceService } from './service/application-data-service.service';
+import { CodeGeneratorService } from './service/code-generator.service';
+
+
 import { BroadcastService } from './service/broadcast.service';
 
 import { ResourceComponent } from './common/resource/resource.component';
@@ -103,7 +106,7 @@ const appRoutes: Routes = [
     Ng2HandySyntaxHighlighterModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ApplicationDataServiceService, BroadcastService],
+  providers: [ApplicationDataServiceService, BroadcastService, CodeGeneratorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -52,6 +52,11 @@ export class ApplicationDataServiceService {
   parsePsdPromise: any;
 
 
+  lastId = 0;
+  idHash = {};
+
+
+
   constructor(private http: Http, private broadcaster: BroadcastService) {
 
     const self = this;
@@ -198,6 +203,45 @@ export class ApplicationDataServiceService {
     return origin.trim().replace(/\s/gi, '_').replace(/[^a-zA-Z0-9]/g, '_').replace('-', '_');
   }
 
+  getUniqueActivityName(origin) {
+    var result = this.makeEnglish(origin);
+    if (!isNaN(parseInt(result[0], 10)) || result.length == 0 || result.startsWith('_')) {
+      // Is a number
+      result = "Activity" + result;
+    }
+    return this.getUniqueSourceName(result);
+  }
+
+  getUniqueResourceName(origin) {
+
+    var result = this.makeSmallEnglish(origin);
+    if (!isNaN(parseInt(result[0], 10)) || result.length == 0 || result.startsWith('_')) {
+      // Is a number
+      result = "resource" + result;
+    }
+    return this.getUniqueSourceName(result);
+  }
+
+  getUniqueLayoutName(origin) {
+
+    var result = this.makeSmallEnglish(origin);
+    if (!isNaN(parseInt(result[0], 10)) || result.length == 0 || result.startsWith('_')) {
+      // Is a number
+      result = "activity_" + result;
+    }
+    return this.getUniqueSourceName(result);
+  }
+
+
+  getUniqueSourceName(origin) {
+    var result = origin;
+    while (this.idHash[result]) {
+      result = origin + "_" + this.lastId;
+      this.lastId++;
+    }
+    this.idHash[result] = true;
+    return result;
+  }
 
 
 
@@ -919,9 +963,206 @@ export class ApplicationDataServiceService {
   }
 
 
+
+
+
+
+
+
+  makeActivitySource() {
+    for (var i = 0; i < this.applicationData.activityList.length; i++) {
+      var activity = this.applicationData.activityList[i];
+      activity.activityName = this.getUniqueActivityName(activity.activityName);
+      activity.layoutName = this.getUniqueLayoutName(activity.activityName);
+    }
+  }
+
+
   makeLayoutData() {
-    const result = this.insertChild('root');
-    return html_beautify(result, { indent_size: 4, wrap_line_length: 70 });
+    return this.insertChild('root');
+  }
+
+  makeJavaData() {
+
+    var variables = this.getActivityName(this.activityData.activityId + " context;\n");
+    var finder = "";
+    var eventString = "";
+
+    for (var i = 0; i < this.activityData.activityList.length; i++) {
+      var object = this.activityData.activityList[i];
+      var tempVariableString = this.getViewClass(object.type) + " " + object.id + ";\n";
+      var tempFinderString = object.id + " = (" + this.getViewClass(object.type) + ")findViewById(R.id." + object.id + ");\n";
+      variables += tempVariableString;
+      finder += tempFinderString;
+    }
+
+
+    // for (var i = 0; i < this.activityData.activityList.length; i++) {
+    //   var objectData = this.activityData.activityList[i];
+
+
+    //   //click event
+    //   var eventList = [];
+    //   for (var j = 0; j < data.animEvents.length; j++) {
+    //     var checkEvent = data.animEvents[j];
+    //     if (checkEvent.kind == 'click' && objectData.id == checkEvent.triggerObjectId) {
+    //       eventList.push(checkEvent);
+    //     }
+    //   }
+    //   if (eventList.length > 0) {
+    //     var tempEventString =
+    //       objectData.resourceId + ".setOnClickListener(new View.OnClickListener() {" +
+    //       "\n@Override" +
+    //       "\npublic void onClick(final View v) {";
+
+    //     for (var j = 0; j < eventList.length; j++) {
+    //       var event = eventList[j];
+
+    //       var conditionString = null;
+    //       if (event.conditions) {
+    //         conditionString = this.getConditionString(event, data);
+    //       }
+
+    //       console.log("event = " + JSON.stringify(event));
+
+    //       var triggerEvent = this.getEventById(event.triggerEventId, data);
+    //       if (!triggerEvent) {
+    //         continue;
+    //       }
+
+
+    //       var fireEventString = this.getEventFireString(triggerEvent, data);
+    //       if (!fireEventString) {
+    //         continue;
+    //       }
+
+
+    //       if (conditionString) {
+    //         fireEventString = conditionString.replace('!!!eventString!!!', fireEventString)
+    //       }
+    //       tempEventString += "\n" + fireEventString + "\n";
+    //     }
+
+    //     tempEventString += "\n" +
+    //       "\n}});";
+    //     eventString += "\n" + tempEventString + "\n";
+    //   }
+
+    //   eventList = [];
+    //   for (var j = 0; j < data.animEvents.length; j++) {
+    //     var checkEvent = data.animEvents[j];
+    //     if (checkEvent.kind == 'longClick' && objectData.id == checkEvent.triggerObjectId) {
+    //       eventList.push(checkEvent);
+    //     }
+    //   }
+    //   if (eventList.length > 0) {
+    //     var tempEventString =
+    //       objectData.resourceId + ".setOnLongClickListener(new View.OnLongClickListener() {" +
+    //       "\n@Override" +
+    //       "\npublic boolean onLongClick(final View v) {";
+
+    //     for (var j = 0; j < eventList.length; j++) {
+    //       var event = eventList[j];
+
+    //       var conditionString = null;
+    //       if (event.conditions) {
+    //         conditionString = this.getConditionString(event, data);
+    //       }
+
+    //       var fireEventString = this.getEventFireString(this.getEventById(event.triggerEventId, data), data);
+
+    //       if (conditionString) {
+    //         fireEventString = conditionString.replace('!!!eventString!!!', fireEventString)
+    //       }
+    //       tempEventString += "\n" + fireEventString + "\n";
+    //     }
+
+    //     tempEventString += "\nreturn true;" +
+    //       "\n}});";
+    //     eventString += "\n" + tempEventString + "\n";
+    //   }
+    // }
+
+
+
+
+    // //onCreate
+    // var onCreateEventList = [];
+    // for (var i = 0; i < data.animEvents.length; i++) {
+    //   var checkEvent = data.animEvents[i];
+    //   if (checkEvent.kind == 'onCreate') {
+    //     onCreateEventList.push(checkEvent);
+    //   }
+    // }
+
+    // console.log("onCreateEventList = " + onCreateEventList.length);
+    // var onCreateEventString = "";
+    // if (onCreateEventList.length > 0) {
+    //   console.log("onCreateEventList2");
+    //   for (var i = 0; i < onCreateEventList.length; i++) {
+    //     var event = onCreateEventList[i];
+    //     var fireEventString = this.getEventFireString(this.getEventById(event.triggerEventId, data), data);
+    //     onCreateEventString += "\n" + fireEventString;
+    //     console.log("onCreateEventList3");;
+    //   }
+
+    // }
+
+    // console.log("onCreateEventList4");
+
+    // var stageTemplateData = "";
+    // if (this.needStageAnimationTemplate) {
+    //   var stageTemplatePath = __dirname + "/template/source_template/StageAnimationFormat.java";
+    //   stageTemplateData = fs.readFileSync(stageTemplatePath, 'utf-8');
+    // }
+
+
+    // var activityTemplatePath = __dirname + "/template/source_template/MainActivity.java";
+    // var templateData = fs.readFileSync(activityTemplatePath, 'utf-8');
+
+    //  let templateData = templateData.replace("!!!packageName!!!", this.packageName);
+    //   templateData = templateData.replace("!!!activityName!!!", activityName);
+    //   templateData = templateData.replace("!!!layoutName!!!", layoutName);
+    //   templateData = templateData.replace("!!!variableList!!!", variables);
+    //   templateData = templateData.replace("!!!variableFindList!!!", finder);
+    //   templateData = templateData.replace("!!!eventList!!!", eventString);
+    //   templateData = templateData.replace("!!!onCreateEvent!!!", onCreateEventString);
+    //   templateData = templateData.replace("!!!stageAnimationFormat!!!", stageTemplateData);
+
+
+
+
+
+
+  }
+
+
+  getViewClass(origin) {
+    if ("#" == origin) {
+      return "FrameLayout";
+    } else {
+      return origin;
+    }
+  }
+
+  makeBeautifyWithCount(source, line_length) {
+    return html_beautify(source, { indent_size: 4, wrap_line_length: line_length });
+  }
+
+  makeBeautify(source) {
+    return html_beautify(source, { indent_size: 4, wrap_line_length: 70 });
+  }
+
+  getActivityName(activityId) {
+
+    for (let i = 0; i < this.applicationData.activityList.length; i++) {
+      const aActivity = this.applicationData.activityList[i];
+      if (activityId === aActivity.activityId) {
+        return aActivity.activityName;
+      }
+    }
+    return null;
+
   }
 
 

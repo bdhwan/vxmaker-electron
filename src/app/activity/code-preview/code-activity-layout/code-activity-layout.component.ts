@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApplicationDataServiceService } from '../../../service/application-data-service.service';
-
-// declare var beautify: any;
-
+import { CodeGeneratorService } from '../../../service/code-generator.service';
 
 
 
@@ -17,19 +15,43 @@ export class CodeActivityLayoutComponent implements OnInit {
   activityData;
   layoutData;
   javaData;
+  isMakingCode;
+  constructor(private appDataService: ApplicationDataServiceService, private codeGenerator: CodeGeneratorService) {
 
-  constructor(private appDataService: ApplicationDataServiceService) { }
+    this.isMakingCode = false;
+
+  }
 
   ngOnInit() {
   }
 
 
+
+
   public setActivityData(activityData) {
+
+
+    if (this.isMakingCode) {
+      return;
+    }
+
+    this.isMakingCode = true;
     this.activityData = activityData;
+
     this.layoutData = null;
     this.javaData = null;
 
-    this.makeLayoutData();
+    console.log("will make activity source code");
+
+
+
+    this.codeGenerator.makeActivitySourceCode(this.appDataService.getApplicationData(), this.activityData).then(result => {
+      // console.log("result code = " + JSON.stringify(result));
+      this.isMakingCode = false;
+      console.log("done make activity source code");
+      this.javaData = result['java'];
+      this.layoutData = result['layout'];
+    });
   }
 
   private makeLayoutData() {
@@ -39,13 +61,23 @@ export class CodeActivityLayoutComponent implements OnInit {
 
 
 
-    this.appDataService.loadTemplateString('ImageView.js').then(result => {
-      console.log("result = " + result);
-      const temp = result + '';
-      this.layoutData = this.appDataService.makeLayoutData();
-
+    this.appDataService.loadTemplateString('/source_template/activity_main.xml').then(result => {
+      console.log("result activity_main = " + result);
+      let temp = result + '';
+      const xmlString = this.appDataService.makeLayoutData();
+      temp = temp.replace('!!!layoutList!!!', xmlString);
+      temp = temp.replace('!!!packageName!!!', this.appDataService.getApplicationData().applicationId);
+      temp = temp.replace('!!!activityName!!!', this.appDataService.getActivityName(this.activityData.activityId));
+      this.layoutData = this.appDataService.makeBeautify(temp);
+      return this.appDataService.loadTemplateString('/source_template/MainActivity.java');
     }).then(result => {
 
+      // let temp = result + '';
+      // const xmlString = this.appDataService.makeJavaData();
+      // temp = temp.replace('!!!layoutList!!!', xmlString);
+      // temp = temp.replace('!!!packageName!!!', this.appDataService.getApplicationData().applicationId);
+      // temp = temp.replace('!!!activityName!!!', this.appDataService.getActivityName(this.activityData.activityId));
+      // this.javaData = this.appDataService.makeBeautify(temp);
 
     });
 
