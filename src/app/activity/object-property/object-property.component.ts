@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, Input, Output, EventEmitte
 import { ApplicationDataServiceService } from '../../service/application-data-service.service';
 
 import { PreviewSizeComponent } from '../preview-size/preview-size.component';
+import { CodeGeneratorService } from '../../service/code-generator.service';
 
 
 
@@ -21,6 +22,9 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
   selectedTriggerEvent;
   selectedObject;
   selectedState;
+  objectLayoutData;
+
+
   showPropertyKeys = [
     'name',
     'type',
@@ -46,9 +50,11 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
     'translationY'
   ];
   needShowState = false;
+  needShowCode = true;
 
   constructor(
     private appDataService: ApplicationDataServiceService
+    , private codeGenerator: CodeGeneratorService
   ) {
 
 
@@ -73,13 +79,12 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
   toggleDetail() {
     this.needShowState = !this.needShowState;
   }
-
-
+  toggleCode() {
+    this.needShowCode = !this.needShowCode;
+  }
   toJson(target) {
     return JSON.stringify(target);
   }
-
-
 
   clickSelectImage(): void {
     this.clickNewFile('image');
@@ -89,20 +94,20 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
     this.clickNewFile('file');
   }
 
-
   clickNewFile(target) {
-    // console.log("target=" + target);
     this.onShowResourceDialog.emit(target);
   }
 
-
-
-
   public onChangeData(): void {
-    
     this.selectedTriggerEvent = this.appDataService.getSelectedTriggerEvent();
     this.selectedObject = this.appDataService.getSelectedObject();
     this.selectedState = this.appDataService.getSelectedState();
+
+
+    this.objectLayoutData = this.codeGenerator.insertChild(this.selectedObject.id);
+
+    console.log("objectLayoutData = " + this.objectLayoutData);
+
 
   }
 

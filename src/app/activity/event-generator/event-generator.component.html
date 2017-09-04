@@ -63,8 +63,7 @@
                 <div class="trigger-intro" *ngIf="!triggerEvent">
                     <div class="trigger-sub">
                         <h2>Trigger</h2>
-                        <p>A user action to trigger an event, such as changing the state of objects or switching between Activities.
-                            Select the trigger you want on the left.
+                        <p>A user action to trigger an event, such as changing the state of objects or switching between Activities. Select the trigger you want on the left.
                         </p>
 
                         <h4>Tap</h4>
@@ -104,8 +103,7 @@
                                 <p>startActivity</p>
                                 <div *ngIf="!implementEvent" class="startactivity-info event-hover">
                                     <h2>startActivity</h2>
-                                    <p>This event starts another new Activity. It is used to move from the current Activity
-                                        to another Activity.</p>
+                                    <p>This event starts another new Activity. It is used to move from the current Activity to another Activity.</p>
                                 </div>
                             </div>
                             <div class="btn-trigger btn-finishactivity" (click)="clickImplement('finishActivity')">
@@ -113,8 +111,7 @@
                                 <p>finishActivity</p>
                                 <div *ngIf="!implementEvent" class="finishactivity-info event-hover">
                                     <h2>finishActivity</h2>
-                                    <p>This event closes the current Activity and returns it to the previous Activity. We often
-                                        use backkeys inside apps.</p>
+                                    <p>This event closes the current Activity and returns it to the previous Activity. We often use backkeys inside apps.</p>
                                 </div>
                             </div>
 
@@ -124,7 +121,7 @@
                                 <p>startLottie</p>
                                 <div *ngIf="!implementEvent" class="startlottie-info event-hover">
                                     <h2>startLottie</h2>
-                                    <p>Play the motion graphics of LottieView with JSON file applied</p>
+                                    <p>Play the motion graphics of LottieAnimationView with JSON file applied</p>
                                 </div>
                             </div>
                             <div class="btn-trigger btn-stoplottie" (click)="clickImplement('stopLottie')">
@@ -132,7 +129,7 @@
                                 <p>stopLottie</p>
                                 <div *ngIf="!implementEvent" class="stoplottie-info event-hover">
                                     <h2>stopLottie</h2>
-                                    <p>Stop motion graphics of LottieView.</p>
+                                    <p>Stop motion graphics of LottieAnimationView.</p>
                                 </div>
                             </div>
 
@@ -142,8 +139,7 @@
                                 <p>takePicture</p>
                                 <div *ngIf="!implementEvent" class="takepicture-info event-hover">
                                     <h2>takePicture</h2>
-                                    <p>It acts as a camera shutter when shooting with 'CameraView'. You can also select a layer
-                                        to show the captured image.</p>
+                                    <p>It acts as a camera shutter when shooting with 'CameraView'. You can also select a layer to show the captured image.</p>
                                 </div>
                             </div>
 
@@ -181,15 +177,13 @@
                     <h4>StartActivity</h4>
                     <p>This event starts another new Activity. It is used to move from the current Activity to another Activity.</p>
                     <h4>FinishActivity</h4>
-                    <p>This event closes the current Activity and returns it to the previous Activity. We often use backkeys
-                        inside apps.</p>
+                    <p>This event closes the current Activity and returns it to the previous Activity. We often use backkeys inside apps.</p>
                     <h4>startLottie</h4>
-                    <p>Play the motion graphics of LottieView with JSON file applied</p>
+                    <p>Play the motion graphics of LottieAnimationView with JSON file applied</p>
                     <h4>stopLottie</h4>
-                    <p>Stop motion graphics of LottieView.</p>
+                    <p>Stop motion graphics of LottieAnimationView.</p>
                     <h4>takePicture</h4>
-                    <p>It acts as a camera shutter when shooting with 'CameraView'. You can also select a layer to show the
-                        captured image.</p>
+                    <p>It acts as a camera shutter when shooting with 'CameraView'. You can also select a layer to show the captured image.</p>
                     <h4>startVideo</h4>
                     <p>Play video from VideoView.</p>
                     <h4>stopVideo</h4>

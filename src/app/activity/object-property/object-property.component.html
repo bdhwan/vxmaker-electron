@@ -16,7 +16,7 @@
                 <button (click)="clickSelectImage()"> ImageSelect</button>
             </div>
 
-            <div *ngIf="selectedObject.type=='LottieView'||selectedObject.type=='VideoView'">
+            <div *ngIf="selectedObject.type=='LottieAnimationView'||selectedObject.type=='VideoView'">
                 <button (click)="clickSelectFile()"> FileSelect</button>
             </div>
             <!-- 이미지, 파일 선택버튼@ -->
@@ -36,9 +36,18 @@
             </div>
         </div>
 
+
+        <button (click)="toggleCode()">code</button>
+        <div *ngIf="selectedState&&needShowCode">
+            show code area
+            <handy-syntax-highlighter [language]="'java'" [content]="objectLayoutData"></handy-syntax-highlighter>
+        </div>
+
+
         <div class="btn-more">
             <button (click)='toggleDetail()'>View more Properties <i class="fa fa-sort-desc"></i></button>
         </div>
+
 
         <div *ngIf="selectedState&&needShowState">
             <div class="property-input-wrap" *ngFor="let key of detailKeys">

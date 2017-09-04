@@ -563,7 +563,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
       this.saveActivityData();
       this.saveApplicationData();
 
-      if (selectedObject.type === 'LottieView') {
+      if (selectedObject.type === 'LottieAnimationView') {
         if (tempUrl && tempUrl !== target) {
           this.previewComponent.recreateObjectList();
         }

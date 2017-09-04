@@ -45,7 +45,7 @@ export class PreviewObjectComponent implements OnInit {
 
 
 
-    if (this.objectData.type === 'LottieView') {
+    if (this.objectData.type === 'LottieAnimationView') {
       if (this.objectData.dataUrl) {
         // const url = this.prefix + this.applicationFolderPath + '/' + this.objectData.dataUrl;
         const url = this.objectData.dataUrl;

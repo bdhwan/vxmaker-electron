@@ -11,21 +11,25 @@ import { CodeGeneratorService } from '../../../service/code-generator.service';
 })
 export class CodeActivityLayoutComponent implements OnInit {
 
-
+  visibility = true;
   activityData;
   layoutData;
   javaData;
   isMakingCode;
   constructor(private appDataService: ApplicationDataServiceService, private codeGenerator: CodeGeneratorService) {
-
     this.isMakingCode = false;
-
   }
 
   ngOnInit() {
   }
 
 
+  hideDialog() {
+    this.visibility = false;
+  }
+  nothing($event) {
+
+  }
 
 
   public setActivityData(activityData) {

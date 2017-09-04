@@ -1,10 +1,16 @@
-<p>
-    code-activity-layout works!
-</p>
+<div class="popup-wrap" *ngIf="visibility">
+    <div id="popup1" class="overlay" (click)="hideDialog()">
+        <div class="popup" (click)="nothing($event)">
 
-<div *ngIf="layoutData">
-    <handy-syntax-highlighter [language]="'java'" [content]="layoutData"></handy-syntax-highlighter>
-</div>
-<div *ngIf="javaData">
-    <handy-syntax-highlighter [language]="'java'" [content]="javaData"></handy-syntax-highlighter>
+
+            <div *ngIf="javaData">
+                <handy-syntax-highlighter [language]="'java'" [content]="javaData"></handy-syntax-highlighter>
+            </div>
+            <div *ngIf="layoutData">
+                <handy-syntax-highlighter [language]="'java'" [content]="layoutData"></handy-syntax-highlighter>
+            </div>
+
+
+        </div>
+    </div>
 </div>

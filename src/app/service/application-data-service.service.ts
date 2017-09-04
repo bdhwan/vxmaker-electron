@@ -575,6 +575,19 @@ export class ApplicationDataServiceService {
     }
     return null;
   }
+
+  findTriggerEventByAfterTriggerEventId(implEventId: string) {
+    for (let i = 0; i < this.activityData.triggerEventList.length; i++) {
+      const aEvent = this.activityData.triggerEventList[i];
+      if (aEvent.afterTriggerEventId && aEvent.afterTriggerEventId === implEventId) {
+        return aEvent;
+      }
+    }
+    return null;
+  }
+
+
+
   deleteTriggerEventByTriggerEventId(triggerEventid: any) {
     let index = -1;
     for (let i = 0; i < this.activityData.triggerEventList.length; i++) {
@@ -654,6 +667,14 @@ export class ApplicationDataServiceService {
     return result;
   }
 
+  findStageByStageId(stageId) {
+    for (let i = 0; i < this.activityData.stageList.length; i++) {
+      if (stageId === this.activityData.stageList[i].id) {
+        return this.activityData.stageList[i];
+      }
+    }
+  }
+
 
 
   findObjectById(objectId: string) {
@@ -691,6 +712,19 @@ export class ApplicationDataServiceService {
     }
     return result;
   }
+
+  findStateByStateId(activityData, stateId: string) {
+    for (let i = 0; i < activityData.stateList.length; i++) {
+      const aState = activityData.stateList[i];
+      if (aState.id === stateId) {
+        return aState;
+      }
+    }
+    return null;
+  }
+
+
+
 
   findAllStateByStageId(stageId: string) {
     const result = [];

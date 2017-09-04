@@ -15,12 +15,27 @@ export class CodeGeneratorService {
   activityLayoutIdHash = {};
 
   objectList;
-
-
   codeResult = {};
 
-
   constructor(private appDataService: ApplicationDataServiceService) { }
+
+
+  public makeApplicationSourceCode(applicationData) {
+
+    this.applicationData = applicationData;
+    this.makeActivityName();
+
+  }
+  public makeActivitySourceCodeByActivity(activityData) {
+    return new Promise((resolve, reject) => {
+      this.activityData = activityData;
+      this.selectedStage = activityData.stageList[0];
+      this.makeActivityLayout().then(result => {
+        resolve(this.codeResult);
+      });
+    });
+
+  }
 
 
   public makeActivitySourceCode(applicationData, activityData) {
@@ -31,16 +46,11 @@ export class CodeGeneratorService {
       this.activityData = activityData;
       this.selectedStage = activityData.stageList[0];
 
-      // this.lastId = 0;
-
-
       this.makeActivityName();
       this.makeActivityLayout().then(result => {
         resolve(this.codeResult);
       });
-
     });
-
   }
 
 
@@ -49,8 +59,6 @@ export class CodeGeneratorService {
     this.idHash = {};
     this.activityIdHash = {};
     this.activityLayoutIdHash = {};
-
-
 
     console.log("makeActivityName-" + this.applicationData.activityList.length);
     for (let i = 0; i < this.applicationData.activityList.length; i++) {
@@ -66,6 +74,18 @@ export class CodeGeneratorService {
     console.log("makeActivityName finish");
   }
 
+
+  getActivityNameByActivityId(activityId) {
+    for (let i = 0; i < this.applicationData.activityList.length; i++) {
+      const activity = this.applicationData.activityList[i];
+      if (activity.activityId === this.activityData.activityId) {
+        return activity;
+      }
+    }
+    return null;
+  }
+
+
   makeActivityLayout() {
     return new Promise((resolve, reject) => {
       const self = this;
@@ -77,9 +97,7 @@ export class CodeGeneratorService {
         this.objectList = this.appDataService.getAllObjectList(this.activityData.objectList);
         for (let i = 0; i < this.objectList.length; i++) {
           const object = this.objectList[i];
-          console.log(i + "-" + object.name);
           object.resourceId = this.getUniqueResourceName(object.name);
-
         }
 
         temp = temp.replace('!!!layoutList!!!', xmlString);
@@ -91,153 +109,49 @@ export class CodeGeneratorService {
 
         let temp = result + '';
         let variables = this.activityData.codeActivityName + " context;\n";
-        let finder = '';
+        let finder = 'currentStage = ' + '\"' + this.activityData.stageList[0].id + '\";\n';
         let eventString = '';
+        let onCreateEventString = '';
+        let backPressedEventData = '';
 
         for (let i = 0; i < this.objectList.length; i++) {
           //make resource name
           const object = this.objectList[i];
           const tempVariableString = object.type + ' ' + object.resourceId + ';\n';
-          const tempFinderString = object.resourceId + " = (" + object.type + ")findViewById(R.id." + object.resourceId + ");\n";
+          let tempFinderString = object.resourceId + " = (" + object.type + ")findViewById(R.id." + object.resourceId + ");\n";
           variables += tempVariableString;
+
+          if (object.type === 'VideoView' && object.dataUrl) {
+            tempFinderString += object.resourceId + '.setVideoPath(Uri.parse("' + object.dataUrl + '"));\n';
+          }
           finder += tempFinderString;
         }
 
 
+        for (let i = 0; i < this.activityData.triggerEventList.length; i++) {
+          const aTrigger = this.activityData.triggerEventList[i];
+          if (aTrigger.type === 'click') {
+            const object = this.appDataService.findObjectById(aTrigger.objectId);
+            const clickEventString = object.resourceId + '.setOnClickListener(new View.OnClickListener() {' +
+              '\n@Override' +
+              '\npublic void onClick(final View v) {\n' +
+              'if(currentStage.equals("' + aTrigger.stageId + '")) {\n' +
+              this.insertImplEvent(aTrigger) +
+              '\n}\n' +
+              '\n}});';
+            eventString += '\n' + clickEventString + '\n';
+          } else if (aTrigger.type === 'onCreate') {
+            onCreateEventString += '\n' + this.insertImplEvent(aTrigger);
+          } else if (aTrigger.type === 'backKey') {
+            const backEventString = 'if(currentStage.equals("' + aTrigger.stageId + '")) {\n' + this.insertImplEvent(aTrigger) + '\n return;}\n';
+            backPressedEventData += backEventString;
+          }
+        }
 
+        if (backPressedEventData.length === 0) {
+          backPressedEventData += '\nsuper.onBackPressed();';
+        }
 
-
-
-        // for (let i = 0; i < this.activityData.objectList.length; i++) {
-        //   //make resource name
-        //   const object = this.activityData.objectList[i];
-        //   let eventList = [];
-
-
-
-        // }
-
-
-
-        // for (var i = 0; i < data.animObjects.length; i++) {
-        //   var objectData = data.animObjects[i];
-        //   //click event
-        //   var eventList = [];
-        //   for (var j = 0; j < data.animEvents.length; j++) {
-        //     var checkEvent = data.animEvents[j];
-        //     if (checkEvent.kind == 'click' && objectData.id == checkEvent.triggerObjectId) {
-        //       eventList.push(checkEvent);
-        //     }
-        //   }
-        //   if (eventList.length > 0) {
-        //     var tempEventString =
-        //       objectData.resourceId + ".setOnClickListener(new View.OnClickListener() {" +
-        //       "\n@Override" +
-        //       "\npublic void onClick(final View v) {";
-
-        //     for (var j = 0; j < eventList.length; j++) {
-        //       var event = eventList[j];
-
-        //       var conditionString = null;
-        //       if (event.conditions) {
-        //         conditionString = this.getConditionString(event, data);
-        //       }
-
-        //       console.log("event = " + JSON.stringify(event));
-
-        //       var triggerEvent = this.getEventById(event.triggerEventId, data);
-        //       if (!triggerEvent) {
-        //         continue;
-        //       }
-
-
-        //       var fireEventString = this.getEventFireString(triggerEvent, data);
-        //       if (!fireEventString) {
-        //         continue;
-        //       }
-
-
-        //       if (conditionString) {
-        //         fireEventString = conditionString.replace('!!!eventString!!!', fireEventString)
-        //       }
-        //       tempEventString += "\n" + fireEventString + "\n";
-        //     }
-
-        //     tempEventString += "\n" +
-        //       "\n}});";
-        //     eventString += "\n" + tempEventString + "\n";
-        //   }
-
-        //   eventList = [];
-        //   for (var j = 0; j < data.animEvents.length; j++) {
-        //     var checkEvent = data.animEvents[j];
-        //     if (checkEvent.kind == 'longClick' && objectData.id == checkEvent.triggerObjectId) {
-        //       eventList.push(checkEvent);
-        //     }
-        //   }
-        //   if (eventList.length > 0) {
-        //     var tempEventString =
-        //       objectData.resourceId + ".setOnLongClickListener(new View.OnLongClickListener() {" +
-        //       "\n@Override" +
-        //       "\npublic boolean onLongClick(final View v) {";
-
-        //     for (var j = 0; j < eventList.length; j++) {
-        //       var event = eventList[j];
-
-        //       var conditionString = null;
-        //       if (event.conditions) {
-        //         conditionString = this.getConditionString(event, data);
-        //       }
-
-        //       var fireEventString = this.getEventFireString(this.getEventById(event.triggerEventId, data), data);
-
-        //       if (conditionString) {
-        //         fireEventString = conditionString.replace('!!!eventString!!!', fireEventString)
-        //       }
-        //       tempEventString += "\n" + fireEventString + "\n";
-        //     }
-
-        //     tempEventString += "\nreturn true;" +
-        //       "\n}});";
-        //     eventString += "\n" + tempEventString + "\n";
-        //   }
-        // }
-
-
-
-
-        //onCreate
-        var onCreateEventList = [];
-        // for (var i = 0; i < data.animEvents.length; i++) {
-        //   var checkEvent = data.animEvents[i];
-        //   if (checkEvent.kind == 'onCreate') {
-        //     onCreateEventList.push(checkEvent);
-        //   }
-        // }
-
-        console.log("onCreateEventList = " + onCreateEventList.length);
-        var onCreateEventString = "";
-        // if (onCreateEventList.length > 0) {
-        //   console.log("onCreateEventList2");
-        //   for (var i = 0; i < onCreateEventList.length; i++) {
-        //     var event = onCreateEventList[i];
-        //     var fireEventString = this.getEventFireString(this.getEventById(event.triggerEventId, data), data);
-        //     onCreateEventString += "\n" + fireEventString;
-        //     console.log("onCreateEventList3");;
-        //   }
-
-        // }
-
-        console.log("onCreateEventList4");
-
-        var stageTemplateData = "";
-        // if (this.needStageAnimationTemplate) {
-        //   var stageTemplatePath = __dirname + "/template/source_template/StageAnimationFormat.java";
-        //   stageTemplateData = fs.readFileSync(stageTemplatePath, 'utf-8');
-        // }
-
-
-        // var activityTemplatePath = __dirname + "/template/source_template/MainActivity.java";
         let templateData = temp;
         templateData = templateData.replace("!!!packageName!!!", this.applicationData.applicationId);
         templateData = templateData.replace("!!!activityName!!!", this.activityData.codeActivityName);
@@ -246,10 +160,9 @@ export class CodeGeneratorService {
         templateData = templateData.replace("!!!variableFindList!!!", finder);
         templateData = templateData.replace("!!!eventList!!!", eventString);
         templateData = templateData.replace("!!!onCreateEvent!!!", onCreateEventString);
-        templateData = templateData.replace("!!!stageAnimationFormat!!!", stageTemplateData);
+        templateData = templateData.replace("!!!onBackPressedEvent!!!", backPressedEventData);
 
-
-        this.codeResult['java'] = templateData;//this.appDataService.makeBeautifyWithCount(templateData, 40);
+        this.codeResult['java'] = templateData;
 
         resolve('');
 
@@ -261,17 +174,89 @@ export class CodeGeneratorService {
 
   }
 
+  insertImplEvent(triggerEvent) {
+
+    let result = '\n';
+    const implEvent = this.appDataService.findImplentEventByTriggerEventId(triggerEvent.id);
+    if (implEvent.type === 'stageChange') {
+      result += this.insertStageChangeEvent(implEvent);
+    }
+    if (implEvent.type === 'finishActivity') {
+      result += 'context.finish();';
+    }
+    if (implEvent.type === 'startActivity') {
+      result += 'context.startActivity(new Intent(context, ' + this.getActivityNameByActivityId(implEvent.toActivityId).codeActivityName + '.class));';
+    }
+    return result;
+  }
+
+  insertStageChangeEvent(implEvent) {
+
+    let result = '';
+    const stateEventList = this.appDataService.findStateChangeEventByImplementEventId(implEvent.id);
+    const fromStage = this.appDataService.findStageByStageId(implEvent.fromStageId);
+    const toStage = this.appDataService.findStageByStageId(implEvent.toStageId);
+    const eventVar = this.appDataService.getUniqueResourceName(fromStage.name + '_' + toStage.name);
+    let stateEventCount = 0;
+    for (let i = 0; i < stateEventList.length; i++) {
+      const stateEvent = stateEventList[i];
+      if (stateEvent.isEnabled) {
+        if (stateEventCount == 0) {
+          result += "\nAnimatorSet " + eventVar + " = getStageChangeAnimation(";
+          result += ('\n' + this.getStateAnimationString(stateEventList[i]));
+        } else {
+          result += (',\n' + this.getStateAnimationString(stateEventList[i]));
+        }
+        stateEventCount++;
+      }
+    }
+
+    const afterAnmiation = this.appDataService.findTriggerEventByAfterTriggerEventId(implEvent.id);
+    let afterAnimationString = '';
+    if (afterAnmiation) {
+      afterAnimationString = this.insertImplEvent(afterAnmiation);
+    }
+    if (stateEventCount > 0) {
+      result += '); \n';
+      result += (
+        eventVar + '.addListener(new Animator.AnimatorListener() {\n'
+        + '@Override\n'
+        + 'public void onAnimationStart(Animator animator) {currentStage = "' + implEvent.fromStageId + '";}\n'
+        + '@Override\n'
+        + 'public void onAnimationEnd(Animator animator) {currentStage = "' + implEvent.toStageId + '";\n ' + afterAnimationString + '\n}\n'
+        + '@Override\n'
+        + 'public void onAnimationCancel(Animator animator) {}\n'
+        + '@Override\n'
+        + 'public void onAnimationRepeat(Animator animator) {}\n'
+        + '});\n'
+      );
+      result += (eventVar + '.start();\n');
+    }
+
+    return result;
+  }
 
 
 
+
+
+
+  getStateAnimationString(event) {
+    const fromState = this.appDataService.findStateByStateId(this.activityData, event.fromStateId);
+    const toState = this.appDataService.findStateByStateId(this.activityData, event.toStateId);
+    const object = this.appDataService.findObjectById(toState.objectId);
+    let result = "";
+    if (object && toState && fromState) {
+      result += "getStateAnimation(" + object.resourceId + "," + event.duration + "," + (event.delay | 0).toFixed(0) + "," + (toState.translationX | 0).toFixed(0) + "," + (toState.translationY | 0).toFixed(0) + "," + (toState.scaleX | 0).toFixed(1) + ", " + (toState.scaleY | 0).toFixed(1) + ", " + (toState.alpha | 0).toFixed(1) + ", " + (toState.rotation | 0).toFixed(0) + ", " + (toState.rotationX | 0).toFixed(0) + ", " + (toState.rotationY | 0).toFixed(0) + ")";
+    }
+    return result;
+  }
 
 
   insertChild(objectId) {
-    // console.log('insertChild = ' + objectId);
+    console.log('insertChild = ' + objectId);
     let xmlString = '';
-
     const object = this.findObjectById(objectId);
-
     if (object) {
       const state = this.findStateByObjectId(objectId);
       if (state) {
@@ -287,8 +272,15 @@ export class CodeGeneratorService {
     }
     return xmlString;
   }
+
+
+
+
+
+
+
   pxToDp(px) {
-    return px * (160 / 640);
+    return (px * (160 / 640)).toFixed(0);
   }
 
 
@@ -314,9 +306,12 @@ export class CodeGeneratorService {
       return '\n<TextView\n' + this.getStateStringById(object, state) + ' />';
     } else if (object.type === 'EditText') {
       return '\n<EditText\n' + this.getStateStringById(object, state) + ' />';
+    } else if (object.type === 'LottieAnimationView') {
+      return '\n<com.airbnb.lottie.LottieAnimationView\n' + this.getStateStringById(object, state) + ' />';
+    } else if (object.type === 'VideoView') {
+      return '\n<VideoView\n' + this.getStateStringById(object, state) + ' />';
     }
     console.log('getObjectString finish');
-
     return '';
   }
 
@@ -356,7 +351,7 @@ export class CodeGeneratorService {
       console.log('null state!!!');
     } else {
 
-      result = '\nandroid:id=\"@+id/' + object.resourceId + '\"\nandroid:tag=\"' + state.id + '\"\nandroid:layout_width=\"' + this.pxToDp(state.width) + 'dp\"\nandroid:layout_height=\"' + this.pxToDp(state.height) + 'dp\"\n';
+      result = '\nandroid:id=\"@+id/' + object.resourceId + '\"\nandroid:layout_width=\"' + this.pxToDp(state.width) + 'dp\"\nandroid:layout_height=\"' + this.pxToDp(state.height) + 'dp\"\n';
 
       if (state.marginLeft) {
         result += 'android:layout_marginLeft=\"' + this.pxToDp(state.marginLeft) + 'dp\"\n';
@@ -407,9 +402,18 @@ export class CodeGeneratorService {
       }
 
       //ImageView
-      if (object.dataUrl) {
-        result += 'android:scaleType=\"fitXY\"\n';
-        result += 'android:src=\"@mipmap/' + object.dataUrl.replace('image/', '').split('.')[0] + '\"\n';
+      if (object.type === 'ImageView') {
+        if (object.dataUrl) {
+          result += 'android:scaleType=\"fitXY\"\n';
+          result += 'android:src=\"@mipmap/' + object.dataUrl.replace('image/', '').split('.')[0] + '\"\n';
+        }
+      }
+
+      //LottieAnimationView      
+      if (object.type === 'LottieAnimationView') {
+        if (object.dataUrl) {
+          result += ' app:lottie_fileName="' + object.dataUrl + '\"\n';
+        }
       }
     }
     console.log('getStateStringById done');

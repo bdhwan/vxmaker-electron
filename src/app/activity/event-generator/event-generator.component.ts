@@ -76,7 +76,7 @@ export class EventGeneratorComponent implements OnInit {
 
 
   getLottieViewList() {
-    return this.filterObjectView('LottieView');
+    return this.filterObjectView('LottieAnimationView');
   }
 
   getImageViewList() {
@@ -95,6 +95,7 @@ export class EventGeneratorComponent implements OnInit {
       }
     }
     return result;
+
   }
 
 

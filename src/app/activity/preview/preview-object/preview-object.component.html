@@ -3,7 +3,7 @@
     <p class="img-data" *ngIf="objectData.type=='TextView' ||objectData.type=='Button' ||objectData.type=='EditText' ">{{objectData.text}}</p>
 
 
-    <app-lottie-animation-view #lottieView *ngIf="objectData.type==='LottieView'" style="width:100%;height:100%;">
+    <app-lottie-animation-view #lottieView *ngIf="objectData.type==='LottieAnimationView'" style="width:100%;height:100%;">
     </app-lottie-animation-view>
 
     <video #videoView *ngIf="objectData.type==='VideoView'" [src]="prefix+applicationFolderPath+ '/'+objectData.dataUrl" onError="this.src='assets/images/ic_video.png' " autoplay loop style="width:100%;height:100%;">

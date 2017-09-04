@@ -1,21 +1,21 @@
 {
-    "name": "LottieView",
-    "type": "LottieView",
-     "icon": "assets/images/btn_startlottie.png",
+    "name": "LottieAnimationView",
+    "type": "LottieAnimationView",
+    "icon": "assets/images/btn_startlottie.png",
     "objectProperties": [{
             "name": "type",
             "type": "string",
-            "default": "LottieView"
+            "default": "LottieAnimationView"
         },
         {
             "name": "name",
             "type": "string",
-            "default": "LottieView"
+            "default": "LottieAnimationView"
         },
         {
             "name": "backgroundColor",
             "type": "string",
-             "default": "#f9f9f9"
+            "default": "#f9f9f9"
         },
         {
             "name": "dataUrl",

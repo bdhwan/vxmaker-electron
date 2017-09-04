@@ -4,7 +4,7 @@
         "ImageView.json",
         "TextView.json",
         "Button.json",
-        "LottieView.json",
+        "LottieAnimationView.json",
         "CameraView.json",
         "VideoView.json"
     ],
