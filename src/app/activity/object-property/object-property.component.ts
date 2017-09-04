@@ -104,9 +104,9 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
     this.selectedState = this.appDataService.getSelectedState();
 
 
-    this.objectLayoutData = this.codeGenerator.insertChild(this.selectedObject.id);
+    // this.objectLayoutData = this.codeGenerator.insertChild(this.selectedObject.id);
 
-    console.log("objectLayoutData = " + this.objectLayoutData);
+    // console.log("objectLayoutData = " + this.objectLayoutData);
 
 
   }
