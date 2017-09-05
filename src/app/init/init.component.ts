@@ -5,6 +5,7 @@ import { ApplicationDataServiceService } from '../service/application-data-servi
 import { BroadcastService } from '../service/broadcast.service';
 import { MessageEventService } from '../service/message-event.service';
 import { environment } from '../../environments/environment';
+import { CodeGeneratorService } from '../service/code-generator.service';
 
 
 
@@ -17,18 +18,27 @@ import { environment } from '../../environments/environment';
 })
 export class InitComponent implements OnInit {
   imgPrefix = environment.imgPrefix;
-  
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private appDataService: ApplicationDataServiceService,
     private broadcaster: BroadcastService,
-    private messageEvent: MessageEventService
+    private messageEvent: MessageEventService,
+    private codeGenerator: CodeGeneratorService
   ) { }
 
   ngOnInit() {
     // this.appDataService.changeWindowSize(800, 502, true);
-    this.registerStringBroadcast();
+
+    this.codeGenerator.loadTemplete().then(result => {
+
+      this.registerStringBroadcast();
+      console.log("done load template");
+    });
+
+
+
   }
 
   registerStringBroadcast() {

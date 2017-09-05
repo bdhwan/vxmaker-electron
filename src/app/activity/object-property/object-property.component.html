@@ -38,10 +38,16 @@
 
 
         <button (click)="toggleCode()">code</button>
-        <div *ngIf="selectedState&&needShowCode">
-            show code area
-            <handy-syntax-highlighter [language]="'java'" [content]="objectLayoutData"></handy-syntax-highlighter>
+        <div *ngIf="selectedState&&needShowCode&&objectLayoutData">
+            <button [clip]="objectLayoutData" (onClip)="callback($event)">copy</button>
+            <handy-syntax-highlighter *ngIf="objectLayoutData" [language]="'java'" [content]="objectLayoutData"></handy-syntax-highlighter>
+
         </div>
+
+        <div *ngIf="openSource">
+            open source information {{openSource.title}}, {{openSource.url}},{{openSource.description}},{{openSource.author}}
+        </div>
+
 
 
         <div class="btn-more">

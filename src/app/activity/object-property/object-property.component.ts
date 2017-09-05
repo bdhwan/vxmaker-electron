@@ -1,15 +1,14 @@
-import { Component, OnInit, AfterViewInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, NgZone, AfterViewInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ApplicationDataServiceService } from '../../service/application-data-service.service';
 
 import { PreviewSizeComponent } from '../preview-size/preview-size.component';
 import { CodeGeneratorService } from '../../service/code-generator.service';
 
-
-
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-object-property',
+
   templateUrl: './object-property.component.html',
   styleUrls: ['./object-property.component.css']
 })
@@ -23,6 +22,8 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
   selectedObject;
   selectedState;
   objectLayoutData;
+  objectBasicData;
+  openSource;
 
 
   showPropertyKeys = [
@@ -54,7 +55,7 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
 
   constructor(
     private appDataService: ApplicationDataServiceService
-    , private codeGenerator: CodeGeneratorService
+    , public zone: NgZone
   ) {
 
 
@@ -102,15 +103,29 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
     this.selectedTriggerEvent = this.appDataService.getSelectedTriggerEvent();
     this.selectedObject = this.appDataService.getSelectedObject();
     this.selectedState = this.appDataService.getSelectedState();
+    this.objectBasicData = this.appDataService.findObjectBasicDataByType(this.selectedObject.type);
+    if (this.objectBasicData) {
+      this.openSource = this.objectBasicData.openSource;
+    }
+    else {
+      this.openSource = null;
+    }
 
 
-    // this.objectLayoutData = this.codeGenerator.insertChild(this.selectedObject.id);
 
-    // console.log("objectLayoutData = " + this.objectLayoutData);
 
+    this.objectLayoutData = null;
+    const self = this;
+    setTimeout(function () {
+      self.objectLayoutData = self.appDataService.makeBeautify(self.appDataService.insertChild(self.selectedObject.id));
+    }, 10);
 
   }
 
+
+  callback($event) {
+    console.log("done clip");
+  }
 
 
 

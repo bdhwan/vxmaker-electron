@@ -34,7 +34,6 @@ export class CodeActivityLayoutComponent implements OnInit {
 
   public setActivityData(activityData) {
 
-
     if (this.isMakingCode) {
       return;
     }
@@ -42,20 +41,12 @@ export class CodeActivityLayoutComponent implements OnInit {
     this.isMakingCode = true;
     this.activityData = activityData;
 
-    this.layoutData = null;
-    this.javaData = null;
+    const result = this.appDataService.makeActivitySourceCode();
 
+    this.layoutData = result['layout'];
+    this.javaData = result['java'];
     console.log("will make activity source code");
-
-
-
-    this.codeGenerator.makeActivitySourceCode(this.appDataService.getApplicationData(), this.activityData).then(result => {
-      // console.log("result code = " + JSON.stringify(result));
-      this.isMakingCode = false;
-      console.log("done make activity source code");
-      this.javaData = result['java'];
-      this.layoutData = result['layout'];
-    });
+    this.isMakingCode = false;
   }
 
   private makeLayoutData() {
@@ -65,25 +56,25 @@ export class CodeActivityLayoutComponent implements OnInit {
 
 
 
-    this.appDataService.loadTemplateString('/source_template/activity_main.xml').then(result => {
-      console.log("result activity_main = " + result);
-      let temp = result + '';
-      const xmlString = this.appDataService.makeLayoutData();
-      temp = temp.replace('!!!layoutList!!!', xmlString);
-      temp = temp.replace('!!!packageName!!!', this.appDataService.getApplicationData().applicationId);
-      temp = temp.replace('!!!activityName!!!', this.appDataService.getActivityName(this.activityData.activityId));
-      this.layoutData = this.appDataService.makeBeautify(temp);
-      return this.appDataService.loadTemplateString('/source_template/MainActivity.java');
-    }).then(result => {
+    // this.appDataService.loadTemplateString('/source_template/activity_main.xml').then(result => {
+    //   console.log("result activity_main = " + result);
+    //   let temp = result + '';
+    //   const xmlString = this.appDataService.makeLayoutData();
+    //   temp = temp.replace('!!!layoutList!!!', xmlString);
+    //   temp = temp.replace('!!!packageName!!!', this.appDataService.getApplicationData().applicationId);
+    //   temp = temp.replace('!!!activityName!!!', this.appDataService.getActivityName(this.activityData.activityId));
+    //   this.layoutData = this.appDataService.makeBeautify(temp);
+    //   return this.appDataService.loadTemplateString('/source_template/MainActivity.java');
+    // }).then(result => {
 
-      // let temp = result + '';
-      // const xmlString = this.appDataService.makeJavaData();
-      // temp = temp.replace('!!!layoutList!!!', xmlString);
-      // temp = temp.replace('!!!packageName!!!', this.appDataService.getApplicationData().applicationId);
-      // temp = temp.replace('!!!activityName!!!', this.appDataService.getActivityName(this.activityData.activityId));
-      // this.javaData = this.appDataService.makeBeautify(temp);
+    //   // let temp = result + '';
+    //   // const xmlString = this.appDataService.makeJavaData();
+    //   // temp = temp.replace('!!!layoutList!!!', xmlString);
+    //   // temp = temp.replace('!!!packageName!!!', this.appDataService.getApplicationData().applicationId);
+    //   // temp = temp.replace('!!!activityName!!!', this.appDataService.getActivityName(this.activityData.activityId));
+    //   // this.javaData = this.appDataService.makeBeautify(temp);
 
-    });
+    // });
 
   }
 
@@ -92,6 +83,7 @@ export class CodeActivityLayoutComponent implements OnInit {
 
   public onChangeData() {
     console.log("onChange Data");
+    // debugger;
 
   }
 

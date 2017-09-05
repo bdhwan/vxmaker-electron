@@ -3,11 +3,11 @@
         <div class="popup" (click)="nothing($event)">
 
 
-            <div *ngIf="javaData">
-                <handy-syntax-highlighter [language]="'java'" [content]="javaData"></handy-syntax-highlighter>
+            <div>
+                <handy-syntax-highlighter *ngIf="javaData" [language]="'java'" [content]="javaData"></handy-syntax-highlighter>
             </div>
-            <div *ngIf="layoutData">
-                <handy-syntax-highlighter [language]="'java'" [content]="layoutData"></handy-syntax-highlighter>
+            <div>
+                <handy-syntax-highlighter *ngIf="layoutData" [language]="'java'" [content]="layoutData"></handy-syntax-highlighter>
             </div>
 
 

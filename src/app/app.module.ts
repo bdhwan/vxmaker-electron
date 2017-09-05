@@ -45,8 +45,7 @@ import { GuideComponent } from './guide/guide.component';
 import { WindowProxyComponent } from './window-proxy/window-proxy.component';
 import { CodeActivityLayoutComponent } from './activity/code-preview/code-activity-layout/code-activity-layout.component';
 import { Ng2HandySyntaxHighlighterModule } from 'ng2-handy-syntax-highlighter';
-
-
+import { ClipModule } from 'ng2-clip';
 
 
 const appRoutes: Routes = [
@@ -103,6 +102,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     TreeModule,
+    ClipModule,
     Ng2HandySyntaxHighlighterModule,
     RouterModule.forRoot(appRoutes)
   ],

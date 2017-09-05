@@ -22,6 +22,7 @@ import { ApplicationDataServiceService } from '../service/application-data-servi
 import { UUID } from 'angular2-uuid';
 import { BroadcastService } from '../service/broadcast.service';
 import { MessageEventService } from '../service/message-event.service';
+import { CodeGeneratorService } from '../service/code-generator.service';
 
 
 import 'rxjs/add/operator/switchMap';
@@ -115,6 +116,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     public zone: NgZone,
     private appDataService: ApplicationDataServiceService,
     private broadcaster: BroadcastService,
+    private codeGenerator: CodeGeneratorService,
     private messageEvent: MessageEventService
   ) {
     this.isReadyToRender = false;
@@ -130,6 +132,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.activityId = this.route.snapshot.params['activityId'];
     this.appDataService.initApplicationPath(this.applicationFolderPath);
     this.appDataService.initActivityId(this.activityId);
+
     this.registerStringBroadcast();
   }
 
@@ -252,6 +255,8 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
       this.defaultStateData = this.appDataService.getDefaultStateData();
       this.objectTypeData = this.appDataService.getObjectTypeData();
       return this.appDataService.loadApplicationData();
+    }).then((result) => {
+      return this.codeGenerator.loadTemplete();
     })
       .then((result) => {
         return this.appDataService.loadImageResourceList();

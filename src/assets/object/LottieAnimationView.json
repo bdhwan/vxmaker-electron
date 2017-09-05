@@ -2,6 +2,12 @@
     "name": "LottieAnimationView",
     "type": "LottieAnimationView",
     "icon": "assets/images/btn_startlottie.png",
+    "openSource": {
+        "title": "LottieAnimationView",
+        "url": "github.com",
+        "author": "robert",
+        "description": "bla bla bla"
+    },
     "objectProperties": [{
             "name": "type",
             "type": "string",

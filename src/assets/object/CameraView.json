@@ -2,6 +2,12 @@
     "name": "CameraView",
     "type": "CameraView",
     "icon": "assets/images/btn_takepicture.png",
+    "openSource": {
+        "title": "LottieAnimationView",
+        "url": "github.com",
+        "author": "robert",
+        "description": "bla bla bla"
+    },
     "objectProperties": [{
             "name": "type",
             "type": "string",

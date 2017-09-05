@@ -5,6 +5,19 @@ import { ApplicationDataServiceService } from '../service/application-data-servi
 @Injectable()
 export class CodeGeneratorService {
 
+
+  //template data hash
+  templateDataHash = {};
+  templateNameList = [
+    'activity_main.xml',
+    'MainActivity.java',
+  ];
+  templateFileList = [
+    '/source_template/activity_main.xml',
+    '/source_template/MainActivity.java',
+  ];
+
+
   applicationData;
   activityData;
   selectedStage;
@@ -18,6 +31,31 @@ export class CodeGeneratorService {
   codeResult = {};
 
   constructor(private appDataService: ApplicationDataServiceService) { }
+
+  public loadTemplete() {
+    return new Promise((resolve, reject) => {
+      const promiseList = [];
+      for (let i = 0; i < this.templateNameList.length; i++) {
+        const name = this.templateNameList[i];
+        const path = this.templateFileList[i];
+        promiseList.push(this.loadTemplateString(name, path));
+      }
+      Promise.all(promiseList).then(result => {
+        resolve(result);
+      });
+    });
+  }
+
+
+
+  loadTemplateString(name, path) {
+    return new Promise((resolve, reject) => {
+      this.appDataService.loadTemplateString(path).then(result => {
+        this.templateDataHash[name] = result;
+        resolve(result);
+      });
+    });
+  }
 
 
   public makeApplicationSourceCode(applicationData) {

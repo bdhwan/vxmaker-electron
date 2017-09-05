@@ -1,7 +1,7 @@
 {
     "name": "VideoView",
     "type": "VideoView",
-     "icon": "assets/images/btn_startvideo.png",
+    "icon": "assets/images/btn_startvideo.png",
     "objectProperties": [{
             "name": "type",
             "type": "string",
