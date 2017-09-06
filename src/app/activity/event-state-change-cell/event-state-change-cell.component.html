@@ -7,7 +7,7 @@
         <!--<input type="checkbox" [(ngModel)]="stateEventData.isEnabled">-->
 
         <!-- 오브젝트 이벤트 활성화 온오프 버튼 -->
-  
+
         <label class="control control--checkbox object-id object-list">
             {{getObjectName(stateEventData.objectId).name}}
             <input type="checkbox" checked="checked"  [(ngModel)]="stateEventData.isEnabled"/>
@@ -22,14 +22,17 @@
         </div>-->
 
         <!-- 그래프 미리보기 -->
-        <app-event-state-change-graph class="go-graph object-list" (click)="toggleDetail()" #graphSmall [stateEventData]="stateEventData"
-            [graphSize]="18"></app-event-state-change-graph>
+        <app-event-state-change-graph class="go-graph object-list" (click)="toggleDetail()" #graphSmall [stateEventData]="stateEventData" [graphSize]="18"></app-event-state-change-graph>
 
         <!-- 타임라인 미리보기 -->
-        <app-event-state-change-timeline class="timeline-preview object-list" #timeLineSmall (onChangeTimeLine)="onChangeTimeLineFromTimeLine($event)"
-            [stateEventData]="stateEventData" [timeLinePadding]="1" [timeLineSizeW]="120" [timeLineSizeH]="8" [maxTime]="maxTotalTime"></app-event-state-change-timeline>
+        <app-event-state-change-timeline class="timeline-preview object-list" #timeLineSmall (onChangeTimeLine)="onChangeTimeLineFromTimeLine($event)" [stateEventData]="stateEventData" [timeLinePadding]="1" [timeLineSizeW]="120" [timeLineSizeH]="8" [maxTime]="maxTotalTime"></app-event-state-change-timeline>
 
         <!--<button (click)="toggleDetail()">상세</button>-->
+
+
+
+
+
     </div>
     <!-- 오브젝트 이름@-->
 
@@ -54,8 +57,7 @@
                 </select>
 
                 <!-- 인터폴레이터 그래프 -->
-                <app-event-state-change-graph #graphBig (onChangeGraph)="onChangeGraph($event)" [needHandler]="true" [stateEventData]="stateEventData"
-                    [graphSize]="288" [paddingSize]="20"></app-event-state-change-graph>
+                <app-event-state-change-graph #graphBig (onChangeGraph)="onChangeGraph($event)" [needHandler]="true" [stateEventData]="stateEventData" [graphSize]="288" [paddingSize]="20"></app-event-state-change-graph>
 
                 <!-- 인터폴레이터 수치 입력-->
                 <div class="curve-input">
@@ -74,8 +76,7 @@
                 <p style="margin-bottom:10px;">Timeline</p>
 
                 <!-- 타임라인 에디트 -->
-                <app-event-state-change-timeline #timeLineBig (onChangeTimeLine)="onChangeTimeLineFromTimeLine($event)" [stateEventData]="stateEventData"
-                    [timeLinePadding]="0" [timeLineSizeW]="288" [timeLineSizeH]="20" [maxTime]="maxTotalTime"></app-event-state-change-timeline>
+                <app-event-state-change-timeline #timeLineBig (onChangeTimeLine)="onChangeTimeLineFromTimeLine($event)" [stateEventData]="stateEventData" [timeLinePadding]="0" [timeLineSizeW]="288" [timeLineSizeH]="20" [maxTime]="maxTotalTime"></app-event-state-change-timeline>
 
 
                 <!-- 시작 시간 및 동작 시간-->
@@ -92,7 +93,22 @@
 
             <!--타임라인 전체 @ -->
 
+
+
         </div>
+
+
+
+        <!-- source code -->
+        <div>
+            <button (click)="toggleShowCode()">code</button>
+            <div *ngIf="needShowCode&&stateChangeAnimationCode">
+
+                <button [clip]="stateChangeAnimationCode" (onClip)="callback($event)">copy</button>
+                <handy-syntax-highlighter *ngIf="stateChangeAnimationCode" [language]="'java'" [content]="stateChangeAnimationCode"></handy-syntax-highlighter>
+            </div>
+        </div>
+
 
     </div>
     <!-- 오브젝트 상세@-->

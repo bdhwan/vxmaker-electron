@@ -13,6 +13,7 @@ var tar = require('tar');
 var fstream = require("fstream");
 var Promise = require('bluebird');
 var PsdUtil = require('./psd-util.js');
+// var screenshot = require('electron-screenshot-service');
 
 var settings = new ElectronData({
     path: app.getPath('userData'),
@@ -191,6 +192,58 @@ ipcMain.on('select-workspace-folder-path', (event, beforePath) => {
 
 
 //make application folder
+ipcMain.on('capture-screen', (event, x, y, width, height, filePath) => {
+    console.log("will capture - " + x + ", " + y + ", " + width + ", " + height + ", " + filePath);
+
+
+    let captureRect = {
+        x: x,
+        y: y,
+        width: width,
+        height: height
+    };
+
+
+    win.capturePage(captureRect, (img) => {
+        console.log("image size: ", img.getSize());
+        let jpgFile = img.toJPEG(100);
+
+        fse.writeFile(filePath, jpgFile, function(err) {
+            if (err) {
+                console.log("err capture = " + JSON.stringify(err));
+            } else {
+                console.log("done save capture = " + filePath);
+            }
+            event.sender.send('capture-screen-result', filePath);
+        });
+        // save file as testSetViewSize.jpg, I used jetpack.writeAsync
+    });
+
+
+    // console.log("will capture - " + x + ", " + y + ", " + width + ", " + height + ", " + filePath);
+    // screenshot({
+    //         x: x,
+    //         y: y,
+    //         width: width,
+    //         height: height
+    //     })
+    //     .then(function(img) {
+    //         fs.writeFile(filePath, img.data, function(err) {
+    //             if (err) {
+    //                 console.log("err capture = " + JSON.stringify(err));
+    //             } else {
+    //                 console.log("done save capture = " + filePath);
+    //             }
+    //             screenshot.close();
+    //             event.sender.send('capture-screen-result', filePath);
+    //         });
+    //     });
+})
+
+
+
+
+//make application folder
 ipcMain.on('make-folder', (event, folder) => {
     mkdirp.sync(folder);
     event.returnValue = folder;
@@ -200,7 +253,11 @@ ipcMain.on('make-folder', (event, folder) => {
 //open url external browser
 ipcMain.on('open-url', (event, url) => {
 
-    shell.openExternal(url);
+    console.log("will open url =" + url);
+
+    const result = shell.openExternal(url);
+
+    console.log("will open result =" + result);
     event.returnValue = true;
 })
 

@@ -20,7 +20,12 @@ export class EventStateChangeCellComponent implements OnInit {
   @Output() onChangeTimeLineFromStateCell = new EventEmitter<string>();
 
 
+  needShowCode = false;
+
+  stateChangeAnimationCode;
+
   isExpaned;
+
 
   presetInterpolatorList = [
     {
@@ -143,19 +148,13 @@ export class EventStateChangeCellComponent implements OnInit {
       'name': 'easeInOutBack',
       'value': [0.68, -0.55, 0.265, 1.55]
     }
-
   ];
-
-
-
 
   constructor(private appDataService: ApplicationDataServiceService) { }
 
   ngOnInit() {
     console.log("maxtime =" + this.maxTotalTime);
   }
-
-
 
   getObjectName(objectId) {
     return this.appDataService.findObjectById(objectId);
@@ -166,12 +165,8 @@ export class EventStateChangeCellComponent implements OnInit {
   }
 
   onChangeTimeLineFromTimeLine(value) {
-
-    console.log("call onChangeTimeLineFromTimeLine 1");
     this.onChangeTimeLineFromStateCell.emit('change');
   }
-
-
 
 
   onChangeInterpolator(interpolator, target) {
@@ -183,6 +178,32 @@ export class EventStateChangeCellComponent implements OnInit {
 
   toggleDetail() {
     this.isExpaned = !this.isExpaned;
+  }
+
+
+
+
+
+
+  toggleShowCode() {
+    this.needShowCode = !this.needShowCode;
+    this.updateCode();
+    console.log("needShowCode =" + this.needShowCode);
+  }
+
+
+  callback($event) {
+
+  }
+
+  updateCode() {
+
+    this.stateChangeAnimationCode = null;
+    const self = this;
+    setTimeout(function () {
+      self.stateChangeAnimationCode = self.appDataService.getStateAnimationString(self.stateEventData);
+    }, 10);
+
   }
 
 

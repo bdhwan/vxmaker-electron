@@ -178,6 +178,13 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           if (selectedPSD) {
             this.parsePsd(selectedPSD);
           }
+        } else if (kind === 'open-url') {
+          const targetUrl = message.url;
+          this.appDataService.openUrl(targetUrl);
+        } else if (kind === 'select-object') {
+          const selectedObject = this.appDataService.findObjectById(message.objectId);
+          this.appDataService.setSelectedObject(selectedObject);
+          this.notifySelectedObjectChanged();
         }
       });
   }
@@ -372,7 +379,11 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   clickBack(): void {
     //capture and go back
-    this.captureScreen();
+    this.saveProcessAsync().then(result => {
+      this.zone.run(() => {
+        this.location.back();
+      });
+    });
   }
 
 
@@ -392,23 +403,26 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.appDataService.saveActivityData(this.activityId, this.activityData);
   }
 
-  captureScreen(): void {
-    const self = this;
-    this.previewComponent.captureScreen().then((data) => {
-
+  captureScreen() {
+    return new Promise((resolve, reject) => {
+      const self = this;
       const fileName = 'preview/' + self.activityId + '.jpg';
       const filePath = self.applicationFolderPath + '/' + fileName;
-
-      self.appDataService.saveRawFile(filePath, data);
-      self.activityMetaData.previewPath = fileName;
-      self.saveApplicationData();
-      self.saveActivityData();
-
-      self.zone.run(() => {
-        // console.log("will go back");
-        self.location.back();
+      this.appDataService.captureScreen(288, 120, window.innerWidth - 288 - 320, window.innerHeight - 80 * 2, filePath).then(result => {
+        // this.savePreviewImagePath(fileName);
+        resolve(fileName);
       });
     });
+  }
+
+  savePreviewImagePath(filePath) {
+    for (let i = 0; i < this.applicationData.activityList.length; i++) {
+      const activity = this.applicationData.activityList[i];
+      if (activity.activityId === this.activityId) {
+        activity.previewPath = filePath;
+      }
+
+    }
   }
 
 
@@ -418,7 +432,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     const self = this;
     this.saveProcessAsync().then(result => {
       console.log("done save");
-
       self.zone.run(() => {
         console.log("done save data");
         this.saveStatus = false;
@@ -426,21 +439,32 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  saveProcessAsync() {
-    const self = this;
-    return new Promise((resolve, reject) => {
-      this.saveApplicationData();
-      this.saveActivityData();
 
-      this.previewComponent.captureScreen().then((data) => {
-        const fileName = 'preview/' + self.activityId + '.jpg';
-        const filePath = self.applicationFolderPath + '/' + fileName;
-        self.appDataService.saveRawFile(filePath, data);
-        self.activityMetaData.previewPath = fileName;
-        self.saveApplicationData();
-        self.saveActivityData();
+
+
+  saveProcessAsync() {
+    // const self = this;
+    return new Promise((resolve, reject) => {
+      this.captureScreen().then(result => {
+        console.log("result = " + result);
+        this.activityMetaData.previewPath = result;
+        this.saveApplicationData();
+        this.saveActivityData();
         resolve(true);
       });
+
+
+
+
+      // this.previewComponent.captureScreen().then((data) => {
+      //   const fileName = 'preview/' + self.activityId + '.jpg';
+      //   const filePath = self.applicationFolderPath + '/' + fileName;
+      //   self.appDataService.saveRawFile(filePath, data);
+      //   self.activityMetaData.previewPath = fileName;
+      //   self.saveApplicationData();
+      //   self.saveActivityData();
+      //   resolve(true);
+      // });
     });
   }
 

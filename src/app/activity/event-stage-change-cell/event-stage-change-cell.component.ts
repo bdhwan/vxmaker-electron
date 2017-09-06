@@ -12,7 +12,7 @@ export class EventStageChangeCellComponent implements OnInit, AfterViewInit {
   context: CanvasRenderingContext2D;
   @ViewChild('myCanvasS') myCanvasS;
   @ViewChild('myCanvas') myCanvas;
-  
+
   @Input('stateEventData') stateEventData;
 
 
@@ -32,6 +32,10 @@ export class EventStageChangeCellComponent implements OnInit, AfterViewInit {
   isSelectedRightPoint;
 
   isExpanded;
+
+
+
+
 
   constructor(private elementRef: ElementRef, private appDataService: ApplicationDataServiceService) { }
 
@@ -177,6 +181,7 @@ export class EventStageChangeCellComponent implements OnInit, AfterViewInit {
     this.isSelectedLeftPoint = false;
     this.isSelectedRightPoint = false;
   }
+
 
 
 }

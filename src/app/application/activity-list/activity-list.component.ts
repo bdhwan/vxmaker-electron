@@ -32,6 +32,11 @@ export class ActivityListComponent implements OnInit {
 
   }
 
+  getPreviewPath(origin) {
+
+    return origin + '?' + new Date().getTime();
+  }
+
 
 
   onChangeActivityListData(): void {

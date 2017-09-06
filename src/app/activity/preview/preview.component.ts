@@ -32,7 +32,10 @@ export class PreviewComponent implements OnInit {
   selectedObject;
   selectedStage;
   selectedState;
+  selectedOverState;
   activityData;
+
+
 
   isMouseDown = false;
   isResizeDown = false;
@@ -86,24 +89,11 @@ export class PreviewComponent implements OnInit {
     this.beforeX = event.clientX;
     this.beforeY = event.clientY;
 
-
     if (this.isKeyCTRL) {
-
-
       const x = (event.clientX - this.elementView.nativeElement.offsetLeft) / this.zoom;
       const y = (event.clientY - this.elementView.nativeElement.offsetTop) / this.zoom;
-      const targetList = this.appDataService.getAllSelectedState();
-      for (let i = targetList.length - 1; i >= 0; i--) {
-        const state = targetList[i];
-        const left = state.translationX + state.marginLeft;
-        const top = state.translationY + state.marginTop;
-        const right = left + state.width;
-        const bottom = top + state.height;
-        if (x > left && x < right && y > top && y < bottom) {
-          this.onSelectNodeFromOther.emit(state.objectId);
-          break;
-        }
-      }
+      this.checkSelectedObject(x, y, true);
+
     }
 
 
@@ -111,8 +101,40 @@ export class PreviewComponent implements OnInit {
     if (this.selectedObject.id !== 'root') {
       this.isMouseDown = true;
     }
+  }
+
+
+
+  checkSelectedObject(x, y, needSelectObject) {
+
+
+    const targetList = this.appDataService.getAllSelectedState();
+    for (let i = targetList.length - 1; i >= 0; i--) {
+      const state = targetList[i];
+      const left = state.translationX + state.marginLeft;
+      const top = state.translationY + state.marginTop;
+      const right = left + state.width;
+      const bottom = top + state.height;
+      if (x > left && x < right && y > top && y < bottom) {
+        this.selectedOverState = state;
+        const message = {
+          kind: 'select-object',
+          objectId: state.objectId
+        };
+        this.broadcaster.broadcast('activity', message);
+
+        // this.onSelectNodeFromOther.emit(state.objectId);
+        break;
+      }
+    }
 
   }
+
+
+
+
+
+
 
   mouseLeave(event: MouseEvent) {
     console.log("leave");
@@ -133,31 +155,63 @@ export class PreviewComponent implements OnInit {
     if (Math.abs(differX) < Math.abs(differY)) {
       fixDiffer = differY;
     }
-    if (this.isResizeDown) {
-      if (this.resizeIndex === 0) {
-        this.appDataService.getSelectedState().marginTop -= differY;
-        this.appDataService.getSelectedState().marginLeft -= differX;
-        this.appDataService.getSelectedState().width += differX;
-        this.appDataService.getSelectedState().height += differY;
-      } else if (this.resizeIndex === 1) {
-        // this.appDataService.getSelectedState().marginLeft -= differX;
-        this.appDataService.getSelectedState().marginTop -= differY;
-        this.appDataService.getSelectedState().width -= differX;
-        this.appDataService.getSelectedState().height += differY;
 
-      } else if (this.resizeIndex === 2) {
-        this.appDataService.getSelectedState().marginLeft -= differX;
-        this.appDataService.getSelectedState().width += differX;
-        this.appDataService.getSelectedState().height -= differY;
+    if (this.appDataService.getSelectedStage().id === 'rootStage') {
+      if (this.isResizeDown) {
+        if (this.resizeIndex === 0) {
+          this.appDataService.getSelectedState().marginTop -= differY;
+          this.appDataService.getSelectedState().marginLeft -= differX;
+          this.appDataService.getSelectedState().width += differX;
+          this.appDataService.getSelectedState().height += differY;
+        } else if (this.resizeIndex === 1) {
+          // this.appDataService.getSelectedState().marginLeft -= differX;
+          this.appDataService.getSelectedState().marginTop -= differY;
+          this.appDataService.getSelectedState().width -= differX;
+          this.appDataService.getSelectedState().height += differY;
 
-      } else if (this.resizeIndex === 3) {
-        this.appDataService.getSelectedState().width -= differX;
-        this.appDataService.getSelectedState().height -= differY;
+        } else if (this.resizeIndex === 2) {
+          this.appDataService.getSelectedState().marginLeft -= differX;
+          this.appDataService.getSelectedState().width += differX;
+          this.appDataService.getSelectedState().height -= differY;
+
+        } else if (this.resizeIndex === 3) {
+          this.appDataService.getSelectedState().width -= differX;
+          this.appDataService.getSelectedState().height -= differY;
+        }
+      } else if (this.isMouseDown) {
+        this.appDataService.getSelectedState().marginLeft -= differX;
+        this.appDataService.getSelectedState().marginTop -= differY;
       }
-    } else if (this.isMouseDown) {
-      this.appDataService.getSelectedState().marginLeft -= differX;
-      this.appDataService.getSelectedState().marginTop -= differY;
     }
+    else {
+      if (this.isResizeDown) {
+        if (this.resizeIndex === 0) {
+          this.appDataService.getSelectedState().translationY -= differY;
+          this.appDataService.getSelectedState().translationX -= differX;
+          this.appDataService.getSelectedState().width += differX;
+          this.appDataService.getSelectedState().height += differY;
+        } else if (this.resizeIndex === 1) {
+
+          this.appDataService.getSelectedState().translationY -= differY;
+          this.appDataService.getSelectedState().width -= differX;
+          this.appDataService.getSelectedState().height += differY;
+
+        } else if (this.resizeIndex === 2) {
+          this.appDataService.getSelectedState().translationX -= differX;
+          this.appDataService.getSelectedState().width += differX;
+          this.appDataService.getSelectedState().height -= differY;
+
+        } else if (this.resizeIndex === 3) {
+          this.appDataService.getSelectedState().width -= differX;
+          this.appDataService.getSelectedState().height -= differY;
+        }
+      } else if (this.isMouseDown) {
+        this.appDataService.getSelectedState().translationX -= differX;
+        this.appDataService.getSelectedState().translationY -= differY;
+      }
+    }
+
+
 
     this.beforeX = currentX;
     this.beforeY = currentY;
@@ -198,6 +252,10 @@ export class PreviewComponent implements OnInit {
   invalidatePreviewSize(): void {
     this.previewWidth = window.innerWidth - (this.leftMargin + this.rightMargin);
     this.previewHeight = window.innerHeight - this.topMargin;
+  }
+
+  public getPreviewPosition() {
+    // return 
   }
 
   public onChangeData(): void {
@@ -249,7 +307,9 @@ export class PreviewComponent implements OnInit {
   }
 
 
-
+  public getSelectedOverObjectStyle() {
+    return this.appDataService.getSelectedObjectStyle(this.selectedOverState);
+  }
 
 
 

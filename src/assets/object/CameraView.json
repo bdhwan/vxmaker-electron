@@ -3,10 +3,10 @@
     "type": "CameraView",
     "icon": "assets/images/btn_takepicture.png",
     "openSource": {
-        "title": "LottieAnimationView",
-        "url": "github.com",
-        "author": "robert",
-        "description": "bla bla bla"
+        "title": "Fotoapparat",
+        "url": "https://github.com/Fotoapparat/Fotoapparat",
+        "author": "Fotoapparat",
+        "description": "Making Camera for Android more friendly."
     },
     "objectProperties": [{
             "name": "type",

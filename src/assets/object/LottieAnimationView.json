@@ -4,9 +4,9 @@
     "icon": "assets/images/btn_startlottie.png",
     "openSource": {
         "title": "LottieAnimationView",
-        "url": "github.com",
-        "author": "robert",
-        "description": "bla bla bla"
+        "url": "https://github.com/airbnb/lottie-android",
+        "author": "airbnb",
+        "description": "Render After Effects animations natively on Android and iOS"
     },
     "objectProperties": [{
             "name": "type",

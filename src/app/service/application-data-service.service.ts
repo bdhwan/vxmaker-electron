@@ -50,6 +50,7 @@ export class ApplicationDataServiceService {
 
 
   parsePsdPromise: any;
+  capturePromise: any;
 
 
   idHash = {};
@@ -83,6 +84,10 @@ export class ApplicationDataServiceService {
     electron.ipcRenderer.on('parse-psd-result', (event, arg) => {
       this.parsePsdPromise(arg);
     });
+    electron.ipcRenderer.on('capture-screen-result', (event, arg) => {
+      this.capturePromise(arg);
+    });
+
 
   }
 
@@ -93,7 +98,7 @@ export class ApplicationDataServiceService {
   parsePsdFile(psdFilePath, applicationFolderPath) {
     return new Promise((resolve, reject) => {
       this.parsePsdPromise = resolve;
-      electron.ipcRenderer.sendSync('parse-psd', psdFilePath, applicationFolderPath);
+      electron.ipcRenderer.send('parse-psd', psdFilePath, applicationFolderPath);
     });
   }
 
@@ -117,6 +122,7 @@ export class ApplicationDataServiceService {
   }
 
   openUrl(url) {
+    console.log("will open url = " + url);
     electron.ipcRenderer.sendSync('open-url', url);
   }
 
@@ -167,6 +173,14 @@ export class ApplicationDataServiceService {
     electron.ipcRenderer.sendSync('delete-file', this.applicationFolderPath + '/activity/' + activityId + '.json');
   }
 
+  captureScreen(x, y, w, h, filePath) {
+    return new Promise((resolve, reject) => {
+      this.capturePromise = resolve;
+      electron.ipcRenderer.send('capture-screen', x, y, w, h, filePath);
+    });
+
+
+  }
 
 
 
@@ -972,9 +986,9 @@ export class ApplicationDataServiceService {
     const targetObject = this.findObjectById(targetObjectId);
     const tempState = this.findStateByObjectId(targetObjectId);
     if (targetObjectId === 'root') {
-      return Number(tempState.marginLeft);
+      return Number(tempState.marginLeft) + Number(tempState.translationX);
     } else {
-      return Number(tempState.marginLeft) + this.getParentMarginLeft(targetObject.parentId);
+      return Number(tempState.marginLeft) + Number(tempState.translationX) + this.getParentMarginLeft(targetObject.parentId);
     }
   }
 
@@ -982,16 +996,16 @@ export class ApplicationDataServiceService {
     const targetObject = this.findObjectById(targetObjectId);
     const tempState = this.findStateByObjectId(targetObject.id);
     if (targetObjectId === 'root') {
-      return Number(tempState.marginTop);
+      return Number(tempState.marginTop) + Number(tempState.translationY);
     } else {
-      return Number(tempState.marginTop) + this.getParentMarginTop(targetObject.parentId);
+      return Number(tempState.marginTop) + Number(tempState.translationY) + this.getParentMarginTop(targetObject.parentId);
     }
   }
 
   getMarginLeft(state, objectData) {
     let totalMargin = state.marginLeft;
     if (objectData.id !== 'root') {
-      totalMargin = Number(state.marginLeft) + this.getParentMarginLeft(objectData.parentId);
+      totalMargin = Number(state.marginLeft) + Number(state.translationX) + this.getParentMarginLeft(objectData.parentId);
     }
     return totalMargin;
   }
@@ -1000,7 +1014,7 @@ export class ApplicationDataServiceService {
   getMarginTop(state, objectData) {
     let totalMargin = state.marginTop;
     if (objectData.id !== 'root') {
-      totalMargin = Number(state.marginTop) + this.getParentMarginTop(objectData.parentId);
+      totalMargin = Number(state.marginTop) + Number(state.translationY) + this.getParentMarginTop(objectData.parentId);
     }
     return totalMargin;
   }
@@ -1423,10 +1437,53 @@ export class ApplicationDataServiceService {
     const toState = this.findStateByStateId(this.activityData, event.toStateId);
     const object = this.findObjectById(toState.objectId);
     let result = "";
-    if (object && toState && fromState) {
-      result += "getStateAnimation(" + object.resourceId + "," + event.duration + "," + (event.delay | 0).toFixed(0) + "," + (toState.translationX | 0).toFixed(0) + "," + (toState.translationY | 0).toFixed(0) + "," + (toState.scaleX | 0).toFixed(1) + ", " + (toState.scaleY | 0).toFixed(1) + ", " + (toState.alpha | 0).toFixed(1) + ", " + (toState.rotation | 0).toFixed(0) + ", " + (toState.rotationX | 0).toFixed(0) + ", " + (toState.rotationY | 0).toFixed(0) + ")";
+    // if (object && toState && fromState) {
+    //   result += "getStateAnimation(" + object.resourceId + "," + event.duration + "," + (event.delay | 0).toFixed(0) + "," + (toState.translationX | 0).toFixed(0) + "," + (toState.translationY | 0).toFixed(0) + "," + (toState.scaleX | 0).toFixed(1) + ", " + (toState.scaleY | 0).toFixed(1) + ", " + (toState.alpha | 0).toFixed(1) + ", " + (toState.rotation | 0).toFixed(0) + ", " + (toState.rotationX | 0).toFixed(0) + ", " + (toState.rotationY | 0).toFixed(0) + ")";
+    // }
 
+    console.log("toState = " + JSON.stringify(toState));
+
+    if (object && toState && fromState) {
+      result = this.getStateAnimationCode(object.resourceId, fromState, toState, event);
     }
+
+
+    return result;
+  }
+
+  getStateAnimationCode(view, fromState, toState, event) {
+
+    let result = view + '.animate()';
+
+
+    //translation
+    if (fromState.translationX !== toState.translationX) {
+      result += '.translationX(' + (toState.translationX | 0).toFixed(0) + ')';
+    }
+    if (fromState.translationY !== toState.translationY) {
+      result += '.translationY(' + (toState.translationY | 0).toFixed(0) + ')';
+    }
+
+    //scale
+    if (fromState.scaleX !== toState.scaleX) {
+      result += '.scaleX(' + (toState.scaleX | 1).toFixed(2) + ')';
+    }
+    if (fromState.scaleY !== toState.scaleY) {
+      result += '.scaleY(' + (toState.scaleY | 1).toFixed(2) + ')';
+    }
+
+    //rotate
+    if (fromState.rotation !== toState.rotation) {
+      result += '.rotation(' + (toState.rotation | 0).toFixed(2) + ')';
+    }
+    if (fromState.rotationX !== toState.rotationX) {
+      result += '.rotationX(' + (toState.rotationX | 0).toFixed(2) + ')';
+    }
+    if (fromState.rotationY !== toState.rotationY) {
+      result += '.rotationY(' + (toState.rotationY | 0).toFixed(2) + ')';
+    }
+
+
     return result;
   }
 

@@ -3,6 +3,7 @@ import { ApplicationDataServiceService } from '../../service/application-data-se
 
 import { PreviewSizeComponent } from '../preview-size/preview-size.component';
 import { CodeGeneratorService } from '../../service/code-generator.service';
+import { BroadcastService } from '../../service/broadcast.service';
 
 import { environment } from '../../../environments/environment';
 
@@ -54,8 +55,9 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
   needShowCode = true;
 
   constructor(
-    private appDataService: ApplicationDataServiceService
-    , public zone: NgZone
+    private appDataService: ApplicationDataServiceService,
+    public zone: NgZone,
+    private broadcaster: BroadcastService
   ) {
 
 
@@ -127,7 +129,14 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
     console.log("done clip");
   }
 
+  clickLink(targetUrl) {
+    const message = {
+      kind: 'open-url',
+      url: targetUrl
+    };
+    this.broadcaster.broadcast('activity', message);
 
+  }
 
 }
 
