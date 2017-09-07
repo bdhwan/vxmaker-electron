@@ -51,8 +51,12 @@ export class EventGeneratorComponent implements OnInit {
 
 
 
-  onChangeStage(event) {
+  onChangeStage(stageId) {
+    console.log("stageId = " + stageId);
+    console.log("current stageId = " + this.currentSelectedStageId);
+    console.log("selectedStageId = " + this.selectedStageId);
 
+    this.selectedStageId = stageId;
     this.readyEvent = true;
   }
 

@@ -101,11 +101,13 @@
 
         <!-- source code -->
         <div>
-            <button (click)="toggleShowCode()">code</button>
+            <button (click)="toggleShowCode()">code</button> {{stateEventData|json}}
             <div *ngIf="needShowCode&&stateChangeAnimationCode">
-
                 <button [clip]="stateChangeAnimationCode" (onClip)="callback($event)">copy</button>
                 <handy-syntax-highlighter *ngIf="stateChangeAnimationCode" [language]="'java'" [content]="stateChangeAnimationCode"></handy-syntax-highlighter>
+
+                powered by viewpropertyobjectanimator from blipinsk
+
             </div>
         </div>
 

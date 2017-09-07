@@ -1,6 +1,7 @@
 <div class="popup-wrap" *ngIf="visibility">
-    <div id="popup1" class="overlay" (click)="hideDialog()">
+    <div id="popup1" class="overlay">
         <div class="popup" (click)="nothing($event)">
+            <button (click)="hideDialog()">close</button>
 
 
             <div>

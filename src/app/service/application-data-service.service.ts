@@ -1389,17 +1389,32 @@ export class ApplicationDataServiceService {
     const toStage = this.findStageByStageId(implEvent.toStageId);
     const eventVar = this.getUniqueResourceName(fromStage.name + '_' + toStage.name);
     let stateEventCount = 0;
+    result += "\nAnimatorSet " + eventVar + " = new AnimatorSet();";
+    const stateEventCodeList = [];
+
     for (let i = 0; i < stateEventList.length; i++) {
       const stateEvent = stateEventList[i];
       if (stateEvent.isEnabled) {
-        if (stateEventCount == 0) {
-          result += "\nAnimatorSet " + eventVar + " = getStageChangeAnimation(";
-          result += ('\n' + this.getStateAnimationString(stateEventList[i]));
-        } else {
-          result += (',\n' + this.getStateAnimationString(stateEventList[i]));
+        const temp = this.getStateAnimationString(stateEventList[i]);
+        if (temp) {
+          stateEventCodeList.push(temp);
+          stateEventCount++;
         }
-        stateEventCount++;
       }
+    }
+
+    for (let i = 0; i < stateEventCodeList.length; i++) {
+      const temp = stateEventCodeList[i];
+      if (i === 0) {
+        result += '\n' + eventVar + '.playTogether(';
+        result += ('\n' + stateEventCodeList[i]);
+      } else {
+        result += (',\n' + stateEventCodeList[i]);
+      }
+    }
+
+    if (stateEventCount === 0) {
+      return '';
     }
 
     const afterAnmiation = this.findTriggerEventByAfterTriggerEventId(implEvent.id);
@@ -1407,12 +1422,13 @@ export class ApplicationDataServiceService {
     if (afterAnmiation) {
       afterAnimationString = this.insertImplEvent(afterAnmiation);
     }
+
     if (stateEventCount > 0) {
       result += '); \n';
       result += (
         eventVar + '.addListener(new Animator.AnimatorListener() {\n'
         + '@Override\n'
-        + 'public void onAnimationStart(Animator animator) {currentStage = "' + implEvent.fromStageId + '";}\n'
+        + 'public void onAnimationStart(Animator animator) {}\n'
         + '@Override\n'
         + 'public void onAnimationEnd(Animator animator) {currentStage = "' + implEvent.toStageId + '";\n ' + afterAnimationString + '\n}\n'
         + '@Override\n'
@@ -1437,24 +1453,16 @@ export class ApplicationDataServiceService {
     const toState = this.findStateByStateId(this.activityData, event.toStateId);
     const object = this.findObjectById(toState.objectId);
     let result = "";
-    // if (object && toState && fromState) {
-    //   result += "getStateAnimation(" + object.resourceId + "," + event.duration + "," + (event.delay | 0).toFixed(0) + "," + (toState.translationX | 0).toFixed(0) + "," + (toState.translationY | 0).toFixed(0) + "," + (toState.scaleX | 0).toFixed(1) + ", " + (toState.scaleY | 0).toFixed(1) + ", " + (toState.alpha | 0).toFixed(1) + ", " + (toState.rotation | 0).toFixed(0) + ", " + (toState.rotationX | 0).toFixed(0) + ", " + (toState.rotationY | 0).toFixed(0) + ")";
-    // }
-
-    console.log("toState = " + JSON.stringify(toState));
-
     if (object && toState && fromState) {
       result = this.getStateAnimationCode(object.resourceId, fromState, toState, event);
     }
-
-
     return result;
   }
 
   getStateAnimationCode(view, fromState, toState, event) {
 
-    let result = view + '.animate()';
-
+    const haveAnimation = false;
+    let result = '';
 
     //translation
     if (fromState.translationX !== toState.translationX) {
@@ -1483,8 +1491,46 @@ export class ApplicationDataServiceService {
       result += '.rotationY(' + (toState.rotationY | 0).toFixed(2) + ')';
     }
 
+    //width
+    if (fromState.width !== toState.width) {
+      result += '.width(' + (toState.width | 0).toFixed(0) + ')';
+    }
+    //height
+    if (fromState.height !== toState.height) {
+      result += '.height(' + (toState.height | 0).toFixed(0) + ')';
+    }
 
-    return result;
+
+    //alpha
+    if (fromState.alpha !== toState.alpha) {
+      result += '.alpha(' + (toState.alpha | 0).toFixed(2) + ')';
+    }
+
+
+    //margin left
+    if (fromState.marginLeft !== toState.marginLeft) {
+      result += '.leftMargin(' + (toState.marginLeft | 0).toFixed(0) + ')';
+    }
+
+    //margin top
+    if (fromState.marginTop !== toState.marginTop) {
+      result += '.topMargin(' + (toState.marginTop | 0).toFixed(0) + ')';
+      console.log("from top margin = " + fromState.marginTop + ", to = " + toState.marginTop);
+    }
+
+    if (result.length === 0) {
+      return null;
+    } else {
+      result += '.setInterpolator(PathInterpolatorCompat.create(' + event.cubicValue[0] + 'f,' + event.cubicValue[1] + 'f,' + event.cubicValue[2] + 'f,' + event.cubicValue[3] + 'f))';
+      result += '.setDuration(' + event.duration + ')';
+      if (event.startDelay && event.startDelay !== 0) {
+        result += '.setStartDelay(' + (event.startDelay).toFixed(0) + ')';
+      }
+      result += '.get()';
+      return 'ViewPropertyObjectAnimator.animate(' + view + ')' + result;
+    }
+
+
   }
 
 

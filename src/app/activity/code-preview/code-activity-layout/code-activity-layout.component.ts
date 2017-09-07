@@ -11,7 +11,7 @@ import { CodeGeneratorService } from '../../../service/code-generator.service';
 })
 export class CodeActivityLayoutComponent implements OnInit {
 
-  visibility = false;
+  visibility = true;
   activityData;
   layoutData;
   javaData;
@@ -21,6 +21,7 @@ export class CodeActivityLayoutComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
 

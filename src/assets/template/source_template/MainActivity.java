@@ -19,6 +19,7 @@ import io.fotoapparat.Fotoapparat;
 import io.fotoapparat.parameter.LensPosition;
 import io.fotoapparat.parameter.selector.SelectorFunction;
 import io.fotoapparat.view.CameraView;
+import com.bartoszlipinski.viewpropertyobjectanimator.ViewPropertyObjectAnimator;
 
 import static io.fotoapparat.parameter.selector.AspectRatioSelectors.standardRatio;
 import static io.fotoapparat.parameter.selector.FocusModeSelectors.autoFocus;
@@ -106,41 +107,4 @@ protected void onResume() {
 public void onBackPressed() {
         !!!onBackPressedEvent!!!
     
-}
-
-
-
-
-/**
- * stage change animation set
- */
-private AnimatorSet getStageChangeAnimation(AnimatorSet... animators){
-        AnimatorSet stageAnimator = new AnimatorSet();
-        stageAnimator.playTogether(animators);
-        return stageAnimator;
-}
-
-
-/**
- * state change animation set
- */
-private AnimatorSet getStateAnimation(final View view, long duration, long delay, float translationX, float translationY,double scaleX, double scaleY, double alpha, float rotation, float rotationX, float rotationY) {
-
-
-                ObjectAnimator animX = ObjectAnimator.ofFloat(view, "translationX", translationX);
-                ObjectAnimator animY = ObjectAnimator.ofFloat(view, "translationY", translationY);
-                ObjectAnimator animSX = ObjectAnimator.ofFloat(view, "scaleX", (float) scaleX);
-                ObjectAnimator animSY = ObjectAnimator.ofFloat(view, "scaleY", (float) scaleY);
-                ObjectAnimator animA = ObjectAnimator.ofFloat(view, "alpha", (float) alpha);
-                ObjectAnimator animR = ObjectAnimator.ofFloat(view, "rotation", rotation);
-                ObjectAnimator animRX = ObjectAnimator.ofFloat(view, "rotationX", rotationX);
-                ObjectAnimator animRY = ObjectAnimator.ofFloat(view, "rotationY", rotationY);
-
-                AnimatorSet set = new AnimatorSet();
-                set.playTogether(animX, animY, animSX, animSY, animA, animR, animRX, animRY);
-                set.setDuration(duration);
-                set.setStartDelay(delay);
-
-                return set;
-        }
 }

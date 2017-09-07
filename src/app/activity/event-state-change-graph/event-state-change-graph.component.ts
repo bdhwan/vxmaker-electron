@@ -71,7 +71,7 @@ export class EventStateChangeGraphComponent implements OnInit, AfterViewInit {
 
     if (this.needHandler) {
 
-      ctx.fillStyle="#ffffff";
+      ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, this.w, this.h);
       ctx.fill();
 
@@ -208,6 +208,22 @@ export class EventStateChangeGraphComponent implements OnInit, AfterViewInit {
     } else if (this.isSelectedRightPoint) {
       this.stateEventData.cubicValue[2] = Math.round((Number(this.stateEventData.cubicValue[2]) - (differX / (this.w - this.p * 2))) * 1000) / 1000;
       this.stateEventData.cubicValue[3] = Math.round((Number(this.stateEventData.cubicValue[3]) + (differY / (this.h - this.p * 2))) * 1000) / 1000;
+    }
+
+    if (this.stateEventData.cubicValue[0] < 0) {
+      this.stateEventData.cubicValue[0] = 0;
+    }
+
+    if (this.stateEventData.cubicValue[0] > 1) {
+      this.stateEventData.cubicValue[0] = 1;
+    }
+
+
+    if (this.stateEventData.cubicValue[2] < 0) {
+      this.stateEventData.cubicValue[2] = 0;
+    }
+    if (this.stateEventData.cubicValue[2] > 1) {
+      this.stateEventData.cubicValue[2] = 1;
     }
 
     this.updateGraph();
