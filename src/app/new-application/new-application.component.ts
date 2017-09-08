@@ -22,18 +22,18 @@ export class NewApplicationComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-        private appDataService: ApplicationDataServiceService
+    private appDataService: ApplicationDataServiceService
   ) { }
 
   ngOnInit() {
     this.applicationName = 'UntitledApplication';
-    this.workspaceFolderPath = electron.ipcRenderer.sendSync('get-workspace-folder-path');
+    this.workspaceFolderPath = this.appDataService.getWorkspaceFolderPath();// electron.ipcRenderer.sendSync('get-workspace-folder-path');
   }
 
 
   //change project folder
   clickChangeFolder(): void {
-    var folder = electron.ipcRenderer.sendSync('select-workspace-folder-path', this.workspaceFolderPath);
+    const folder = this.appDataService.selectWorkspaceFolderPathFrom(this.workspaceFolderPath);// electron.ipcRenderer.sendSync('select-workspace-folder-path', this.workspaceFolderPath);
     if (folder) {
       this.workspaceFolderPath = folder;
     }
@@ -54,14 +54,17 @@ export class NewApplicationComponent implements OnInit {
     }
 
     const applicationFolder = this.workspaceFolderPath + '/' + this.applicationName;
+
+
+
+
     electron.ipcRenderer.sendSync('make-folder', applicationFolder);
     electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/activity');
     electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/image');
     electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/file');
     electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/export');
     electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/preview');
-
-    electron.ipcRenderer.sendSync('copy-from-root-file', 'template/source_template/ic_launcher.png' ,applicationFolder + '/image/ic_launcher.png');
+    electron.ipcRenderer.sendSync('copy-from-root-file', 'template/source_template/ic_launcher.png', applicationFolder + '/image/ic_launcher.png');
 
 
 
@@ -79,6 +82,7 @@ export class NewApplicationComponent implements OnInit {
 
     const filePath = applicationFolder + '/app.json';
     electron.ipcRenderer.sendSync('save-file-data', filePath, data);
+
 
 
     this.router.navigate(['/application', applicationFolder]);

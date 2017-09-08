@@ -167,6 +167,23 @@ ipcMain.on('get-workspace-folder-path', (event, arg) => {
 })
 
 
+ipcMain.on('check-empty-folder', (event, arg) => {
+
+    event.returnValue = result;
+})
+
+
+
+ipcMain.on('get-export-folder-path', (event, arg) => {
+    var result = settings.get("export-folder");
+    console.log("result = " + result);
+    if (!result) {
+        result = app.getPath('desktop');
+        console.log("documents  = " + result);
+    }
+    event.returnValue = result;
+})
+
 ipcMain.on('set-workspace-folder-path', (event, workspaceFolderPath) => {
     settings.set("workspace-folder", workspaceFolderPath);
     settings.save();
@@ -261,6 +278,15 @@ ipcMain.on('open-url', (event, url) => {
     event.returnValue = true;
 })
 
+//open url external browser
+ipcMain.on('open-finder', (event, path) => {
+
+    shell.showItemInFolder(path);
+    event.returnValue = true;
+})
+
+
+
 
 //file check
 function haveFileWithPath(filePath) {
@@ -293,10 +319,14 @@ ipcMain.on('open-application', (event) => {
 
 //save activity data
 ipcMain.on('save-file-data', (event, filePath, data) => {
-    fse.writeFileSync(filePath, beautify(JSON.stringify(data), { indent_size: 4 }), 'utf-8');
+        fse.writeFileSync(filePath, beautify(JSON.stringify(data), { indent_size: 4 }), 'utf-8');
+        event.returnValue = true;
+    })
+    //save activity data
+ipcMain.on('write-file-data', (event, filePath, data) => {
+    fse.writeFileSync(filePath, data, 'utf-8');
     event.returnValue = true;
 })
-
 
 //save image data
 ipcMain.on('save-raw-data', (event, filePath, data) => {
@@ -418,6 +448,20 @@ ipcMain.on('select-files', (event, arg) => {
     } else {
         event.returnValue = null;
     }
+})
+
+//copy folder
+ipcMain.on('copy-folder', (event, src, dst) => {
+    console.log(src + ", " + dst);
+    fse.copySync(src, dst);
+    event.returnValue = true;
+})
+
+//copy folder from root
+ipcMain.on('copy-folder-from-root', (event, src, dst) => {
+    console.log(src + ", " + dst);
+    fse.copySync(__dirname + src, dst);
+    event.returnValue = true;
 })
 
 //copy file

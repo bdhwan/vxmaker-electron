@@ -66,10 +66,16 @@ export class ApplicationDataServiceService {
   templateNameList = [
     'activity_main.xml',
     'MainActivity.java',
+    'AndroidManifest.xml',
+    'build.gradle',
+    'strings.xml',
   ];
   templateFileList = [
     '/source_template/activity_main.xml',
     '/source_template/MainActivity.java',
+    '/source_template/AndroidManifest.xml',
+    '/source_template/build.gradle',
+    '/source_template/strings.xml',
   ];
 
 
@@ -79,7 +85,6 @@ export class ApplicationDataServiceService {
 
 
   constructor(private http: Http, private broadcaster: BroadcastService) {
-
     const self = this;
     electron.ipcRenderer.on('parse-psd-result', (event, arg) => {
       this.parsePsdPromise(arg);
@@ -87,8 +92,6 @@ export class ApplicationDataServiceService {
     electron.ipcRenderer.on('capture-screen-result', (event, arg) => {
       this.capturePromise(arg);
     });
-
-
   }
 
 
@@ -115,6 +118,9 @@ export class ApplicationDataServiceService {
   }
 
 
+  getCurrentActivityId() {
+    return this.activityId;
+  }
 
 
   getApplicationPath() {
@@ -125,6 +131,11 @@ export class ApplicationDataServiceService {
     console.log("will open url = " + url);
     electron.ipcRenderer.sendSync('open-url', url);
   }
+
+  openFinder(path) {
+    electron.ipcRenderer.sendSync('open-finder', path);
+  }
+
 
   openMainWindowUrl(path) {
     console.log('path = ' + path);
@@ -205,9 +216,24 @@ export class ApplicationDataServiceService {
     return electron.ipcRenderer.sendSync('select-files');
   }
 
+
+  getWorkspaceFolderPath() {
+    return electron.ipcRenderer.sendSync('get-workspace-folder-path');
+  }
+  getExportFolderPath() {
+    return electron.ipcRenderer.sendSync('get-export-folder-path');
+  }
+
   selectWorkspaceFolderPath() {
     return electron.ipcRenderer.sendSync('select-workspace-folder-path');
   }
+
+
+
+  selectWorkspaceFolderPathFrom(beforePath) {
+    return electron.ipcRenderer.sendSync('select-workspace-folder-path', beforePath);
+  }
+
 
   readFileData(path) {
     return JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('read-file-data', path)));
@@ -217,9 +243,27 @@ export class ApplicationDataServiceService {
     electron.ipcRenderer.sendSync('delete-file', path);
   }
 
+  writeFile(path, data) {
+    electron.ipcRenderer.sendSync('write-file-data', path, data);
+  }
+
   copyFile(src, dst) {
     electron.ipcRenderer.sendSync('copy-file', src, dst);
     return true;
+  }
+
+  copyFolder(src, dst) {
+    electron.ipcRenderer.sendSync('copy-folder', src, dst);
+    return true;
+  }
+
+  copyFolderFromRoot(src, dst) {
+    electron.ipcRenderer.sendSync('copy-folder-from-root', src, dst);
+    return true;
+  }
+
+  makeFolder(path) {
+    electron.ipcRenderer.sendSync('make-folder', path);
   }
 
 
@@ -473,11 +517,9 @@ export class ApplicationDataServiceService {
   }
 
   loadApplicationData() {
-
     console.log('loadApplicationData -' + this.applicationFolderPath);
     return new Promise((resolve, reject) => {
       this.applicationData = electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + '/app.json');
-
       console.log('loadApplicationData done -' + JSON.stringify(this.applicationData));
       for (let i = 0; i < this.applicationData.activityList.length; i++) {
         const activity = this.applicationData.activityList[i];
@@ -491,6 +533,18 @@ export class ApplicationDataServiceService {
       resolve(true);
     });
   }
+
+
+  loadApplicationDataSync() {
+    this.applicationData = electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + '/app.json');
+    return this.applicationData;
+  }
+
+
+  loadActivityDataSync(activityId) {
+    return electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + '/activity/' + activityId + '.json');
+  }
+
 
   loadTemplateString(file) {
     return new Promise((resolve, reject) => {
@@ -1251,6 +1305,132 @@ export class ApplicationDataServiceService {
   }
 
 
+  public makeApplicationSourceCode() {
+
+    const sourceResult = {};
+    const activityDataList = [];
+    this.makeActivityName();
+
+    let manifestXml = '';
+
+    for (let i = 0; i < this.applicationData.activityList.length; i++) {
+      const activity = this.applicationData.activityList[i];
+      console.log(i + ",activity = " + activity.activityId);
+      this.activityMetaData = activity;
+      this.activityData = this.loadActivityDataSync(activity.activityId);
+      console.log(i + ",this.activityData = " + JSON.stringify(this.activityData));
+      this.selectedStage = this.activityData.stageList[0];
+      this.activityData.codeActivityName = activity.codeActivityName;
+      this.activityData.codeLayoutName = activity.codeLayoutName;
+      const layout = this.makeActivityLayout();
+      const java = this.makeActivityJava();
+      console.log(i + ",layout = " + layout);
+      console.log(i + ",java = " + java);
+      const aData = {};
+      aData['layout'] = layout;
+      aData['java'] = java;
+      activityDataList.push(aData);
+
+      //manifest activity data
+      let tempString = '\n<activity android:name=\".' + activity.codeActivityName + '\"/>';
+      if (activity.id === this.applicationData.launcherActivityId) {
+        tempString = '\n<activity android:name=\".' + activity.codeActivityName + '\">';
+        tempString += '<intent-filter>\n<action android:name=\"android.intent.action.MAIN\"/>\n<category android:name=\"android.intent.category.LAUNCHER\"/>\n</intent-filter>';
+        tempString += '\n</activity>\n\n';
+      }
+      manifestXml += tempString;
+    }
+
+
+    //make manifest.xml
+    let androidManifest = this.templateDataHash['AndroidManifest.xml'];
+    androidManifest = androidManifest.replace('!!!packageName!!!', this.applicationData.applicationId);
+    androidManifest = androidManifest.replace('!!!activityList!!!', manifestXml);
+
+    //make build.xml
+    let buildGradle = this.templateDataHash['build.gradle'];
+    buildGradle = buildGradle.replace('!!!packageName!!!', this.applicationData.applicationId);
+
+    //make string.xml
+    let stringXml = this.templateDataHash['strings.xml'];
+    stringXml = stringXml.replace('!!!appName!!!', this.applicationData.applicationName);
+
+    sourceResult['stringXml'] = this.makeBeautify(stringXml);
+    sourceResult['buildGradle'] = buildGradle;
+    sourceResult['manifestXml'] = this.makeBeautify(androidManifest);
+    sourceResult['activityDataList'] = activityDataList;
+    return sourceResult;
+  }
+
+
+  public writeSourceCode(folderPath, data) {
+
+
+    const activityDataList = data['activityDataList'];
+    const manifestXml = data['manifestXml'];
+    const stringXml = data['stringXml'];
+    const buildGradle = data['buildGradle'];
+    const sourceCodeData = data;
+
+    const exportRoot = folderPath + '/' + this.applicationData.applicationName + '_export';
+    const projectRoot = exportRoot + '/android';
+    const projectFolder = projectRoot + '/app/src/main';
+    const javaFolder = projectFolder + '/java/' + this.replaceAll(this.applicationData.applicationId, '.', '/');
+    const resourceFolder = projectFolder + '/res';
+    const drawFolder = resourceFolder + '/mipmap-nodpi';
+    const layoutFolder = resourceFolder + '/layout';
+    const valuesFolder = resourceFolder + '/values';
+
+    const manifestPath = projectFolder + '/AndroidManifest.xml';
+    const buildGradlePath = projectRoot + '/app/build.gradle';
+    const stringXmlPath = valuesFolder + '/strings.xml';
+
+
+    this.deleteFile(projectRoot);
+    this.makeFolder(projectRoot);
+
+    this.makeFolder(projectFolder);
+    this.makeFolder(javaFolder);
+    this.makeFolder(resourceFolder);
+    this.makeFolder(drawFolder);
+    this.makeFolder(layoutFolder);
+    this.makeFolder(valuesFolder);
+
+
+    this.writeFile(manifestPath, manifestXml);
+    this.writeFile(buildGradlePath, buildGradle);
+    this.writeFile(stringXmlPath, stringXml);
+
+    for (let i = 0; i < this.applicationData.activityList.length; i++) {
+      const activity = this.applicationData.activityList[i];
+      this.writeFile(javaFolder + '/' + activity.codeActivityName + '.java', activityDataList[i].java);
+      this.writeFile(layoutFolder + '/' + activity.codeLayoutName + '.xml', activityDataList[i].layout);
+    }
+
+
+    this.copyFolder(this.applicationFolderPath + '/image', drawFolder);
+
+
+    //copy project level
+    const projectTemplatePath = '/template/project_template';
+    const appTemplatePath = '/template/app_template';
+    const resourceTemplatePath = '/template/resource_template';
+
+    this.copyFolderFromRoot(projectTemplatePath, projectRoot);
+    this.copyFolderFromRoot(appTemplatePath, projectRoot + '/app');
+    this.copyFolderFromRoot(resourceTemplatePath, resourceFolder);
+
+  }
+
+
+  replaceAll(str, find, replace) {
+    return str.replace(new RegExp(this.escapeRegExp(find), 'g'), replace);
+  }
+
+  escapeRegExp(str) {
+    return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+  }
+
 
   public makeActivitySourceCode() {
 
@@ -1272,10 +1452,10 @@ export class ApplicationDataServiceService {
       const activity = this.applicationData.activityList[i];
       activity.codeActivityName = this.getUniqueActivityName(activity.activityName);
       activity.codeLayoutName = this.getUniqueLayoutName(activity.activityName);
-      if (activity.activityId === this.activityData.activityId) {
-        this.activityData.codeActivityName = activity.codeActivityName;
-        this.activityData.codeLayoutName = activity.codeLayoutName;
-      }
+      // if (activity.activityId === this.activityData.activityId) {
+      //   this.activityData.codeActivityName = activity.codeActivityName;
+      //   this.activityData.codeLayoutName = activity.codeLayoutName;
+      // }
     }
   }
 
@@ -1290,7 +1470,9 @@ export class ApplicationDataServiceService {
     temp = temp.replace('!!!layoutList!!!', xmlString);
     temp = temp.replace('!!!packageName!!!', this.applicationData.applicationId);
     temp = temp.replace('!!!activityName!!!', this.activityData.codeActivityName);
-    this.codeResult['layout'] = this.makeBeautify(temp);
+    const result = this.makeBeautify(temp);
+    this.codeResult['layout'] = result;
+    return result;
   }
 
 
@@ -1348,7 +1530,12 @@ export class ApplicationDataServiceService {
     templateData = templateData.replace("!!!eventList!!!", eventString);
     templateData = templateData.replace("!!!onCreateEvent!!!", onCreateEventString);
     templateData = templateData.replace("!!!onBackPressedEvent!!!", backPressedEventData);
-    this.codeResult['java'] = templateData;
+
+    const result = templateData;
+    this.codeResult['java'] = result;
+    return result;
+
+
   }
 
   insertImplEvent(triggerEvent) {

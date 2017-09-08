@@ -46,6 +46,7 @@ import { WindowProxyComponent } from './window-proxy/window-proxy.component';
 import { CodeActivityLayoutComponent } from './activity/code-preview/code-activity-layout/code-activity-layout.component';
 import { Ng2HandySyntaxHighlighterModule } from 'ng2-handy-syntax-highlighter';
 import { ClipModule } from 'ng2-clip';
+import { CodeExportComponent } from './code-export/code-export.component';
 
 
 const appRoutes: Routes = [
@@ -54,6 +55,7 @@ const appRoutes: Routes = [
   { path: 'guide', component: GuideComponent },
   { path: 'setting', component: SettingComponent },
   { path: 'new-application', component: NewApplicationComponent },
+  { path: 'code-export/:applicationFolderPath', component: CodeExportComponent },
   { path: 'application/:applicationFolderPath', component: ApplicationComponent },
   { path: 'activity/:applicationFolderPath/:activityId', component: ActivityComponent },
   { path: '', component: InitComponent },
@@ -95,7 +97,8 @@ const appRoutes: Routes = [
     LottieAnimationViewComponent,
     GuideComponent,
     WindowProxyComponent,
-    CodeActivityLayoutComponent
+    CodeActivityLayoutComponent,
+    CodeExportComponent
   ],
   imports: [
     BrowserModule,

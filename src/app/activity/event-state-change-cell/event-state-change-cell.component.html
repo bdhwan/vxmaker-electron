@@ -97,11 +97,9 @@
 
         </div>
 
-
-
         <!-- source code -->
         <div>
-            <button (click)="toggleShowCode()">code</button> {{stateEventData|json}}
+            <button (click)="toggleShowCode()">code</button>
             <div *ngIf="needShowCode&&stateChangeAnimationCode">
                 <button [clip]="stateChangeAnimationCode" (onClip)="callback($event)">copy</button>
                 <handy-syntax-highlighter *ngIf="stateChangeAnimationCode" [language]="'java'" [content]="stateChangeAnimationCode"></handy-syntax-highlighter>

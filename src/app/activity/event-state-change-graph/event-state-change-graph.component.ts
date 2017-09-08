@@ -218,7 +218,6 @@ export class EventStateChangeGraphComponent implements OnInit, AfterViewInit {
       this.stateEventData.cubicValue[0] = 1;
     }
 
-
     if (this.stateEventData.cubicValue[2] < 0) {
       this.stateEventData.cubicValue[2] = 0;
     }

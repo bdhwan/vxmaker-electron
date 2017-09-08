@@ -75,8 +75,8 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   private previewSize: PreviewSizeComponent;
 
 
-  @ViewChild('codeActivityLayout')
-  private codeActivityLayout: CodeActivityLayoutComponent;
+  // @ViewChild('codeActivityLayout')
+  // private codeActivityLayout: CodeActivityLayoutComponent;
 
 
 
@@ -116,7 +116,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     public zone: NgZone,
     private appDataService: ApplicationDataServiceService,
     private broadcaster: BroadcastService,
-    private codeGenerator: CodeGeneratorService,
+    // private codeGenerator: CodeGeneratorService,
     private messageEvent: MessageEventService
   ) {
     this.isReadyToRender = false;
@@ -185,6 +185,13 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           const selectedObject = this.appDataService.findObjectById(message.objectId);
           this.appDataService.setSelectedObject(selectedObject);
           this.notifySelectedObjectChanged();
+        } else if (kind === 'code-export') {
+          // this.codeActivityLayout.showDialog();
+          this.router.navigate(['/code-export', this.applicationFolderPath]);
+
+        } else if (kind === 'code-export') {
+          // this.codeActivityLayout.showDialog();
+          this.router.navigate(['/code-export', this.applicationFolderPath]);
         }
       });
   }
@@ -258,12 +265,9 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
 
     this.appDataService.loadInitDataFromFile().then((data) => {
-
       this.defaultStateData = this.appDataService.getDefaultStateData();
       this.objectTypeData = this.appDataService.getObjectTypeData();
       return this.appDataService.loadApplicationData();
-    }).then((result) => {
-      return this.codeGenerator.loadTemplete();
     })
       .then((result) => {
         return this.appDataService.loadImageResourceList();
@@ -648,8 +652,8 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.eventList.onChangeData();
     this.eventGenerator.onChangeData();
 
-    this.codeActivityLayout.setActivityData(this.activityData);
-    this.codeActivityLayout.onChangeData();
+    // this.codeActivityLayout.setActivityData(this.activityData);
+    // this.codeActivityLayout.onChangeData();
 
 
 

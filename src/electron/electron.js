@@ -166,6 +166,15 @@ ipcMain.on('get-workspace-folder-path', (event, arg) => {
     event.returnValue = result;
 })
 
+ipcMain.on('get-export-folder-path', (event, arg) => {
+    var result = settings.get("export-folder");
+    console.log("result = " + result);
+    if (!result) {
+        result = app.getPath('desktop');
+        console.log("documents  = " + result);
+    }
+    event.returnValue = result;
+})
 
 ipcMain.on('set-workspace-folder-path', (event, workspaceFolderPath) => {
     settings.set("workspace-folder", workspaceFolderPath);
@@ -293,10 +302,14 @@ ipcMain.on('open-application', (event) => {
 
 //save activity data
 ipcMain.on('save-file-data', (event, filePath, data) => {
-    fse.writeFileSync(filePath, beautify(JSON.stringify(data), { indent_size: 4 }), 'utf-8');
+        fse.writeFileSync(filePath, beautify(JSON.stringify(data), { indent_size: 4 }), 'utf-8');
+        event.returnValue = true;
+    })
+    //save activity data
+ipcMain.on('write-file-data', (event, filePath, data) => {
+    fse.writeFileSync(filePath, data, 'utf-8');
     event.returnValue = true;
 })
-
 
 //save image data
 ipcMain.on('save-raw-data', (event, filePath, data) => {
@@ -419,6 +432,15 @@ ipcMain.on('select-files', (event, arg) => {
         event.returnValue = null;
     }
 })
+
+//copy folder
+ipcMain.on('copy-folder', (event, src, dst) => {
+    console.log(src + ", " + dst);
+    fse.copySync(src, dst);
+    event.returnValue = true;
+})
+
+
 
 //copy file
 ipcMain.on('copy-file', (event, src, dst) => {

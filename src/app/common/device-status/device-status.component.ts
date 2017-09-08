@@ -20,7 +20,7 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
   @Output() onClickSendDevice = new EventEmitter<string>();
   @Input() sendStatus: Boolean;
 
-  
+
   constructor(public zone: NgZone, private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) { }
 
   ngOnInit() {
@@ -61,7 +61,7 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
 
   public clickExportCode(): void {
     const message = {
-      kind: 'export-code'
+      kind: 'code-export'
     };
     this.broadcaster.broadcast('activity', message);
     this.broadcaster.broadcast('application', message);
@@ -70,7 +70,7 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
 
   public clickExportGuide(): void {
     const message = {
-      kind: 'export-guide'
+      kind: 'code-export'
     };
     this.broadcaster.broadcast('activity', message);
     this.broadcaster.broadcast('application', message);
@@ -84,7 +84,7 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
 
 
 
-  
+
 
 
 

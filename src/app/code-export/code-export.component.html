@@ -1,4 +1,4 @@
-<button (click)="hideDialog()">close</button>
+<button (click)="clickBck()">back</button>
 <div>
     <div class="application-name">
         <h5>Export Android Project</h5>
@@ -11,20 +11,25 @@
 </div>
 
 <div *ngIf="sourceCodeData" style="overflow-y: scroll; height:400px;">
+
+    <button (click)="clickOpenFolder()">Open Folder</button>
+
     <div>
         AndroidManifest.xml
         <handy-syntax-highlighter [language]="'java'" [content]="manifestXml"></handy-syntax-highlighter>
     </div>
 
-    <!-- <div *ngFor="let aData of activityDataList">
+    <div *ngFor="let aData of activityDataList">
         <div>
             <handy-syntax-highlighter [language]="'java'" [content]="aData.java"></handy-syntax-highlighter>
         </div>
         <div>
             <handy-syntax-highlighter [language]="'java'" [content]="aData.layout"></handy-syntax-highlighter>
         </div>
-    </div> -->
+        <br>
+    </div>
 </div>
+
 
 <div class="btn-new-save">
     <button (click)="clickExport()">export ►</button>

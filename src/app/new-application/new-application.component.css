@@ -1,39 +1,38 @@
 .btn-back {
     background: none;
-    border:none;
-    color:#898989;
+    border: none;
+    color: #898989;
     font-weight: 700;
     font-size: 14px;
 }
 
 .btn-back:hover {
-cursor: pointer;
-color:#454545;
+    cursor: pointer;
+    color: #454545;
 }
 
 .btn-new-save {
     position: absolute;
-    bottom:0;
-    right:0;
-   
+    bottom: 0;
+    right: 0;
     margin-bottom: 30px;
     margin-right: 20px;
 }
 
 .btn-new-save button:hover {
-    cursor:  pointer;
+    cursor: pointer;
 }
 
-.btn-new-save  button {
+.btn-new-save button {
     font-weight: 700;
     font-size: 14px;
-    border:none;
-     color:#46a2ba;
+    border: none;
+    color: #46a2ba;
     background: transparent;
 }
 
 .btn-new-save button:hover {
-    color:#2c869d;
+    color: #2c869d;
 }
 
 .ic-newproject {
@@ -49,13 +48,11 @@ color:#454545;
 }
 
 .application-name .form-control {
-    width:100%;
+    width: 100%;
 }
 
 .project-folder input {
-  
-   padding-right: 25px;
-
+    padding-right: 25px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -69,14 +66,14 @@ color:#454545;
 }
 
 .project-folder button {
-    border:none;
+    border: none;
     border-radius: 4px;
     font-size: 10px;
     background: #fff;
     position: absolute;
-    right:5px;
-    top:0;
-    color:#46a2ba;
+    right: 5px;
+    top: 0;
+    color: #46a2ba;
     font-weight: 800;
     margin-top: 7px;
 }

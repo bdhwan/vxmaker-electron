@@ -113,6 +113,14 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
         if (kind === 'send-device') {
           this.onClickSendDevice(null);
         }
+        else if (kind === 'code-export') {
+          // this.codeActivityLayout.showDialog();
+          this.router.navigate(['/code-export', this.applicationFolderPath]);
+
+        } else if (kind === 'code-export') {
+          // this.codeActivityLayout.showDialog();
+          this.router.navigate(['/code-export', this.applicationFolderPath]);
+        }
       });
   }
 
