@@ -464,6 +464,16 @@ ipcMain.on('copy-folder-from-root', (event, src, dst) => {
     event.returnValue = true;
 })
 
+ipcMain.on('have-file', (event, path) => {
+    console.log("have file = " + path);
+    try {
+        event.returnValue = fse.lstatSync(path).isDirectory();
+    } catch (e) {
+        event.returnValue = false;
+    }
+})
+
+
 //copy file
 ipcMain.on('copy-file', (event, src, dst) => {
     console.log(src + ", " + dst);

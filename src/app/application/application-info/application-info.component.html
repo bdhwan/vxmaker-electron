@@ -1,5 +1,4 @@
 <div style="padding:15px;">
-
     <div class="btn-icon" align="center">
 
         <img [src]="prefix+applicationFolderPath+'/'+applicationData.iconPath" width="100px" height="100px">
@@ -11,8 +10,4 @@
         <input type="text" class="project-edit" [(ngModel)]="applicationData.applicationName" (blur)="onChange()" />
         <input type="text" class="project-path-edit" [(ngModel)]="applicationData.applicationId" (blur)="onChange()" />
     </div>
-
-
-       <!--<button class="btn-resource" (click)="clickResource()">Add Resource</button>-->
-
 </div>

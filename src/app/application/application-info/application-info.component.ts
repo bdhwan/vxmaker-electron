@@ -48,7 +48,7 @@ export class ApplicationInfoComponent implements OnInit {
     console.log("clickToggleDialog");
     this.showImageDialog = !this.showImageDialog;
   }
- 
- 
+
+
 
 }

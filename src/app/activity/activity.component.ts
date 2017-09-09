@@ -14,7 +14,6 @@ import { EventListComponent } from '../activity/event-list/event-list.component'
 import { EventDetailStageChangeComponent } from '../activity/event-detail-stage-change/event-detail-stage-change.component';
 import { EventDetailStartActivityComponent } from '../activity/event-detail-start-activity/event-detail-start-activity.component';
 import { EventDetailFinishActivityComponent } from '../activity/event-detail-finish-activity/event-detail-finish-activity.component';
-import { CodeActivityLayoutComponent } from '../activity/code-preview/code-activity-layout/code-activity-layout.component';
 
 
 import { EventGeneratorComponent } from '../activity/event-generator/event-generator.component';
@@ -73,11 +72,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('previewSize')
   private previewSize: PreviewSizeComponent;
-
-
-  // @ViewChild('codeActivityLayout')
-  // private codeActivityLayout: CodeActivityLayoutComponent;
-
 
 
   saveStatus: Boolean = false;

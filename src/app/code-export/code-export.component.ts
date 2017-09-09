@@ -27,6 +27,7 @@ export class CodeExportComponent implements OnInit {
   workspaceFolderPath: string;
 
 
+  isLoading = false;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -63,15 +64,53 @@ export class CodeExportComponent implements OnInit {
 
   clickExport() {
 
-    const temp = this.appDataService.makeApplicationSourceCode();
-    this.activityDataList = temp['activityDataList'];
-    this.manifestXml = temp['manifestXml'];
-    this.stringXml = temp['stringXml'];
-    this.buildGradle = temp['buildGradle'];
-    this.sourceCodeData = temp;
-    this.appDataService.writeSourceCode(this.workspaceFolderPath, this.sourceCodeData);
+
+    const checkFolderPath = this.workspaceFolderPath + '/' + this.applicationData.applicationName + '_export';
+    const haveFolder = this.appDataService.haveFile(checkFolderPath);
+    let result = true;
+    if (haveFolder) {
+      result = confirm('will you override folder?');
+    }
+
+    if (result) {
+      const self = this;
+      this.isLoading = true;
+
+      setTimeout(function () {
+        self.exportProcess().then(result => {
+          self.isLoading = false;
+          const open = confirm('will you open export folder?');
+          if (open) {
+            self.appDataService.openFinder(checkFolderPath);
+          }
+        });
+      }, 1000);
+
+    }
+  }
+
+
+
+
+
+  exportProcess() {
+    return new Promise((resolve, reject) => {
+      const temp = this.appDataService.makeApplicationSourceCode();
+      this.activityDataList = temp['activityDataList'];
+      this.manifestXml = temp['manifestXml'];
+      this.stringXml = temp['stringXml'];
+      this.buildGradle = temp['buildGradle'];
+      this.sourceCodeData = temp;
+      this.appDataService.writeSourceCode(this.workspaceFolderPath, this.sourceCodeData);
+      this.appDataService.writeGuidDoc(this.workspaceFolderPath, this.sourceCodeData);
+
+      resolve(true);
+    });
+
 
   }
+
+
 
 
   clickOpenFolder() {

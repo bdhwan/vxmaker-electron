@@ -25,13 +25,9 @@ import { EventGeneratorComponent } from './activity/event-generator/event-genera
 
 import { TreeModule } from 'angular2-tree-component';
 import { PreviewObjectComponent } from './activity/preview/preview-object/preview-object.component';
-
 import { ApplicationDataServiceService } from './service/application-data-service.service';
 import { CodeGeneratorService } from './service/code-generator.service';
-
-
 import { BroadcastService } from './service/broadcast.service';
-
 import { ResourceComponent } from './common/resource/resource.component';
 import { EventDetailStageChangeComponent } from './activity/event-detail-stage-change/event-detail-stage-change.component';
 import { EventDetailStartActivityComponent } from './activity/event-detail-start-activity/event-detail-start-activity.component';
@@ -43,7 +39,6 @@ import { EventStateChangeTimelineComponent } from './activity/event-state-change
 import { LottieAnimationViewComponent } from './activity/lottie-animation-view/lottie-animation-view.component';
 import { GuideComponent } from './guide/guide.component';
 import { WindowProxyComponent } from './window-proxy/window-proxy.component';
-import { CodeActivityLayoutComponent } from './activity/code-preview/code-activity-layout/code-activity-layout.component';
 import { Ng2HandySyntaxHighlighterModule } from 'ng2-handy-syntax-highlighter';
 import { ClipModule } from 'ng2-clip';
 import { CodeExportComponent } from './code-export/code-export.component';
@@ -97,7 +92,6 @@ const appRoutes: Routes = [
     LottieAnimationViewComponent,
     GuideComponent,
     WindowProxyComponent,
-    CodeActivityLayoutComponent,
     CodeExportComponent
   ],
   imports: [

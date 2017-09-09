@@ -257,6 +257,10 @@ export class ApplicationDataServiceService {
     return true;
   }
 
+  haveFile(path) {
+    return electron.ipcRenderer.sendSync('have-file', path);
+  }
+
   copyFolderFromRoot(src, dst) {
     electron.ipcRenderer.sendSync('copy-folder-from-root', src, dst);
     return true;
@@ -1419,6 +1423,20 @@ export class ApplicationDataServiceService {
     this.copyFolderFromRoot(projectTemplatePath, projectRoot);
     this.copyFolderFromRoot(appTemplatePath, projectRoot + '/app');
     this.copyFolderFromRoot(resourceTemplatePath, resourceFolder);
+
+  }
+
+  writeGuidDoc(folderPath, data) {
+
+    const exportRoot = folderPath + '/' + this.applicationData.applicationName + '_export';
+    const guideRoot = exportRoot + '/guide';
+
+    this.deleteFile(guideRoot);
+    this.makeFolder(guideRoot);
+
+
+    this.copyFolder(this.applicationFolderPath, guideRoot + '/assets/data');
+
 
   }
 
