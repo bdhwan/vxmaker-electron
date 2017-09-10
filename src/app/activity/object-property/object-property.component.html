@@ -1,73 +1,78 @@
 <div *ngIf="!selectedTriggerEvent">
-  <div class="object-property" style="padding-top:0;">
-    <div class="label-properties" style="margin-bottom:15px;">Properties</div>
-    <div *ngIf="selectedObject" class="btn-img">
+    <div class="object-property" style="padding-top:0;">
+        <div class="label-properties" style="margin-bottom:15px;">Properties</div>
+        <div *ngIf="selectedObject" class="btn-img">
 
-      <!-- 이미지, 파일 선택버튼 -->
-      <div *ngIf="selectedObject.type=='ImageView'">
+            <!-- 이미지, 파일 선택버튼 -->
+            <div *ngIf="selectedObject.type=='ImageView'">
 
-        <div *ngIf="selectedObject.dataUrl" class="img-selected">
-          <img [src]="prefix+applicationFolderPath+'/'+selectedObject.dataUrl" />
-          <div class="img-sub">
-            <p>ImageTitle</p>
-            <p class="img-sub-size">ImageSize</p>
-          </div>
+                <div *ngIf="selectedObject.dataUrl" class="img-selected">
+                    <img [src]="prefix+applicationFolderPath+'/'+selectedObject.dataUrl" />
+                    <div class="img-sub">
+                        <p>ImageTitle</p>
+                        <p class="img-sub-size">ImageSize</p>
+                    </div>
+                </div>
+                <button (click)="clickSelectImage()"> ImageSelect</button>
+            </div>
+
+            <div *ngIf="selectedObject.type=='LottieAnimationView'||selectedObject.type=='VideoView'">
+                <button (click)="clickSelectFile()"> FileSelect</button>
+            </div>
+            <!-- 이미지, 파일 선택버튼@ -->
+
+
+            <div class="property-input-wrap">
+
+
+
+
+
+                <div *ngFor="let key of showPropertyKeys">
+                    <div *ngIf="selectedObject[key]">
+                    </div>
+
+
+                    <label> {{ key }}:</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedObject[key]">
+                    </div>
+                </div>
+            </div>
         </div>
-        <button (click)="clickSelectImage()"> ImageSelect</button>
-      </div>
-
-      <div *ngIf="selectedObject.type=='LottieAnimationView'||selectedObject.type=='VideoView'">
-        <button (click)="clickSelectFile()"> FileSelect</button>
-      </div>
-      <!-- 이미지, 파일 선택버튼@ -->
 
 
-      <div class="property-input-wrap">
-        <div *ngFor="let key of showPropertyKeys">
-          <div *ngIf="selectedObject[key]">
-          </div>
-
-
-          <label> {{ key }}:</label>
-          <div class="property-input">
-            <input [(ngModel)]="selectedObject[key]">
-          </div>
+        <button (click)="toggleCode()">code</button>
+        <div *ngIf="selectedState&&needShowCode&&objectLayoutData">
+            <button [clip]="objectLayoutData" (onClip)="callback($event)">copy</button>
+            <handy-syntax-highlighter *ngIf="objectLayoutData" [language]="'java'" [content]="objectLayoutData"></handy-syntax-highlighter>
         </div>
-      </div>
-    </div>
 
-
-    <button (click)="toggleCode()">code</button>
-    <div *ngIf="selectedState&&needShowCode&&objectLayoutData">
-      <button [clip]="objectLayoutData" (onClip)="callback($event)">copy</button>
-      <handy-syntax-highlighter *ngIf="objectLayoutData" [language]="'java'" [content]="objectLayoutData"></handy-syntax-highlighter>
-    </div>
-
-    <div *ngIf="openSource">
-      <div>open source</div>
-      <div>{{openSource.title}}</div>
-      <div>author:{{openSource.author}}</div>
-      <div>source: <a (click)="clickLink(openSource.url)">{{openSource.url}}</a></div>
-      <div>description: {{openSource.description}}</div>
-    </div>
-
-
-
-
-
-    <div class="btn-more">
-      <button (click)='toggleDetail()'>View more Properties <i class="fa fa-sort-desc"></i></button>
-    </div>
-
-
-    <div *ngIf="selectedState&&needShowState">
-      <div class="property-input-wrap" *ngFor="let key of detailKeys">
-        <label> {{ key }}: </label>
-        <div class="property-input">
-          <input [(ngModel)]="selectedState[key]">
+        <div *ngIf="openSource">
+            <div>open source</div>
+            <div>{{openSource.title}}</div>
+            <div>author:{{openSource.author}}</div>
+            <div>source: <a (click)="clickLink(openSource.url)">{{openSource.url}}</a></div>
+            <div>description: {{openSource.description}}</div>
         </div>
-      </div>
+
+
+
+
+
+        <div class="btn-more">
+            <button (click)='toggleDetail()'>View more Properties <i class="fa fa-sort-desc"></i></button>
+        </div>
+
+
+        <div *ngIf="selectedState&&needShowState">
+            <div class="property-input-wrap" *ngFor="let key of detailKeys">
+                <label> {{ key }}: </label>
+                <div class="property-input">
+                    <input [(ngModel)]="selectedState[key]">
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
 </div>

@@ -75,17 +75,13 @@ export class CodeExportComponent implements OnInit {
     if (result) {
       const self = this;
       this.isLoading = true;
-
-      setTimeout(function () {
-        self.exportProcess().then(result => {
-          self.isLoading = false;
-          const open = confirm('will you open export folder?');
-          if (open) {
-            self.appDataService.openFinder(checkFolderPath);
-          }
-        });
-      }, 3000);
-
+      self.exportProcess().then(result => {
+        self.isLoading = false;
+        const open = confirm('will you open export folder?');
+        if (open) {
+          self.appDataService.openFinder(checkFolderPath);
+        }
+      });
     }
   }
 
