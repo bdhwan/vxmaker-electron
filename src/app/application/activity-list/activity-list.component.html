@@ -55,11 +55,7 @@
 
                 </div>
 
-
-
-
                 <button class="list-new" (click)="clickNewActivity()">+</button>
-
 
             </div>
 
@@ -67,7 +63,33 @@
     </div>
 </div>
 
-<ng-template *ngIf="viewMode==='left'">
-    left mode
 
-</ng-template>
+<div *ngIf="viewMode==='left'">
+
+    <div *ngFor="let activity of applicationData.activityList" class="col-3">
+        <div class="list-box">
+            <div class="list-img">
+                <div class="btn-home-on" *ngIf="activity.activityId===applicationData.launcherActivityId">
+                    <p>Home</p>
+                </div>
+                <img class="preview-img" [src]="prefix+applicationFolderPath+'/'+activity.previewPath">
+                <div class="list-hover">
+                    <button (click)="clickActivity(activity.activityId)">Edit</button>
+                    <button (click)="clickDuplicateActivity(activity.activityId)">Duplicate</button>
+                    <button (click)="clickDeleteActivity(activity.activityId)">Delete</button>
+                    <div class="btn-home" (click)="clickLauncherActivity(activity.activityId)"></div>
+                </div>
+            </div>
+
+            <div class="list-text">
+                <div class="list-text-title">
+                    <input type="text" class="activity-name" [(ngModel)]="activity.activityName" (blur)="onChange()" />
+                </div>
+                <div class="list-text-updated">
+                    {{activity.updatedAt | date:'medium'}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

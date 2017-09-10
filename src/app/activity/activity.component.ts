@@ -78,6 +78,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   sendStatus: Boolean = false;
 
+  isOpenActivityList: Boolean = true;
 
   isReadyToRender: Boolean = false;
 
@@ -348,7 +349,10 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.objectTreeComponent.expandAll();
   }
 
-
+  toggleActivityList() {
+    console.log("toggleActivityList");
+    this.isOpenActivityList = !this.isOpenActivityList;
+  }
 
   initDataToView() {
     return new Promise((resolve, reject) => {

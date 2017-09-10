@@ -30,6 +30,14 @@
         <!-- activity left-->
 
         <div class="activity-left">
+
+
+            <button (click)="toggleActivityList()">Open</button>
+            <div *ngIf="isOpenActivityList&&applicationData">
+                <app-application-info [viewMode]="'left'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-application-info>
+                <app-activity-list [viewMode]="'left'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-activity-list>
+            </div>
+
             <app-object-tree #objectTree (onChangeNode)="onChangeNodeFromTree($event)" (onClickNewFile)="clickNewFile($event)" (onSelectNode)="onSelectNodeFromTree($event)"></app-object-tree>
             <app-object-new #objectNew (onShowResourceDialog)="onShowResourceDialog($event)" (onClickNewObject)="clickNewObject($event)" (onChangeTreeData)="changeTreeData($event)"></app-object-new>
         </div>
@@ -64,8 +72,7 @@
 
     </div>
 
-    <!-- activity content @ -->
-    <app-activity-list *ngIf="applicationData" [viewMode]="'full'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath" (onChangeActivityData)="onChangeData($event)"></app-activity-list>
+
 
 </div>
 
