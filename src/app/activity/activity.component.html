@@ -65,6 +65,7 @@
     </div>
 
     <!-- activity content @ -->
+    <app-activity-list *ngIf="applicationData" [viewMode]="'full'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath" (onChangeActivityData)="onChangeData($event)"></app-activity-list>
 
 </div>
 

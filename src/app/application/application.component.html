@@ -34,8 +34,7 @@
         </div>
         <div class="list-right">
             <div>
-                <app-activity-list *ngIf="applicationData" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath" (onChangeActivityData)="onChangeData($event)" (onClickActivity)="clickActivity($event)" (onClickNewActivity)="clickNewActivity($event)"
-                    (onClickDuplicatewActivity)="clickDuplicateActivity($event)" (onClickDeleteActivity)="clickDeleteActivity($event)" (onClickLauncherActivity)="onClickLauncherActivity($event)"></app-activity-list>
+                <app-activity-list *ngIf="applicationData" [viewMode]="'full'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-activity-list>
             </div>
         </div>
 

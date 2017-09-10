@@ -84,7 +84,7 @@ export class CodeExportComponent implements OnInit {
             self.appDataService.openFinder(checkFolderPath);
           }
         });
-      }, 1000);
+      }, 3000);
 
     }
   }

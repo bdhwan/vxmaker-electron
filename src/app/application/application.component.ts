@@ -109,6 +109,7 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
       .subscribe(message => {
 
         const kind = message.kind;
+        const activityId = message.activityId;
         console.log("application message received!! = " + kind);
         if (kind === 'send-device') {
           this.onClickSendDevice(null);
@@ -120,6 +121,28 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
         } else if (kind === 'code-export') {
           // this.codeActivityLayout.showDialog();
           this.router.navigate(['/code-export', this.applicationFolderPath]);
+        } else if (kind === 'change-activity-list') {
+
+          this.onChangeData(null);
+        } else if (kind === 'go-detail-activity') {
+          this.clickActivity(activityId);
+
+        } else if (kind === 'delete-activity') {
+          this.clickDeleteActivity(activityId);
+        } else if (kind === 'duplicate-activity') {
+          this.clickDuplicateActivity(activityId);
+
+        } else if (kind === 'new-activityt') {
+          this.clickNewActivity();
+
+        } else if (kind === 'set-launcher-activity') {
+          this.onClickLauncherActivity(activityId);
+        } else if (kind === 'set-launcher-activity') {
+          this.onClickLauncherActivity(activityId);
+        } else if (kind === 'on-change-data') {
+          this.onChangeData(null);
+        } else if (kind === 'change-icon') {
+          this.onClickChangeIcon();
         }
       });
   }

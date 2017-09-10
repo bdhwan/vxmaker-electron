@@ -1,66 +1,73 @@
-<div class="activities-top">
-    <p>{{applicationData.activityList.length}} Activities </p>
-</div>
+<div *ngIf="viewMode==='full'">
 
-<div class="list-scroll">
-    <div class="col-wrap ">
-        <div *ngFor="let activity of applicationData.activityList" class="col-3">
+    <div class="activities-top">
+        <p>{{applicationData.activityList.length}} Activities </p>
+    </div>
 
-            <div class="list-box">
-                <div class="list-img">
-                    <div class="btn-home-on" *ngIf="activity.activityId===applicationData.launcherActivityId">
-                        <p>Home</p>
+    <div class="list-scroll">
+        <div class="col-wrap ">
+            <div *ngFor="let activity of applicationData.activityList" class="col-3">
+
+                <div class="list-box">
+                    <div class="list-img">
+                        <div class="btn-home-on" *ngIf="activity.activityId===applicationData.launcherActivityId">
+                            <p>Home</p>
+                        </div>
+                        <img class="preview-img" [src]="prefix+applicationFolderPath+'/'+activity.previewPath">
+                        <div class="list-hover">
+                            <button (click)="clickActivity(activity.activityId)">Edit</button>
+                            <button (click)="clickDuplicateActivity(activity.activityId)">Duplicate</button>
+                            <button (click)="clickDeleteActivity(activity.activityId)">Delete</button>
+                            <div class="btn-home" (click)="clickLauncherActivity(activity.activityId)"></div>
+                        </div>
                     </div>
-                    <img class="preview-img" [src]="prefix+applicationFolderPath+'/'+activity.previewPath">
-                    <div class="list-hover">
-                        <button (click)="clickActivity(activity.activityId)">Edit</button>
-                        <button (click)="clickDuplicateActivity(activity.activityId)">Duplicate</button>
-                        <button (click)="clickDeleteActivity(activity.activityId)">Delete</button>
-                        <div class="btn-home" (click)="clickLauncherActivity(activity.activityId)"></div>
+
+                    <div class="list-text">
+                        <div class="list-text-title">
+                            <input type="text" class="activity-name" [(ngModel)]="activity.activityName" (blur)="onChange()" />
+                        </div>
+                        <div class="list-text-updated">
+                            {{activity.updatedAt | date:'medium'}}
+                        </div>
                     </div>
 
-                </div>
-
-                <div class="list-text">
-                    <div class="list-text-title">
-                        <input type="text" class="activity-name" [(ngModel)]="activity.activityName" (blur)="onChange()" />
-                    </div>
-                    <div class="list-text-updated">
-                        {{activity.updatedAt | date:'medium'}}
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-3 list-new-wrap">
-
-            <div class="list-box">
-
-                <div class="list-img">
-                    <img width="100px" height="150px">
-
-                </div>
-
-                <div class="list-text">
-                    <div class="list-text-title">
-                        <h4>list text title</h4>
-                    </div>
-                    <div class="list-text-updated">
-                        list text updated
-                    </div>
                 </div>
 
             </div>
 
+            <div class="col-3 list-new-wrap">
+
+                <div class="list-box">
+
+                    <div class="list-img">
+                        <img width="100px" height="150px">
+
+                    </div>
+
+                    <div class="list-text">
+                        <div class="list-text-title">
+                            <h4>list text title</h4>
+                        </div>
+                        <div class="list-text-updated">
+                            list text updated
+                        </div>
+                    </div>
+
+                </div>
 
 
 
-            <button class="list-new" (click)="clickNewActivity()">+</button>
 
+                <button class="list-new" (click)="clickNewActivity()">+</button>
+
+
+            </div>
 
         </div>
-
     </div>
 </div>
+
+<ng-template *ngIf="viewMode==='left'">
+    left mode
+
+</ng-template>

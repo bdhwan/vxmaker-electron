@@ -12,7 +12,7 @@ export class ObjectNewComponent implements OnInit {
   @Output() onClickNewObject = new EventEmitter<string>();
   @Output() onChangeTreeData = new EventEmitter<any>();
   @Output() onShowResourceDialog = new EventEmitter<string>();
-
+  objectTypeData = [];
 
   constructor(private broadcaster: BroadcastService) { }
 
@@ -20,14 +20,11 @@ export class ObjectNewComponent implements OnInit {
 
   }
 
-  objectTypeData = [];
+
 
   public setObjectTypeData(objectTypeData: any) {
     this.objectTypeData = objectTypeData;
 
-    for (var i = 0; i < this.objectTypeData.length; i++) {
-      console.log("type = " + JSON.stringify(this.objectTypeData[i]));
-    }
   }
 
   clickResource() {

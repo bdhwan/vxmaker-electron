@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { ApplicationComponent } from '../../application/application.component'
+import { BroadcastService } from '../../service/broadcast.service';
 
 
 import { environment } from '../../../environments/environment';
@@ -16,19 +17,20 @@ export class ApplicationInfoComponent implements OnInit {
 
   prefix = environment.imgPrefix;
 
+  viewMode;
 
 
   @Input() applicationData: any;
   @Input() applicationFolderPath: string;
 
-  @Output() onChangeData = new EventEmitter<string>();
-  @Output() onClickChangeIcon = new EventEmitter<void>();
+  // @Output() onChangeData = new EventEmitter<string>();
+  // @Output() onClickChangeIcon = new EventEmitter<void>();
 
 
   showImageDialog = false;
 
 
-  constructor() {
+  constructor(private broadcaster: BroadcastService) {
 
   }
 
@@ -37,11 +39,13 @@ export class ApplicationInfoComponent implements OnInit {
   }
 
   onChange(): void {
-    this.onChangeData.emit();
+    this.sendMessage('on-change-data', '');
+    // this.onChangeData.emit();
   }
 
   clickIcon(): void {
-    this.onClickChangeIcon.emit();
+    this.sendMessage('change-icon', '');
+    // this.onClickChangeIcon.emit();
   }
 
   clickToggleDialog() {
@@ -49,6 +53,19 @@ export class ApplicationInfoComponent implements OnInit {
     this.showImageDialog = !this.showImageDialog;
   }
 
+
+
+  sendMessage(kind, activityId) {
+    const message = {
+      kind: kind,
+      activityId: activityId
+    };
+    let target = 'activity';
+    if (this.viewMode === 'full') {
+      target = 'application';
+    }
+    this.broadcaster.broadcast(target, message);
+  }
 
 
 }
