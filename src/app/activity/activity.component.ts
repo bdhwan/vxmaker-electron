@@ -78,7 +78,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   sendStatus: Boolean = false;
 
-  isOpenActivityList: Boolean = true;
+  isOpenActivityList: Boolean = false;
 
   isReadyToRender: Boolean = false;
 
@@ -138,6 +138,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
         const kind = message.kind;
         console.log("message received!! = " + kind);
+        const activityId = message.activityId;
 
         if (kind === 'save') {
           this.onClickSave();
@@ -181,12 +182,23 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           this.appDataService.setSelectedObject(selectedObject);
           this.notifySelectedObjectChanged();
         } else if (kind === 'code-export') {
-          // this.codeActivityLayout.showDialog();
           this.router.navigate(['/code-export', this.applicationFolderPath]);
-
         } else if (kind === 'code-export') {
-          // this.codeActivityLayout.showDialog();
           this.router.navigate(['/code-export', this.applicationFolderPath]);
+        } else if (kind === 'go-detail-activity') {
+          this.clickActivity(activityId);
+        } else if (kind === 'delete-activity') {
+          this.clickDeleteActivity(activityId);
+        } else if (kind === 'duplicate-activity') {
+          this.clickDuplicateActivity(activityId);
+        } else if (kind === 'new-activity') {
+          this.clickNewActivity();
+        } else if (kind === 'set-launcher-activity') {
+          this.onClickLauncherActivity(activityId);
+        } else if (kind === 'on-change-data') {
+
+        } else if (kind === 'change-icon') {
+          this.onClickChangeIcon();
         }
       });
   }
@@ -314,15 +326,14 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         this.activityData.stageList = [stage];
 
         //2. object
-        var newObject = this.appDataService.createNewObject('FrameLayout');
+        let newObject = this.appDataService.createNewObject('FrameLayout');
         newObject.id = 'root';
         newObject['name'] = 'root';
         newObject['backgroundColor'] = '#ffffff';
         this.activityData.objectList = [newObject];
 
         //3. state
-        var newState = this.appDataService.createNewState(newObject.id, stage.id, 'FrameLayout');
-
+        let newState = this.appDataService.createNewState(newObject.id, stage.id, 'FrameLayout');
 
         this.activityData.stateList = [newState];
 
@@ -334,8 +345,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
         //6. stateEventList;
         this.activityData.stateEventList = [];
-
-
 
       }
 
@@ -376,7 +385,10 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
+  clickRoot() {
+    this.router.navigate(['/application', this.applicationFolderPath]);
 
+  }
 
 
   clickBack(): void {
@@ -713,6 +725,112 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   onResize(event) {
 
   }
+
+
+  clickNewActivity(): void {
+    console.log("click new Activity");
+    const now = new Date().getTime();
+    const activityId = 'activity_' + UUID.UUID();
+    const newActivityMetaData = {
+      activityId: activityId,
+      activityName: 'UntitledActivityName',
+      createdAt: now,
+      updatedAt: now
+    };
+    const newActivityData = {
+      activityId: activityId
+    };
+
+    if (this.applicationData.activityList.length === 0) {
+      this.applicationData.launcherActivityId = activityId;
+    }
+
+    this.applicationData.activityList.push(newActivityMetaData);
+
+
+    this.appDataService.saveApplicationData(this.applicationData);
+    this.appDataService.saveActivityData(activityId, newActivityData);
+
+    this.router.navigate(['/activity', this.applicationFolderPath, activityId]);
+
+  }
+
+
+
+  clickActivity(activityId): void {
+    console.log("will go = " + activityId);
+    this.router.navigate(['/activity', this.applicationFolderPath, activityId]);
+    window.location.reload();
+
+  }
+
+  clickDeleteActivity(activityId): void {
+
+    const result = confirm('will you delete? =' + activityId);
+    if (result) {
+      const index = this.findActivityPosition(activityId);
+      this.applicationData.activityList.splice(index, 1);
+
+      this.appDataService.deleteActivity(activityId);
+      this.clickSave();
+    }
+  }
+
+  findActivityPosition(activityId): any {
+    for (let i = 0; i < this.applicationData.activityList.length; i++) {
+      if (this.applicationData.activityList[i].activityId === activityId) {
+        return i;
+      }
+    }
+  }
+
+
+  clickDuplicateActivity(activityId): void {
+
+
+    const index = this.findActivityPosition(activityId);
+
+    const now = new Date().getTime();
+    const newActivityId = 'activity_' + UUID.UUID();
+
+    const newObject = JSON.parse(JSON.stringify(this.applicationData.activityList[index]));
+    newObject.activityId = newActivityId;
+    newObject.activityName = 'Copy_' + newObject.activityName;
+    newObject.createdAt = now;
+    newObject.updatedAt = now;
+
+    this.applicationData.activityList.splice(index + 1, 0, newObject);
+
+    this.appDataService.saveApplicationData(this.applicationData);
+    this.appDataService.saveActivityData(newActivityId, newObject);
+
+    this.clickActivity(newActivityId);
+
+  }
+
+  onClickLauncherActivity(activityId): void {
+    this.applicationData.launcherActivityId = activityId;
+    this.appDataService.saveApplicationData(this.applicationData);
+  }
+
+
+  onClickChangeIcon(): void {
+    const newIconImagePath = this.appDataService.selectImageFile();
+
+    if (newIconImagePath) {
+      const iconFileName = 'image/ic_launcher_' + new Date().getTime() + '.png';
+      const targetPath = this.applicationFolderPath + '/' + iconFileName;
+      this.appDataService.deleteFile(this.applicationFolderPath + '/' + this.applicationData.iconPath);
+      const result = this.appDataService.copyFile(newIconImagePath, targetPath);
+
+      if (result) {
+        this.applicationData.iconPath = iconFileName;
+        this.appDataService.saveApplicationData(this.applicationData);
+      }
+    }
+  }
+
+
 
 
 
