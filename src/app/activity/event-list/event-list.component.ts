@@ -42,18 +42,43 @@ export class EventListComponent implements OnInit {
   }
 
 
+  public showList() {
+
+
+  }
+
 
   clickNewEvent() {
-    this.onNewEvent.emit();
+
+    const message = {
+      kind: 'new-event'
+    };
+    this.broadcaster.broadcast('activity', message);
+
+
+    // this.onNewEvent.emit();
   }
 
   clickNewAfterAnimationEvent() {
-    this.onNewEvent.emit('afterAnimation');
+
+    const message = {
+      kind: 'new-after-animation'
+    };
+    this.broadcaster.broadcast('activity', message);
+
+
+    // this.onNewEvent.emit('afterAnimation');
   }
 
   clickDetailEvent(event) {
     console.log("clickDetailEvent = " + JSON.stringify(event));
-    this.onClickDetailEvent.emit(event);
+    // this.onClickDetailEvent.emit(event);
+    const message = {
+      kind: 'detail-event',
+      event: event
+    };
+    this.broadcaster.broadcast('activity', message);
+
   }
 
   clickDeleteEvent(event, triggerEvent) {

@@ -202,6 +202,17 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         } else if (kind === 'complete-event') {
           this.onCompleteEvent(null);
 
+        } else if (kind === 'new-event') {
+
+          this.onNewEvent();
+
+        } else if (kind === 'detail-event') {
+          const detailEvent = message.event;
+          this.onClickDetailEvent(detailEvent);
+
+        } else if (kind === 'new-after-animation') {
+          // this.onClickDetailEvent(null);
+
         }
       });
   }
@@ -393,6 +404,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
     console.log("onCompleteEvent");
     this.eventList.onChangeData();
+    this.onCloseEvent();
   }
 
   clickRoot() {
@@ -723,12 +735,10 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   onCloseEvent() {
-
     this.appDataService.setSelectedTriggerEvent(null);
     this.appDataService.setSelectedImplementEvent(null);
     // notify data set changed
     this.notifySelectedObjectChanged();
-
   }
 
 
