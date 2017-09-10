@@ -52,7 +52,7 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
     'translationY'
   ];
   needShowState = false;
-  needShowCode = true;
+  needShowCode = false;
 
   constructor(
     private appDataService: ApplicationDataServiceService,

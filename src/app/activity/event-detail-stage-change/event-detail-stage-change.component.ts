@@ -11,7 +11,7 @@ export class EventDetailStageChangeComponent implements OnInit, AfterViewInit {
   @Output() onNewAfterAnimationEvent = new EventEmitter<string>();
   @Output() onCloseEvent = new EventEmitter<string>();
 
-  // selectedTriggerEvent;
+  selectedTriggerEvent;
   selectedImplementEvent;
 
   stateEventList;
@@ -162,7 +162,7 @@ export class EventDetailStageChangeComponent implements OnInit, AfterViewInit {
         tempTotalTime = time;
       }
     }
-    return tempTotalTime+500;
+    return tempTotalTime + 500;
   }
 
   calculateMaxTotalTime() {
@@ -212,12 +212,17 @@ export class EventDetailStageChangeComponent implements OnInit, AfterViewInit {
   }
 
   public onChangeData() {
-    // this.selectedTriggerEvent = this.appDataService.getSelectedTriggerEvent();
+    this.selectedTriggerEvent = this.appDataService.getSelectedTriggerEvent();
     this.selectedImplementEvent = this.appDataService.getSelectedImplementEvent();
+
+
     if (this.selectedImplementEvent) {
+      this.selectedImplementEvent.fromStageName = this.appDataService.findStageByStageId(this.selectedImplementEvent.fromStageId).name;
+      this.selectedImplementEvent.toStageName = this.appDataService.findStageByStageId(this.selectedImplementEvent.toStageId).name;
       this.stateEventList = this.appDataService.findStateChangeEventByImplementEventId(this.selectedImplementEvent.id);
       this.calculateMaxTotalTime();
     }
+
   }
 
 

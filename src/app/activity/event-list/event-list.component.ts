@@ -15,7 +15,6 @@ export class EventListComponent implements OnInit {
 
 
   selectedTriggerEvent;
-
   triggerEventList;
 
 
@@ -28,12 +27,21 @@ export class EventListComponent implements OnInit {
   public onChangeData() {
     this.selectedTriggerEvent = this.appDataService.getSelectedTriggerEvent();
     this.triggerEventList = this.appDataService.getActivityData().triggerEventList;
+
+    for (let i = 0; i < this.triggerEventList.length; i++) {
+      const aEvent = this.triggerEventList[i];
+      const implEvent = this.appDataService.findImplentEventByTriggerEventId(aEvent.id);
+      if (implEvent.type === 'stageChange') {
+        implEvent.fromStageName = this.appDataService.findStageByStageId(implEvent.fromStageId).name;
+        implEvent.toStageName = this.appDataService.findStageByStageId(implEvent.toStageId).name;
+      } else if (implEvent.type === 'startActivity') {
+        implEvent.toActivityName = this.appDataService.getActivityName(implEvent.toActivityId);
+      }
+      aEvent.implEvent = implEvent;
+    }
   }
 
-  getImplement(triggerEventId) {
-    const result = this.appDataService.findImplentEventByTriggerEventId(triggerEventId);
-    return result;
-  }
+
 
   clickNewEvent() {
     this.onNewEvent.emit();
@@ -59,6 +67,8 @@ export class EventListComponent implements OnInit {
       this.broadcaster.broadcast('activity', message);
     }
   }
+
+
 
 
 
