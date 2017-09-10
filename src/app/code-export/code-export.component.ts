@@ -45,7 +45,6 @@ export class CodeExportComponent implements OnInit {
     this.appDataService.initApplicationPath(this.applicationFolderPath);
     this.appDataService.loadInitDataFromFile().then(result => {
       self.applicationData = self.appDataService.loadApplicationDataSync();
-
     });
   }
 
@@ -113,11 +112,14 @@ export class CodeExportComponent implements OnInit {
     this.appDataService.openFinder(this.workspaceFolderPath + '/' + this.applicationData.applicationName + '_export');
   }
 
-  clickBck() {
+  clickBack() {
     this.location.back();
   }
 
 
+  clickRoot() {
+    this.router.navigate(['/application', this.applicationFolderPath]);
+  }
 
 
 }
