@@ -101,6 +101,10 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
     this.onShowResourceDialog.emit(target);
   }
 
+  clickDownload(url) {
+    this.appDataService.openUrl(url);
+  }
+
   public onChangeData(): void {
     this.selectedTriggerEvent = this.appDataService.getSelectedTriggerEvent();
     this.selectedObject = this.appDataService.getSelectedObject();

@@ -2,15 +2,32 @@
     <div class="object-property" style="padding-top:0;">
         <div class="label-properties" style="margin-bottom:15px;">Properties</div>
         <div *ngIf="selectedObject" class="btn-img">
+            <div>
+                <label>type:</label>
+                <div class="property-input">
+                    <label>{{selectedObject.type}}</label>
+                </div>
+            </div>
+            <div>
+                <label>name:</label>
+                <div class="property-input">
+                    <input [(ngModel)]="selectedObject.name">
+                </div>
+            </div>
+            <div>
+                <label>background:</label>
+                <div class="property-input">
+                    <input [(ngModel)]="selectedObject.backgroundColor">
+                </div>
+            </div>
 
             <!-- 이미지, 파일 선택버튼 -->
             <div *ngIf="selectedObject.type=='ImageView'">
-
                 <div *ngIf="selectedObject.dataUrl" class="img-selected">
                     <img [src]="prefix+applicationFolderPath+'/'+selectedObject.dataUrl" />
                     <div class="img-sub">
-                        <p>ImageTitle</p>
-                        <p class="img-sub-size">ImageSize</p>
+                        <p>{{selectedObject.dataUrl}}</p>
+                        <p class="img-sub-size" (click)="clickDownload(prefix+applicationFolderPath+'/'+selectedObject.dataUrl)">Donwload</p>
                     </div>
                 </div>
                 <button (click)="clickSelectImage()"> ImageSelect</button>
@@ -19,27 +36,16 @@
             <div *ngIf="selectedObject.type=='LottieAnimationView'||selectedObject.type=='VideoView'">
                 <button (click)="clickSelectFile()"> FileSelect</button>
             </div>
-            <!-- 이미지, 파일 선택버튼@ -->
 
-
-            <div class="property-input-wrap">
-
-
-
-
-
-                <div *ngFor="let key of showPropertyKeys">
-                    <div *ngIf="selectedObject[key]">
-                    </div>
-
-
-                    <label> {{ key }}:</label>
-                    <div class="property-input">
-                        <input [(ngModel)]="selectedObject[key]">
-                    </div>
-                </div>
+            <div *ngIf="selectedObject.type=='TextView'">
+                text <input [(ngModel)]="selectedObject.contentText" />
             </div>
+
+            <!-- 이미지, 파일 선택버튼@ -->
         </div>
+
+
+
 
 
         <button (click)="toggleCode()">code</button>
@@ -56,20 +62,108 @@
             <div>description: {{openSource.description}}</div>
         </div>
 
-
-
-
-
         <div class="btn-more">
             <button (click)='toggleDetail()'>View more Properties <i class="fa fa-sort-desc"></i></button>
         </div>
 
-
         <div *ngIf="selectedState&&needShowState">
-            <div class="property-input-wrap" *ngFor="let key of detailKeys">
-                <label> {{ key }}: </label>
-                <div class="property-input">
-                    <input [(ngModel)]="selectedState[key]">
+            <!-- state value -->
+            <div>
+                <div>
+                    <label>width:</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedState.width">
+                    </div>
+                </div>
+                <div>
+                    <label>height:</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedState.height">
+                    </div>
+                </div>
+                <div>
+                    <label>marginTop:</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedState.marginTop">
+                    </div>
+                </div>
+                <div>
+                    <label>marginLeft:</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedState.marginLeft">
+                    </div>
+                </div>
+                <div>
+                    <label>marginRight:</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedState.marginRight">
+                    </div>
+                </div>
+                <div>
+                    <label>marginBottom:</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedState.marginBottom">
+                    </div>
+                </div>
+                <div>
+                    <label>paddingLeft:</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedState.paddingLeft">
+                    </div>
+                </div>
+                <div>
+                    <label>paddingRight:</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedState.paddingRight">
+                    </div>
+                </div>
+                <div>
+                    <label>paddingTop:</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedState.paddingTop">
+                    </div>
+                </div>
+                <div>
+                    <label>paddingBottom:</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedState.paddingBottom">
+                    </div>
+                </div>
+                <div>
+                    <label>translationX:</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedState.translationX">
+                    </div>
+                </div>
+                <div>
+                    <label>translationY:</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedState.translationY">
+                    </div>
+                </div>
+                <div>
+                    <label>scaleX:</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedState.scaleX">
+                    </div>
+                </div>
+                <div>
+                    <label>scaleY:</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedState.scaleY">
+                    </div>
+                </div>
+                <div>
+                    <label>rotate:</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedState.rotate">
+                    </div>
+                </div>
+                <div>
+                    <label>alpha:</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedState.alpha">
+                    </div>
                 </div>
             </div>
         </div>

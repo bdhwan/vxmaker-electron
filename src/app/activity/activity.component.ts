@@ -270,6 +270,11 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   ngAfterViewInit() {
+    this.reloadActivityData();
+  }
+
+
+  reloadActivityData() {
 
     this.appDataService.loadInitDataFromFile().then((data) => {
       this.defaultStateData = this.appDataService.getDefaultStateData();
@@ -295,11 +300,9 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
       }).then((result) => {
         this.notifySelectedObjectChanged();
       });
-  }
 
 
-  reloadActivityData() {
-    this.ngAfterViewInit();
+
   }
 
   public refreshList() {
@@ -766,11 +769,8 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.router.navigate(['/activity', this.applicationFolderPath, activityId]);
 
     this.activityId = activityId;
-    // this.appDataService.initApplicationPath(this.applicationFolderPath);
     this.appDataService.initActivityId(this.activityId);
     this.reloadActivityData();
-    // window.location.reload();
-
   }
 
   clickDeleteActivity(activityId): void {
@@ -779,9 +779,12 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     if (result) {
       const index = this.findActivityPosition(activityId);
       this.applicationData.activityList.splice(index, 1);
-
       this.appDataService.deleteActivity(activityId);
       this.clickSave();
+      if (this.activityId === activityId) {
+        this.clickRoot();
+      }
+
     }
   }
 
