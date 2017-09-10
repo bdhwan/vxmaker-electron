@@ -2,27 +2,8 @@
     <div class="object-property" style="padding-top:0;">
         <div class="label-properties" style="margin-bottom:15px;">Properties</div>
         <div *ngIf="selectedObject" class="btn-img">
-            <div class="label-properties-2" style="margin-bottom:15px;">Info</div>
-            <div class="property-detail" style="margin-bottom:8px;">
-                <label>type:</label>
-                <div class="property-input">
-                    <label>{{selectedObject.type}}</label>
-                </div>
-            </div>
-            <div class="property-detail">
-                <label>name:</label>
-                <div class="property-input">
-                    <input [(ngModel)]="selectedObject.name">
-                </div>
-            </div>
-            <div class="property-detail">
-                <label>background:</label>
-                <div class="property-input">
-                    <input [(ngModel)]="selectedObject.backgroundColor">
-                </div>
-            </div>
 
-            <!-- 이미지, 파일 선택버튼 -->
+              <!-- 이미지, 파일 선택버튼 -->
             <div *ngIf="selectedObject.type=='ImageView'">
                 <div *ngIf="selectedObject.dataUrl" class="img-selected">
                     <img [src]="prefix+applicationFolderPath+'/'+selectedObject.dataUrl" />
@@ -43,6 +24,28 @@
             </div>
 
             <!-- 이미지, 파일 선택버튼@ -->
+
+            <div class="label-properties-2" style="margin-bottom:15px;">Info</div>
+            <div class="property-detail" style="margin-bottom:8px;">
+                <label>type:</label>
+                <div class="property-input">
+                    <label>{{selectedObject.type}}</label>
+                </div>
+            </div>
+            <div class="property-detail">
+                <label>name:</label> 
+                <div class="property-input">
+                    <input [(ngModel)]="selectedObject.name">
+                </div>
+            </div>
+            <div class="property-detail">
+                <label>background:</label>
+                <div class="property-input">
+                    <input [(ngModel)]="selectedObject.backgroundColor">
+                </div>
+            </div>
+
+          
         </div>
 
 
@@ -59,7 +62,7 @@
                 <i class="fa fa-sort-desc"></i>
             </div>
 
-            <div>
+            <div class="property-detail-wrap">
                 <div class="property-detail">
                     <label>fontFamily:</label>
                     <div class="property-input">
@@ -96,7 +99,7 @@
                 <i class="fa fa-sort-desc"></i>
             </div>
 
-            <div>
+             <div class="property-detail-wrap">
                 <div class="property-detail">
                     <label>width:</label>
                     <div class="property-input">
@@ -132,7 +135,7 @@
                 <i class="fa fa-sort-desc"></i>
             </div>
 
-            <div>
+             <div class="property-detail-wrap">
 
                 <div class="property-detail">
                     <label>marginTop:</label>
@@ -169,7 +172,7 @@
                 <i class="fa fa-sort-desc"></i>
             </div>
 
-            <div>
+            <div class="property-detail-wrap">
                 <div class="property-detail">
                     <label>paddingLeft:</label>
                     <div class="property-input">
@@ -204,7 +207,7 @@
                 <i class="fa fa-sort-desc"></i>
             </div>
 
-            <div>
+            <div class="property-detail-wrap">
 
                 <div class="property-detail">
                     <label>translationX:</label>
