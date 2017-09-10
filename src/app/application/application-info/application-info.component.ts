@@ -17,9 +17,8 @@ export class ApplicationInfoComponent implements OnInit {
 
   prefix = environment.imgPrefix;
 
-  viewMode;
 
-
+  @Input() viewMode: any;
   @Input() applicationData: any;
   @Input() applicationFolderPath: string;
 

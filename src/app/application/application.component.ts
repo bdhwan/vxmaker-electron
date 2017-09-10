@@ -132,7 +132,8 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
         } else if (kind === 'duplicate-activity') {
           this.clickDuplicateActivity(activityId);
 
-        } else if (kind === 'new-activityt') {
+        } else if (kind === 'new-activity') {
+          console.log("new activity");
           this.clickNewActivity();
 
         } else if (kind === 'set-launcher-activity') {
@@ -166,6 +167,7 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
 
 
   clickNewActivity(): void {
+    console.log("click new Activity");
     const now = new Date().getTime();
     const activityId = 'activity_' + UUID.UUID();
     const newActivityMetaData = {
