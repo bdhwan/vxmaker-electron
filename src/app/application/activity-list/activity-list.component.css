@@ -36,6 +36,15 @@
     position: relative;
 }
 
+.list-box-left {
+    max-width: 300px;
+    margin:15px;
+}
+
+.list-box-left .list-img {
+    padding:15px 75px !important;
+}
+
 .list-box .list-img {
     background: #f5f6f7;
     padding: 15px 52px;

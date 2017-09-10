@@ -66,14 +66,32 @@
 
 <div *ngIf="viewMode==='left'">
 
-    <div *ngFor="let activity of applicationData.activityList" width="100px" height="100px">
-        <img width="100px" height="100px" [src]="prefix+applicationFolderPath+'/'+activity.previewPath">
+    <div class="activity-list-left">
+        <div class="label-properties">
+            Activity list
+        </div>
+    </div>
+
+    <div *ngFor="let activity of applicationData.activityList" class="list-box list-box-left">
+
+        <div *ngIf="activity.activityId===currentActivityId">
+
+            current selected activity
+        </div>
+        <div *ngIf="activity.activityId!==currentActivityId">
+
+        </div>
+        <div class="list-img">
+            <img width="100px" height="150px"  [src]="prefix+applicationFolderPath+'/'+activity.previewPath">
+        </div>
+        <div class="list-text">
+            <div class="btn-home" (click)="clickLauncherActivity(activity.activityId)"></div>
+            <input type="text" class="activity-name" [(ngModel)]="activity.activityName" (blur)="onChange()" />
+        </div>
         <button (click)="clickActivity(activity.activityId)">Edit</button>
         <button (click)="clickDuplicateActivity(activity.activityId)">Duplicate</button>
         <button (click)="clickDeleteActivity(activity.activityId)">Delete</button>
-        <div class="btn-home" (click)="clickLauncherActivity(activity.activityId)"></div>
-        <input type="text" class="activity-name" [(ngModel)]="activity.activityName" (blur)="onChange()" />
-
+        
     </div>
 
 </div>

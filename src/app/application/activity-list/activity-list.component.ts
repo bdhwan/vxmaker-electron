@@ -15,6 +15,8 @@ export class ActivityListComponent implements OnInit {
   prefix = environment.imgPrefix;
 
   @Input() viewMode: any;
+  @Input() currentActivityId: any;
+  
   @Input() applicationData: any;
   @Input() applicationFolderPath: string;
 
