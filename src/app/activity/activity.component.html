@@ -7,6 +7,7 @@
         <div class="container-fluid" style="padding-left: 0;">
             <div style="float:left;" class="nav-project">
                 <button (click)="toggleActivityList()">Open</button>
+
                 <button (click)="clickRoot()">{{applicationData.applicationName}}</button>
 
             </div>
@@ -33,15 +34,15 @@
 
         <div class="activity-left">
 
-
-
-            <div *ngIf="isOpenActivityList&&applicationData">
+            <div *ngIf="applicationData" [hidden]="!isOpenActivityList">
                 <app-application-info [viewMode]="'left'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-application-info>
                 <app-activity-list [viewMode]="'left'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-activity-list>
             </div>
 
-            <app-object-tree #objectTree (onChangeNode)="onChangeNodeFromTree($event)" (onClickNewFile)="clickNewFile($event)" (onSelectNode)="onSelectNodeFromTree($event)"></app-object-tree>
-            <app-object-new #objectNew (onShowResourceDialog)="onShowResourceDialog($event)" (onClickNewObject)="clickNewObject($event)" (onChangeTreeData)="changeTreeData($event)"></app-object-new>
+            <div [hidden]="isOpenActivityList">
+                <app-object-tree #objectTree (onChangeNode)="onChangeNodeFromTree($event)" (onClickNewFile)="clickNewFile($event)" (onSelectNode)="onSelectNodeFromTree($event)"></app-object-tree>
+                <app-object-new #objectNew (onShowResourceDialog)="onShowResourceDialog($event)" (onClickNewObject)="clickNewObject($event)" (onChangeTreeData)="changeTreeData($event)"></app-object-new>
+            </div>
         </div>
 
         <!-- activity left@-->

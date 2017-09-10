@@ -760,7 +760,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   clickActivity(activityId): void {
     console.log("will go = " + activityId);
     this.router.navigate(['/activity', this.applicationFolderPath, activityId]);
-    window.location.reload();
+    // window.location.reload();
 
   }
 
