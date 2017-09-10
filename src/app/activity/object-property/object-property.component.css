@@ -142,3 +142,26 @@ margin-top: 3px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+.opensource-info {
+    background: rgba(255,255,255,0.7);
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 10px;
+    font-size: 10px;
+    color: #898989;
+}
+
+.opensource-info .info-title {
+    color: #454545;
+}
+
+.opensource-info .info-link {
+    color: #6262c5;
+}
+
+.opensource-info .info-link:hover {
+    text-decoration: underline;
+    color:#3b3baa;
+    cursor: pointer;
+}

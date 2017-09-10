@@ -134,23 +134,27 @@
 
 
 <div *ngIf="viewMode==='export'">
-    <div class="activity-list-left">
-        <div class="label-properties">
-            {{applicationData.activityList.length}} Activities
-        </div>
-    </div>
-    <div *ngFor="let activity of applicationData.activityList" class="list-box list-box-left">
-        <div *ngIf="activity.activityId!==currentActivityId">
-            <div class="list-img" (click)="clickActivity(activity.activityId)">
-                <img width="100px" height="150px" [src]="prefix+applicationFolderPath+'/'+activity.previewPath">
+    <div class="list-export">
+        <div class="activity-list-left">
+            <div class="label-properties">
+                {{applicationData.activityList.length}} Activities
             </div>
-            <div class="list-text">
-                <div class="btn-home"></div>
-                <div class="activity-name" (blur)="onChange()">
-                    {{activity.activityName}}
-                </div>
-                <div class="list-text-updated">
-                    {{activity.updatedAt | date:'medium'}}
+        </div>
+        <div class="list-box-export">
+            <div *ngFor="let activity of applicationData.activityList" class="list-box list-box-left ">
+                <div *ngIf="activity.activityId!==currentActivityId">
+                    <div class="list-img" (click)="clickActivity(activity.activityId)">
+                        <img width="100px" height="150px" [src]="prefix+applicationFolderPath+'/'+activity.previewPath">
+                    </div>
+                    <div class="list-text">
+                        <div class="btn-home"></div>
+                        <div class="activity-name" (blur)="onChange()">
+                            {{activity.activityName}}
+                        </div>
+                        <div class="list-text-updated">
+                            {{activity.updatedAt | date:'medium'}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@
         <div class="label-properties" style="margin-bottom:15px;">Properties</div>
         <div *ngIf="selectedObject" class="btn-img">
 
-              <!-- 이미지, 파일 선택버튼 -->
+            <!-- 이미지, 파일 선택버튼 -->
             <div *ngIf="selectedObject.type=='ImageView'">
                 <div *ngIf="selectedObject.dataUrl" class="img-selected">
                     <img [src]="prefix+applicationFolderPath+'/'+selectedObject.dataUrl" />
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="property-detail">
-                <label>name:</label> 
+                <label>name:</label>
                 <div class="property-input">
                     <input [(ngModel)]="selectedObject.name">
                 </div>
@@ -45,7 +45,21 @@
                 </div>
             </div>
 
-          
+
+        </div>
+
+        <div class="btn-more">
+            <button style="margin-bottom:8px;">Open source(이미지출처) <i class="fa fa-sort-desc"></i></button>
+        </div>
+
+
+        <div *ngIf="openSource">
+            <div class="opensource-info">
+                <div class="info-title">{{openSource.title}}</div>
+                <div class="info-author">Author:{{openSource.author}}</div>
+                <div class="info-description">Description: {{openSource.description}}</div>
+                <div class="info-link"><a (click)="clickLink(openSource.url)">{{openSource.url}}</a></div>
+            </div>
         </div>
 
 
@@ -99,7 +113,7 @@
                 <i class="fa fa-sort-desc"></i>
             </div>
 
-             <div class="property-detail-wrap">
+            <div class="property-detail-wrap">
                 <div class="property-detail">
                     <label>width:</label>
                     <div class="property-input">
@@ -135,7 +149,7 @@
                 <i class="fa fa-sort-desc"></i>
             </div>
 
-             <div class="property-detail-wrap">
+            <div class="property-detail-wrap">
 
                 <div class="property-detail">
                     <label>marginTop:</label>
@@ -249,13 +263,7 @@
                 <handy-syntax-highlighter *ngIf="objectLayoutData" [language]="'java'" [content]="objectLayoutData"></handy-syntax-highlighter>
             </div>
 
-            <div *ngIf="openSource">
-                <div>open source</div>
-                <div>{{openSource.title}}</div>
-                <div>author:{{openSource.author}}</div>
-                <div>source: <a (click)="clickLink(openSource.url)">{{openSource.url}}</a></div>
-                <div>description: {{openSource.description}}</div>
-            </div>
+
             <!--code@ -->
         </div>
 

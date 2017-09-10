@@ -350,6 +350,18 @@ box-shadow: -1px -2px 5px -1px rgba(0,0,0,0.17);
     border-top: 10px solid #46a2ba;
 }
 
+.list-box-export {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-top: 264px;
+    overflow-y: auto;
+}
+
+
 
 @media (min-width: 1850px) {
     .col-3 {
