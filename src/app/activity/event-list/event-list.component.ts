@@ -78,7 +78,6 @@ export class EventListComponent implements OnInit {
       event: event
     };
     this.broadcaster.broadcast('activity', message);
-
   }
 
   clickDeleteEvent(event, triggerEvent) {

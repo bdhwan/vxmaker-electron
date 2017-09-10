@@ -728,9 +728,9 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.appDataService.setSelectedTriggerEvent(triggerEvent);
     const impEvent = this.appDataService.findImplentEventByTriggerEventId(triggerEvent.id);
     this.appDataService.setSelectedImplementEvent(impEvent);
-
     // notify data set changed
     this.notifySelectedObjectChanged();
+
   }
 
 

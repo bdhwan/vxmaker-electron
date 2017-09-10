@@ -212,15 +212,16 @@ export class EventDetailStageChangeComponent implements OnInit, AfterViewInit {
   }
 
   public onChangeData() {
+
     this.selectedTriggerEvent = this.appDataService.getSelectedTriggerEvent();
     this.selectedImplementEvent = this.appDataService.getSelectedImplementEvent();
 
-
-    if (this.selectedImplementEvent) {
+    if (this.selectedImplementEvent && this.selectedImplementEvent === 'stageChange') {
       this.selectedImplementEvent.fromStageName = this.appDataService.findStageByStageId(this.selectedImplementEvent.fromStageId).name;
       this.selectedImplementEvent.toStageName = this.appDataService.findStageByStageId(this.selectedImplementEvent.toStageId).name;
       this.stateEventList = this.appDataService.findStateChangeEventByImplementEventId(this.selectedImplementEvent.id);
       this.calculateMaxTotalTime();
+
     }
 
   }
