@@ -6,7 +6,9 @@
     <nav id="topSide" class="navbar navbar-default activity-nav" *ngIf="activityMetaData" style="height:50px;">
         <div class="container-fluid" style="padding-left: 0;">
             <div style="float:left;" class="nav-project">
-                <button (click)="toggleActivityList()">Open</button>
+                <button class="open-activity" (click)="toggleActivityList()">
+                  <i class="fa fa-navicon" style="font-size:24px"></i>
+                </button>
 
                 <button (click)="clickRoot()">{{applicationData.applicationName}}</button>
 

@@ -74,24 +74,59 @@
 
     <div *ngFor="let activity of applicationData.activityList" class="list-box list-box-left">
 
-        <div *ngIf="activity.activityId===currentActivityId">
+        <div *ngIf="activity.activityId===currentActivityId" class="activity-current">
 
-            current selected activity
+
+            <div class="list-img" (click)="clickActivity(activity.activityId)">
+                <img width="100px" height="150px" [src]="prefix+applicationFolderPath+'/'+activity.previewPath">
+            </div>
+            <div class="list-text">
+                <div class="btn-home" (click)="clickLauncherActivity(activity.activityId)"></div>
+                <div class="activity-name" (blur)="onChange()">
+                    {{activity.activityName}}
+                </div>
+                <div class="list-text-updated">
+                    {{activity.updatedAt | date:'medium'}}
+                </div>
+            </div>
+
+            <div align="right" class="list-box-bottom">
+                <button (click)="clickDuplicateActivity(activity.activityId)" class="btn-trash">
+            <i  class="fa fa-copy"></i>
+        </button>
+                <button (click)="clickDeleteActivity(activity.activityId)" class="btn-trash">
+            <i  class="fa fa-trash-o"></i>
+        </button>
+            </div>
         </div>
+
+
         <div *ngIf="activity.activityId!==currentActivityId">
+            <div class="list-img" (click)="clickActivity(activity.activityId)">
+                <img width="100px" height="150px" [src]="prefix+applicationFolderPath+'/'+activity.previewPath">
+            </div>
+            <div class="list-text">
+                <div class="btn-home" (click)="clickLauncherActivity(activity.activityId)"></div>
+                <div class="activity-name" (blur)="onChange()">
+                    {{activity.activityName}}
+                </div>
+                <div class="list-text-updated">
+                    {{activity.updatedAt | date:'medium'}}
+                </div>
+            </div>
 
+            <div align="right" class="list-box-bottom">
+                <button (click)="clickDuplicateActivity(activity.activityId)" class="btn-trash">
+            <i  class="fa fa-copy"></i>
+        </button>
+                <button (click)="clickDeleteActivity(activity.activityId)" class="btn-trash">
+            <i  class="fa fa-trash-o"></i>
+        </button>
+            </div>
         </div>
-        <div class="list-img">
-            <img width="100px" height="150px"  [src]="prefix+applicationFolderPath+'/'+activity.previewPath">
-        </div>
-        <div class="list-text">
-            <div class="btn-home" (click)="clickLauncherActivity(activity.activityId)"></div>
-            <input type="text" class="activity-name" [(ngModel)]="activity.activityName" (blur)="onChange()" />
-        </div>
-        <button (click)="clickActivity(activity.activityId)">Edit</button>
-        <button (click)="clickDuplicateActivity(activity.activityId)">Duplicate</button>
-        <button (click)="clickDeleteActivity(activity.activityId)">Delete</button>
-        
+
+
+
     </div>
 
 </div>

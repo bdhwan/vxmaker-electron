@@ -45,10 +45,62 @@
     padding:15px 75px !important;
 }
 
+.list-box-left button:hover {
+    cursor: pointer;
+}
+
+.list-box-left .list-box-bottom {
+    background: #f5f6f7;
+}
+
+.activity-current .list-box-bottom {
+    background: #46a2ba;
+}
+
+.activity-current .list-box-bottom button{
+    color:#ffffff!important;
+}
+
+.activity-current .list-box-bottom button:hover{
+   background: rgba(255,255,255,0.5);
+}
+
+.list-box-left .list-box-bottom button {
+    color:#898989;
+}
+
+.list-box-left .list-box-bottom button:hover {
+    color:#46a2ba;
+}
+
+.list-box-left .list-text {
+    background: #ffffff;
+    padding:10px 5px!important;
+}
+
 .list-box .list-img {
     background: #f5f6f7;
     padding: 15px 52px;
     position: relative;
+}
+
+.list-box-left .list-img:hover {
+    cursor: pointer;
+}
+
+.activity-current .list-img {
+    background: #46a2ba;
+}
+
+.list-box-left  .list-img   img {
+    background: #ffffff!important;
+}
+
+.list-box-left .btn-trash{
+    background: transparent;
+    border: none;   
+    padding: 5px;
+    font-size: 15px;
 }
 
 .list-box .list-text {

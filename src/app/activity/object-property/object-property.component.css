@@ -7,6 +7,24 @@
     position: relative;
 }
 
+.label-properties-2 {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 10px;
+    background-color: #efeff0;
+    border-top: #dfdfe0 1px solid;
+    border-bottom: #dfdfe0 1px solid;
+    color: #454545;
+    position: relative;
+    margin-bottom: 0px !important;
+}
+
+.label-properties-2 i {
+    position: absolute;
+    right:0;
+    margin-right: 10px;
+}
+
 .object-property {
     background:#f9fafb;
     padding-top: 15px;
@@ -109,4 +127,8 @@ margin-top: 3px;
 .object-property .img-selected .img-sub .img-sub-size {
     font-size: 11px;
     color:#ccc;
+}
+
+.property-detail {
+    overflow: hidden;
 }

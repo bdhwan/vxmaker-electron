@@ -85,3 +85,12 @@
     cursor: pointer;
     color:#46abca;
 }
+
+.nav-project .open-activity{
+    width:50px;
+    height: 50px;
+    position: absolute;
+    left:0;
+    border:none;
+    color: #454545;
+}
