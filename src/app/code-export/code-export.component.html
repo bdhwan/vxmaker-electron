@@ -4,6 +4,7 @@
     <div class="navbar">
         <button class="btn-back" (click)="clickRoot()">◄ Home</button>
         <button class="btn-back" (click)="clickBack()">◄ Back</button>
+          
     </div>
 
     <!-- navbar top finish -->
@@ -11,52 +12,70 @@
 
     <!-- left side -->
     <div class="list-wrap">
-        <app-application-info [viewMode]="'export'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-application-info>
-        <app-activity-list *ngIf="applicationData" [viewMode]="'export'" [currentActivityId]='none' [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-activity-list>
+
+        <div class="list-left">
+            <app-application-info [viewMode]="'export'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-application-info>
+             <app-activity-list *ngIf="applicationData" [viewMode]="'export'" [currentActivityId]='none' [applicationData]="applicationData"
+                [applicationFolderPath]="applicationFolderPath"></app-activity-list>
+        </div>
+
+        <div class="list-center">
+           
+        </div>
+
+        <div class="list-right">
+            
+
+
+            <!-- right side -->
+            <div class="export-right">
+                <div class="application-name">
+                    <h5>Export Android Project</h5>
+
+                    {{applicationData.applicationName}}
+
+                    <h5 style="margin-top: 15px; margin-bottom: 5px;">Export Folder </h5>
+                    <div class="project-folder">
+                        <input class="form-control" type="text" [(ngModel)]="workspaceFolderPath" />
+                        <button class="btn-change" (click)="clickChangeFolder()">···</button>
+                    </div>
+                </div>
+
+
+
+                <div *ngIf="sourceCodeData" style="overflow-y: scroll; height:400px;">
+                    <button (click)="clickOpenFolder()">Open Folder</button>
+                    <div>
+                        AndroidManifest.xml
+                        <handy-syntax-highlighter [language]="'java'" [content]="manifestXml"></handy-syntax-highlighter>
+                    </div>
+
+                    <div *ngFor="let aData of activityDataList">
+                        <div>
+                            <handy-syntax-highlighter [language]="'java'" [content]="aData.java"></handy-syntax-highlighter>
+                        </div>
+                        <div>
+                            <handy-syntax-highlighter [language]="'java'" [content]="aData.layout"></handy-syntax-highlighter>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+
+                <div *ngIf="isLoading">
+                    Exporting...
+                </div>
+
+                <div class="btn-new-save">
+                    <button (click)="clickExport()">export ►</button>
+                </div>
+
+            </div>
+
+
+
+        </div>
     </div>
 
 
-    <!-- right side -->
-    <div>
-        <div class="application-name">
-            <h5>Export Android Project</h5>
 
-            {{applicationData.applicationName}}
-
-            <h5 style="margin-top: 15px; margin-bottom: 5px;">Export Folder </h5>
-            <div class="project-folder">
-                <input class="form-control" type="text" [(ngModel)]="workspaceFolderPath" />
-                <button class="btn-change" (click)="clickChangeFolder()">···</button>
-            </div>
-        </div>
-
-
-
-        <div *ngIf="sourceCodeData" style="overflow-y: scroll; height:400px;">
-            <button (click)="clickOpenFolder()">Open Folder</button>
-            <div>
-                AndroidManifest.xml
-                <handy-syntax-highlighter [language]="'java'" [content]="manifestXml"></handy-syntax-highlighter>
-            </div>
-
-            <div *ngFor="let aData of activityDataList">
-                <div>
-                    <handy-syntax-highlighter [language]="'java'" [content]="aData.java"></handy-syntax-highlighter>
-                </div>
-                <div>
-                    <handy-syntax-highlighter [language]="'java'" [content]="aData.layout"></handy-syntax-highlighter>
-                </div>
-                <br>
-            </div>
-        </div>
-
-        <div *ngIf="isLoading">
-            Exporting...
-        </div>
-
-        <div class="btn-new-save">
-            <button (click)="clickExport()">export ►</button>
-        </div>
-
-    </div>
 </div>

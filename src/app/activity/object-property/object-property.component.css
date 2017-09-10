@@ -19,6 +19,11 @@
     margin-bottom: 0px !important;
 }
 
+.label-properties-2:hover {
+    cursor: pointer;
+    background-color: #dededf;
+}
+
 .label-properties-2 i {
     position: absolute;
     right:0;
