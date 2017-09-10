@@ -298,6 +298,10 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
+  reloadActivityData() {
+    this.ngAfterViewInit();
+  }
+
   public refreshList() {
     this.applicationFolderPath = this.appDataService.getApplicationPath();
     this.imageList = this.appDataService.getImageResourceList();
@@ -760,6 +764,11 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   clickActivity(activityId): void {
     console.log("will go = " + activityId);
     this.router.navigate(['/activity', this.applicationFolderPath, activityId]);
+
+    this.activityId = activityId;
+    // this.appDataService.initApplicationPath(this.applicationFolderPath);
+    this.appDataService.initActivityId(this.activityId);
+    this.reloadActivityData();
     // window.location.reload();
 
   }
