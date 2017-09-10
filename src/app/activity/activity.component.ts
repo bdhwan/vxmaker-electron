@@ -203,16 +203,13 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           this.onCompleteEvent(null);
 
         } else if (kind === 'new-event') {
-
           this.onNewEvent();
 
         } else if (kind === 'detail-event') {
           const detailEvent = message.event;
           this.onClickDetailEvent(detailEvent);
-
         } else if (kind === 'new-after-animation') {
           // this.onClickDetailEvent(null);
-
         }
       });
   }

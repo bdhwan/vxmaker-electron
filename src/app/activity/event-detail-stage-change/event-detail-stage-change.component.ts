@@ -216,7 +216,7 @@ export class EventDetailStageChangeComponent implements OnInit, AfterViewInit {
     this.selectedTriggerEvent = this.appDataService.getSelectedTriggerEvent();
     this.selectedImplementEvent = this.appDataService.getSelectedImplementEvent();
 
-    if (this.selectedImplementEvent && this.selectedImplementEvent === 'stageChange') {
+    if (this.selectedImplementEvent && this.selectedImplementEvent.type === 'stageChange') {
       this.selectedImplementEvent.fromStageName = this.appDataService.findStageByStageId(this.selectedImplementEvent.fromStageId).name;
       this.selectedImplementEvent.toStageName = this.appDataService.findStageByStageId(this.selectedImplementEvent.toStageId).name;
       this.stateEventList = this.appDataService.findStateChangeEventByImplementEventId(this.selectedImplementEvent.id);
