@@ -21,10 +21,8 @@
         <div *ngIf="triggerEventList" class="go-event-detail">
             <div *ngFor="let aEvent of triggerEventList" class="event-detail-wrap" (click)="clickDetailEvent(aEvent)">
 
-                <div class="event-detail">
-
-
-                    <!-- trigger -->
+                <div class="event-detail" *ngIf="aEvent.implEvent">
+                    {{aEvent.name}}
                     <div *ngIf="aEvent.type==='click'">
                         <img src="assets/images/btn_click.png" />
                     </div>

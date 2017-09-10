@@ -166,6 +166,14 @@ ipcMain.on('get-workspace-folder-path', (event, arg) => {
     event.returnValue = result;
 })
 
+
+ipcMain.on('check-empty-folder', (event, arg) => {
+
+    event.returnValue = result;
+})
+
+
+
 ipcMain.on('get-export-folder-path', (event, arg) => {
     var result = settings.get("export-folder");
     console.log("result = " + result);
@@ -269,6 +277,15 @@ ipcMain.on('open-url', (event, url) => {
     console.log("will open result =" + result);
     event.returnValue = true;
 })
+
+//open url external browser
+ipcMain.on('open-finder', (event, path) => {
+
+    shell.showItemInFolder(path);
+    event.returnValue = true;
+})
+
+
 
 
 //file check
@@ -440,6 +457,21 @@ ipcMain.on('copy-folder', (event, src, dst) => {
     event.returnValue = true;
 })
 
+//copy folder from root
+ipcMain.on('copy-folder-from-root', (event, src, dst) => {
+    console.log(src + ", " + dst);
+    fse.copySync(__dirname + src, dst);
+    event.returnValue = true;
+})
+
+ipcMain.on('have-file', (event, path) => {
+    console.log("have file = " + path);
+    try {
+        event.returnValue = fse.lstatSync(path).isDirectory();
+    } catch (e) {
+        event.returnValue = false;
+    }
+})
 
 
 //copy file

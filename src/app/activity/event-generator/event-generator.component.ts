@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ApplicationDataServiceService } from '../../service/application-data-service.service'
 import { UUID } from 'angular2-uuid';
+import { BroadcastService } from '../../service/broadcast.service';
+
 
 
 @Component({
@@ -11,7 +13,7 @@ import { UUID } from 'angular2-uuid';
 export class EventGeneratorComponent implements OnInit {
 
 
-  @Output() onCompleteEvent = new EventEmitter<string>();
+  // @Output() onCompleteEvent = new EventEmitter<string>();
 
   triggerEvent;
   implementEvent;
@@ -29,7 +31,7 @@ export class EventGeneratorComponent implements OnInit {
   afterTriggerEventId;
   readyEvent = false;
   visibility = false;
-  constructor(private appDataService: ApplicationDataServiceService) { }
+  constructor(private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) { }
 
   ngOnInit() {
 
@@ -52,9 +54,6 @@ export class EventGeneratorComponent implements OnInit {
 
 
   onChangeStage(stageId) {
-    console.log("stageId = " + stageId);
-    console.log("current stageId = " + this.currentSelectedStageId);
-    console.log("selectedStageId = " + this.selectedStageId);
 
     this.selectedStageId = stageId;
     this.readyEvent = true;
@@ -199,9 +198,12 @@ export class EventGeneratorComponent implements OnInit {
 
     // add implements
     this.appDataService.getActivityData().implementEventList.push(this.implementEvent);
-    this.onCompleteEvent.emit();
+    // this.onCompleteEvent.emit();
+    const message = {
+      kind: 'complete-event'
+    };
+    this.broadcaster.broadcast('activity', message);
     this.hideDialog();
-
   }
 
 

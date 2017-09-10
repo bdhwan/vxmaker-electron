@@ -199,6 +199,9 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
         } else if (kind === 'change-icon') {
           this.onClickChangeIcon();
+        } else if (kind === 'complete-event') {
+          this.onCompleteEvent(null);
+
         }
       });
   }
@@ -388,8 +391,8 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onCompleteEvent(event) {
 
-    // console.log("onCompleteEvent");
-
+    console.log("onCompleteEvent");
+    this.eventList.onChangeData();
   }
 
   clickRoot() {
