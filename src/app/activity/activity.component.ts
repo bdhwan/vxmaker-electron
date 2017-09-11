@@ -182,9 +182,11 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           this.appDataService.setSelectedObject(selectedObject);
           this.notifySelectedObjectChanged();
         } else if (kind === 'code-export') {
-          this.router.navigate(['/code-export', this.applicationFolderPath]);
-        } else if (kind === 'code-export') {
-          this.router.navigate(['/code-export', this.applicationFolderPath]);
+
+          this.saveProcessAsync().then(result => {
+            this.router.navigate(['/code-export', this.applicationFolderPath]);
+          });
+
         } else if (kind === 'go-detail-activity') {
           this.clickActivity(activityId);
         } else if (kind === 'delete-activity') {
@@ -466,102 +468,38 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   onClickSave(): void {
-    console.log("onClickSave");
-    this.saveStatus = true;
-    const self = this;
-    this.saveProcessAsync().then(result => {
-      console.log("done save");
-      self.zone.run(() => {
-        console.log("done save data");
-        this.saveStatus = false;
-      });
-    });
+
+    this.saveProcessAsync();
   }
 
 
 
 
   saveProcessAsync() {
-    // const self = this;
-    return new Promise((resolve, reject) => {
-      this.captureScreen().then(result => {
-        console.log("result = " + result);
-        this.activityMetaData.previewPath = result;
-        this.saveApplicationData();
-        this.saveActivityData();
-        resolve(true);
-      });
-
-
-
-
-      // this.previewComponent.captureScreen().then((data) => {
-      //   const fileName = 'preview/' + self.activityId + '.jpg';
-      //   const filePath = self.applicationFolderPath + '/' + fileName;
-      //   self.appDataService.saveRawFile(filePath, data);
-      //   self.activityMetaData.previewPath = fileName;
-      //   self.saveApplicationData();
-      //   self.saveActivityData();
-      //   resolve(true);
-      // });
-    });
-  }
-
-  sendDeviceProcessAsync() {
     const self = this;
-    return new Promise((resolve, reject) => {
+    this.saveStatus = true;
 
-      this.saveApplicationData();
-      this.saveActivityData();
-      this.previewComponent.captureScreen().then((data) => {
-        const fileName = 'preview/' + self.activityId + '.jpg';
-        const filePath = self.applicationFolderPath + '/' + fileName;
-        self.appDataService.saveRawFile(filePath, data);
-        self.activityMetaData.previewPath = fileName;
+    return new Promise((resolve, reject) => {
+      self.captureScreen().then(result => {
+        self.activityMetaData.previewPath = result;
         self.saveApplicationData();
         self.saveActivityData();
-        self.appDataService.sendFileToDevice();
+        self.saveStatus = false;
         resolve(true);
       });
     });
   }
-
-
 
 
 
   onClickSendDevice(value: string): void {
-    console.log("onClickSendDevice");
     this.sendStatus = true;
     const self = this;
-    this.sendDeviceProcessAsync().then(result => {
-      console.log("done send data");
+    this.saveProcessAsync().then(result => {
+      self.appDataService.sendFileToDevice();
       self.sendStatus = false;
     });
-
-
-    // this.saveApplicationData();
-    // this.saveActivityData();
-    // const self = this;
-    // this.previewComponent.captureScreen().then((data) => {
-    //   const fileName = 'preview/' + self.activityId + '.jpg';
-    //   const filePath = self.applicationFolderPath + '/' + fileName;
-    //   self.appDataService.saveRawFile(filePath, data);
-    //   self.activityMetaData.previewPath = fileName;
-    //   self.saveApplicationData();
-    //   self.saveActivityData();
-    //   self.zone.run(() => {
-    //     console.log("will send data");
-    //     self.appDataService.sendFileToDevice();
-    //     // self.location.back();
-    //     console.log("done send data");
-    //     this.sendStatus = false;
-    //   });
-    // });
   }
-
-
-
 
   clickNewObject(type: string) {
 

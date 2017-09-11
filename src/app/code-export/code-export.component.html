@@ -22,9 +22,9 @@
 
             <div *ngIf="readyToRender">
 
-                <div [hidden]="currentActivityId">
 
-                    <button (click)="clickImageFolder()">Open Image folder</button> AndroidManifest.xml <button [clip]="manifestXml" (onClip)="callback($event)">Copy</button>
+                <div [hidden]="currentActivityId">
+                    AndroidManifest.xml <button [clip]="manifestXml" (onClip)="callback($event)">Copy</button>
                     <handy-syntax-highlighter *ngIf="manifestXml" [language]="'java'" [content]="manifestXml"></handy-syntax-highlighter>
 
                     build.gradle <button [clip]="buildGradle" (onClip)="callback($event)">Copy</button>
@@ -79,9 +79,14 @@
                     Exporting...
                 </div>
 
+
                 <div class="btn-new-save">
                     <button (click)="clickExport()">export ►</button>
+
+                    <button (click)="clickImageFolder()">Open Image folder</button>
+
                 </div>
+
 
             </div>
 
