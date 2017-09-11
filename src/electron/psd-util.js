@@ -68,6 +68,8 @@ function PsdUtil() {
         this.rootData.width = root.get("width");
         this.rootData.height = root.get("height");
         this.rootData.type = "FrameLayout";
+        this.rootData.name = "FrameLayout";
+
 
 
         if (root.hasChildren()) {
@@ -90,6 +92,8 @@ function PsdUtil() {
         var aData = { id: id };
         aData.parent = parent.id;
         aData.text = node.get('name').substring(0, 200);
+        aData.name = aData.text;
+
         aData.children = [];
 
         aData.width = node.get("width");

@@ -113,14 +113,11 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
         console.log("application message received!! = " + kind);
         if (kind === 'send-device') {
           this.onClickSendDevice(null);
-        }
-        else if (kind === 'code-export') {
-          // this.codeActivityLayout.showDialog();
+        } else if (kind === 'code-export') {
+
+          this.clickSave();
           this.router.navigate(['/code-export', this.applicationFolderPath]);
 
-        } else if (kind === 'code-export') {
-          // this.codeActivityLayout.showDialog();
-          this.router.navigate(['/code-export', this.applicationFolderPath]);
         } else if (kind === 'change-activity-list') {
 
           this.onChangeData(null);
@@ -235,9 +232,10 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
     newObject.updatedAt = now;
 
     this.applicationData.activityList.splice(index + 1, 0, newObject);
-
     this.appDataService.saveApplicationData(this.applicationData);
-    this.appDataService.saveActivityData(newActivityId, newObject);
+
+
+    this.appDataService.duplicateActivityData(activityId, newActivityId);
 
     this.clickActivity(newActivityId);
 

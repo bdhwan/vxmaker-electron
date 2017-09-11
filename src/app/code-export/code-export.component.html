@@ -4,7 +4,7 @@
     <div class="navbar">
         <button class="btn-back" (click)="clickRoot()">◄ Home</button>
         <button class="btn-back" (click)="clickBack()">◄ Back</button>
-          
+
     </div>
 
     <!-- navbar top finish -->
@@ -14,17 +14,50 @@
     <div class="list-wrap">
 
         <div class="list-left">
-            <app-application-info [viewMode]="'export'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-application-info>
-             <app-activity-list *ngIf="applicationData" [viewMode]="'export'" [currentActivityId]='none' [applicationData]="applicationData"
-                [applicationFolderPath]="applicationFolderPath"></app-activity-list>
+            <app-application-info [currentActivityId]="currentActivityId" [viewMode]="'export'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-application-info>
+            <app-activity-list *ngIf="applicationData" [viewMode]="'export'" [currentActivityId]='currentActivityId' [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-activity-list>
         </div>
 
         <div class="list-center">
-           
+
+            <div *ngIf="readyToRender">
+
+                <div [hidden]="currentActivityId">
+
+                    <button (click)="clickImageFolder()">Open Image folder</button> AndroidManifest.xml <button [clip]="manifestXml" (onClip)="callback($event)">Copy</button>
+                    <handy-syntax-highlighter *ngIf="manifestXml" [language]="'java'" [content]="manifestXml"></handy-syntax-highlighter>
+
+                    build.gradle <button [clip]="buildGradle" (onClip)="callback($event)">Copy</button>
+                    <handy-syntax-highlighter *ngIf="buildGradle" [language]="'java'" [content]="buildGradle"></handy-syntax-highlighter>
+
+                    strings.xml <button [clip]="stringXml" (onClip)="callback($event)">Copy</button>
+                    <handy-syntax-highlighter *ngIf="stringXml" [language]="'java'" [content]="stringXml"></handy-syntax-highlighter>
+
+
+
+                </div>
+                <div *ngIf="currentActivityId">
+                    <div *ngFor="let aData of activityDataList">
+                        <div [hidden]="aData.activityId!==currentActivityId">
+                            <div>
+                                {{aData.codeLayoutName}}.xml <button [clip]="aData.layout" (onClip)="callback($event)">Copy</button>
+                                <handy-syntax-highlighter [language]="'java'" [content]="aData.layout"></handy-syntax-highlighter>
+                            </div>
+                            <div>
+                                {{aData.codeActivityName}}.java <button [clip]="aData.java" (onClip)="callback($event)">Copy</button>
+                                <handy-syntax-highlighter [language]="'java'" [content]="aData.java"></handy-syntax-highlighter>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
         <div class="list-right">
-            
+
 
 
             <!-- right side -->
@@ -41,25 +74,6 @@
                     </div>
                 </div>
 
-
-
-                <div *ngIf="sourceCodeData" style="overflow-y: scroll; height:400px;">
-                    <button (click)="clickOpenFolder()">Open Folder</button>
-                    <div>
-                        AndroidManifest.xml
-                        <handy-syntax-highlighter [language]="'java'" [content]="manifestXml"></handy-syntax-highlighter>
-                    </div>
-
-                    <div *ngFor="let aData of activityDataList">
-                        <div>
-                            <handy-syntax-highlighter [language]="'java'" [content]="aData.java"></handy-syntax-highlighter>
-                        </div>
-                        <div>
-                            <handy-syntax-highlighter [language]="'java'" [content]="aData.layout"></handy-syntax-highlighter>
-                        </div>
-                        <br>
-                    </div>
-                </div>
 
                 <div *ngIf="isLoading">
                     Exporting...

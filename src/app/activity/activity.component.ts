@@ -305,6 +305,8 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         this.activityMetaData = this.appDataService.getActivityMetaData();
         this.activityData = this.appDataService.getActivityData();
         this.selectedTriggerEvent = this.appDataService.getSelectedTriggerEvent();
+
+
         return this.checkEmptyActivityData();
       }).then((result) => {
         return this.initDataToView();
@@ -329,6 +331,8 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   checkEmptyActivityData() {
     return new Promise((resolve, reject) => {
+      console.log("check empty");
+
       // 데이터가 하나도 없으므로 초기화 시켜야함
       if (!this.activityData.objectList) {
 
@@ -364,8 +368,10 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         //6. stateEventList;
         this.activityData.stateEventList = [];
 
-      }
 
+
+      }
+      console.log("check stage list = " + JSON.stringify(this.activityData.stageList));
       resolve(true);
     });
   }

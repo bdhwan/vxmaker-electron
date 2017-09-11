@@ -1,4 +1,4 @@
-<div *ngIf="viewMode==='full'">
+<div *ngIf="viewMode==='application'">
 
     <div class="activities-top">
         <p>{{applicationData.activityList.length}} Activities </p>
@@ -64,7 +64,7 @@
 </div>
 
 
-<div *ngIf="viewMode==='left'">
+<div *ngIf="viewMode==='activity'">
 
     <div class="activity-list-left">
         <div class="label-properties">
@@ -74,34 +74,7 @@
 
     <div *ngFor="let activity of applicationData.activityList" class="list-box list-box-left">
 
-        <div *ngIf="activity.activityId===currentActivityId" class="activity-current">
-
-
-            <div class="list-img" (click)="clickActivity(activity.activityId)">
-                <img width="100px" height="150px" [src]="prefix+applicationFolderPath+'/'+activity.previewPath">
-            </div>
-            <div class="list-text">
-                <div class="btn-home" (click)="clickLauncherActivity(activity.activityId)"></div>
-                <div class="activity-name" (blur)="onChange()">
-                    {{activity.activityName}}
-                </div>
-                <div class="list-text-updated">
-                    {{activity.updatedAt | date:'medium'}}
-                </div>
-            </div>
-
-            <div align="right" class="list-box-bottom">
-                <button (click)="clickDuplicateActivity(activity.activityId)" class="btn-trash">
-            <i  class="fa fa-copy"></i>
-        </button>
-                <button (click)="clickDeleteActivity(activity.activityId)" class="btn-trash">
-            <i  class="fa fa-trash-o"></i>
-        </button>
-            </div>
-        </div>
-
-
-        <div *ngIf="activity.activityId!==currentActivityId">
+        <div [ngClass]="activity.activityId===currentActivityId?'activity-current':''">
             <div class="list-img" (click)="clickActivity(activity.activityId)">
                 <img width="100px" height="150px" [src]="prefix+applicationFolderPath+'/'+activity.previewPath">
             </div>
@@ -141,8 +114,8 @@
             </div>
         </div>
         <div class="list-box-export">
-            <div *ngFor="let activity of applicationData.activityList" class="list-box list-box-left ">
-                <div *ngIf="activity.activityId!==currentActivityId">
+            <div *ngFor="let activity of applicationData.activityList" class="list-box list-box-left">
+                <div [ngClass]="activity.activityId===currentActivityId?'activity-current':''">
                     <div class="list-img" (click)="clickActivity(activity.activityId)">
                         <img width="100px" height="150px" [src]="prefix+applicationFolderPath+'/'+activity.previewPath">
                     </div>

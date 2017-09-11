@@ -37,8 +37,8 @@
         <div class="activity-left">
 
             <div *ngIf="applicationData" [hidden]="!isOpenActivityList">
-                <app-application-info [viewMode]="'left'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-application-info>
-                <app-activity-list [viewMode]="'left'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath" [currentActivityId]="activityId"></app-activity-list>
+                <app-application-info [viewMode]="'activity'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-application-info>
+                <app-activity-list [viewMode]="'activity'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath" [currentActivityId]="activityId"></app-activity-list>
             </div>
 
             <div [hidden]="isOpenActivityList">

@@ -180,6 +180,15 @@ export class ApplicationDataServiceService {
     electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + '/activity/' + activityId + '.json', activityData);
   }
 
+
+  duplicateActivityData(srcAtivityId, dstActivityId) {
+
+    const tempActivityData = this.loadActivityDataSync(srcAtivityId);
+    tempActivityData['activityId'] = dstActivityId;
+    this.saveActivityData(dstActivityId, tempActivityData);
+  }
+
+
   deleteActivity(activityId) {
     electron.ipcRenderer.sendSync('delete-file', this.applicationFolderPath + '/activity/' + activityId + '.json');
   }
@@ -1176,8 +1185,9 @@ export class ApplicationDataServiceService {
     return xmlString;
   }
   pxToDp(px) {
-    const result = Number(px * (160 / 640));
-    return result.toFixed(0);
+    // const result = Number(px * (160 / 640));
+    // return result.toFixed(0);
+    return px;
   }
 
 
@@ -1244,22 +1254,23 @@ export class ApplicationDataServiceService {
 
   getStateStringById(object, state) {
 
-    var result = '\n';
+    const temp = 'px';
+    let result = '\n';
     if (state === null) {
       console.log('null state!!!');
     } else {
-      result = '\nandroid:id=\"@+id/' + object.resourceId + '\"\nandroid:layout_width=\"' + this.pxToDp(state.width) + 'dp\"\nandroid:layout_height=\"' + this.pxToDp(state.height) + 'dp\"\n';
+      result = '\nandroid:id=\"@+id/' + object.resourceId + '\"\nandroid:layout_width=\"' + this.pxToDp(state.width) + temp + '\"\nandroid:layout_height=\"' + this.pxToDp(state.height) + temp + '\"\n';
       if (state.marginLeft) {
-        result += 'android:layout_marginLeft=\"' + this.pxToDp(state.marginLeft) + 'dp\"\n';
+        result += 'android:layout_marginLeft=\"' + this.pxToDp(state.marginLeft) + temp + '\"\n';
       }
       if (state.marginTop) {
-        result += 'android:layout_marginTop=\"' + this.pxToDp(state.marginTop) + 'dp\"\n';
+        result += 'android:layout_marginTop=\"' + this.pxToDp(state.marginTop) + temp + '\"\n';
       }
       if (state.translationX) {
-        result += 'android:translationX=\"' + this.pxToDp(state.translationX) + 'dp\"\n';
+        result += 'android:translationX=\"' + this.pxToDp(state.translationX) + temp + '\"\n';
       }
       if (state.translationY) {
-        result += 'android:translationY=\"' + this.pxToDp(state.translationY) + 'dp\"\n';
+        result += 'android:translationY=\"' + this.pxToDp(state.translationY) + temp + '\"\n';
       }
       if (state.alpha !== 1) {
         result += 'android:alpha=\"' + state.alpha + '\"\n';
@@ -1288,11 +1299,15 @@ export class ApplicationDataServiceService {
         result += 'android:textSize=\"' + object.textSize + 'sp\"\n';
       }
 
+
+      // const imageFolder = '@mipmap/';
+      const imageFolder = '@drawable/';
+
       //ImageView
       if (object.type === 'ImageView') {
         if (object.dataUrl) {
           result += 'android:scaleType=\"fitXY\"\n';
-          result += 'android:src=\"@mipmap/' + object.dataUrl.replace('image/', '').split('.')[0] + '\"\n';
+          result += 'android:src=\"' + imageFolder + object.dataUrl.replace('image/', '').split('.')[0] + '\"\n';
         }
       }
 
@@ -1307,6 +1322,74 @@ export class ApplicationDataServiceService {
     return result;
 
   }
+
+
+  // getStateStringById(object, state) {
+
+  //   var result = '\n';
+  //   if (state === null) {
+  //     console.log('null state!!!');
+  //   } else {
+  //     result = '\nandroid:id=\"@+id/' + object.resourceId + '\"\nandroid:layout_width=\"' + this.pxToDp(state.width) + 'dp\"\nandroid:layout_height=\"' + this.pxToDp(state.height) + 'dp\"\n';
+  //     if (state.marginLeft) {
+  //       result += 'android:layout_marginLeft=\"' + this.pxToDp(state.marginLeft) + 'dp\"\n';
+  //     }
+  //     if (state.marginTop) {
+  //       result += 'android:layout_marginTop=\"' + this.pxToDp(state.marginTop) + 'dp\"\n';
+  //     }
+  //     if (state.translationX) {
+  //       result += 'android:translationX=\"' + this.pxToDp(state.translationX) + 'dp\"\n';
+  //     }
+  //     if (state.translationY) {
+  //       result += 'android:translationY=\"' + this.pxToDp(state.translationY) + 'dp\"\n';
+  //     }
+  //     if (state.alpha !== 1) {
+  //       result += 'android:alpha=\"' + state.alpha + '\"\n';
+  //     }
+  //     if (state.scaleX !== 1) {
+  //       result += 'android:scaleX=\"' + state.scaleX + '\"\n';
+  //     }
+  //     if (state.scaleY !== 1) {
+  //       result += 'android:scaleY=\"' + state.scaleY + '\"\n';
+  //     }
+  //     //object data
+  //     if (object.background) {
+  //       result += 'android:background=\"' + object.background + '\"\n';
+  //     }
+
+  //     //TextView
+  //     if (object.contentText) {
+  //       result += 'android:text=\"' + object.contentText + '\"\n';
+  //     }
+
+  //     if (object.textColor) {
+  //       result += 'android:textColor=\"' + object.textColor + '\"\n';
+  //     }
+
+  //     if (object.textSize) {
+  //       result += 'android:textSize=\"' + object.textSize + 'sp\"\n';
+  //     }
+
+  //     //ImageView
+  //     if (object.type === 'ImageView') {
+  //       if (object.dataUrl) {
+  //         result += 'android:scaleType=\"fitXY\"\n';
+  //         result += 'android:src=\"@mipmap/' + object.dataUrl.replace('image/', '').split('.')[0] + '\"\n';
+  //       }
+  //     }
+
+  //     //LottieAnimationView      
+  //     if (object.type === 'LottieAnimationView') {
+  //       if (object.dataUrl) {
+  //         result += ' app:lottie_fileName="' + object.dataUrl + '\"\n';
+  //       }
+  //     }
+  //   }
+  //   console.log('getStateStringById done');
+  //   return result;
+
+  // }
+
 
 
   public makeApplicationSourceCode() {
@@ -1333,6 +1416,10 @@ export class ApplicationDataServiceService {
       const aData = {};
       aData['layout'] = layout;
       aData['java'] = java;
+      aData['activityId'] = activity.activityId;
+      aData['codeActivityName'] = activity.codeActivityName;
+      aData['codeLayoutName'] = activity.codeLayoutName;
+
       activityDataList.push(aData);
 
       //manifest activity data
@@ -1479,12 +1566,14 @@ export class ApplicationDataServiceService {
 
   makeActivityLayout() {
     let temp = this.templateDataHash['activity_main.xml'];
-    const xmlString = this.insertChild('root');
     this.objectList = this.getAllObjectList(this.activityData.objectList);
     for (let i = 0; i < this.objectList.length; i++) {
       const object = this.objectList[i];
       object.resourceId = this.getUniqueResourceName(object.name);
     }
+
+    const xmlString = this.insertChild('root');
+
     temp = temp.replace('!!!layoutList!!!', xmlString);
     temp = temp.replace('!!!packageName!!!', this.applicationData.applicationId);
     temp = temp.replace('!!!activityName!!!', this.activityData.codeActivityName);

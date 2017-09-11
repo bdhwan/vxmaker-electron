@@ -30,11 +30,11 @@
     <div class="list-wrap">
 
         <div class="list-left">
-            <app-application-info [viewMode]="'full'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-application-info>
+            <app-application-info [viewMode]="'application'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-application-info>
         </div>
         <div class="list-right">
             <div>
-                <app-activity-list *ngIf="applicationData" [viewMode]="'full'" [currentActivityId]="'none'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-activity-list>
+                <app-activity-list *ngIf="applicationData" [viewMode]="'application'" [currentActivityId]="'none'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-activity-list>
             </div>
         </div>
 

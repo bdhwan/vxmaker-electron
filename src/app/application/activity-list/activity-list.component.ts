@@ -16,17 +16,10 @@ export class ActivityListComponent implements OnInit {
 
   @Input() viewMode: any;
   @Input() currentActivityId: any;
-  
+
   @Input() applicationData: any;
   @Input() applicationFolderPath: string;
 
-
-  // @Output() onChangeActivityData = new EventEmitter<string>();
-  // @Output() onClickActivity = new EventEmitter<string>();
-  // @Output() onClickNewActivity = new EventEmitter<string>();
-  // @Output() onClickDeleteActivity = new EventEmitter<string>();
-  // @Output() onClickDuplicatewActivity = new EventEmitter<string>();
-  // @Output() onClickLauncherActivity = new EventEmitter<string>();
 
   constructor(private broadcaster: BroadcastService) {
 
@@ -54,7 +47,6 @@ export class ActivityListComponent implements OnInit {
   }
 
   clickDeleteActivity(activityId: string): void {
-    // this.onClickDeleteActivity.emit(activityId);
     this.sendMessage('delete-activity', activityId);
   }
 
@@ -78,11 +70,8 @@ export class ActivityListComponent implements OnInit {
       kind: kind,
       activityId: activityId
     };
-    let target = 'activity';
-    if (this.viewMode === 'full') {
-      target = 'application';
-    }
-    this.broadcaster.broadcast(target, message);
+
+    this.broadcaster.broadcast(this.viewMode, message);
   }
 
 

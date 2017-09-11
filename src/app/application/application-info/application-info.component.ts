@@ -19,8 +19,11 @@ export class ApplicationInfoComponent implements OnInit {
 
 
   @Input() viewMode: any;
+  @Input() currentActivityId: any;
   @Input() applicationData: any;
   @Input() applicationFolderPath: string;
+
+
 
   // @Output() onChangeData = new EventEmitter<string>();
   // @Output() onClickChangeIcon = new EventEmitter<void>();
@@ -59,12 +62,19 @@ export class ApplicationInfoComponent implements OnInit {
       kind: kind,
       activityId: activityId
     };
-    let target = 'activity';
-    if (this.viewMode === 'full') {
-      target = 'application';
-    }
-    this.broadcaster.broadcast(target, message);
+    // let target = 'activity';
+    // if (this.viewMode === 'full') {
+    //   target = 'application';
+    // } else if (this.viewMode === 'export') {
+    //   target = 'export';
+    // }
+    this.broadcaster.broadcast(this.viewMode, message);
   }
 
+
+  clickApplicationInfo() {
+    this.sendMessage('application', '');
+
+  }
 
 }

@@ -25,6 +25,10 @@ export class CodeExportComponent implements OnInit {
 
   sourceCodeData;
   workspaceFolderPath: string;
+  currentActivityId;
+
+  readyToRender = false;
+
 
 
   isLoading = false;
@@ -45,8 +49,46 @@ export class CodeExportComponent implements OnInit {
     this.appDataService.initApplicationPath(this.applicationFolderPath);
     this.appDataService.loadInitDataFromFile().then(result => {
       self.applicationData = self.appDataService.loadApplicationDataSync();
+
+      const temp = this.appDataService.makeApplicationSourceCode();
+      self.activityDataList = temp['activityDataList'];
+      self.manifestXml = temp['manifestXml'];
+      self.stringXml = temp['stringXml'];
+      self.buildGradle = temp['buildGradle'];
+      self.sourceCodeData = temp;
+      self.readyToRender = true;
+      self.registerStringBroadcast();
     });
   }
+
+  callback($event) {
+    console.log("done clip");
+    alert("copied!");
+  }
+
+
+  clickImageFolder() {
+    this.appDataService.openFinder(this.applicationFolderPath + '/image');
+
+  }
+
+  registerStringBroadcast() {
+    this.broadcaster.on<any>('export')
+      .subscribe(message => {
+
+        const kind = message.kind;
+        console.log("message received!! = " + kind);
+        const activityId = message.activityId;
+        if (kind === 'go-detail-activity') {
+          console.log("message activityId!! = " + activityId);
+          this.currentActivityId = activityId;
+
+        } else if (kind === 'application') {
+          this.currentActivityId = null;
+        }
+      });
+  }
+
 
 
   //change project folder
@@ -90,15 +132,8 @@ export class CodeExportComponent implements OnInit {
 
   exportProcess() {
     return new Promise((resolve, reject) => {
-      const temp = this.appDataService.makeApplicationSourceCode();
-      this.activityDataList = temp['activityDataList'];
-      this.manifestXml = temp['manifestXml'];
-      this.stringXml = temp['stringXml'];
-      this.buildGradle = temp['buildGradle'];
-      this.sourceCodeData = temp;
       this.appDataService.writeSourceCode(this.workspaceFolderPath, this.sourceCodeData);
       this.appDataService.writeGuidDoc(this.workspaceFolderPath, this.sourceCodeData);
-
       resolve(true);
     });
 
