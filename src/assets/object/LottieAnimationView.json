@@ -1,15 +1,27 @@
 {
-    "name": "LottieView",
-    "type": "LottieView",
+    "name": "LottieAnimationView",
+    "type": "LottieAnimationView",
+    "icon": "assets/images/btn_startlottie.png",
+    "openSource": {
+        "title": "LottieAnimationView",
+        "url": "https://github.com/airbnb/lottie-android",
+        "author": "airbnb",
+        "description": "Render After Effects animations natively on Android and iOS"
+    },
     "objectProperties": [{
             "name": "type",
             "type": "string",
-            "default": "LottieView"
+            "default": "LottieAnimationView"
         },
         {
             "name": "name",
             "type": "string",
-            "default": "LottieView"
+            "default": "LottieAnimationView"
+        },
+        {
+            "name": "backgroundColor",
+            "type": "string",
+            "default": "#f9f9f9"
         },
         {
             "name": "dataUrl",

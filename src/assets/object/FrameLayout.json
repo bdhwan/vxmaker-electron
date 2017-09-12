@@ -1,6 +1,7 @@
 {
     "name": "FrameLayout",
     "type": "FrameLayout",
+    "icon": "assets/images/btn_frame.png",
     "objectProperties": [{
             "name": "type",
             "type": "string",
@@ -14,7 +15,7 @@
         {
             "name": "backgroundColor",
             "type": "string",
-            "default": "#999999"
+            "default": "#00000000"
         },
         {
             "name": "backgroundImage",

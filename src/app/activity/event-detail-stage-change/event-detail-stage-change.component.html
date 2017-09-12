@@ -1,14 +1,44 @@
-<div *ngIf="selectedImplementEvent">
-    <div *ngIf="selectedImplementEvent.type=='stageChange'">
-        {{selectedImplementEvent.type}}- {{stateEventList.length}}
-        <div *ngFor="let aStateEvent of stateEventList">
-            {{getObjectName(aStateEvent.objectId).name}}, {{aStateEvent.duration}}, {{aStateEvent.startDelay}}, {{aStateEvent.cubicValue}}
+<div *ngIf="selectedImplementEvent&&stateEventList">
+    <div *ngIf="selectedImplementEvent.type=='stageChange'" class="event-stageChange">
 
-            <input type="checkbox" [checked]="aStateEvent.isEnabled" (change)="aStateEvent.isEnabled = !aStateEvent.isEnabled" />
+        <div class="event-detail">
+            <!--{{selectedImplementEvent.type}}-->
+
+            <!-- 이벤트에 대한 상세 정보 -->
+            {{selectedTriggerEvent.name}},{{selectedImplementEvent.type}}
+
+            <img src="assets/images/btn_stagechange.png" />
+            <h4>{{selectedImplementEvent.fromStageName}} > {{selectedImplementEvent.toStageName}}</h4>
 
 
         </div>
-        <button (click)="clickAddAfterAnimation()">AfterAnimation</button>
-        <button (click)="clickCancel()">Cancel</button>
+
+
+
+        <!-- 각 오브젝트별 이벤트 인터폴레이터 -->
+
+
+        <div *ngFor="let aStateEvent of stateEventList" class="object-list-wrap">
+
+            <!-- 오브젝트 리스트 -->
+            <div class="object-list">
+                <app-event-state-change-cell [maxTotalTime]="maxTotalTime" (onChangeTimeLineFromStateCell)="onChangeTimeLineFromStateCell($event)" [stateEventData]="aStateEvent"></app-event-state-change-cell>
+            </div>
+            <!-- 오브젝트 리스트@ -->
+        </div>
+
+        <!-- 각 오브젝트별 이벤트 인터폴레이터 @-->
+
+
+
     </div>
+
+    <!-- 이벤트 디테일 하단 : 애프터애니메이션 클릭시 이벤트생성 팝업-->
+    <div class="event-detail-footer">
+        <button class="btn-afterAni" (click)="clickAddAfterAnimation()">AfterAnimation</button>
+        <button (click)="clickCancel()">Cancel</button>
+        <button>Done</button>
+    </div>
+
+
 </div>

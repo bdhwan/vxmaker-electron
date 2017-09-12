@@ -1,0 +1,20 @@
+
+.event-detail {
+    overflow: hidden;
+    background: #f9fafb;
+    padding: 15px;
+}
+
+.event-detail img {
+    width: 28px;
+    float: left;
+}
+
+.event-detail h4 {
+    float: left;
+    margin: 0;
+    font-size: 13px;
+    color: #454545;
+    margin-top: 4px;
+    padding-left: 10px;
+}

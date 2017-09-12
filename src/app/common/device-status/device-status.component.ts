@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy, NgZone, Output, EventEmitter  } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, Output, Input, EventEmitter } from '@angular/core';
 
 import { ApplicationDataServiceService } from '../../service/application-data-service.service';
+import { BroadcastService } from '../../service/broadcast.service';
 
 
 declare var electron: any;
@@ -17,8 +18,10 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
   deviceList = [];
 
   @Output() onClickSendDevice = new EventEmitter<string>();
+  @Input() sendStatus: Boolean;
 
-  constructor(public zone: NgZone,  private appDataService: ApplicationDataServiceService) { }
+
+  constructor(public zone: NgZone, private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) { }
 
   ngOnInit() {
     electron.ipcRenderer.sendSync('regist-device-connect-status');
@@ -39,11 +42,50 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
     this.deviceList = this.appDataService.getDeviceList();
   }
 
-  public clickSendFile(): void {
-    this.onClickSendDevice.emit('send');
-
-    // this.appDataService.saveActivityData
-    // this.appDataService.sendFileToDevice();
+  public clickSaveFile(): void {
+    const message = {
+      kind: 'save'
+    };
+    this.broadcaster.broadcast('activity', message);
+    this.broadcaster.broadcast('application', message);
   }
+
+  public clickSendFile(): void {
+    const message = {
+      kind: 'send-device'
+    };
+    this.broadcaster.broadcast('activity', message);
+    this.broadcaster.broadcast('application', message);
+  }
+
+
+  public clickExportCode(): void {
+    const message = {
+      kind: 'code-export'
+    };
+    this.broadcaster.broadcast('activity', message);
+    this.broadcaster.broadcast('application', message);
+  }
+
+
+  public clickExportGuide(): void {
+    const message = {
+      kind: 'code-export'
+    };
+    this.broadcaster.broadcast('activity', message);
+    this.broadcaster.broadcast('application', message);
+    // this.onClickSendDevice.emit('send');
+  }
+
+
+  clickHowToConnect(url) {
+    this.appDataService.openUrl(url);
+  }
+
+
+
+
+
+
 
 }

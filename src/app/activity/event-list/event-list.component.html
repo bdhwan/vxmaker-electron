@@ -1,16 +1,76 @@
 <div class="event-list">
 
 
-    <div class="label-properties">Properties</div>
+    <div class="label-properties">
 
-    <div *ngIf="!selectedTriggerEvent">
-        <div *ngIf="triggerEventList">
-            {{triggerEventList.length}}
-            <div *ngFor="let aEvent of triggerEventList" (click)="clickDetailEvent(aEvent)">
-                {{aEvent.name}} -{{getImplement(aEvent.id).name}} <button (click)="clickDeleteEvent($event,aEvent)">X</button>
+
+        <div class="col-8" style="padding-left: 0;">
+            Event
+        </div>
+        <div class="col-4" align="right" style="padding:0;">
+            <div>
+                <img (click)="clickNewEvent()" src="assets/images/btn_motion_add.png" class="img-responsive">
             </div>
         </div>
-        <button (click)="clickNewEvent()">New Event</button>
+
+
     </div>
 
-</div>
+    <div *ngIf="!selectedTriggerEvent">
+        <!-- 이벤트리스트 -->
+        <div *ngIf="triggerEventList" class="go-event-detail">
+            <div *ngFor="let aEvent of triggerEventList" class="event-detail-wrap" (click)="clickDetailEvent(aEvent)">
+
+                <div class="event-detail" *ngIf="aEvent.implEvent">
+                    {{aEvent.name}}
+                    <div *ngIf="aEvent.type==='click'">
+                        <img src="assets/images/btn_click.png" />
+                    </div>
+                    <div *ngIf="aEvent.type==='onCreate'">
+                        <img src="assets/images/btn_oncreate.png" />
+                    </div>
+                    <div *ngIf="aEvent.type==='backKey'">
+                        <img src="assets/images/btn_backkey.png" />
+                    </div>
+                    <div *ngIf="aEvent.type==='afterAnimation'">
+                        <img src="assets/images/btn_afteranimation.png" />
+                    </div>
+
+
+
+
+                    <!-- impl -->
+                    {{aEvent.implEvent.name}}
+                    <div *ngIf="aEvent.implEvent.type==='stageChange'">
+                        <img src="assets/images/btn_stagechange.png" />
+                    </div>
+                    <div *ngIf="aEvent.implEvent.type==='startActivity'">
+                        <img src="assets/images/btn_startactivity.png" />
+                    </div>
+                    <div *ngIf="aEvent.implEvent.type==='finishActivity'">
+                        <img src="assets/images/btn_finishactivity.png" />
+                    </div>
+                    <div *ngIf="aEvent.implEvent.type==='stageChange'">
+                        {{aEvent.implEvent.fromStageName}} -> {{aEvent.implEvent.toStageName}}
+                    </div>
+
+                    <div *ngIf="aEvent.implEvent.type==='startActivity'">
+                        {{aEvent.implEvent.toActivityName}}
+                    </div>
+
+                    <button class="btn-trash" (click)="clickDeleteEvent($event,aEvent)"><i class="fa fa-trash-o"></i></button>
+                </div>
+            </div>
+            <!-- 이벤트리스트 @ -->
+        </div>
+
+
+        <div *ngIf="!selectedTriggerEvent" class="noti-addmotions">
+            <img src="assets/images/ic_motion.png" alt="add-motions">
+            <a (click)="clickNewEvent()">
+                <h3>Add motions</h3>
+            </a>
+            <p>Add the motion blah blah</p>
+        </div>
+
+    </div>

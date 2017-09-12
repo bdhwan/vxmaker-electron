@@ -1,0 +1,110 @@
+<div *ngIf="applicationData">
+
+    <!-- nav bar top -->
+    <div class="navbar">
+        <button class="btn-back" (click)="clickRoot()">◄ Home</button>
+        <button class="btn-back" (click)="clickBack()">◄ Back</button>
+        <button class="btn-back" (click)="clickShowExport()">Export</button>
+
+    </div>
+
+    <!-- navbar top finish -->
+
+
+    <!-- left side -->
+    <div class="list-wrap">
+
+        <div class="list-left">
+            <app-application-info [currentActivityId]="currentActivityId" [viewMode]="'export'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-application-info>
+            <app-activity-list *ngIf="applicationData" [viewMode]="'export'" [currentActivityId]='currentActivityId' [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-activity-list>
+        </div>
+
+        <div class="list-center">
+
+            <div *ngIf="readyToRender">
+
+                <h3><span>{{applicationData.applicationName}}</span>
+                    <span *ngIf="currentActivityId">> {{getActivityName(currentActivityId)}}</span></h3>
+                <div [hidden]="currentActivityId">
+
+                    <button [ngClass]="currentTab=='AndroidManifest'?'tab-selected':''" (click)="clickTab('AndroidManifest')">AndroidManifest.xml</button>
+                    <button [ngClass]="currentTab=='build'?'tab-selected':''" (click)="clickTab('build')">build.gradle </button>
+                    <button [ngClass]="currentTab=='strings'?'tab-selected':''" (click)="clickTab('strings')">strings.xml</button>
+
+                    <div [hidden]="currentTab!=='AndroidManifest'">
+                        AndroidManifest.xml <button [clip]="manifestXml" (onClip)="callback($event)">Copy</button>
+                        <handy-syntax-highlighter *ngIf="manifestXml" [language]="'java'" [content]="manifestXml"></handy-syntax-highlighter>
+                    </div>
+
+                    <div [hidden]="currentTab!=='build'">
+                        build.gradle <button [clip]="buildGradle" (onClip)="callback($event)">Copy</button>
+                        <handy-syntax-highlighter *ngIf="buildGradle" [language]="'java'" [content]="buildGradle"></handy-syntax-highlighter>
+                    </div>
+
+                    <div [hidden]="currentTab!=='strings'">
+                        strings.xml <button [clip]="stringXml" (onClip)="callback($event)">Copy</button>
+                        <handy-syntax-highlighter *ngIf="stringXml" [language]="'java'" [content]="stringXml"></handy-syntax-highlighter>
+                    </div>
+
+                </div>
+
+
+
+                <div *ngIf="currentActivityId">
+
+                    <button [ngClass]="currentActivityTab=='xml'?'tab-selected':''" (click)="clickActivityTab('xml')">xml</button>
+                    <button [ngClass]="currentActivityTab=='java'?'tab-selected':''" (click)="clickActivityTab('java')">java </button>
+
+                    <div *ngFor="let aData of activityDataList">
+                        <div [hidden]="aData.activityId!==currentActivityId">
+                            <div [hidden]="currentActivityTab=='java'">
+                                {{aData.codeLayoutName}}.xml <button [clip]="aData.layout" (onClip)="callback($event)">Copy</button>
+                                <handy-syntax-highlighter [language]="'java'" [content]="aData.layout"></handy-syntax-highlighter>
+                            </div>
+                            <div [hidden]="currentActivityTab=='xml'">
+                                {{aData.codeActivityName}}.java <button [clip]="aData.java" (onClip)="callback($event)">Copy</button>
+                                <handy-syntax-highlighter [language]="'java'" [content]="aData.java"></handy-syntax-highlighter>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="list-right">
+            <!-- right side -->
+            <div class="export-right">
+                <app-resource #resourceDialog (onSelectFile)="onSelectFile($event)" [viewMode]="'export'"></app-resource>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="applicationData">
+    <div [hidden]="!showExportPanel" class="overlay" (click)="clickHideExport()">
+        <div class="popup-wrap">
+            <div class="popup" (click)="nothing($event)">
+                <button (click)="clickHideExport()">X</button>
+                <div class="application-name">
+                    <h5>Export Android Project</h5>
+                    {{applicationData.applicationName}}
+                    <h5 style="margin-top: 15px; margin-bottom: 5px;">Export Folder </h5>
+                    <div class="project-folder">
+                        <input class="form-control" type="text" [(ngModel)]="workspaceFolderPath" />
+                        <button class="btn-change" (click)="clickChangeFolder()">···</button>
+                    </div>
+                </div>
+                <div *ngIf="isLoading">
+                    Exporting...
+                </div>
+                <div class="btn-new-save">
+                    <button (click)="clickExport()">export ►</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

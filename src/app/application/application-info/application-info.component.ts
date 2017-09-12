@@ -1,8 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { ApplicationComponent } from '../../application/application.component'
+import { BroadcastService } from '../../service/broadcast.service';
 
-import * as glob from "../../globals";
+
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -13,21 +15,24 @@ import * as glob from "../../globals";
 export class ApplicationInfoComponent implements OnInit {
 
 
-  prefix = glob.imgPrefix;
+  prefix = environment.imgPrefix;
 
 
-
+  @Input() viewMode: any;
+  @Input() currentActivityId: any;
   @Input() applicationData: any;
   @Input() applicationFolderPath: string;
 
-  @Output() onChangeData = new EventEmitter<string>();
-  @Output() onClickChangeIcon = new EventEmitter<void>();
+
+
+  // @Output() onChangeData = new EventEmitter<string>();
+  // @Output() onClickChangeIcon = new EventEmitter<void>();
 
 
   showImageDialog = false;
 
 
-  constructor() {
+  constructor(private broadcaster: BroadcastService) {
 
   }
 
@@ -36,17 +41,40 @@ export class ApplicationInfoComponent implements OnInit {
   }
 
   onChange(): void {
-    this.onChangeData.emit();
+    this.sendMessage('on-change-data', '');
+    // this.onChangeData.emit();
   }
 
   clickIcon(): void {
-    this.onClickChangeIcon.emit();
+    this.sendMessage('change-icon', '');
+    // this.onClickChangeIcon.emit();
   }
 
   clickToggleDialog() {
     console.log("clickToggleDialog");
     this.showImageDialog = !this.showImageDialog;
   }
- 
+
+
+
+  sendMessage(kind, activityId) {
+    const message = {
+      kind: kind,
+      activityId: activityId
+    };
+    // let target = 'activity';
+    // if (this.viewMode === 'full') {
+    //   target = 'application';
+    // } else if (this.viewMode === 'export') {
+    //   target = 'export';
+    // }
+    this.broadcaster.broadcast(this.viewMode, message);
+  }
+
+
+  clickApplicationInfo() {
+    this.sendMessage('application', '');
+
+  }
 
 }

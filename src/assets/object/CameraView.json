@@ -1,6 +1,13 @@
 {
     "name": "CameraView",
     "type": "CameraView",
+    "icon": "assets/images/btn_takepicture.png",
+    "openSource": {
+        "title": "Fotoapparat",
+        "url": "https://github.com/Fotoapparat/Fotoapparat",
+        "author": "Fotoapparat",
+        "description": "Making Camera for Android more friendly."
+    },
     "objectProperties": [{
             "name": "type",
             "type": "string",
@@ -17,6 +24,11 @@
             "default": false
         },
         {
+            "name": "backgroundColor",
+            "type": "string",
+            "default": "#f1f1f1"
+        },
+        {
             "name": "canHaveChildren",
             "type": "boolean",
             "default": false
@@ -30,7 +42,7 @@
         {
             "name": "height",
             "type": "int",
-            "default": 800
+            "default": 580
         }
     ]
 

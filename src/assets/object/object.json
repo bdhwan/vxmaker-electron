@@ -1,18 +1,16 @@
 {
     "objectType": [
         "FrameLayout.json",
-        "RelativeLayout.json",
         "ImageView.json",
         "TextView.json",
         "Button.json",
-        "LottieView.json",
+        "LottieAnimationView.json",
         "CameraView.json",
-        "VideoView.json",
-        "ScrollView.json"
+        "VideoView.json"
     ],
     "defaultState": {
         "width": 1440,
-        "height": 2560,
+        "height": 2960,
         "marginTop": 0,
         "marginLeft": 0,
         "marginRight": 0,

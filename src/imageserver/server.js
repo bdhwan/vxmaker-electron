@@ -5,7 +5,8 @@ url = require('url');
 
 http.createServer(function(req, res) {
     var request = url.parse(req.url, true);
-    var action = request.pathname;
+    var action = decodeURIComponent(request.pathname);
+    console.log("action = " + action);
 
     if (fs.existsSync(action)) {
         // Do something

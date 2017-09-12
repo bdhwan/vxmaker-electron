@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { BroadcastService } from '../../service/broadcast.service';
+
 
 @Component({
   selector: 'app-object-new',
@@ -10,18 +12,19 @@ export class ObjectNewComponent implements OnInit {
   @Output() onClickNewObject = new EventEmitter<string>();
   @Output() onChangeTreeData = new EventEmitter<any>();
   @Output() onShowResourceDialog = new EventEmitter<string>();
+  objectTypeData = [];
 
-
-  constructor() { }
+  constructor(private broadcaster: BroadcastService) { }
 
   ngOnInit() {
 
   }
 
-  objectTypeData = [];
+
 
   public setObjectTypeData(objectTypeData: any) {
     this.objectTypeData = objectTypeData;
+
   }
 
   clickResource() {
@@ -34,6 +37,16 @@ export class ObjectNewComponent implements OnInit {
 
     console.log("clickNewObject -" + type);
     this.onClickNewObject.emit(type);
+
+  }
+
+  clickPSD() {
+
+
+    const message = {
+      kind: 'select-psd',
+    };
+    this.broadcaster.broadcast('activity', message);
 
   }
 

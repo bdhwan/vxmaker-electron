@@ -1,6 +1,7 @@
 {
     "name": "ImageView",
     "type": "ImageView",
+    "icon": "assets/images/btn_imageview.png",
     "objectProperties": [{
             "name": "type",
             "type": "string",
@@ -16,6 +17,7 @@
             "type": "string",
             "default": null
         },
+
         {
             "name": "canHaveChildren",
             "type": "boolean",
@@ -25,12 +27,12 @@
     "stateProperties": [{
             "name": "width",
             "type": "int",
-            "default": 200
+            "default": 600
         },
         {
             "name": "height",
             "type": "int",
-            "default": 200
+            "default": 580
         }
     ]
 

@@ -5,14 +5,91 @@
 
     <div class="layers-btn" style="width: 100%;height:100px;">
 
-        <button class="btn-object-new" *ngFor="let aType of objectTypeData" (click)="clickNewObject(aType.type)">
-    {{aType.name}}
-    </button>
+        <!-- 이미지 들어있는 버튼 예시 -->
+        <!--
+        <div class="motion-btn-wrap">
+
+            <div class="motion-btn btn-object-new">
+                <img src="../assets/images/btn_frame.png" class="img-responsive">
+                <p> FrameLayout</p>
+            </div>
+
+            <div class="motion-btn btn-object-new">
+                <img src="../assets/images/btn_imageview.png" class="img-responsive">
+                <p> ImageView</p>
+            </div>
+
+            <div class="motion-btn btn-object-new">
+                <img src="../assets/images/btn_text.png" class="img-responsive">
+                <p> TextView</p>
+            </div>
+
+        </div>-->
+
+        <!-- 이미지 들어있는 버튼 예시 @-->
+
+        <button class="btn-object-new motion-btn" *ngFor="let aType of objectTypeData" (click)="clickNewObject(aType.type)">
+             <img [src]="aType.icon" class="img-responsive">
+            {{aType.name}}
+        </button>
 
 
-        <div >
-            <button  class="btn-object-new" (click)="clickResource()">Resource</button>
-        </div>
+        <button class="btn-object-new motion-btn" (click)="clickPSD()">
+             <img src="./assets/images/btn_importpsd.png"  class="img-responsive">
+            PSD
+        </button>
+
+
+
     </div>
 
+</div>
+
+<div class="object-new" style="margin-top:15px; display:none;">
+
+
+    <div class="label-properties">
+
+        <div class="col-8" style="padding-left: 0;">
+            Resource
+        </div>
+        <div align="right" class="col-4" style="padding:0;">
+            <div>
+                <img (click)="clickResource()" class="img-responsive" src="assets/images/btn_motion_add.png">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="select-file">
+        <a href="#" class="active">Image</a> <a href="#">JSON</a><a href="#">Video</a><a href="#">Font</a>
+    </div>
+
+    <div class="layers-btn " style="width: 100%;height:100px; padding-top:5px;">
+
+        <div class="btn-resource">
+            <img src="../assets/images/btn_imageview.png" class="img-responsive">
+        </div>
+        <div class="btn-resource">
+            <img src="../assets/images/btn_imageview.png" class="img-responsive">
+        </div>
+        <div class="btn-resource">
+            <img src="../assets/images/btn_imageview.png" class="img-responsive">
+        </div>
+        <div class="btn-resource">
+            <img src="../assets/images/btn_imageview.png" class="img-responsive">
+        </div>
+        <div class="btn-resource">
+            <img src="../assets/images/btn_imageview.png" class="img-responsive">
+        </div>
+        <div class="btn-resource">
+            <img src="../assets/images/btn_imageview.png" class="img-responsive">
+        </div>
+        <div class="btn-resource">
+            <img src="../assets/images/btn_imageview.png" class="img-responsive">
+        </div>
+        <div class="btn-resource">
+            <img src="../assets/images/btn_imageview.png" class="img-responsive">
+        </div>
+    </div>
 </div>

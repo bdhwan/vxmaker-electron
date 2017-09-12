@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ApplicationDataServiceService } from '../../service/application-data-service.service'
 
-import * as glob from "../../globals";
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -12,12 +12,13 @@ import * as glob from "../../globals";
 export class ResourceComponent implements OnInit {
 
   applicationFolderPath;
-  imageList;
-  fileList;
-  prefix = glob.imgPrefix;
+  imageList = [];
+  fileList = [];
+  prefix = environment.imgPrefix;
 
   visibility = false;
-  tab = "image";
+  tab = 'image';
+  @Input() viewMode: any;
 
   @Input() applicationData: any;
 
@@ -29,7 +30,6 @@ export class ResourceComponent implements OnInit {
 
   }
 
-
   ngOnInit() {
 
   }
@@ -37,10 +37,10 @@ export class ResourceComponent implements OnInit {
 
   ngAfterViewInit() {
     this.applicationFolderPath = this.appDataService.getApplicationPath();
-    this.appDataService.loadImageResourceList().then((result:any) => {
+    this.appDataService.loadImageResourceList().then((result: any) => {
       this.imageList = result.reverse();
       return this.appDataService.loadFileResourceList();
-    }).then((result:any) => {
+    }).then((result: any) => {
       this.fileList = result.reverse();
     });
   }
@@ -61,9 +61,7 @@ export class ResourceComponent implements OnInit {
     this.visibility = false;
   }
 
-
   clickTab(event, target) {
-
     this.tab = target;
   }
 
@@ -72,39 +70,32 @@ export class ResourceComponent implements OnInit {
 
     this.onSelectFile.emit(target);
     this.hideDialog();
-    
+
   }
   nothing(event) {
-    console.log("nothing");
-        event.stopPropagation();
+    event.stopPropagation();
   }
 
   clickNewFile(event, target) {
-    console.log("target = " + target);
-
-
-    if (target == 'image') {
-      var newImagePath = this.appDataService.selectImageFile();
-      if (newImagePath) {
-
-        var fileName = this.appDataService.getUniqueImageName(newImagePath);
-        var targetPath = this.applicationFolderPath + "/" + target + "/" + fileName;
-        var result = this.appDataService.copyFile(newImagePath, targetPath);
-        if (result) {
-          this.refreshImageList();
-        }
-      }
+    let files = [];
+    if (target === 'image') {
+      files = this.appDataService.selectImageFiles();
     } else {
-      var newFilePath = this.appDataService.selectFile();
-      if (newFilePath) {
+      files = this.appDataService.selectFiles();
+    }
 
-        var fileName = this.appDataService.getUniqueFileName(newFilePath);
-        var targetPath = this.applicationFolderPath + "/" + target + "/" + fileName;
-        var result = this.appDataService.copyFile(newFilePath, targetPath);
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        const newImagePath = files[i];
+        const fileName = this.appDataService.getUniqueImageName(newImagePath);
+        const targetPath = this.applicationFolderPath + '/' + target + '/' + fileName;
+        const result = this.appDataService.copyFile(newImagePath, targetPath);
         if (result) {
-          this.refreshFileList();
+
         }
       }
+      this.refreshImageList();
+      this.refreshFileList();
     }
   }
 
@@ -116,6 +107,7 @@ export class ResourceComponent implements OnInit {
     });
   }
 
+
   refreshFileList() {
     this.appDataService.loadFileResourceList().then((result) => {
       this.fileList = this.appDataService.getFileResourceList().reverse();
@@ -123,6 +115,14 @@ export class ResourceComponent implements OnInit {
   }
 
 
+  clickImageFolder() {
+    this.appDataService.openFinder(this.applicationFolderPath + '/image');
+  }
+
+  clickFileFolder() {
+    this.appDataService.openFinder(this.applicationFolderPath + '/file');
+
+  }
 
 
 
