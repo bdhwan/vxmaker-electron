@@ -1,7 +1,7 @@
 
 
 .bg-menu {
-    background: linear-gradient(to bottom, #46a2ba 0%,#8096cc 100%);
+    background: linear-gradient(135deg, #46a2ba 0%, #8096cc 100%);
    min-height:480px;
    
 }
@@ -35,7 +35,7 @@
     top:0;
     margin-top: 20px;
     margin-right: 20px;
-    font-size: 13px;
+    font-size: 11px;
     color:rgba(255,255,255,0.5);
 }
 

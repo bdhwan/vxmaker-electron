@@ -36,15 +36,18 @@
 }
 
 .device-status p {
+	position: relative;
     float:left;
 }
 
 
 .device-status .nav-btn {
  color:#46a2ba;
+ 	font-size:12px;
     font-weight: 600;
-    padding-top: 9px;
-    height:51px;
+	padding-top: 9px;
+	width:60px;
+    height:50px;
     padding-left: 15px;
     padding-right: 15px;
     border-left: 1px solid #ececec;
@@ -52,58 +55,35 @@
 	  text-align: center;
 }
 
-.device-status .nav-btn-sending {
-    background: #46a2ba;
-    width:80.55px;
-}
-
-.device-status .btn-source .nav-btn-img{
-width:20px;
-}
-
-
 .device-status .nav-btn:hover {
     color:#fff;
     background: #46a2ba;
     cursor: pointer;
 }
 
-.nav-btn-img {
-    padding-right: 5px;
-  
-    width:18px;
-    margin-top: -2px;
+.device-status .sendStatus {
+    background: #46a2ba;
+    width:80.55px;
 }
 
-.nav-btn i {
-    font-size: 20px;
-
+.fa.fa-mobile {
+	font-size: 18px;
+	line-height: 14px;
     vertical-align: bottom;
     margin-bottom: -1px;
 }
 
-
-.nav-btn-img-2 {
-    padding-right: 5px;
-    opacity: 0.5;
-    width:29px;
-    margin-top: -2px;
+.fa.fa-floppy-o {
+    font-size: 15px;
+    vertical-align: bottom;
+    margin-bottom: -1px;
 }
 
-.device-status .nav-btn:hover .nav-btn-img-2{
-   -webkit-filter: invert(100%);
-   filter: invert(100%);
-   opacity: 1;
-   margin-top: -2px;
+.fa.fa-code {
+    font-size: 16px;
+    vertical-align: bottom;
+    margin-bottom: -1px;
 }
-
-.device-status .nav-btn:hover .nav-btn-img{
-   -webkit-filter: invert(100%);
-   filter: hue-rotate(100%);
-   opacity: 1;
-   margin-top: -2px;
-}
-
 
 
 /* -------------- loader10 -------------- */
