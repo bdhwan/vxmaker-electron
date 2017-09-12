@@ -28,8 +28,10 @@ export class CodeExportComponent implements OnInit {
   currentActivityId;
 
   readyToRender = false;
+  showExportPanel = false;
 
-
+  currentTab = 'AndroidManifest';
+  currentActivityTab = 'xml';
 
   isLoading = false;
 
@@ -90,6 +92,18 @@ export class CodeExportComponent implements OnInit {
   }
 
 
+  clickShowExport() {
+    this.showExportPanel = true;
+    console.log("clickShowExport  -" + this.showExportPanel);
+  }
+
+  clickHideExport() {
+    this.showExportPanel = false;
+  }
+
+  nothing(event) {
+    event.stopPropagation();
+  }
 
   //change project folder
   clickChangeFolder(): void {
@@ -127,6 +141,18 @@ export class CodeExportComponent implements OnInit {
   }
 
 
+  getActivityName(activityId) {
+    return this.appDataService.getActivityName(activityId);
+  }
+
+
+  clickTab(target) {
+    this.currentTab = target;
+  }
+
+  clickActivityTab(target) {
+    this.currentActivityTab = target;
+  }
 
 
 
@@ -136,8 +162,6 @@ export class CodeExportComponent implements OnInit {
       this.appDataService.writeGuidDoc(this.workspaceFolderPath, this.sourceCodeData);
       resolve(true);
     });
-
-
   }
 
 

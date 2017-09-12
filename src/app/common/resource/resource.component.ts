@@ -12,12 +12,13 @@ import { environment } from '../../../environments/environment';
 export class ResourceComponent implements OnInit {
 
   applicationFolderPath;
-  imageList;
-  fileList;
+  imageList = [];
+  fileList = [];
   prefix = environment.imgPrefix;
 
   visibility = false;
-  tab = "image";
+  tab = 'image';
+  @Input() viewMode: any;
 
   @Input() applicationData: any;
 
@@ -60,9 +61,7 @@ export class ResourceComponent implements OnInit {
     this.visibility = false;
   }
 
-
   clickTab(event, target) {
-
     this.tab = target;
   }
 
@@ -116,6 +115,14 @@ export class ResourceComponent implements OnInit {
   }
 
 
+  clickImageFolder() {
+    this.appDataService.openFinder(this.applicationFolderPath + '/image');
+  }
+
+  clickFileFolder() {
+    this.appDataService.openFinder(this.applicationFolderPath + '/file');
+
+  }
 
 
 

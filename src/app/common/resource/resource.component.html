@@ -1,64 +1,76 @@
-<div class="popup-wrap" *ngIf="visibility">
-    <div id="popup1" class="overlay" (click)="hideDialog()">
-        <div class="popup" (click)="nothing($event)">
+<div *ngIf="viewMode=='activity'">
+    <div class="popup-wrap" *ngIf="visibility">
+        <div id="popup1" class="overlay" (click)="hideDialog()">
+            <div class="popup" (click)="nothing($event)">
+
+                <div class="resource-nav">
+                    <button class="btn-image btn-select btn-tab" style="color:#46a2ba;" *ngIf="tab=='image'" (click)="clickTab($event,'image')">Image</button>
+                    <button class="btn-image  btn-tab" *ngIf="tab=='file'" (click)="clickTab($event,'image')">Image</button>
 
 
-            <div class="resource-nav">
-                <button class="btn-image btn-select btn-tab" style="color:#46a2ba;" *ngIf="tab=='image'" (click)="clickTab($event,'image')">Image</button>
-                <button class="btn-image  btn-tab" *ngIf="tab=='file'" (click)="clickTab($event,'image')">Image</button>
-                
-                
-                <button class="btn-file btn-select btn-tab" style="color:#46a2ba;" *ngIf="tab=='file'" (click)="clickTab($event,'file')">File</button>
-                <button class="btn-file btn-tab" *ngIf="tab=='image'" (click)="clickTab($event,'file')">File</button>
-            
-
-                <div class="resource-add">
-                    <button *ngIf="tab=='image'" (click)="clickNewFile($event,'image')">+ New Image</button>
-                    <button *ngIf="tab=='file'" align="left" (click)="clickNewFile($event,'file')">+ New File</button>
-                    <button class="resource-delete">
+                    <button class="btn-file btn-select btn-tab" style="color:#46a2ba;" *ngIf="tab=='file'" (click)="clickTab($event,'file')">File</button>
+                    <button class="btn-file btn-tab" *ngIf="tab=='image'" (click)="clickTab($event,'file')">File</button>
+                    <div class="resource-add">
+                        <button *ngIf="tab=='image'" (click)="clickNewFile($event,'image')">+ New Image</button>
+                        <button *ngIf="tab=='file'" align="left" (click)="clickNewFile($event,'file')">+ New File</button>
+                        <button class="resource-delete">
                         <i class="fa fa-trash-o" ></i>
                     </button>
+                    </div>
                 </div>
-            </div>
 
 
 
-            <div class="resource-wrap">
-                <div *ngIf="tab=='image'">
-                    <h3>Uploaded Image</h3>
-                    <div class="image-list">
-                        <div *ngFor="let imageUrl of imageList" class="bg-img">
-                            <div class="img-delete">
-                                <div class="img-delete-icon">
-                                   <i class="fa fa-trash-o" style="font-size:21px;"></i>
+                <div class="resource-wrap">
+                    <div *ngIf="tab=='image'">
+                        <h3>Uploaded Image</h3>
+                        <div class="image-list">
+                            <div *ngFor="let imageUrl of imageList" class="bg-img">
+                                <div class="img-delete">
+                                    <div class="img-delete-icon">
+                                        <i class="fa fa-trash-o" style="font-size:21px;"></i>
+                                    </div>
                                 </div>
+                                <img [src]="prefix+applicationFolderPath+'/'+imageUrl" (click)="clickFile(imageUrl)">
                             </div>
-                            <img [src]="prefix+applicationFolderPath+'/'+imageUrl" (click)="clickFile(imageUrl)">
-                            
                         </div>
                     </div>
-                </div>
 
-                <div *ngIf="tab=='file'">
-                    <h3>Uploaded File</h3>
-                    <div class="file-list" *ngFor="let fileUrl of fileList" (click)="clickFile(fileUrl)">
-                        {{fileUrl}}
+                    <div *ngIf="tab=='file'">
+                        <h3>Uploaded File</h3>
+                        <div class="file-list" *ngFor="let fileUrl of fileList" (click)="clickFile(fileUrl)">
+                            {{fileUrl}}
+                        </div>
+
                     </div>
-
-                </div>
-            </div>
-
-            <div class="resource-footer">
-                <div>Filename: <span style="color:red;">main.png</span></div>
-                <div class="resource-apply">
-                    <button (click)="hideDialog()">Cancel</button>
-                    <button>Apply</button>
                 </div>
 
+                <div class="resource-footer">
+                    <div>Filename: <span style="color:red;">main.png</span></div>
+                    <div class="resource-apply">
+                        <button (click)="hideDialog()">Cancel</button>
+                        <button>Apply</button>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+</div>
 
+<div *ngIf="viewMode=='export'">
+    <!-- image -->
+    Image {{imageList.length}} <button (click)="clickImageFolder()">Open</button>
+    <div class="image-list" style="height:500px;">
+        <div *ngFor="let imageUrl of imageList" class="bg-img">
+            <img [src]="prefix+applicationFolderPath+'/'+imageUrl" (click)="clickFile(imageUrl)">
+        </div>
+    </div>
 
-
+    <!-- file -->
+    Json {{fileList.length}} <button (click)="clickFileFolder()">Open</button>
+    <div class="image-list" style="height:500px;">
+        <div class="file-list" *ngFor="let fileUrl of fileList" (click)="clickFile(fileUrl)">
+            {{fileUrl}}
         </div>
     </div>
 </div>
