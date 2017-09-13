@@ -14,6 +14,7 @@ export class ResourceComponent implements OnInit {
   applicationFolderPath;
   imageList = [];
   fileList = [];
+  fileConfigList = [];
   prefix = environment.imgPrefix;
 
   isDeleteMode;
@@ -55,7 +56,8 @@ export class ResourceComponent implements OnInit {
       this.imageList = result.reverse();
       return this.appDataService.loadFileResourceList();
     }).then((result: any) => {
-      this.fileList = result.reverse();
+      this.refreshFileList();
+
     });
   }
 
@@ -85,8 +87,7 @@ export class ResourceComponent implements OnInit {
   }
 
   clickDownload(url) {
-    this.appDataService.openUrl(this.applicationFolderPath + '/' + url);
-
+    this.appDataService.openUrl(url);
   }
 
   clickApply() {

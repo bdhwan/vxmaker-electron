@@ -31,12 +31,8 @@
                                         <i class="fa fa-trash-o" style="font-size:21px;"></i>
                                     </div>
                                 </div>
-
-
                                 <div class="img-select" *ngIf="imageUrl==selectedFileUrl">
-
                                 </div>
-
                                 <img [src]="prefix+applicationFolderPath+'/'+imageUrl" (click)="clickFile(imageUrl)">
                             </div>
                         </div>
@@ -44,14 +40,24 @@
 
                     <div *ngIf="tab=='file'">
                         <h3>Uploaded File</h3>
-                        <div class="file-list" *ngFor="let fileUrl of fileList" (click)="clickFile(fileUrl)">
-                            {{fileUrl}}
+                        <div class="image-list">
+                            <div *ngFor="let fileUrl of fileList" class="bg-img">
+                                <div class="img-delete" *ngIf="isDeleteMode" (click)="clickDeleteFile(fileUrl)">
+                                    <div class="img-delete-icon">
+                                        <i class="fa fa-trash-o" style="font-size:21px;"></i>
+                                    </div>
+                                </div>
+                                <div class="img-select" *ngIf="fileUrl==selectedFileUrl">
+                                </div>
+                                <app-lottie-animation-view [initUrl]="fileUrl" style="width:100%;height:100%;" (click)="clickFile(fileUrl)">
+                                </app-lottie-animation-view>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="resource-footer">
-                    <div>Filename: <span class="file-select-pick ">{{selectedFileUrl}}</span> <button (click)="clickDownload(selectedFileUrl)">Download</button></div>
+                    <div>Filename: <span class="file-select-pick ">{{selectedFileUrl}}</span></div>
                     <div class="resource-apply">
                         <button (click)="hideDialog()">Cancel</button>
                         <button (click)="clickApply()" [hidden]="isDeleteMode">Apply</button>

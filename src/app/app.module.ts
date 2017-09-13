@@ -41,6 +41,7 @@ import { WindowProxyComponent } from './window-proxy/window-proxy.component';
 import { Ng2HandySyntaxHighlighterModule } from 'ng2-handy-syntax-highlighter';
 import { ClipModule } from 'ng2-clip';
 import { CodeExportComponent } from './code-export/code-export.component';
+import { LottieAnimationViewModule } from 'ng-lottie';
 
 
 const appRoutes: Routes = [
@@ -99,6 +100,7 @@ const appRoutes: Routes = [
     TreeModule,
     ClipModule,
     Ng2HandySyntaxHighlighterModule,
+    LottieAnimationViewModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
   providers: [ApplicationDataServiceService, BroadcastService, CodeGeneratorService],

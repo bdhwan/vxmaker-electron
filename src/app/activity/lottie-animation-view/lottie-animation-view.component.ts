@@ -12,7 +12,7 @@ import { ApplicationDataServiceService } from '../../service/application-data-se
 export class LottieAnimationViewComponent implements OnInit {
 
 
-  // @Input() options: any;
+  @Input() initUrl;
   @Input() width: number;
   @Input() height: number;
 
@@ -28,11 +28,17 @@ export class LottieAnimationViewComponent implements OnInit {
   animationData;
 
   ngOnInit() {
-
+    console.log("set lottie = " + this.initUrl);
+    if (this.initUrl) {
+      this.setDataUrl(this.initUrl);
+    }
   }
 
 
-  constructor(private appDataService: ApplicationDataServiceService) { }
+  constructor(private appDataService: ApplicationDataServiceService) {
+
+  }
+
 
   public setDataUrl(url): void {
     if (this.url !== url) {
@@ -41,7 +47,6 @@ export class LottieAnimationViewComponent implements OnInit {
         if (this.anim) {
           this.anim.stop();
         }
-        // bodymovin.destroy();
         this.resetAnimator();
       }
     }
@@ -52,6 +57,8 @@ export class LottieAnimationViewComponent implements OnInit {
     // const temp2 = JSON.stringify(temp);
     const start = temp.indexOf(',animationData={');
     console.log("start postion =" + start);
+    console.log("this.url = " + this.url);
+
     if (start === -1) {
       this.animationData = JSON.parse(temp);
     }
