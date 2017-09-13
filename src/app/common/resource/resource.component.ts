@@ -102,9 +102,12 @@ export class ResourceComponent implements OnInit {
 
 
   clickDeleteFile(dataUrl) {
-    console.log("delete file = " + dataUrl);
-    this.appDataService.deleteFile(this.applicationFolderPath + '/' + dataUrl);
-    this.refreshList();
+
+    const result = confirm('will you delete?');
+    if (result) {
+      this.appDataService.deleteFile(this.applicationFolderPath + '/' + dataUrl);
+      this.refreshList();
+    }
   }
 
   nothing(event) {
