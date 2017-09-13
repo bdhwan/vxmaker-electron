@@ -933,7 +933,7 @@ export class ApplicationDataServiceService {
       'width': state.width * this.zoom + 'px',
       'height': state.height * this.zoom + 'px',
       'background-color': tempObjectData.backgroundColor,
-      'opacity': state.alpha * 0.8,
+      'opacity': state.alpha,
       'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
       'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
     }

@@ -16,6 +16,8 @@ export class ResourceComponent implements OnInit {
   fileList = [];
   prefix = environment.imgPrefix;
 
+  isDeleteMode;
+
   visibility = false;
   tab = 'image';
   @Input() viewMode: any;
@@ -36,6 +38,10 @@ export class ResourceComponent implements OnInit {
 
 
   ngAfterViewInit() {
+    this.refreshList();
+  }
+
+  refreshList() {
     this.applicationFolderPath = this.appDataService.getApplicationPath();
     this.appDataService.loadImageResourceList().then((result: any) => {
       this.imageList = result.reverse();
@@ -72,6 +78,18 @@ export class ResourceComponent implements OnInit {
     this.hideDialog();
 
   }
+
+  clickDeleteMode() {
+    this.isDeleteMode = !this.isDeleteMode;
+  }
+
+
+  clickDeleteFile(dataUrl) {
+    console.log("delete file = " + dataUrl);
+    this.appDataService.deleteFile(this.applicationFolderPath + '/' + dataUrl);
+    this.refreshList();
+  }
+
   nothing(event) {
     event.stopPropagation();
   }
