@@ -20,6 +20,10 @@ export class ResourceComponent implements OnInit {
 
   visibility = false;
   tab = 'image';
+
+
+  selectedFileUrl;
+
   @Input() viewMode: any;
 
   @Input() applicationData: any;
@@ -36,6 +40,10 @@ export class ResourceComponent implements OnInit {
 
   }
 
+
+  public setSelectedFileUrl(url) {
+    this.selectedFileUrl = url;
+  }
 
   ngAfterViewInit() {
     this.refreshList();
@@ -73,11 +81,19 @@ export class ResourceComponent implements OnInit {
 
 
   clickFile(target) {
+    this.selectedFileUrl = target;
+  }
 
-    this.onSelectFile.emit(target);
-    this.hideDialog();
+  clickDownload(url) {
+    this.appDataService.openUrl(this.applicationFolderPath + '/' + url);
 
   }
+
+  clickApply() {
+    this.onSelectFile.emit(this.selectedFileUrl);
+    this.hideDialog();
+  }
+
 
   clickDeleteMode() {
     this.isDeleteMode = !this.isDeleteMode;

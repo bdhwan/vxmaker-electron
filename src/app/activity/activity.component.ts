@@ -212,6 +212,12 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           this.onClickDetailEvent(detailEvent);
         } else if (kind === 'new-after-animation') {
           // this.onClickDetailEvent(null);
+        } else if (kind === 'select-file') {
+          const dataUrl = message.dataUrl;
+          const target = message.target;
+          this.resourceDialog.setSelectedFileUrl(dataUrl);
+          this.resourceDialog.showDialog(target);
+
         }
       });
   }

@@ -31,6 +31,12 @@
                                         <i class="fa fa-trash-o" style="font-size:21px;"></i>
                                     </div>
                                 </div>
+
+
+                                <div class="img-select" *ngIf="imageUrl==selectedFileUrl">
+
+                                </div>
+
                                 <img [src]="prefix+applicationFolderPath+'/'+imageUrl" (click)="clickFile(imageUrl)">
                             </div>
                         </div>
@@ -41,15 +47,14 @@
                         <div class="file-list" *ngFor="let fileUrl of fileList" (click)="clickFile(fileUrl)">
                             {{fileUrl}}
                         </div>
-
                     </div>
                 </div>
 
                 <div class="resource-footer">
-                    <div>Filename: <span style="color:red;">main.png</span></div>
+                    <div>Filename: <span class="file-select-pick ">{{selectedFileUrl}}</span> <button (click)="clickDownload(selectedFileUrl)">Download</button></div>
                     <div class="resource-apply">
                         <button (click)="hideDialog()">Cancel</button>
-                        <button>Apply</button>
+                        <button (click)="clickApply()" [hidden]="isDeleteMode">Apply</button>
                     </div>
                 </div>
             </div>

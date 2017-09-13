@@ -98,7 +98,14 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
   }
 
   clickNewFile(target) {
-    this.onShowResourceDialog.emit(target);
+
+    const message = {
+      kind: 'select-file',
+      target: target,
+      dataUrl: this.selectedObject.dataUrl
+    };
+    this.broadcaster.broadcast('activity', message);
+    // this.onShowResourceDialog.emit(target);
   }
 
   clickDownload(url) {
@@ -112,8 +119,7 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
     this.objectBasicData = this.appDataService.findObjectBasicDataByType(this.selectedObject.type);
     if (this.objectBasicData) {
       this.openSource = this.objectBasicData.openSource;
-    }
-    else {
+    } else {
       this.openSource = null;
     }
 

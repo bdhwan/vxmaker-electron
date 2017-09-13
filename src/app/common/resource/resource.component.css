@@ -283,6 +283,15 @@
     color: red;
 }
 
+.resource-wrap .img-select {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid #46a2ba;
+}
+
 .resource-wrap .img-delete .img-delete-icon:hover {
     background: red;
     color: #ffffff;
@@ -308,4 +317,8 @@
 .file-list:hover {
     color: #46a2ba;
     cursor: pointer;
+}
+
+.file-select-pick {
+    color: #46a2ba;
 }
