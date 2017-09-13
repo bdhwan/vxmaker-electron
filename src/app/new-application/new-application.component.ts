@@ -56,13 +56,20 @@ export class NewApplicationComponent implements OnInit {
     const applicationFolder = this.workspaceFolderPath + '/' + this.applicationName;
 
 
+
     electron.ipcRenderer.sendSync('make-folder', applicationFolder);
     electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/activity');
     electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/image');
     electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/file');
+
+    this.appDataService.copyFolderFromRoot('/template/sample/file', applicationFolder + '/file');
+    this.appDataService.copyFolderFromRoot('/template/sample/image', applicationFolder + '/image');
+
     electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/export');
     electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/preview');
     electron.ipcRenderer.sendSync('copy-from-root-file', 'template/source_template/ic_launcher.png', applicationFolder + '/image/ic_launcher.png');
+
+
 
     const now = new Date().getTime();
     const data = {

@@ -16,6 +16,8 @@
             </div>
 
             <div *ngIf="selectedObject.type=='LottieAnimationView'||selectedObject.type=='VideoView'">
+
+                <p>{{selectedObject.dataUrl}}</p>
                 <button (click)="clickSelectFile()"> FileSelect</button>
             </div>
 

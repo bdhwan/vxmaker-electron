@@ -461,6 +461,7 @@ export class ApplicationDataServiceService {
           reqeustList.push(this.getHttpToJson('assets/object/' + data.objectType[i]));
         }
         this.defaultStateData = data.defaultState;
+
         return Promise.all(reqeustList);
       }).then((results: any) => {
         console.log('results =' + JSON.stringify(results));
@@ -904,6 +905,7 @@ export class ApplicationDataServiceService {
     for (let i = 0; i < defaultObject.objectProperties.length; i++) {
       const aProperty = defaultObject.objectProperties[i];
       newObject[aProperty.name] = aProperty.default;
+      console.log("aProperty.name =" + aProperty.default);
     }
 
     if (newObject.canHaveChildren) {
