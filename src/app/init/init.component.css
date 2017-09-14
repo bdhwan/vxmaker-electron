@@ -2,15 +2,19 @@
 
 .bg-menu {
     background: linear-gradient(to bottom, #46a2ba 0%,#8096cc 100%);
-   min-height:480px;
-   
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .menu-list {
-   height:480px;
+   height:100%;
     background: #edf0f4;
    max-width:280px;
- 
+ position: absolute;
    overflow-y:auto;
    overflow-x:hidden;
     float:left;
@@ -21,7 +25,8 @@
     height:100%;
 padding:30px;
    overflow: hidden;
- 
+ margin-left: 250px;
+ position: relative;
 }
 
 /*.menu-list + .menu-main {
@@ -57,13 +62,13 @@ padding:30px;
  font-size: 11px;
  color:rgba(255,255,255, 0.8);
  font-weight: lighter;
- float: left;
+ float: right;
  margin: 6px;
  margin-top: 10px;
 }
 
 .go-download img {
-    float: left;
+    float: right;
     width:128px;
 }
 

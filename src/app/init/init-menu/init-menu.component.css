@@ -13,13 +13,30 @@ border:none;
 }
 
 .menu-main-list {
-
     margin-top: 25px;
 max-width:270px;
-margin-left: auto;
-margin-right: auto;
 
+}
 
+#center {
+    position: absolute;
+    z-index: 9999!important;
+}
+
+.vc {
+    max-height:400px;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.hc {
+    max-width: 320px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .menu-main-list .main-img {
