@@ -1,3 +1,33 @@
-<p>
-  guide works!
-</p>
+<div class="container" (window:resize)="onResize($event)">
+
+    <div class="first" [ngStyle]="getFixHeightStyle()">
+        <div class="activity-left" *ngIf="applicationData">
+            <app-application-info [prefix]="prefix" [viewMode]="'guide'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-application-info>
+            <app-activity-list [prefix]="prefix" [viewMode]="'guide'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath" [currentActivityId]="activityId"></app-activity-list>
+        </div>
+    </div>
+
+    <div class="second" [ngStyle]="getFixHeightStyle()">
+        <app-object-tree #objectTree [prefix]="prefix" [viewMode]="'guide'" (onChangeNode)="onChangeNodeFromTree($event)" (onClickNewFile)="clickNewFile($event)" (onSelectNode)="onSelectNodeFromTree($event)"></app-object-tree>
+    </div>
+
+
+    <div class="third" [ngStyle]="getFixHeightStyle()">
+
+        <div class="activity-canvas" [ngStyle]="getPreviewWindowStyle()">
+            <app-stage-list #stageList [viewMode]="'guide'" (onSelectStage)="onSelectStage($event)" (onNewStage)="onNewStage()"></app-stage-list>
+            <app-preview #previewCanvas [viewMode]="'guide'" [prefix]="prefix" (onSelectNodeFromOther)="onSelectNodeFromOther($event)" (onShowResourceDialog)="onShowResourceDialog($event)"></app-preview>
+        </div>
+    </div>
+    <div class="fourth" [ngStyle]="getFixHeightStyle()">
+        <app-object-property [viewMode]="'guide'" [prefix]="prefix" #objectProperty (onShowResourceDialog)="onShowResourceDialog($event)" (onChangeTreeData)="changePropertyData($event)"></app-object-property>
+    </div>
+
+    <div class="fiveth" [ngStyle]="getFixHeightStyle()">
+
+
+    </div>
+
+
+
+</div>

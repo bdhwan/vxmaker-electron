@@ -6,6 +6,7 @@ import { ResourceComponent } from '../common/resource/resource.component';
 import { ApplicationDataServiceService } from '../service/application-data-service.service';
 import { UUID } from 'angular2-uuid';
 import { BroadcastService } from '../service/broadcast.service';
+import { environment } from '../../environments/environment';
 
 
 @Component({
@@ -14,6 +15,8 @@ import { BroadcastService } from '../service/broadcast.service';
   styleUrls: ['./code-export.component.css']
 })
 export class CodeExportComponent implements OnInit {
+
+  prefix = environment.imgPrefix;
 
   applicationFolderPath: string;
   applicationData: any;
@@ -47,7 +50,7 @@ export class CodeExportComponent implements OnInit {
 
     this.workspaceFolderPath = this.appDataService.getExportFolderPath();
     this.applicationFolderPath = this.route.snapshot.params['applicationFolderPath'];
-    console.log('this.applicationFolderPath =' + this.applicationFolderPath);
+
     this.appDataService.initApplicationPath(this.applicationFolderPath);
     this.appDataService.loadInitDataFromFile().then(result => {
       self.applicationData = self.appDataService.loadApplicationDataSync();

@@ -50,12 +50,17 @@
 
         </div>
 
-        <div class="btn-more">
+        <!-- <div class="btn-more">
             <button style="margin-bottom:8px;">Open source(이미지출처) <i class="fa fa-sort-desc"></i></button>
-        </div>
+        </div> -->
 
 
         <div *ngIf="openSource">
+            <div class="label-properties-2" style="margin-top:15px;margin-bottom:15px;">
+                Open Source
+            </div>
+
+
             <div class="opensource-info">
                 <div class="info-title">{{openSource.title}}</div>
                 <div class="info-author">Author:{{openSource.author}}</div>
@@ -70,9 +75,7 @@
         </div>
 
         <div *ngIf="selectedState&&needShowState">
-
             <!-- 타이포그래피 -->
-
             <div class="label-properties-2" style="margin-bottom:15px;">
                 Typography
                 <i class="fa fa-sort-desc"></i>

@@ -24,50 +24,42 @@ export class InitMenuComponent implements OnInit {
     // this.registerStringBroadcast();
   }
 
-  // registerStringBroadcast() {
-  //   this.broadcaster.on<string>('message')
-  //     .subscribe(message => {
-  //       console.log("message received!! = " + message);
-  //     });
-  // }
-
 
   clickNewApplication(): void {
     console.log("clickNewApplication");
-    this.router.navigate(['/new-application']);
-    // const test = {
-    //   kind:'test',
-    //   detail:'detail'
-    // }
-    // this.broadcaster.broadcast('message', test);
+
+
+    const message = {
+      kind: 'new-application',
+    };
+    this.broadcaster.broadcast('init', message);
   }
 
 
 
   clickOpenApplication(): void {
     console.log("clickOpenApplication");
-    const folder = this.appDataService.selectWorkspaceFolderPath();
-    if (folder) {
-      const applicationData = this.appDataService.readFileData(folder + "/app.json");// JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('read-file-data', folder + "/app.json")));
-      if (applicationData) {
-        this.router.navigate(['/application', folder]);
-        // const path = '/application/' + encodeURIComponent(folder);
-        // this.appDataService.openMainWindowUrl(path);
-      } else {
-        alert("no data");
-      }
-    }
+    const message = {
+      kind: 'open-application',
+    };
+    this.broadcaster.broadcast('init', message);
   }
 
-
-
   clickHelp(): void {
-
+    const message = {
+      kind: 'how-to-use',
+    };
+    this.broadcaster.broadcast('init', message);
   }
 
 
   clickSettingApplication(): void {
     console.log("clickSettingApplication");
+  }
+
+
+  clickGuide() {
+    this.router.navigate(['/guide/init']);
   }
 
 }

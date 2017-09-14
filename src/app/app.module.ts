@@ -26,7 +26,7 @@ import { EventGeneratorComponent } from './activity/event-generator/event-genera
 import { TreeModule } from 'angular2-tree-component';
 import { PreviewObjectComponent } from './activity/preview/preview-object/preview-object.component';
 import { ApplicationDataServiceService } from './service/application-data-service.service';
-import { CodeGeneratorService } from './service/code-generator.service';
+
 import { BroadcastService } from './service/broadcast.service';
 import { ResourceComponent } from './common/resource/resource.component';
 import { EventDetailStageChangeComponent } from './activity/event-detail-stage-change/event-detail-stage-change.component';
@@ -41,13 +41,12 @@ import { WindowProxyComponent } from './window-proxy/window-proxy.component';
 import { Ng2HandySyntaxHighlighterModule } from 'ng2-handy-syntax-highlighter';
 import { ClipModule } from 'ng2-clip';
 import { CodeExportComponent } from './code-export/code-export.component';
-import { LottieAnimationViewModule } from 'ng-lottie';
 
 
 const appRoutes: Routes = [
   { path: 'init/:workspaceFolder', component: InitComponent },
   { path: 'init', component: InitComponent },
-  { path: 'guide', component: GuideComponent },
+  { path: 'guide/:activityId', component: GuideComponent },
   { path: 'setting', component: SettingComponent },
   { path: 'new-application', component: NewApplicationComponent },
   { path: 'code-export/:applicationFolderPath', component: CodeExportComponent },
@@ -100,10 +99,9 @@ const appRoutes: Routes = [
     TreeModule,
     ClipModule,
     Ng2HandySyntaxHighlighterModule,
-    LottieAnimationViewModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ApplicationDataServiceService, BroadcastService, CodeGeneratorService],
+  providers: [ApplicationDataServiceService, BroadcastService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

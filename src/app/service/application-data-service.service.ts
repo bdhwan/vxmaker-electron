@@ -86,12 +86,17 @@ export class ApplicationDataServiceService {
 
   constructor(private http: Http, private broadcaster: BroadcastService) {
     const self = this;
-    electron.ipcRenderer.on('parse-psd-result', (event, arg) => {
-      this.parsePsdPromise(arg);
-    });
-    electron.ipcRenderer.on('capture-screen-result', (event, arg) => {
-      this.capturePromise(arg);
-    });
+
+    if (electron) {
+      electron.ipcRenderer.on('parse-psd-result', (event, arg) => {
+        this.parsePsdPromise(arg);
+      });
+      electron.ipcRenderer.on('capture-screen-result', (event, arg) => {
+        this.capturePromise(arg);
+      });
+    }
+
+
   }
 
 
@@ -169,7 +174,11 @@ export class ApplicationDataServiceService {
   }
 
   getRecentProjectList() {
-    return JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('get-recent-project-list')));
+    if (electron) {
+      return JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('get-recent-project-list')));
+    } else {
+      return [];
+    }
   }
 
   saveApplicationData(applicationData) {
@@ -415,7 +424,7 @@ export class ApplicationDataServiceService {
   getHttpToJson(targetUrl) {
     return new Promise((resolve, reject) => {
       this.http.get(targetUrl).subscribe(res => {
-        let data = res.json();
+        const data = res.json();
         resolve(data);
       });
     });
@@ -554,6 +563,22 @@ export class ApplicationDataServiceService {
     return this.applicationData;
   }
 
+  setApplicationData(data) {
+    this.applicationData = data;
+  }
+
+
+  setActivityData(data) {
+    this.activityData = data;
+    for (let i = 0; i < this.applicationData.activityList.length; i++) {
+      const activity = this.applicationData.activityList[i];
+      if (activity.activityId === this.activityId) {
+        this.activityMetaData = activity;
+        break;
+      }
+    }
+  }
+
 
   loadActivityDataSync(activityId) {
     return electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + '/activity/' + activityId + '.json');
@@ -573,6 +598,24 @@ export class ApplicationDataServiceService {
       }
     });
   }
+
+
+  loadDataFromUrl(file) {
+    return new Promise((resolve, reject) => {
+      if (this.templateHash[file]) {
+        resolve(this.templateHash[file]);
+      } else {
+        this.http.get(file)
+          .subscribe(res => {
+            this.templateHash[file] = res['_body'];
+            resolve(this.templateHash[file]);
+          });
+      }
+    });
+  }
+
+
+
 
 
 

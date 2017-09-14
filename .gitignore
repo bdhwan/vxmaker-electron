@@ -42,3 +42,4 @@ testem.log
 Thumbs.db
 workspace
 dist
+src/assets/data

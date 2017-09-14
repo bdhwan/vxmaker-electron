@@ -2,10 +2,8 @@ import { Component, OnInit, NgZone, AfterViewInit, ViewChild, Input, Output, Eve
 import { ApplicationDataServiceService } from '../../service/application-data-service.service';
 
 import { PreviewSizeComponent } from '../preview-size/preview-size.component';
-import { CodeGeneratorService } from '../../service/code-generator.service';
 import { BroadcastService } from '../../service/broadcast.service';
 
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-object-property',
@@ -17,7 +15,8 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
 
 
   @Output() onShowResourceDialog = new EventEmitter<string>();
-  prefix = environment.imgPrefix;
+  @Input() viewMode: any;
+  @Input() prefix: any;
   applicationFolderPath;
   selectedTriggerEvent;
   selectedObject;

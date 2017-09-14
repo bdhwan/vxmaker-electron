@@ -10,6 +10,8 @@ import { BroadcastService } from '../service/broadcast.service';
 
 import 'rxjs/add/operator/switchMap';
 // declare var electron: any;
+import { environment } from '../../environments/environment';
+
 
 
 
@@ -19,6 +21,8 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./application.component.css']
 })
 export class ApplicationComponent implements OnInit, AfterViewInit {
+
+  prefix = environment.imgPrefix;
 
   applicationFolderPath: string;
   applicationData: any;

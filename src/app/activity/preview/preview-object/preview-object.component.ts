@@ -4,10 +4,6 @@ import { LottieAnimationViewComponent } from '../../lottie-animation-view/lottie
 
 
 
-
-import { environment } from '../../../../environments/environment';
-
-
 @Component({
   selector: 'app-preview-object',
   templateUrl: './preview-object.component.html',
@@ -19,7 +15,7 @@ export class PreviewObjectComponent implements OnInit {
   @ViewChild('videoView') videoView;
   @ViewChild('lottieView') lottieView: LottieAnimationViewComponent;
 
-  prefix = environment.imgPrefix;
+  @Input() prefix: any;
   applicationFolderPath;
 
   currentComponent = null;

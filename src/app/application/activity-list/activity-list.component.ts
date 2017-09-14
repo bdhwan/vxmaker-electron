@@ -12,8 +12,7 @@ import { environment } from '../../../environments/environment';
 })
 export class ActivityListComponent implements OnInit {
 
-  prefix = environment.imgPrefix;
-
+  @Input() prefix: any;
   @Input() viewMode: any;
   @Input() currentActivityId: any;
 

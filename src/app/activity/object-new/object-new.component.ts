@@ -13,6 +13,8 @@ export class ObjectNewComponent implements OnInit {
   @Output() onChangeTreeData = new EventEmitter<any>();
   @Output() onShowResourceDialog = new EventEmitter<string>();
   objectTypeData = [];
+  @Input() prefix: any;
+
 
   constructor(private broadcaster: BroadcastService) { }
 

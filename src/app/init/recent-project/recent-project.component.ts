@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApplicationDataServiceService } from '../../service/application-data-service.service'
+import { BroadcastService } from '../../service/broadcast.service';
+import { MessageEventService } from '../../service/message-event.service';
 
 
 
@@ -15,7 +17,9 @@ export class RecentProjectComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private appDataService: ApplicationDataServiceService
+    private appDataService: ApplicationDataServiceService,
+    private broadcaster: BroadcastService,
+    private messageEvent: MessageEventService
   ) { }
 
   ngOnInit() {
@@ -26,7 +30,16 @@ export class RecentProjectComponent implements OnInit {
   clickApplication(folderPath) {
 
 
-    this.router.navigate(['/application', folderPath]);
+    const message = {
+      kind: 'open-application-folder',
+      folderPath: folderPath
+    }
+    this.broadcaster.broadcast('init', message);
+
+
+
+
+
 
     // const path = '/application/' + encodeURIComponent(folderPath);
     // this.appDataService.openMainWindowUrl(path);

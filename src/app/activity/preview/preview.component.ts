@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { ApplicationDataServiceService } from '../../service/application-data-service.service'
 import { BroadcastService } from '../../service/broadcast.service';
 
@@ -14,8 +14,8 @@ declare var rasterizeHTML: any;
   styleUrls: ['./preview.component.css']
 })
 export class PreviewComponent implements OnInit {
-
-  // @ViewChild('mainScreen') elementView: ElementRef;
+  @Input() viewMode: any;
+  @Input() prefix: any;
   @ViewChild('previewScreen') elementView: ElementRef;
   @Output() onSelectNodeFromOther = new EventEmitter<string>();
   @ViewChild('myPreview') myPreview: ElementRef;

@@ -6,9 +6,9 @@ import { ApplicationDataServiceService } from '../../service/application-data-se
   templateUrl: './stage-list.component.html',
   styleUrls: ['./stage-list.component.css']
 })
-export class StageListComponent implements OnInit { 
+export class StageListComponent implements OnInit {
 
-
+  @Input() viewMode: any;
   @Output() onNewStage = new EventEmitter<string>();
   @Output() onSelectStage = new EventEmitter<string>();
 

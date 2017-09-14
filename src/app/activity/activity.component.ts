@@ -21,7 +21,7 @@ import { ApplicationDataServiceService } from '../service/application-data-servi
 import { UUID } from 'angular2-uuid';
 import { BroadcastService } from '../service/broadcast.service';
 import { MessageEventService } from '../service/message-event.service';
-import { CodeGeneratorService } from '../service/code-generator.service';
+import { environment } from '../../environments/environment';
 
 
 import 'rxjs/add/operator/switchMap';
@@ -35,6 +35,8 @@ declare var rasterizeHTML: any;
   providers: [BroadcastService, MessageEventService]
 })
 export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  prefix = environment.imgPrefix;
 
 
   @ViewChild('objectTree')
@@ -111,7 +113,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     public zone: NgZone,
     private appDataService: ApplicationDataServiceService,
     private broadcaster: BroadcastService,
-    // private codeGenerator: CodeGeneratorService,
     private messageEvent: MessageEventService
   ) {
     this.isReadyToRender = false;
@@ -321,10 +322,9 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
       }).then((result) => {
         this.notifySelectedObjectChanged();
       });
-
-
-
   }
+
+
 
   public refreshList() {
     this.applicationFolderPath = this.appDataService.getApplicationPath();
@@ -631,16 +631,10 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.eventList.onChangeData();
     this.eventGenerator.onChangeData();
 
-    // this.codeActivityLayout.setActivityData(this.activityData);
-    // this.codeActivityLayout.onChangeData();
-
-
-
     this.eventList.onChangeData();
     this.eventDetailStageChange.onChangeData();
     this.eventDetailStartActivity.onChangeData();
     this.eventDetailFinishActivity.onChangeData();
-
   }
 
 

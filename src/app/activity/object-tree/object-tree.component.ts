@@ -15,8 +15,8 @@ export class ObjectTreeComponent implements OnInit {
 
   @ViewChild(TreeComponent)
   private tree: TreeComponent;
-
-
+  @Input() prefix: any;
+  @Input() viewMode: any;
   options = {
     allowDrag: true,
     allowDrop: (element, to) => {
@@ -44,16 +44,7 @@ export class ObjectTreeComponent implements OnInit {
 
 
   changeNode($event): void {
-
-    // console.log(
-    //   "Moved",
-    //   $event.node.name,
-    //   "to",
-    //   $event.to.parent.name,
-    //   "at index",
-    //   $event.to.index);
     $event.node.parentId = $event.to.parent.id;
-    // console.log("select data = " + $event);
     this.onChangeNode.emit();
   }
 

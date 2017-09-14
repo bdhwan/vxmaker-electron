@@ -1,0 +1,36 @@
+.container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    overflow-y: scroll;
+}
+
+.first {
+    width: 15%;
+    background-color: blue;
+    overflow: auto;
+}
+
+.second {
+    width: 15%;
+    background-color: green;
+    overflow-y: scroll;
+}
+
+.third {
+    width: 30%;
+    background-color: yellow;
+    overflow-y: scroll;
+}
+
+.fourth {
+    width: 20%;
+    background-color: red;
+    overflow-y: scroll;
+}
+
+.fiveth {
+    width: 20%;
+    background-color: red;
+    overflow-y: scroll;
+}

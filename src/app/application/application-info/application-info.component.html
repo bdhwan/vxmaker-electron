@@ -29,7 +29,7 @@
 
 
 
-<div *ngIf="viewMode==='export'" style="padding:15px;" (click)="clickApplicationInfo()" [ngClass]="!currentActivityId?'application-current':''">
+<div *ngIf="viewMode==='export'||viewMode==='guide'" style="padding:15px;" (click)="clickApplicationInfo()" [ngClass]="!currentActivityId?'application-current':''">
     <div class="btn-icon" align="center">
         <img [src]="prefix+applicationFolderPath+'/'+applicationData.iconPath" width="100px" height="100px">
     </div>

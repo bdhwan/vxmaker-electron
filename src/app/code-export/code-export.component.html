@@ -15,8 +15,8 @@
     <div class="list-wrap">
 
         <div class="list-left">
-            <app-application-info [currentActivityId]="currentActivityId" [viewMode]="'export'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-application-info>
-            <app-activity-list *ngIf="applicationData" [viewMode]="'export'" [currentActivityId]='currentActivityId' [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-activity-list>
+            <app-application-info [currentActivityId]="currentActivityId" [prefix]="prefix" [viewMode]="'export'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-application-info>
+            <app-activity-list *ngIf="applicationData" [prefix]="prefix" [viewMode]="'export'" [currentActivityId]='currentActivityId' [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-activity-list>
         </div>
 
         <div class="list-center">

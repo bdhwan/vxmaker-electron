@@ -80,8 +80,14 @@
     <!-- file -->
     Json {{fileList.length}} <button (click)="clickFileFolder()">Open</button>
     <div class="image-list" style="height:500px;">
-        <div class="file-list" *ngFor="let fileUrl of fileList" (click)="clickFile(fileUrl)">
-            {{fileUrl}}
+
+        <div class="image-list">
+            <div *ngFor="let fileUrl of fileList" class="bg-img">
+
+                <app-lottie-animation-view [initUrl]="fileUrl" style="width:100%;height:100%;" (click)="clickFile(fileUrl)">
+                </app-lottie-animation-view>
+            </div>
         </div>
+
     </div>
 </div>
