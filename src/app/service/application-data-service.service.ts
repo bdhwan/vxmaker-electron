@@ -132,6 +132,7 @@ export class ApplicationDataServiceService {
     return this.applicationFolderPath;
   }
 
+
   openUrl(url) {
     console.log("will open url = " + url);
     electron.ipcRenderer.sendSync('open-url', url);
@@ -164,6 +165,14 @@ export class ApplicationDataServiceService {
     };
     electron.ipcRenderer.sendSync('remove-recent-project-list', temp);
   }
+
+  removeRecentProjectListWithPath(path) {
+    const temp = {
+      'applicationFolderPath': path
+    };
+    electron.ipcRenderer.sendSync('remove-recent-project-list', temp);
+  }
+
 
   addRecentProjectList(applicationName) {
     const historyData = {

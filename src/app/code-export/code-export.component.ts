@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AfterViewInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { ResourceComponent } from '../common/resource/resource.component';
@@ -14,7 +14,7 @@ import { environment } from '../../environments/environment';
   templateUrl: './code-export.component.html',
   styleUrls: ['./code-export.component.css']
 })
-export class CodeExportComponent implements OnInit {
+export class CodeExportComponent implements OnInit, OnDestroy {
 
   prefix = environment.imgPrefix;
 
@@ -37,6 +37,7 @@ export class CodeExportComponent implements OnInit {
   currentActivityTab = 'xml';
 
   isLoading = false;
+  messageListener;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -76,9 +77,11 @@ export class CodeExportComponent implements OnInit {
     this.appDataService.openFinder(this.applicationFolderPath + '/image');
 
   }
-
+  ngOnDestroy() {
+    this.messageListener.unsubscribe();
+  }
   registerStringBroadcast() {
-    this.broadcaster.on<any>('export')
+    this.messageListener = this.broadcaster.on<any>('export')
       .subscribe(message => {
 
         const kind = message.kind;

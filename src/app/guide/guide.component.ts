@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, NgZone, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, NgZone, ViewChild, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -33,7 +33,7 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./guide.component.css'],
   providers: [BroadcastService, MessageEventService]
 })
-export class GuideComponent implements OnInit {
+export class GuideComponent implements OnInit, OnDestroy {
   prefix = '.';
 
 
@@ -101,7 +101,7 @@ export class GuideComponent implements OnInit {
 
   previewCss = {};
 
-
+  messageListener;
 
   windowW;
   windowH;
@@ -133,7 +133,9 @@ export class GuideComponent implements OnInit {
 
     });
   }
-
+  ngOnDestroy() {
+    this.messageListener.unsubscribe();
+  }
   registerStringBroadcast() {
     this.broadcaster.on<any>('guide')
       .subscribe(message => {
@@ -188,7 +190,7 @@ export class GuideComponent implements OnInit {
 
   getPreviewWindowStyle() {
     const objectStyle = {
-      'width': this.windowW + 'px',
+      'width': this.windowW * 0.3 + 'px',
       'height': this.windowH + 'px'
     };
     return objectStyle;

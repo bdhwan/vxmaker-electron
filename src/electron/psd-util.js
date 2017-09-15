@@ -75,25 +75,31 @@ function PsdUtil() {
         if (root.hasChildren()) {
             var children = root.children().reverse();
             for (var i = 0; i < children.length; i++) {
-                this.createObjectNode(this.rootData, children[i], 0, 0);
+                const aChild = this.createObjectNode(this.rootData, children[i], 0, 0);
+                this.rootData.children.push(aChild);
             }
         }
+
+        console.log("psd data = " + JSON.stringify(this.rootData));
     }
 
 
 
     this.createObjectNode = function(parent, node, parentX, parentY) {
 
+
+
         if (node.get("width") == 0 || node.get("height") == 0 || node.get("opacity") == 0 || !node.visible()) {
             return;
         }
 
-        var id = uuidv1();
-        var aData = { id: id };
+
+
+        const id = uuidv1();
+        const aData = { id: id };
         aData.parent = parent.id;
         aData.text = node.get('name').substring(0, 200);
         aData.name = aData.text;
-
         aData.children = [];
 
         aData.width = node.get("width");
@@ -102,14 +108,24 @@ function PsdUtil() {
         var x = node.get("left") - parentX;
         var y = node.get("top") - parentY;
 
+
+        aData.alpha = node.get("opacity") / 255;
+
+
         if (node.isGroup()) {
             aData.type = "FrameLayout";
             aData.marginLeft = x;
             aData.marginTop = y;
 
+            if (node.hasChildren()) {
+                var children = node.children().reverse();
+                for (var i = 0; i < children.length; i++) {
+                    const aChild = this.createObjectNode(aData, children[i], parentX + x, parentY + y);
+                    aData.children.push(aChild);
+                }
+            }
         } else {
             aData.type = "ImageView";
-
             aData.marginLeft = x;
             aData.marginTop = y;
 
@@ -125,20 +141,11 @@ function PsdUtil() {
             }
             this.newfileList.push(aNode);
         }
-
-        aData.alpha = node.get("opacity") / 255;
-        parent.children.push(aData);
-        if (node.hasChildren()) {
-            var children = node.children().reverse();
-            for (var i = 0; i < children.length; i++) {
-                this.createObjectNode(aData, children[i], parentX + x, parentY + y);
-            }
-        }
+        return aData;
     }
 
 
     this.makeSmallEnglish = function(origin) {
-        console.log("makeSmallEnglish =" + origin);
         var result = this.makeEnglish(origin.toLowerCase());
         if (!isNaN(parseInt(result[0], 10)) || result.length == 0 || result.startsWith('_')) {
             // Is a number
@@ -148,7 +155,6 @@ function PsdUtil() {
     }
 
     this.makeEnglish = function(origin) {
-        console.log("makeEnglish =" + origin);
         return origin.trim().replace(/\s/gi, '_').replace(/[^a-zA-Z0-9]/g, '_').replace('-', '_');
     }
 
@@ -174,9 +180,8 @@ function PsdUtil() {
 
     this.saveImage = function() {
         const self = this;
-        console.log("will save image");
+
         return new Promise(function(resolve, reject) {
-            console.log("self.newfileList.length= " + self.newfileList.length);
             this.checkFileIndex = 0;
             self.saveImageList(self.newfileList, resolve, reject);
         });
@@ -199,16 +204,12 @@ function PsdUtil() {
                 break;
             }
         }
-
-        console.log("this.checkFileIndex =" + this.checkFileIndex + ", size = " + list.length);
         if (size - 1 == this.checkFileIndex) {
             Promise.all(files).then(function() {
-                console.log("all the files were created");
                 resolve("done");
             });
         } else {
             Promise.all(files).then(function() {
-                console.log("will repeat  -" + self.checkFileIndex);
                 self.saveImageList(list, resolve, reject);
             });
         }
@@ -222,7 +223,6 @@ function PsdUtil() {
         return new Promise(function(resolve, reject) {
 
             var filePath = data.filePath;
-            console.log("createdPNGFile- " + filePath);
 
             trycatch(function() {
                 // do something error-prone

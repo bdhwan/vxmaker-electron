@@ -23,26 +23,20 @@ export class RecentProjectComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.recentProjects = this.appDataService.getRecentProjectList();
+    this.refreshList();
   }
 
 
   clickApplication(folderPath) {
-
-
     const message = {
       kind: 'open-application-folder',
       folderPath: folderPath
     }
     this.broadcaster.broadcast('init', message);
+  }
 
-
-
-
-
-
-    // const path = '/application/' + encodeURIComponent(folderPath);
-    // this.appDataService.openMainWindowUrl(path);
+  public refreshList() {
+    this.recentProjects = this.appDataService.getRecentProjectList();
   }
 
 

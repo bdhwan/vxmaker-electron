@@ -16,6 +16,10 @@ import { EventDetailStartActivityComponent } from '../activity/event-detail-star
 import { EventDetailFinishActivityComponent } from '../activity/event-detail-finish-activity/event-detail-finish-activity.component';
 
 
+import { ActivityListComponent } from '../application/activity-list/activity-list.component';
+
+
+
 import { EventGeneratorComponent } from '../activity/event-generator/event-generator.component';
 import { ApplicationDataServiceService } from '../service/application-data-service.service';
 import { UUID } from 'angular2-uuid';
@@ -36,7 +40,7 @@ declare var rasterizeHTML: any;
 })
 export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  prefix = environment.imgPrefix;
+  prefix;
 
 
   @ViewChild('objectTree')
@@ -75,6 +79,10 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('previewSize')
   private previewSize: PreviewSizeComponent;
 
+  @ViewChild('activityList')
+  private activityList: ActivityListComponent;
+
+
 
   saveStatus: Boolean = false;
 
@@ -104,6 +112,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
+  messageListener;
 
 
   constructor(
@@ -116,6 +125,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     private messageEvent: MessageEventService
   ) {
     this.isReadyToRender = false;
+    this.prefix = environment.imgPrefix;
     // console.log("construct application =" + window.screen.height + ", test");
     // console.log("construct event.target.innerWidth ="+this.window.innerWidth+", event.target.innerHeight="+this.window.innerHeight);
   }
@@ -132,9 +142,13 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.registerStringBroadcast();
   }
 
+  ngOnDestroy() {
+    this.messageListener.unsubscribe();
+  }
+
 
   registerStringBroadcast() {
-    this.broadcaster.on<any>('activity')
+    this.messageListener = this.broadcaster.on<any>('activity')
       .subscribe(message => {
 
         const kind = message.kind;
@@ -269,6 +283,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
     for (let i = 0; i < aObject.children.length; i++) {
       const aChild = aObject.children[i];
+      this.objectTreeComponent.selectObjectNode(newObject);
       this.insertPsdObject(aChild);
     }
 
@@ -333,9 +348,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
-  ngOnDestroy() {
 
-  }
 
   checkEmptyActivityData() {
     return new Promise((resolve, reject) => {
@@ -419,7 +432,11 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   clickRoot() {
-    this.router.navigate(['/application', this.applicationFolderPath]);
+
+    this.saveProcessAsync().then(result => {
+      this.router.navigate(['/application', this.applicationFolderPath]);
+    });
+
 
   }
 
@@ -720,11 +737,19 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   clickActivity(activityId): void {
     console.log("will go = " + activityId);
-    this.router.navigate(['/activity', this.applicationFolderPath, activityId]);
 
-    this.activityId = activityId;
-    this.appDataService.initActivityId(this.activityId);
-    this.reloadActivityData();
+    this.saveProcessAsync().then(result => {
+
+      this.activityList.refreshTimeStamp();
+      this.router.navigate(['/activity', this.applicationFolderPath, activityId]);
+
+      this.activityId = activityId;
+      this.appDataService.initActivityId(this.activityId);
+      this.reloadActivityData();
+    });
+
+
+
   }
 
   clickDeleteActivity(activityId): void {

@@ -14,10 +14,13 @@ declare var rasterizeHTML: any;
   styleUrls: ['./preview.component.css']
 })
 export class PreviewComponent implements OnInit {
-  @Input() viewMode: any;
-  @Input() prefix: any;
-  @ViewChild('previewScreen') elementView: ElementRef;
+
+
+  @Input() prefix: string;
+  @Input() viewMode: string;
   @Output() onSelectNodeFromOther = new EventEmitter<string>();
+
+  @ViewChild('previewScreen') elementView: ElementRef;
   @ViewChild('myPreview') myPreview: ElementRef;
 
 
@@ -56,7 +59,7 @@ export class PreviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log(' this.viewHeight = ' + this.elementView.nativeElement.offsetHeight);
+
     this.invalidatePreviewSize();
   }
 

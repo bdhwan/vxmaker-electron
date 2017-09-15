@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, ViewContainerRef, ReflectiveInjector, ComponentFactoryResolver } from '@angular/core';
 import { ApplicationDataServiceService } from '../../../service/application-data-service.service';
 import { LottieAnimationViewComponent } from '../../lottie-animation-view/lottie-animation-view.component';
+import { environment } from '../../../../environments/environment';
 
 
 
@@ -12,21 +13,18 @@ import { LottieAnimationViewComponent } from '../../lottie-animation-view/lottie
 })
 export class PreviewObjectComponent implements OnInit {
 
-  @ViewChild('videoView') videoView;
-  @ViewChild('lottieView') lottieView: LottieAnimationViewComponent;
-
-  @Input() prefix: any;
-  applicationFolderPath;
-
-  currentComponent = null;
-
-
+  @Input() prefix: string;
   @Input() objectData: any;
   @Output() onShowResourceDialog = new EventEmitter<string>();
 
+  @ViewChild('videoView') videoView;
+  @ViewChild('lottieView') lottieView: LottieAnimationViewComponent;
+
+  applicationFolderPath;
+  currentComponent = null;
+
   state: any;
   zoom;
-  // lottieUrl = 'assets/sample/processing.json';
 
   constructor(private appDataService: ApplicationDataServiceService, private elementRef: ElementRef, private resolver: ComponentFactoryResolver) {
 
@@ -35,6 +33,7 @@ export class PreviewObjectComponent implements OnInit {
   ngOnInit() {
     this.state = this.appDataService.findStateByObjectId(this.objectData.id);
     this.applicationFolderPath = this.appDataService.getApplicationPath();
+
   }
 
   getObjectStyle() {

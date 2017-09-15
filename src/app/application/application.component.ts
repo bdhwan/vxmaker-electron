@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AfterViewInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { ApplicationInfoComponent } from './application-info/application-info.component';
@@ -20,7 +20,7 @@ import { environment } from '../../environments/environment';
   templateUrl: './application.component.html',
   styleUrls: ['./application.component.css']
 })
-export class ApplicationComponent implements OnInit, AfterViewInit {
+export class ApplicationComponent implements OnInit, AfterViewInit, OnDestroy {
 
   prefix = environment.imgPrefix;
 
@@ -28,6 +28,8 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
   applicationData: any;
 
   sendStatus: Boolean = false;
+
+  messageListener;
 
   @ViewChild('resourceAppDialog')
   private resourceDialog: ResourceComponent;
@@ -106,10 +108,13 @@ export class ApplicationComponent implements OnInit, AfterViewInit {
 
   }
 
+  ngOnDestroy() {
+    this.messageListener.unsubscribe();
+  }
 
 
   registerStringBroadcast() {
-    this.broadcaster.on<any>('application')
+    this.messageListener = this.broadcaster.on<any>('application')
       .subscribe(message => {
 
         const kind = message.kind;

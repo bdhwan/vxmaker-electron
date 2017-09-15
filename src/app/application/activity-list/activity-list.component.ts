@@ -20,16 +20,25 @@ export class ActivityListComponent implements OnInit {
   @Input() applicationFolderPath: string;
 
 
+  timestamp;
+
+
   constructor(private broadcaster: BroadcastService) {
 
   }
 
   ngOnInit() {
 
+    this.refreshTimeStamp();
   }
 
+
   getPreviewPath(origin) {
-    return origin + '?' + new Date().getTime();
+    return origin + '?' + this.timestamp;
+  }
+
+  public refreshTimeStamp() {
+    this.timestamp = new Date().getTime();
   }
 
 

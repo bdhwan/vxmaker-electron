@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { ApplicationDataServiceService } from '../service/application-data-service.service';
@@ -6,6 +6,7 @@ import { BroadcastService } from '../service/broadcast.service';
 import { MessageEventService } from '../service/message-event.service';
 import { environment } from '../../environments/environment';
 
+import { RecentProjectComponent } from '../init/recent-project/recent-project.component';
 
 
 @Component({
@@ -14,8 +15,14 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./init.component.css'],
   providers: [BroadcastService, MessageEventService]
 })
-export class InitComponent implements OnInit {
+export class InitComponent implements OnInit, OnDestroy {
   imgPrefix = environment.imgPrefix;
+  messageListener;
+
+
+  @ViewChild('recentProjectList')
+  private recentProjectList: RecentProjectComponent;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -29,9 +36,12 @@ export class InitComponent implements OnInit {
     // this.appDataService.changeWindowSize(800, 502, true);
     this.registerStringBroadcast();
   }
+  ngOnDestroy() {
+    this.messageListener.unsubscribe();
+  }
 
   registerStringBroadcast() {
-    this.broadcaster.on<any>('init')
+    this.messageListener = this.broadcaster.on<any>('init')
       .subscribe(message => {
         const kind = message.kind;
         console.log("message received!! = " + kind);
@@ -71,6 +81,9 @@ export class InitComponent implements OnInit {
       this.router.navigate(['/application', folder]);
     } else {
       alert("no data");
+      this.appDataService.removeRecentProjectListWithPath(folder);
+      this.recentProjectList.refreshList();
+
     }
   }
 
