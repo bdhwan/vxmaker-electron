@@ -162,9 +162,13 @@ export class GuideComponent implements OnInit, OnDestroy {
         } else if (kind === 'close-event') {
           this.onCloseEvent();
         } else if (kind === 'select-object') {
+
           const selectedObject = this.appDataService.findObjectById(message.objectId);
+          this.onSelectNodeFromOther(message.objectId);
           this.appDataService.setSelectedObject(selectedObject);
           this.notifySelectedObjectChanged();
+
+
         } else if (kind === 'select-stage') {
           const stage = message.stage;
           this.onSelectStage(stage);
@@ -185,8 +189,6 @@ export class GuideComponent implements OnInit, OnDestroy {
   }
 
   onClickDetailEvent(triggerEvent) {
-    console.log("clickDetailEvent = " + event);
-
     this.appDataService.setSelectedTriggerEvent(triggerEvent);
     const impEvent = this.appDataService.findImplentEventByTriggerEventId(triggerEvent.id);
     this.appDataService.setSelectedImplementEvent(impEvent);
@@ -280,7 +282,6 @@ export class GuideComponent implements OnInit, OnDestroy {
     this.appDataService.setSelectedObject(selectedObject);
     this.notifySelectedObjectChanged();
   }
-
 
 
 

@@ -51,7 +51,12 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
     'translationX',
     'translationY'
   ];
-  needShowState = false;
+
+  needShowText = false;
+  needShowSize = false;
+  needShowMargin = false;
+  needShowPadding = false;
+  needShowTranslation = false;
   needShowCode = false;
 
   constructor(
@@ -63,7 +68,47 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
 
   }
 
+
+  toggleShowText() {
+    this.needShowText = !this.needShowText;
+
+  }
+
+  toggleShowSize() {
+    this.needShowSize = !this.needShowSize;
+
+  }
+
+  toggleShowMargin() {
+    this.needShowMargin = !this.needShowMargin;
+
+  }
+
+  toggleShowPadding() {
+    this.needShowPadding = !this.needShowPadding;
+  }
+
+  toggleShowTranslation() {
+    this.needShowTranslation = !this.needShowTranslation;
+
+  }
+
+  toggleShowCode() {
+    this.needShowCode = !this.needShowCode;
+  }
+
   ngOnInit() {
+
+    if (this.viewMode === 'guide') {
+
+      this.needShowText = true;
+      this.needShowSize = true;
+      this.needShowMargin = true;
+      this.needShowPadding = true;
+      this.needShowTranslation = true;
+      this.needShowCode = true;
+
+    }
 
   }
 
@@ -77,12 +122,7 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
     return MediaKeyStatusMap;
   }
 
-  toggleDetail() {
-    this.needShowState = !this.needShowState;
-  }
-  toggleCode() {
-    this.needShowCode = !this.needShowCode;
-  }
+
   toJson(target) {
     return JSON.stringify(target);
   }

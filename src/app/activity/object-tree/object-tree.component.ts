@@ -17,6 +17,8 @@ export class ObjectTreeComponent implements OnInit {
   private tree: TreeComponent;
   @Input() prefix: any;
   @Input() viewMode: any;
+
+
   options = {
     allowDrag: true,
     allowDrop: (element, to) => {

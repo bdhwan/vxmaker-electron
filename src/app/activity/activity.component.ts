@@ -195,6 +195,8 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           this.appDataService.openUrl(targetUrl);
         } else if (kind === 'select-object') {
           const selectedObject = this.appDataService.findObjectById(message.objectId);
+          this.onSelectNodeFromOther(message.objectId);
+
           this.appDataService.setSelectedObject(selectedObject);
           this.notifySelectedObjectChanged();
         } else if (kind === 'code-export') {

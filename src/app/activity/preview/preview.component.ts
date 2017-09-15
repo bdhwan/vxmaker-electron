@@ -265,8 +265,17 @@ export class PreviewComponent implements OnInit {
   }
 
   invalidatePreviewSize(): void {
+
+
     this.previewWidth = window.innerWidth - (this.leftMargin + this.rightMargin);
     this.previewHeight = window.innerHeight - this.topMargin;
+
+    if ('guide' === this.viewMode) {
+      this.previewWidth = window.innerWidth * 0.3;
+    }
+
+
+
   }
 
   public getPreviewPosition() {
@@ -297,6 +306,8 @@ export class PreviewComponent implements OnInit {
 
 
   getCenterStyle() {
+
+
     const rootState = this.appDataService.findStateByObjectId('root');
     const zoom = this.appDataService.getZoom();
     const marginLeft = (this.previewWidth - rootState.width * zoom) / 2;
@@ -317,7 +328,6 @@ export class PreviewComponent implements OnInit {
   }
 
   public getSelectedObjectStyle() {
-
     return this.appDataService.getSelectedObjectStyle(this.appDataService.getSelectedState());
   }
 
