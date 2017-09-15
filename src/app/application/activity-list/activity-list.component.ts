@@ -2,8 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { BroadcastService } from '../../service/broadcast.service';
 
-import { environment } from '../../../environments/environment';
-
 
 @Component({
   selector: 'app-activity-list',

@@ -36,6 +36,12 @@
 
         <div class="activity-left">
 
+            <div>
+                <button [ngClass]="isOpenActivityList?'selected-tab':''" (click)="setActivityListTab(true)">Application</button>
+                <button [ngClass]="!isOpenActivityList?'selected-tab':''" (click)="setActivityListTab(false)">Layer</button>
+            </div>
+
+
             <div *ngIf="applicationData" [hidden]="!isOpenActivityList">
                 <app-application-info [prefix]="prefix" [viewMode]="'activity'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-application-info>
                 <app-activity-list #activityList [prefix]="prefix" [viewMode]="'activity'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath" [currentActivityId]="activityId"></app-activity-list>
@@ -52,8 +58,8 @@
         <!-- activity canvas-->
 
         <div class="activity-canvas" [style.width]="getPreviewWidth()" [style.height]="getPreviewHeight()">
-            <app-stage-list #stageList (onSelectStage)="onSelectStage($event)" (onNewStage)="onNewStage()"></app-stage-list>
-            <app-preview #previewCanvas [prefix]="prefix" (onSelectNodeFromOther)="onSelectNodeFromOther($event)" (onShowResourceDialog)="onShowResourceDialog($event)"></app-preview>
+            <app-stage-list #stageList [viewMode]="'activity'"></app-stage-list>
+            <app-preview #previewCanvas [prefix]="prefix" [viewMode]="'activity'" (onSelectNodeFromOther)="onSelectNodeFromOther($event)" (onShowResourceDialog)="onShowResourceDialog($event)"></app-preview>
 
         </div>
 
@@ -64,12 +70,12 @@
 
         <div class="activity-right" id="rightSide">
 
-            <app-preview-size #previewSize></app-preview-size>
-            <app-object-property [prefix]="prefix" #objectProperty (onShowResourceDialog)="onShowResourceDialog($event)" (onChangeTreeData)="changePropertyData($event)"></app-object-property>
-            <app-event-list #eventList></app-event-list>
-            <app-event-detail-stage-change #eventDetailStageChange (onNewAfterAnimationEvent)="onNewAfterAnimationEvent($event)" (onCloseEvent)="onCloseEvent($event)"></app-event-detail-stage-change>
-            <app-event-detail-start-activity #eventDetailStartActivity></app-event-detail-start-activity>
-            <app-event-detail-finish-activity #eventDetailFinishActivity></app-event-detail-finish-activity>
+            <app-preview-size [viewMode]="'activity'" #previewSize></app-preview-size>
+            <app-object-property [viewMode]="'activity'" [applicationFolderPath]="applicationFolderPath" [prefix]="prefix" #objectProperty (onShowResourceDialog)="onShowResourceDialog($event)" (onChangeTreeData)="changePropertyData($event)"></app-object-property>
+            <app-event-list [viewMode]="'activity'" #eventList></app-event-list>
+            <app-event-detail-stage-change [viewMode]="'activity'" #eventDetailStageChange></app-event-detail-stage-change>
+            <app-event-detail-start-activity [viewMode]="'activity'" #eventDetailStartActivity></app-event-detail-start-activity>
+            <app-event-detail-finish-activity [viewMode]="'activity'" #eventDetailFinishActivity></app-event-detail-finish-activity>
 
         </div>
 

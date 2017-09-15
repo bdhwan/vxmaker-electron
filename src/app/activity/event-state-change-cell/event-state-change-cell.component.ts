@@ -201,7 +201,9 @@ export class EventStateChangeCellComponent implements OnInit {
     this.stateChangeAnimationCode = null;
     const self = this;
     setTimeout(function () {
+
       self.stateChangeAnimationCode = self.appDataService.getStateAnimationString(self.stateEventData);
+      console.log("stateChangeAnimationCode =" + self.stateChangeAnimationCode);
     }, 10);
 
   }

@@ -12,8 +12,6 @@
                 <img (click)="clickNewEvent()" src="assets/images/btn_motion_add.png" class="img-responsive">
             </div>
         </div>
-
-
     </div>
 
     <div *ngIf="!selectedTriggerEvent">
@@ -65,7 +63,8 @@
         </div>
 
 
-        <div *ngIf="!selectedTriggerEvent" class="noti-addmotions">
+
+        <div *ngIf="!selectedTriggerEvent&&viewMode=='activity'" class="noti-addmotions">
             <img src="assets/images/ic_motion.png" alt="add-motions">
             <a (click)="clickNewEvent()">
                 <h3>Add motions</h3>

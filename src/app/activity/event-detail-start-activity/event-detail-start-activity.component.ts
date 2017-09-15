@@ -9,11 +9,15 @@ import { BroadcastService } from '../../service/broadcast.service';
 })
 export class EventDetailStartActivityComponent implements OnInit {
 
+  @Input() viewMode: string;
+  selectedTriggerEvent;
+  selectedImplementEvent;
+
+
+
   constructor(private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) { }
 
 
-  selectedTriggerEvent;
-  selectedImplementEvent;
 
 
   ngOnInit() {
@@ -28,9 +32,9 @@ export class EventDetailStartActivityComponent implements OnInit {
 
   clickCancel() {
     const message = {
-      kind: 'complete-event'
+      kind: 'close-event'
     };
-    this.broadcaster.broadcast('activity', message);
+    this.broadcaster.broadcast(this.viewMode, message);
 
   }
 

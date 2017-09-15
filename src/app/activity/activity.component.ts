@@ -143,9 +143,10 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.messageListener.unsubscribe();
+    if (this.messageListener) {
+      this.messageListener.unsubscribe();
+    }
   }
-
 
   registerStringBroadcast() {
     this.messageListener = this.broadcaster.on<any>('activity')
@@ -218,21 +219,35 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           this.onClickChangeIcon();
         } else if (kind === 'complete-event') {
           this.onCompleteEvent(null);
+        } else if (kind === 'close-event') {
+          this.onCloseEvent();
+        }
 
-        } else if (kind === 'new-event') {
+
+
+        else if (kind === 'new-event') {
           this.onNewEvent();
-
         } else if (kind === 'detail-event') {
           const detailEvent = message.event;
           this.onClickDetailEvent(detailEvent);
         } else if (kind === 'new-after-animation') {
-          // this.onClickDetailEvent(null);
+
+          const implEventId = message.implEventId;
+          this.onNewAfterAnimationEvent(implEventId);
+
         } else if (kind === 'select-file') {
           const dataUrl = message.dataUrl;
           const target = message.target;
           this.resourceDialog.setSelectedFileUrl(dataUrl);
           this.resourceDialog.showDialog(target);
-
+        } else if (kind === 'select-stage') {
+          const stage = message.stage;
+          this.onSelectStage(stage);
+        } else if (kind === 'delete-stage') {
+          const stage = message.stage;
+          this.onDeleteStage(stage);
+        } else if (kind === 'new-stage') {
+          this.onNewStage();
         }
       });
   }
@@ -408,6 +423,10 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isOpenActivityList = !this.isOpenActivityList;
   }
 
+  setActivityListTab(value) {
+    this.isOpenActivityList = value;
+  }
+
   initDataToView() {
     return new Promise((resolve, reject) => {
       this.isReadyToRender = true;
@@ -573,10 +592,22 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSelectStage(target) {
-    console.log("onSelectStage = " + target);
+    console.log("onSelectStage = " + JSON.stringify(target));
     this.appDataService.setSelectedStage(target);
     this.notifySelectedObjectChanged();
   }
+
+  onDeleteStage(target) {
+
+    console.log("onDeleteStage = " + target);
+
+    this.appDataService.setSelectedStageByStageId('rootStage');
+    this.appDataService.deleteStage(target.id);
+    this.notifySelectedObjectChanged();
+
+
+  }
+
 
   onSelectFile(target) {
 

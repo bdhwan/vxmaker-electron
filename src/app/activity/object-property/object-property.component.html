@@ -1,4 +1,4 @@
-<div *ngIf="!selectedTriggerEvent">
+<div *ngIf="!selectedTriggerEvent||viewMode=='guide'">
     <div class="object-property" style="padding-top:0;">
         <div class="label-properties" style="margin-bottom:15px;">Properties</div>
         <div *ngIf="selectedObject" class="btn-img">
@@ -12,13 +12,13 @@
                         <p class="img-sub-size" (click)="clickDownload(prefix+applicationFolderPath+'/'+selectedObject.dataUrl)">Donwload</p>
                     </div>
                 </div>
-                <button (click)="clickSelectImage()"> ImageSelect</button>
+                <button [hidden]="viewMode=='guide'" (click)="clickSelectImage()"> ImageSelect</button>
             </div>
 
             <div *ngIf="selectedObject.type=='LottieAnimationView'||selectedObject.type=='VideoView'">
 
                 <p>{{selectedObject.dataUrl}}</p>
-                <button (click)="clickSelectFile()"> FileSelect</button>
+                <button [hidden]="viewMode=='guide'" (click)="clickSelectFile()"> FileSelect</button>
             </div>
 
             <div *ngIf="selectedObject.type=='TextView'">

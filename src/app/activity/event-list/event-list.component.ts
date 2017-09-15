@@ -10,13 +10,10 @@ import { BroadcastService } from '../../service/broadcast.service';
 export class EventListComponent implements OnInit {
 
 
-  @Output() onNewEvent = new EventEmitter<string>();
-  @Output() onClickDetailEvent = new EventEmitter<string>();
-
+  @Input() viewMode: string;
 
   selectedTriggerEvent;
   triggerEventList;
-
 
   constructor(private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) { }
 
@@ -31,14 +28,17 @@ export class EventListComponent implements OnInit {
     for (let i = 0; i < this.triggerEventList.length; i++) {
       const aEvent = this.triggerEventList[i];
       const implEvent = this.appDataService.findImplentEventByTriggerEventId(aEvent.id);
-      if (implEvent.type === 'stageChange') {
-        implEvent.fromStageName = this.appDataService.findStageByStageId(implEvent.fromStageId).name;
-        implEvent.toStageName = this.appDataService.findStageByStageId(implEvent.toStageId).name;
-      } else if (implEvent.type === 'startActivity') {
-        implEvent.toActivityName = this.appDataService.getActivityName(implEvent.toActivityId);
+      if (implEvent) {
+        if (implEvent.type === 'stageChange') {
+          implEvent.fromStageName = this.appDataService.findStageByStageId(implEvent.fromStageId).name;
+          implEvent.toStageName = this.appDataService.findStageByStageId(implEvent.toStageId).name;
+        } else if (implEvent.type === 'startActivity') {
+          implEvent.toActivityName = this.appDataService.getActivityName(implEvent.toActivityId);
+        }
+        aEvent.implEvent = implEvent;
       }
-      aEvent.implEvent = implEvent;
     }
+
   }
 
 
@@ -49,35 +49,19 @@ export class EventListComponent implements OnInit {
 
 
   clickNewEvent() {
-
     const message = {
       kind: 'new-event'
     };
-    this.broadcaster.broadcast('activity', message);
-
-
-    // this.onNewEvent.emit();
-  }
-
-  clickNewAfterAnimationEvent() {
-
-    const message = {
-      kind: 'new-after-animation'
-    };
-    this.broadcaster.broadcast('activity', message);
-
-
-    // this.onNewEvent.emit('afterAnimation');
+    this.broadcaster.broadcast(this.viewMode, message);
   }
 
   clickDetailEvent(event) {
     console.log("clickDetailEvent = " + JSON.stringify(event));
-    // this.onClickDetailEvent.emit(event);
     const message = {
       kind: 'detail-event',
       event: event
     };
-    this.broadcaster.broadcast('activity', message);
+    this.broadcaster.broadcast(this.viewMode, message);
   }
 
   clickDeleteEvent(event, triggerEvent) {
@@ -88,7 +72,7 @@ export class EventListComponent implements OnInit {
         kind: 'delete-event',
         triggerEventId: triggerEvent.id
       };
-      this.broadcaster.broadcast('activity', message);
+      this.broadcaster.broadcast(this.viewMode, message);
     }
   }
 

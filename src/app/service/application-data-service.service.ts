@@ -664,7 +664,26 @@ export class ApplicationDataServiceService {
       this.selectedState = this.findStateByObjectId(this.selectedObject.id);
     }
   }
+  setSelectedStageByStageId(stageId) {
 
+    let value = null;
+    for (let i = 0; i < this.activityData.stageList.length; i++) {
+      const aStage = this.activityData.stageList[i];
+      if (stageId === aStage.id) {
+        value = aStage;
+        break;
+      }
+    }
+
+    console.log("value = " + JSON.stringify(value));
+    this.setSelectedStage(value);
+
+
+    // this.selectedStage = value;
+    // if (this.selectedObject) {
+    //   this.selectedState = this.findStateByObjectId(this.selectedObject.id);
+    // }
+  }
   setSelectedObject(value) {
     this.selectedObject = value;
     this.selectedState = this.findStateByObjectId(this.selectedObject.id);
@@ -788,7 +807,6 @@ export class ApplicationDataServiceService {
         break;
       }
     }
-    console.log('will delete = ' + index);
     if (index !== -1) {
       const removed = this.activityData.triggerEventList[index];
       this.activityData.triggerEventList.splice(index, 1);
@@ -798,7 +816,6 @@ export class ApplicationDataServiceService {
 
   deleteTriggerEvent(triggerEvent: any) {
     this.deleteTriggerEventByTriggerEventId(triggerEvent.id);
-
   }
 
   deleteImplementEventByTriggerEventId(triggerEventId: string) {
@@ -807,6 +824,29 @@ export class ApplicationDataServiceService {
     for (let i = 0; i < this.activityData.implementEventList.length; i++) {
       const aEvent = this.activityData.implementEventList[i];
       if (aEvent.triggerEventId === triggerEventId) {
+        index = i;
+        break;
+      }
+    }
+
+    if (index !== -1) {
+      const removed = this.activityData.implementEventList[index];
+      this.activityData.implementEventList.splice(index, 1);
+      if (removed.type === 'stageChange') {
+        this.deleteStageChangeEventByImplementEventId(removed.id);
+        this.deleteAfterAnimationEventByImplentEventId(removed.id);
+      }
+    }
+  }
+
+
+
+  deleteImplementEventByImplEventId(implEventId: string) {
+
+    let index = -1;
+    for (let i = 0; i < this.activityData.implementEventList.length; i++) {
+      const aEvent = this.activityData.implementEventList[i];
+      if (aEvent.id === implEventId) {
         index = i;
         break;
       }
@@ -822,6 +862,7 @@ export class ApplicationDataServiceService {
       }
     }
   }
+
 
 
   deleteAfterAnimationEventByImplentEventId(implementEventId) {
@@ -903,6 +944,78 @@ export class ApplicationDataServiceService {
     }
     return result;
   }
+
+  deleteStage(stageId) {
+    console.log("will delete stage = " + stageId);
+
+
+    //delete event
+    let removeTriggerEventList = [];
+    for (let i = 0; i < this.activityData.triggerEventList.length; i++) {
+      const aEvent = this.activityData.triggerEventList[i];
+
+      if (aEvent.stageId === stageId) {
+        removeTriggerEventList.push(aEvent);
+      }
+    }
+
+
+    for (let i = 0; i < removeTriggerEventList.length; i++) {
+      this.deleteTriggerEvent(removeTriggerEventList[i]);
+    }
+
+
+
+    removeTriggerEventList = [];
+    for (let i = 0; i < this.activityData.implementEventList.length; i++) {
+      const aEvent = this.activityData.implementEventList[i];
+      if (aEvent.fromStageId === stageId || aEvent.toStageId === stageId) {
+        removeTriggerEventList.push(aEvent);
+      }
+    }
+
+
+    for (let i = 0; i < removeTriggerEventList.length; i++) {
+      this.deleteTriggerEventByTriggerEventId(removeTriggerEventList[i].triggerEventId);
+      this.deleteImplementEventByTriggerEventId(removeTriggerEventList[i].triggerEventId);
+      this.deleteImplementEventByImplEventId(removeTriggerEventList[i].id);
+    }
+
+    // //delete state
+    this.deleteStateByStageId(stageId);
+
+
+    //delete stage
+    const stageResult = [];
+    const targetStageList = this.activityData.stageList;
+    for (let i = 0; i < targetStageList.length; i++) {
+      const aStage = targetStageList[i];
+      if (aStage.id === stageId) {
+        continue;
+      }
+      stageResult.push(aStage);
+    }
+    this.activityData.stageList = stageResult;
+
+
+
+  }
+
+
+  deleteStateByStageId(stageId) {
+    //remove state
+    const stateresult = [];
+    const targetStateList = this.activityData.stateList;
+    for (let i = 0; i < targetStateList.length; i++) {
+      const aState = targetStateList[i];
+      if (aState.stageId === stageId) {
+        continue;
+      }
+      stateresult.push(aState);
+    }
+    this.activityData.stateList = stateresult;
+  }
+
 
   findStateByStateId(activityData, stateId: string) {
     for (let i = 0; i < activityData.stateList.length; i++) {
@@ -1067,7 +1180,6 @@ export class ApplicationDataServiceService {
       stateresult.push(aState);
     }
     this.activityData.stateList = stateresult;
-
   }
 
   deleteObjectEvent(objectId) {
@@ -1800,9 +1912,13 @@ export class ApplicationDataServiceService {
     const fromState = this.findStateByStateId(this.activityData, event.fromStateId);
     const toState = this.findStateByStateId(this.activityData, event.toStateId);
     const object = this.findObjectById(toState.objectId);
-    let result = "";
+    let result = '';
     if (object && toState && fromState) {
+      console.log("have state");
       result = this.getStateAnimationCode(object.resourceId, fromState, toState, event);
+    }
+    else {
+      console.log("null state");
     }
     return result;
   }

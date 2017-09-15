@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ApplicationDataServiceService } from '../../service/application-data-service.service'
 import { BroadcastService } from '../../service/broadcast.service';
 
@@ -9,6 +9,8 @@ import { BroadcastService } from '../../service/broadcast.service';
 })
 export class PreviewSizeComponent implements OnInit {
 
+
+  @Input() viewMode: string;
   zoom;
 
   showZoom = false;

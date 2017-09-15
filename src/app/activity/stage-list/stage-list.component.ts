@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ApplicationDataServiceService } from '../../service/application-data-service.service'
+import { BroadcastService } from '../../service/broadcast.service';
 
 @Component({
   selector: 'app-stage-list',
@@ -9,8 +10,6 @@ import { ApplicationDataServiceService } from '../../service/application-data-se
 export class StageListComponent implements OnInit {
 
   @Input() viewMode: any;
-  @Output() onNewStage = new EventEmitter<string>();
-  @Output() onSelectStage = new EventEmitter<string>();
 
 
   stageList;
@@ -18,7 +17,7 @@ export class StageListComponent implements OnInit {
 
 
 
-  constructor(private appDataService: ApplicationDataServiceService) { }
+  constructor(private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) { }
 
   ngOnInit() {
 
@@ -26,27 +25,48 @@ export class StageListComponent implements OnInit {
 
   public initData() {
     console.log("initData");
-    this.stageList = this.appDataService.getActivityData().stageList;
-    console.log("this.stageList =" + JSON.stringify(this.stageList));
-    this.currentSelectedStage = this.appDataService.getSelectedStage();
+
   }
 
 
   clickNewStage() {
     console.log("clickNewStage");
-    this.onNewStage.emit();
+    this.sendMessage('new-stage', null);
   }
 
 
-  clickSelectStage(stage) {
-    console.log("clickSelectStage");
-    this.onSelectStage.emit(stage);
+  clickSelectStage(event, stage) {
+    event.stopPropagation();
+    this.sendMessage('select-stage', stage);
   }
+
+
+  clickDeleteStage(event, stage) {
+    console.log("clickDeleteStage");
+    event.stopPropagation();
+    const result = confirm('will you delete?');
+    if (result) {
+      this.sendMessage('delete-stage', stage);
+    }
+  }
+
 
   public onChangeData() {
 
+    this.stageList = this.appDataService.getActivityData().stageList;
     this.currentSelectedStage = this.appDataService.getSelectedStage();
-
   }
+
+  sendMessage(kind, stage) {
+    const message = {
+      kind: kind,
+      stage: stage
+    };
+
+    this.broadcaster.broadcast(this.viewMode, message);
+  }
+
+
+
 
 }

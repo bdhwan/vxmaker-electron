@@ -70,6 +70,9 @@ export class PreviewComponent implements OnInit {
     if ($event.keyCode === 17) {
       this.isKeyCTRL = true;
     }
+
+
+
   }
 
   keyUp($event) {
@@ -91,6 +94,11 @@ export class PreviewComponent implements OnInit {
     this.startY = event.clientY;
     this.beforeX = event.clientX;
     this.beforeY = event.clientY;
+
+
+    if ('guide' === this.viewMode) {
+      this.isKeyCTRL = true;
+    }
 
     if (this.isKeyCTRL) {
       const x = (event.clientX - this.elementView.nativeElement.offsetLeft) / this.zoom;
@@ -124,9 +132,8 @@ export class PreviewComponent implements OnInit {
           kind: 'select-object',
           objectId: state.objectId
         };
-        this.broadcaster.broadcast('activity', message);
-
-        // this.onSelectNodeFromOther.emit(state.objectId);
+        console.log("click object");
+        this.broadcaster.broadcast(this.viewMode, message);
         break;
       }
     }
@@ -159,6 +166,12 @@ export class PreviewComponent implements OnInit {
       fixDiffer = differY;
     }
 
+
+    if ('guide' === this.viewMode) {
+      return;
+    }
+
+
     if (this.appDataService.getSelectedStage().id === 'rootStage') {
       if (this.isResizeDown) {
         if (this.resizeIndex === 0) {
@@ -185,8 +198,7 @@ export class PreviewComponent implements OnInit {
         this.appDataService.getSelectedState().marginLeft -= differX;
         this.appDataService.getSelectedState().marginTop -= differY;
       }
-    }
-    else {
+    } else {
       if (this.isResizeDown) {
         if (this.resizeIndex === 0) {
           this.appDataService.getSelectedState().translationY -= differY;

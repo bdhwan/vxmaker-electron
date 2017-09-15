@@ -1,6 +1,9 @@
 <div class="container" (window:resize)="onResize($event)">
 
     <div class="first" [ngStyle]="getFixHeightStyle()">
+
+        <button (click)="clickRoot()">Home</button>
+
         <div class="activity-left" *ngIf="applicationData">
             <app-application-info [prefix]="prefix" [viewMode]="'guide'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-application-info>
             <app-activity-list [prefix]="prefix" [viewMode]="'guide'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath" [currentActivityId]="activityId"></app-activity-list>
@@ -20,12 +23,14 @@
         </div>
     </div>
     <div class="fourth" [ngStyle]="getFixHeightStyle()">
-        <app-object-property [viewMode]="'guide'" [prefix]="prefix" #objectProperty (onShowResourceDialog)="onShowResourceDialog($event)" (onChangeTreeData)="changePropertyData($event)"></app-object-property>
+        <app-object-property [viewMode]="'guide'" [applicationFolderPath]="applicationFolderPath" [prefix]="prefix" #objectProperty (onShowResourceDialog)="onShowResourceDialog($event)" (onChangeTreeData)="changePropertyData($event)"></app-object-property>
     </div>
 
     <div class="fiveth" [ngStyle]="getFixHeightStyle()">
-
-
+        <app-event-list [viewMode]="'guide'" #eventList></app-event-list>
+        <app-event-detail-stage-change [viewMode]="'guide'" #eventDetailStageChange></app-event-detail-stage-change>
+        <app-event-detail-start-activity [viewMode]="'guide'" #eventDetailStartActivity></app-event-detail-start-activity>
+        <app-event-detail-finish-activity [viewMode]="'guide'" #eventDetailFinishActivity></app-event-detail-finish-activity>
     </div>
 
 

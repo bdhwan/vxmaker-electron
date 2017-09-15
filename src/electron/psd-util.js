@@ -200,9 +200,6 @@ function PsdUtil() {
             console.log(i + ", " + list[i].filePath);
             files.push(self.createdPNGFile(list[i]));
             this.checkFileIndex = i;
-            if (i - from > 9) {
-                break;
-            }
         }
         if (size - 1 == this.checkFileIndex) {
             Promise.all(files).then(function() {

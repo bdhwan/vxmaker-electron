@@ -109,7 +109,9 @@ export class ApplicationComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.messageListener.unsubscribe();
+    if (this.messageListener) {
+      this.messageListener.unsubscribe();
+    }
   }
 
 

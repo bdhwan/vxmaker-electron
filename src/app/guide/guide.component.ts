@@ -49,26 +49,20 @@ export class GuideComponent implements OnInit, OnDestroy {
   @ViewChild('previewCanvas')
   private previewComponent: PreviewComponent;
 
-  // @ViewChild('resourceDialog')
-  // private resourceDialog: ResourceComponent;
-
   @ViewChild('stageList')
   private stageList: StageListComponent;
 
-  // @ViewChild('eventGenerator')
-  // private eventGenerator: EventGeneratorComponent;
+  @ViewChild('eventList')
+  private eventList: EventListComponent;
 
-  // @ViewChild('eventList')
-  // private eventList: EventListComponent;
+  @ViewChild('eventDetailStageChange')
+  private eventDetailStageChange: EventDetailStageChangeComponent;
 
-  // @ViewChild('eventDetailStageChange')
-  // private eventDetailStageChange: EventDetailStageChangeComponent;
+  @ViewChild('eventDetailStartActivity')
+  private eventDetailStartActivity: EventDetailStartActivityComponent;
 
-  // @ViewChild('eventDetailStartActivity')
-  // private eventDetailStartActivity: EventDetailStartActivityComponent;
-
-  // @ViewChild('eventDetailFinishActivity')
-  // private eventDetailFinishActivity: EventDetailFinishActivityComponent;
+  @ViewChild('eventDetailFinishActivity')
+  private eventDetailFinishActivity: EventDetailFinishActivityComponent;
 
   // @ViewChild('previewSize')
   // private previewSize: PreviewSizeComponent;
@@ -118,6 +112,9 @@ export class GuideComponent implements OnInit, OnDestroy {
 
     this.activityId = this.route.snapshot.params['activityId'];
     const self = this;
+
+    this.registerStringBroadcast();
+
     this.appDataService.getHttpToJson('/assets/data/app.json').then(function (result) {
       self.applicationData = result;
       return null;
@@ -128,13 +125,16 @@ export class GuideComponent implements OnInit, OnDestroy {
       }
       return self.reloadActivityData();
     }).then(result => {
-
-      self.registerStringBroadcast();
-
+      self.invalidatePreviewSize();
     });
   }
+
+
+
   ngOnDestroy() {
-    this.messageListener.unsubscribe();
+    if (this.messageListener) {
+      this.messageListener.unsubscribe();
+    }
   }
   registerStringBroadcast() {
     this.broadcaster.on<any>('guide')
@@ -155,9 +155,25 @@ export class GuideComponent implements OnInit, OnDestroy {
         } else if (kind === 'detail-event') {
           const detailEvent = message.event;
           this.onClickDetailEvent(detailEvent);
+
+
         } else if (kind === 'new-after-animation') {
           // this.onClickDetailEvent(null);
+        } else if (kind === 'close-event') {
+          this.onCloseEvent();
+        } else if (kind === 'select-object') {
+          const selectedObject = this.appDataService.findObjectById(message.objectId);
+          this.appDataService.setSelectedObject(selectedObject);
+          this.notifySelectedObjectChanged();
+        } else if (kind === 'select-stage') {
+          const stage = message.stage;
+          this.onSelectStage(stage);
+        } else if (kind === 'delete-stage') {
+          const stage = message.stage;
+          this.onSelectStage(stage);
         }
+
+
       });
   }
 
@@ -168,8 +184,15 @@ export class GuideComponent implements OnInit, OnDestroy {
     this.reloadActivityData();
   }
 
-  onClickDetailEvent(event) {
+  onClickDetailEvent(triggerEvent) {
     console.log("clickDetailEvent = " + event);
+
+    this.appDataService.setSelectedTriggerEvent(triggerEvent);
+    const impEvent = this.appDataService.findImplentEventByTriggerEventId(triggerEvent.id);
+    this.appDataService.setSelectedImplementEvent(impEvent);
+    // notify data set changed
+    this.notifySelectedObjectChanged();
+
   }
 
 
@@ -195,6 +218,7 @@ export class GuideComponent implements OnInit, OnDestroy {
     };
     return objectStyle;
   }
+
 
   reloadActivityData() {
 
@@ -244,19 +268,55 @@ export class GuideComponent implements OnInit, OnDestroy {
   }
 
 
+  onSelectNodeFromOther(objectId) {
+    console.log("onSelectNodeFromOther-" + objectId);
+    this.objectTreeComponent.selectObjectNode(this.appDataService.findObjectById(objectId));
+  }
+
+  onSelectNodeFromTree(objectId: string) {
+
+    const selectedObject = this.appDataService.findObjectById(objectId);
+    // console.log("onSelectNodeFromTree = " + selectedObject.id);
+    this.appDataService.setSelectedObject(selectedObject);
+    this.notifySelectedObjectChanged();
+  }
+
+
+
+
   notifySelectedObjectChanged() {
 
     this.previewComponent.onChangeData();
     // this.previewSize.onChangeData();
     this.objectPropertyComponent.onChangeData();
     this.stageList.onChangeData();
-    // this.eventList.onChangeData();
-    // this.eventGenerator.onChangeData();
 
-    // this.eventList.onChangeData();
-    // this.eventDetailStageChange.onChangeData();
-    // this.eventDetailStartActivity.onChangeData();
-    // this.eventDetailFinishActivity.onChangeData();
+
+    this.eventList.onChangeData();
+    this.eventDetailStageChange.onChangeData();
+    this.eventDetailStartActivity.onChangeData();
+    this.eventDetailFinishActivity.onChangeData();
+  }
+
+  onCloseEvent() {
+    this.appDataService.setSelectedTriggerEvent(null);
+    this.appDataService.setSelectedImplementEvent(null);
+    // notify data set changed
+    this.notifySelectedObjectChanged();
+  }
+
+
+  onSelectStage(target) {
+    console.log("onSelectStage = " + target);
+    this.appDataService.setSelectedStage(target);
+    this.notifySelectedObjectChanged();
+  }
+
+
+
+
+  clickRoot() {
+    this.router.navigate(['/application', this.applicationFolderPath]);
   }
 
 

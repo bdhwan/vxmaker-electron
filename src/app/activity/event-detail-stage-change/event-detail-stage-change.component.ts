@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { ApplicationDataServiceService } from '../../service/application-data-service.service'
+import { BroadcastService } from '../../service/broadcast.service';
 
 @Component({
   selector: 'app-event-detail-stage-change',
@@ -7,6 +8,8 @@ import { ApplicationDataServiceService } from '../../service/application-data-se
   styleUrls: ['./event-detail-stage-change.component.css']
 })
 export class EventDetailStageChangeComponent implements OnInit, AfterViewInit {
+
+  @Input() viewMode: string;
 
   @Output() onNewAfterAnimationEvent = new EventEmitter<string>();
   @Output() onCloseEvent = new EventEmitter<string>();
@@ -143,7 +146,7 @@ export class EventDetailStageChangeComponent implements OnInit, AfterViewInit {
   ];
 
 
-  constructor(private appDataService: ApplicationDataServiceService) { }
+  constructor(private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) { }
 
 
   ngOnInit() {
@@ -181,15 +184,51 @@ export class EventDetailStageChangeComponent implements OnInit, AfterViewInit {
     this.initTotalTime = this.maxTotalTime;
   }
 
+
+
+  // clickNewAfterAnimationEvent() {
+
+  //   const message = {
+  //     kind: 'new-after-animation'
+  //   };
+  //   this.broadcaster.broadcast(this.viewMode, message);
+  // }
+
+
+
   clickAddAfterAnimation() {
-    this.onNewAfterAnimationEvent.emit(this.selectedImplementEvent.id);
+
+    const message = {
+      kind: 'new-after-animation',
+      implEventId: this.selectedImplementEvent.id
+    };
+    this.broadcaster.broadcast(this.viewMode, message);
+
+
+    // this.onNewAfterAnimationEvent.emit(this.selectedImplementEvent.id);
   }
 
   clickCancel() {
+    const message = {
+      kind: 'close-event',
+    };
+    this.broadcaster.broadcast(this.viewMode, message);
+    // this.onCloseEvent.emit();
+  }
 
-    this.onCloseEvent.emit();
+  clickDone() {
+    console.log("done");
+    // this.onCloseEvent.emit();
+
+    const message = {
+      kind: 'close-event',
+    };
+    this.broadcaster.broadcast(this.viewMode, message);
+
+
 
   }
+
 
 
   getAfterAnimation() {

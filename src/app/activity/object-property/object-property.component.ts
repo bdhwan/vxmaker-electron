@@ -15,9 +15,10 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
 
 
   @Output() onShowResourceDialog = new EventEmitter<string>();
-  @Input() viewMode: any;
-  @Input() prefix: any;
-  applicationFolderPath;
+  @Input() viewMode: string;
+  @Input() prefix: string;
+  @Input() applicationFolderPath: string;
+
   selectedTriggerEvent;
   selectedObject;
   selectedState;
@@ -63,8 +64,6 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-
-    this.applicationFolderPath = this.appDataService.getApplicationPath();
 
   }
 

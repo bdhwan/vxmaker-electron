@@ -33,11 +33,12 @@ export class InitComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    // this.appDataService.changeWindowSize(800, 502, true);
     this.registerStringBroadcast();
   }
   ngOnDestroy() {
-    this.messageListener.unsubscribe();
+    if (this.messageListener) {
+      this.messageListener.unsubscribe();
+    }
   }
 
   registerStringBroadcast() {

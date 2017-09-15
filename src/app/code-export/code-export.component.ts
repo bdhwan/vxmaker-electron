@@ -78,7 +78,9 @@ export class CodeExportComponent implements OnInit, OnDestroy {
 
   }
   ngOnDestroy() {
-    this.messageListener.unsubscribe();
+    if (this.messageListener) {
+      this.messageListener.unsubscribe();
+    }
   }
   registerStringBroadcast() {
     this.messageListener = this.broadcaster.on<any>('export')
@@ -185,6 +187,7 @@ export class CodeExportComponent implements OnInit, OnDestroy {
   clickRoot() {
     this.router.navigate(['/application', this.applicationFolderPath]);
   }
+
 
 
 }
