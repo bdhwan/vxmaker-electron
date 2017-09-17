@@ -2,7 +2,7 @@
 
     <!-- nav bar top -->
     <div class="navbar">
-            <button class="btn-back" (click)="clickBack()">◄ Back</button>
+        <button class="btn-back" (click)="clickBack()">◄ Back</button>
         <button class="btn-back" (click)="clickRoot()"><i class="fa fa-home"></i> Home</button>
         <button class="btn-back btn-export" (click)="clickShowExport()"><i class="fa fa-share-square-o" style="margin-right:3px;"></i>Export</button>
 
@@ -35,7 +35,7 @@
                     </div>
 
                     <div [hidden]="currentTab!=='AndroidManifest'">
-                       <button class="btn-copy" [clip]="manifestXml" (onClip)="callback($event)"><i class="fa fa-copy" style="margin-right:3px;"></i>Copy</button>
+                        <button class="btn-copy" [clip]="manifestXml" (onClip)="callback($event)"><i class="fa fa-copy" style="margin-right:3px;"></i>Copy</button>
                         <handy-syntax-highlighter *ngIf="manifestXml" [language]="'java'" [content]="manifestXml"></handy-syntax-highlighter>
                     </div>
 
@@ -45,7 +45,7 @@
                     </div>
 
                     <div [hidden]="currentTab!=='strings'">
-                         <button class="btn-copy" [clip]="stringXml" (onClip)="callback($event)"><i class="fa fa-copy" style="margin-right:3px;"></i>Copy</button>
+                        <button class="btn-copy" [clip]="stringXml" (onClip)="callback($event)"><i class="fa fa-copy" style="margin-right:3px;"></i>Copy</button>
                         <handy-syntax-highlighter *ngIf="stringXml" [language]="'java'" [content]="stringXml"></handy-syntax-highlighter>
                     </div>
 
@@ -66,7 +66,8 @@
                                 <handy-syntax-highlighter [language]="'java'" [content]="aData.layout"></handy-syntax-highlighter>
                             </div>
                             <div [hidden]="currentActivityTab=='xml'">
-                                {{aData.codeActivityName}}.java <button class="btn-copy" [clip]="aData.java" (onClip)="callback($event)"><i class="fa fa-copy" style="margin-right:3px;"></i>Copy</button>
+                                <p style="font-size:13px;"> {{aData.codeActivityName}}.java </p>
+                                <button class="btn-copy" [clip]="aData.java" (onClip)="callback($event)"><i class="fa fa-copy" style="margin-right:3px;"></i>Copy</button>
                                 <handy-syntax-highlighter [language]="'java'" [content]="aData.java"></handy-syntax-highlighter>
                             </div>
                         </div>
@@ -91,12 +92,25 @@
 <div *ngIf="applicationData">
     <div [hidden]="!showExportPanel" class="overlay" (click)="clickHideExport()">
         <div class="popup-wrap">
-            <div class="popup" (click)="nothing($event)">
-                <button (click)="clickHideExport()">X</button>
+            <div class="popup export-popup" (click)="nothing($event)">
+
+                <div class="export-popup-nav">
+                    <div class="export-text">
+                        <span>Export</span> for developer
+                    </div>
+                </div>
+
                 <div class="application-name">
-                    <h5>Export Android Project</h5>
-                    {{applicationData.applicationName}}
-                    <h5 style="margin-top: 15px; margin-bottom: 5px;">Export Folder </h5>
+                    <h4>You can apply the exported code to Android Studio</h4>
+                    <h3>{{applicationData.applicationName}}</h3>
+
+                    <div class="export-info" align="center" style="padding-top:20px; padding-bottom:20px;"> 
+                        <img src="assets/images/export_illust.png" width="350px" />
+                        <p>Design Guide documents for developers can be opened with
+                                Safari and Chrome.</p>
+                    </div>
+
+                    <h5 style="margin-top: 5px; margin-bottom: 5px; ">path </h5>
                     <div class="project-folder">
                         <input class="form-control" type="text" [(ngModel)]="workspaceFolderPath" />
                         <button class="btn-change" (click)="clickChangeFolder()">···</button>
@@ -105,8 +119,11 @@
                 <div *ngIf="isLoading">
                     Exporting...
                 </div>
-                <div class="btn-new-save">
-                    <button (click)="clickExport()">export ►</button>
+                <div class="export-popup-footer">
+                    <div class="btn-new-save">
+                        <button class="export-popup-delete" (click)="clickHideExport()">Cancel</button>
+                        <button (click)="clickExport()">export </button>
+                    </div>
                 </div>
             </div>
         </div>
