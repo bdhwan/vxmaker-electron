@@ -25,12 +25,10 @@ export class StageListComponent implements OnInit {
 
   public initData() {
     console.log("initData");
-
   }
 
 
   clickNewStage() {
-    console.log("clickNewStage");
     this.sendMessage('new-stage', null);
   }
 
@@ -42,7 +40,6 @@ export class StageListComponent implements OnInit {
 
 
   clickDeleteStage(event, stage) {
-    console.log("clickDeleteStage");
     event.stopPropagation();
     const result = confirm('will you delete?');
     if (result) {

@@ -185,17 +185,6 @@ export class EventDetailStageChangeComponent implements OnInit, AfterViewInit {
   }
 
 
-
-  // clickNewAfterAnimationEvent() {
-
-  //   const message = {
-  //     kind: 'new-after-animation'
-  //   };
-  //   this.broadcaster.broadcast(this.viewMode, message);
-  // }
-
-
-
   clickAddAfterAnimation() {
 
     const message = {
@@ -203,9 +192,14 @@ export class EventDetailStageChangeComponent implements OnInit, AfterViewInit {
       implEventId: this.selectedImplementEvent.id
     };
     this.broadcaster.broadcast(this.viewMode, message);
+  }
 
-
-    // this.onNewAfterAnimationEvent.emit(this.selectedImplementEvent.id);
+  haveAfterAnimation() {
+    if (this.appDataService.findTriggerEventByAfterTriggerEventId(this.selectedImplementEvent.id)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   clickCancel() {
@@ -213,20 +207,15 @@ export class EventDetailStageChangeComponent implements OnInit, AfterViewInit {
       kind: 'close-event',
     };
     this.broadcaster.broadcast(this.viewMode, message);
-    // this.onCloseEvent.emit();
+
   }
 
   clickDone() {
     console.log("done");
-    // this.onCloseEvent.emit();
-
     const message = {
       kind: 'close-event',
     };
     this.broadcaster.broadcast(this.viewMode, message);
-
-
-
   }
 
 

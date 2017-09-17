@@ -836,6 +836,15 @@ export class ApplicationDataServiceService {
     }
     return null;
   }
+  findImplentEventByImplEventId(implEventId: string) {
+    for (let i = 0; i < this.activityData.implementEventList.length; i++) {
+      const aEvent = this.activityData.implementEventList[i];
+      if (aEvent.id === implEventId) {
+        return aEvent;
+      }
+    }
+    return null;
+  }
 
   findImplentEventByTriggerEventId(triggerEventId: string) {
     for (let i = 0; i < this.activityData.implementEventList.length; i++) {
@@ -1974,7 +1983,6 @@ export class ApplicationDataServiceService {
     if (stateEventCount === 0) {
       return '';
     }
-
     const afterAnmiation = this.findTriggerEventByAfterTriggerEventId(implEvent.id);
     let afterAnimationString = '';
     if (afterAnmiation) {
@@ -1984,7 +1992,8 @@ export class ApplicationDataServiceService {
     if (stateEventCount > 0) {
       result += '); \n';
       result += (
-        eventVar + '.addListener(new Animator.AnimatorListener() {\n'
+        eventVar + '.setupEndValues();\n'
+        + eventVar + '.addListener(new Animator.AnimatorListener() {\n'
         + '@Override\n'
         + 'public void onAnimationStart(Animator animator) {}\n'
         + '@Override\n'

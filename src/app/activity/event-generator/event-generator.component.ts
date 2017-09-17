@@ -107,6 +107,10 @@ export class EventGeneratorComponent implements OnInit {
 
   // make after animation
   public makeAfterTrigger(targetTriggerEventId) {
+
+    const temp = this.appDataService.findImplentEventByImplEventId(targetTriggerEventId);
+    this.appDataService.setSelectedStageByStageId(temp.toStageId);
+    this.currentSelectedStageId = this.appDataService.getSelectedStage().id;
     this.clickTrigger('afterAnimation');
     this.afterTriggerEventId = targetTriggerEventId;
     this.triggerEvent.afterTriggerEventId = this.afterTriggerEventId;
@@ -122,7 +126,7 @@ export class EventGeneratorComponent implements OnInit {
       type: target,
       name: target,
       objectId: this.appDataService.getSelectedObject().id
-    }
+    };
   }
 
 
@@ -152,6 +156,7 @@ export class EventGeneratorComponent implements OnInit {
 
 
     this.appDataService.getActivityData().triggerEventList.push(this.triggerEvent);
+
 
     if (this.implementEvent.type === 'stageChange') {
       this.implementEvent.toStageId = this.selectedStageId;
