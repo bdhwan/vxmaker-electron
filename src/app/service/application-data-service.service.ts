@@ -1529,7 +1529,7 @@ export class ApplicationDataServiceService {
 
 
       // const imageFolder = '@mipmap/';
-      const imageFolder = '@drawable/';
+      const imageFolder = '@mipmap/';
 
       //ImageView
       if (object.type === 'ImageView') {
@@ -1542,7 +1542,7 @@ export class ApplicationDataServiceService {
       //LottieAnimationView      
       if (object.type === 'LottieAnimationView') {
         if (object.dataUrl) {
-          result += ' app:lottie_fileName="' + object.dataUrl + '\"\n';
+          result += ' app:lottie_fileName="' + (object.dataUrl).replace('/file/', '') + '\"\napp:lottie_loop=\"true\"\napp:lottie_autoPlay=\"true\"\n';
         }
       }
     }
@@ -1652,7 +1652,7 @@ export class ApplicationDataServiceService {
 
       //manifest activity data
       let tempString = '\n<activity android:name=\".' + activity.codeActivityName + '\"/>';
-      if (activity.id === this.applicationData.launcherActivityId) {
+      if (activity.activityId === this.applicationData.launcherActivityId) {
         tempString = '\n<activity android:name=\".' + activity.codeActivityName + '\">';
         tempString += '<intent-filter>\n<action android:name=\"android.intent.action.MAIN\"/>\n<category android:name=\"android.intent.category.LAUNCHER\"/>\n</intent-filter>';
         tempString += '\n</activity>\n\n';
@@ -1665,6 +1665,8 @@ export class ApplicationDataServiceService {
     let androidManifest = this.templateDataHash['AndroidManifest.xml'];
     androidManifest = androidManifest.replace('!!!packageName!!!', this.applicationData.applicationId);
     androidManifest = androidManifest.replace('!!!activityList!!!', manifestXml);
+
+
 
     //make build.xml
     let buildGradle = this.templateDataHash['build.gradle'];
@@ -1692,8 +1694,10 @@ export class ApplicationDataServiceService {
     const sourceCodeData = data;
 
     const exportRoot = folderPath + '/' + this.applicationData.applicationName + '_export';
+
     const projectRoot = exportRoot + '/android';
     const projectFolder = projectRoot + '/app/src/main';
+    const assetsFolder = projectFolder + '/assets';
     const javaFolder = projectFolder + '/java/' + this.replaceAll(this.applicationData.applicationId, '.', '/');
     const resourceFolder = projectFolder + '/res';
     const drawFolder = resourceFolder + '/mipmap-nodpi';
@@ -1716,8 +1720,20 @@ export class ApplicationDataServiceService {
     this.makeFolder(valuesFolder);
 
 
-    this.writeFile(manifestPath, manifestXml);
+    //copy project level
+    const projectTemplatePath = '/template/project_template';
+    const appTemplatePath = '/template/app_template';
+    const resourceTemplatePath = '/template/resource_template';
+
+    this.copyFolderFromRoot(projectTemplatePath, projectRoot);
+    this.copyFolderFromRoot(appTemplatePath, projectRoot + '/app');
+    this.copyFolderFromRoot(resourceTemplatePath, resourceFolder);
+    this.copyFolder(this.applicationFolderPath + '/image', drawFolder);
+    this.copyFolder(this.applicationFolderPath + '/file', assetsFolder);
+
+
     this.writeFile(buildGradlePath, buildGradle);
+    this.writeFile(manifestPath, manifestXml);
     this.writeFile(stringXmlPath, stringXml);
 
     for (let i = 0; i < this.applicationData.activityList.length; i++) {
@@ -1727,17 +1743,11 @@ export class ApplicationDataServiceService {
     }
 
 
-    this.copyFolder(this.applicationFolderPath + '/image', drawFolder);
 
 
-    //copy project level
-    const projectTemplatePath = '/template/project_template';
-    const appTemplatePath = '/template/app_template';
-    const resourceTemplatePath = '/template/resource_template';
 
-    this.copyFolderFromRoot(projectTemplatePath, projectRoot);
-    this.copyFolderFromRoot(appTemplatePath, projectRoot + '/app');
-    this.copyFolderFromRoot(resourceTemplatePath, resourceFolder);
+
+
 
   }
 
@@ -1834,25 +1844,49 @@ export class ApplicationDataServiceService {
       finder += tempFinderString;
     }
 
+
+    const clickEventHash = {};
+
     for (let i = 0; i < this.activityData.triggerEventList.length; i++) {
       const aTrigger = this.activityData.triggerEventList[i];
       if (aTrigger.type === 'click') {
         const object = this.findObjectById(aTrigger.objectId);
-        const clickEventString = object.resourceId + '.setOnClickListener(new View.OnClickListener() {' +
-          '\n@Override' +
-          '\npublic void onClick(final View v) {\n' +
-          'if(currentStage.equals("' + aTrigger.stageId + '")) {\n' +
+
+        let tempEventHash = clickEventHash[aTrigger.objectId];
+        if (!tempEventHash) {
+          tempEventHash = '';
+        }
+        tempEventHash += ('\n' + 'if(currentStage.equals("' + aTrigger.stageId + '")) {\n' +
           this.insertImplEvent(aTrigger) +
-          '\n}\n' +
-          '\n}});';
-        eventString += '\n' + clickEventString + '\n';
+          '\n}\n');
+
+        clickEventHash[aTrigger.objectId] = tempEventHash;
       } else if (aTrigger.type === 'onCreate') {
         onCreateEventString += '\n' + this.insertImplEvent(aTrigger);
       } else if (aTrigger.type === 'backKey') {
-        const backEventString = 'if(currentStage.equals("' + aTrigger.stageId + '")) {\n' + this.insertImplEvent(aTrigger) + '\n return;}\n';
+        const backEventString = 'if(currentStage.equals("' + aTrigger.stageId + '")) {\n' + this.insertImplEvent(aTrigger) + '\n return;}\nelse{super.onBackPressed();}\n';
         backPressedEventData += backEventString;
       }
     }
+
+
+    for (let i = 0; i < this.objectList.length; i++) {
+      //make resource name
+      const object = this.objectList[i];
+      let aClickEventString = clickEventHash[object.id];
+      if (aClickEventString) {
+        const clickEventString = object.resourceId + '.setOnClickListener(new View.OnClickListener() {' +
+          '\n@Override' +
+          '\npublic void onClick(final View v) {\n' +
+          aClickEventString +
+          '\n}});';
+        eventString += '\n' + clickEventString + '\n';
+      }
+    }
+
+
+
+
 
     if (backPressedEventData.length === 0) {
       backPressedEventData += '\nsuper.onBackPressed();';
@@ -1896,7 +1930,7 @@ export class ApplicationDataServiceService {
   getActivityByActivityId(activityId) {
     for (let i = 0; i < this.applicationData.activityList.length; i++) {
       const activity = this.applicationData.activityList[i];
-      if (activity.activityId === this.activityData.activityId) {
+      if (activity.activityId === activityId) {
         return activity;
       }
     }
