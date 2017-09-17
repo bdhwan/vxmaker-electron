@@ -142,7 +142,7 @@ export class CodeExportComponent implements OnInit, OnDestroy {
         self.isLoading = false;
         const open = confirm('will you open export folder?');
         if (open) {
-          self.appDataService.openFinder(checkFolderPath);
+          self.appDataService.openFinder(checkFolderPath + '/guide');
         }
 
         this.clickHideExport();

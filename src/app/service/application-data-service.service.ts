@@ -1956,7 +1956,7 @@ export class ApplicationDataServiceService {
     const toStage = this.findStageByStageId(implEvent.toStageId);
     const eventVar = this.getUniqueResourceName(fromStage.name + '_' + toStage.name);
     let stateEventCount = 0;
-    result += "\nAnimatorSet " + eventVar + " = new AnimatorSet();";
+    result += "\nAnimatorSet " + eventVar + " = new AnimatorSet();\n";
     const stateEventCodeList = [];
 
     for (let i = 0; i < stateEventList.length; i++) {
@@ -1978,34 +1978,34 @@ export class ApplicationDataServiceService {
       } else {
         result += (',\n' + stateEventCodeList[i]);
       }
+
+      if (i === stateEventCodeList.length - 1) {
+        result += '); \n';
+      }
     }
 
-    if (stateEventCount === 0) {
-      return '';
-    }
+
     const afterAnmiation = this.findTriggerEventByAfterTriggerEventId(implEvent.id);
     let afterAnimationString = '';
     if (afterAnmiation) {
       afterAnimationString = this.insertImplEvent(afterAnmiation);
     }
 
-    if (stateEventCount > 0) {
-      result += '); \n';
-      result += (
 
-        eventVar + '.addListener(new Animator.AnimatorListener() {\n'
-        + '@Override\n'
-        + 'public void onAnimationStart(Animator animator) {}\n'
-        + '@Override\n'
-        + 'public void onAnimationEnd(Animator animator) {currentStage = "' + implEvent.toStageId + '";\n ' + afterAnimationString + '\n}\n'
-        + '@Override\n'
-        + 'public void onAnimationCancel(Animator animator) {}\n'
-        + '@Override\n'
-        + 'public void onAnimationRepeat(Animator animator) {}\n'
-        + '});\n'
-      );
-      result += (eventVar + '.start();\n');
-    }
+    result += (
+
+      eventVar + '.addListener(new Animator.AnimatorListener() {\n'
+      + '@Override\n'
+      + 'public void onAnimationStart(Animator animator) {}\n'
+      + '@Override\n'
+      + 'public void onAnimationEnd(Animator animator) {currentStage = "' + implEvent.toStageId + '";\n ' + afterAnimationString + '\n}\n'
+      + '@Override\n'
+      + 'public void onAnimationCancel(Animator animator) {}\n'
+      + '@Override\n'
+      + 'public void onAnimationRepeat(Animator animator) {}\n'
+      + '});\n'
+    );
+    result += ('\n' + eventVar + '.start();\n');
 
     return result;
   }
