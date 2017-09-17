@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  imgPrefix: '.',
+  imgPrefix: '',
   guideMode: true
 };

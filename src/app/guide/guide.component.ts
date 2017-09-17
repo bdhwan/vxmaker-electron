@@ -78,7 +78,7 @@ export class GuideComponent implements OnInit, OnDestroy {
   isReadyToRender: Boolean = false;
 
   activityId: String;
-  applicationFolderPath = '/assets/data';
+  applicationFolderPath = 'assets/data';
   applicationData;
   activityMetaData;
   activityData;
@@ -115,7 +115,7 @@ export class GuideComponent implements OnInit, OnDestroy {
 
     this.registerStringBroadcast();
 
-    this.appDataService.getHttpToJson('/assets/data/app.json').then(function (result) {
+    this.appDataService.getHttpToJson('assets/data/app.json').then(function (result) {
       self.applicationData = result;
       return null;
     }).then(result => {
@@ -235,7 +235,7 @@ export class GuideComponent implements OnInit, OnDestroy {
         self.appDataService.initActivityId(self.activityId);
         self.appDataService.setApplicationData(self.applicationData);
 
-        return self.appDataService.getHttpToJson('/assets/data/activity/' + self.activityId + '.json');
+        return self.appDataService.getHttpToJson('assets/data/activity/' + self.activityId + '.json');
       }).then((result) => {
 
         self.appDataService.setActivityData(result);
