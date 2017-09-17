@@ -37,8 +37,9 @@
         <div class="activity-left">
 
             <div class="layer-tab">
+                    <button [ngClass]="isOpenActivityList?'selected-tab':''" (click)="setActivityListTab(true)">Application</button>
                 <button [ngClass]="!isOpenActivityList?'selected-tab':''" (click)="setActivityListTab(false)">Layer</button>
-                <button [ngClass]="isOpenActivityList?'selected-tab':''" (click)="setActivityListTab(true)">Application</button>
+               
             </div>
 
 

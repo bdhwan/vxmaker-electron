@@ -161,6 +161,22 @@
     color: #46a2ba;
 }
 
+.activity-list-new {
+    border: 2px dotted #ccc;
+    width:258px;
+    height:280px;
+    margin:15px;
+    background: transparent;
+    font-size: 60px;
+    color: #ccc;
+}
+
+.activity-list-new:hover {
+    border-color: #46a2ba;
+    cursor: pointer;
+    color: #46a2ba;
+}
+
 .list-box .list-img .list-hover {
     position: absolute;
     z-index: 999;
