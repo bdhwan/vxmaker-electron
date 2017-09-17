@@ -336,3 +336,18 @@
     position: relative;
     margin-bottom: 0px !important;
 }
+
+.label-properties-2 button {
+    background: transparent;
+    position: absolute;
+    right:0;
+    border:none;
+    font-size: 18px;
+    color:#898989;
+    top:0;
+}
+
+.label-properties-2 button:hover {
+    color:#454545;
+    cursor: pointer;
+}

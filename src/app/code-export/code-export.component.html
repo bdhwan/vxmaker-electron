@@ -2,9 +2,9 @@
 
     <!-- nav bar top -->
     <div class="navbar">
-        <button class="btn-back" (click)="clickRoot()">◄ Home</button>
-        <button class="btn-back" (click)="clickBack()">◄ Back</button>
-        <button class="btn-back" (click)="clickShowExport()">Export</button>
+            <button class="btn-back" (click)="clickBack()">◄ Back</button>
+        <button class="btn-back" (click)="clickRoot()"><i class="fa fa-home"></i> Home</button>
+        <button class="btn-back btn-export" (click)="clickShowExport()"><i class="fa fa-share-square-o" style="margin-right:3px;"></i>Export</button>
 
     </div>
 
@@ -15,8 +15,10 @@
     <div class="list-wrap">
 
         <div class="list-left">
-            <app-application-info [currentActivityId]="currentActivityId" [prefix]="prefix" [viewMode]="'export'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-application-info>
-            <app-activity-list *ngIf="applicationData" [prefix]="prefix" [viewMode]="'export'" [currentActivityId]='currentActivityId' [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-activity-list>
+            <app-application-info [currentActivityId]="currentActivityId" [prefix]="prefix" [viewMode]="'export'" [applicationData]="applicationData"
+                [applicationFolderPath]="applicationFolderPath"></app-application-info>
+            <app-activity-list *ngIf="applicationData" [prefix]="prefix" [viewMode]="'export'" [currentActivityId]='currentActivityId'
+                [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-activity-list>
         </div>
 
         <div class="list-center">
@@ -26,24 +28,24 @@
                 <h3><span>{{applicationData.applicationName}}</span>
                     <span *ngIf="currentActivityId">> {{getActivityName(currentActivityId)}}</span></h3>
                 <div [hidden]="currentActivityId" class="export-code-wrap">
-<div class="export-tab">
-                    <button [ngClass]="currentTab=='AndroidManifest'?'tab-selected':''" (click)="clickTab('AndroidManifest')">AndroidManifest.xml</button>
-                    <button [ngClass]="currentTab=='build'?'tab-selected':''" (click)="clickTab('build')">build.gradle </button>
-                    <button [ngClass]="currentTab=='strings'?'tab-selected':''" (click)="clickTab('strings')">strings.xml</button>
-</div>
+                    <div class="export-tab">
+                        <button [ngClass]="currentTab=='AndroidManifest'?'tab-selected':''" (click)="clickTab('AndroidManifest')">AndroidManifest.xml</button>
+                        <button [ngClass]="currentTab=='build'?'tab-selected':''" (click)="clickTab('build')">build.gradle </button>
+                        <button [ngClass]="currentTab=='strings'?'tab-selected':''" (click)="clickTab('strings')">strings.xml</button>
+                    </div>
 
                     <div [hidden]="currentTab!=='AndroidManifest'">
-                        AndroidManifest.xml <button [clip]="manifestXml" (onClip)="callback($event)">Copy</button>
+                       <button class="btn-copy" [clip]="manifestXml" (onClip)="callback($event)"><i class="fa fa-copy" style="margin-right:3px;"></i>Copy</button>
                         <handy-syntax-highlighter *ngIf="manifestXml" [language]="'java'" [content]="manifestXml"></handy-syntax-highlighter>
                     </div>
 
                     <div [hidden]="currentTab!=='build'">
-                        build.gradle <button [clip]="buildGradle" (onClip)="callback($event)">Copy</button>
+                        <button class="btn-copy" [clip]="buildGradle" (onClip)="callback($event)"><i class="fa fa-copy" style="margin-right:3px;"></i>Copy</button>
                         <handy-syntax-highlighter *ngIf="buildGradle" [language]="'java'" [content]="buildGradle"></handy-syntax-highlighter>
                     </div>
 
                     <div [hidden]="currentTab!=='strings'">
-                        strings.xml <button [clip]="stringXml" (onClip)="callback($event)">Copy</button>
+                         <button class="btn-copy" [clip]="stringXml" (onClip)="callback($event)"><i class="fa fa-copy" style="margin-right:3px;"></i>Copy</button>
                         <handy-syntax-highlighter *ngIf="stringXml" [language]="'java'" [content]="stringXml"></handy-syntax-highlighter>
                     </div>
 
@@ -51,19 +53,20 @@
 
 
 
-                <div *ngIf="currentActivityId">
-
-                    <button [ngClass]="currentActivityTab=='xml'?'tab-selected':''" (click)="clickActivityTab('xml')">xml</button>
-                    <button [ngClass]="currentActivityTab=='java'?'tab-selected':''" (click)="clickActivityTab('java')">java </button>
+                <div *ngIf="currentActivityId" class="export-code-wrap">
+                    <div class="export-tab">
+                        <button [ngClass]="currentActivityTab=='xml'?'tab-selected':''" (click)="clickActivityTab('xml')">xml</button>
+                        <button [ngClass]="currentActivityTab=='java'?'tab-selected':''" (click)="clickActivityTab('java')">java </button>
+                    </div>
 
                     <div *ngFor="let aData of activityDataList">
                         <div [hidden]="aData.activityId!==currentActivityId">
                             <div [hidden]="currentActivityTab=='java'">
-                                {{aData.codeLayoutName}}.xml <button [clip]="aData.layout" (onClip)="callback($event)">Copy</button>
+                                <p style="font-size:13px;">{{aData.codeLayoutName}}.xml </p><button class="btn-copy" [clip]="aData.layout" (onClip)="callback($event)"><i class="fa fa-copy" style="margin-right:3px;"></i>Copy</button>
                                 <handy-syntax-highlighter [language]="'java'" [content]="aData.layout"></handy-syntax-highlighter>
                             </div>
                             <div [hidden]="currentActivityTab=='xml'">
-                                {{aData.codeActivityName}}.java <button [clip]="aData.java" (onClip)="callback($event)">Copy</button>
+                                {{aData.codeActivityName}}.java <button class="btn-copy" [clip]="aData.java" (onClip)="callback($event)"><i class="fa fa-copy" style="margin-right:3px;"></i>Copy</button>
                                 <handy-syntax-highlighter [language]="'java'" [content]="aData.java"></handy-syntax-highlighter>
                             </div>
                         </div>

@@ -279,7 +279,7 @@
 .export-code-wrap {
     background: #ffffff;
     margin:15px;
-
+position: relative;
     padding:10px;
     border-radius: 5px;
 }
@@ -304,4 +304,40 @@
 
 .export-code-wrap button:hover {
     cursor: pointer;
+}
+
+.list-center h3 {
+    background: #fff;
+    padding:10px 15px;
+    font-size: 16px;
+    margin-top: 0px;
+}
+
+.btn-copy {
+    border: 1px solid #ccc!important;
+    font-size: 12px!important;
+    padding: 3px 8px!important;
+    position: absolute;
+    right: 0;
+    margin: 10px;
+    margin-right: 10px;
+    background: rgba(255,255,255,0.8)!important;
+    top: 0;
+}
+
+.btn-copy:hover {
+    color:#454545!important;
+    background: rgba(255,255,255,1)!important;
+}
+
+.navbar .btn-export {
+float: right;
+padding-right: 20px;
+font-weight: 600;
+color:#46a2ba;
+}
+
+.navbar .btn-export:hover {
+    cursor: pointer;
+    background: #f9f9f9;
 }
