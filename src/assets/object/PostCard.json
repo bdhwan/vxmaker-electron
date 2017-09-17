@@ -1,13 +1,8 @@
 {
     "name": "PostCard",
     "type": "PostCard",
-    "icon": "assets/images/btn_startlottie.png",
-    "openSource": {
-        "title": "LottieAnimationView",
-        "url": "https://github.com/airbnb/lottie-android",
-        "author": "airbnb",
-        "description": "Render After Effects animations natively on Android and iOS"
-    },
+    "icon": "assets/images/ic_lottie_postcard.png",
+
     "objectProperties": [{
             "name": "type",
             "type": "string",

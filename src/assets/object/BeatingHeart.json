@@ -1,7 +1,7 @@
 {
     "name": "BeatingHeart",
     "type": "BeatingHeart",
-    "icon": "assets/images/btn_startlottie.png",
+    "icon": "assets/images/ic_lottie_beatingheart.png",
     "objectProperties": [{
             "name": "type",
             "type": "string",

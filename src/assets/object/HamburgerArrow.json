@@ -1,13 +1,8 @@
 {
-    "name": "HamburgerArrow",
+    "name": "Hamburger",
     "type": "HamburgerArrow",
-    "icon": "assets/images/btn_startlottie.png",
-    "openSource": {
-        "title": "LottieAnimationView",
-        "url": "https://github.com/airbnb/lottie-android",
-        "author": "airbnb",
-        "description": "Render After Effects animations natively on Android and iOS"
-    },
+    "icon": "assets/images/ic_lottie_hamburgerarrow.png",
+
     "objectProperties": [{
             "name": "type",
             "type": "string",
@@ -52,12 +47,12 @@
     "stateProperties": [{
             "name": "width",
             "type": "int",
-            "default": 1440
+            "default": 600
         },
         {
             "name": "height",
             "type": "int",
-            "default": 2560
+            "default": 600
         }
     ]
 

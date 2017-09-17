@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
     "name": "LottieAnimation",
+=======
+    "name": "LottieView",
+>>>>>>> origin/master
     "type": "LottieAnimationView",
     "icon": "assets/images/btn_startlottie.png",
     "openSource": {

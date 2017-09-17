@@ -1102,7 +1102,8 @@ export class ApplicationDataServiceService {
       'opacity': state.alpha,
       'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
       'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
-    }
+      'transform': 'rotate(' + state.rotate + 'deg)'
+    };
     return objectStyle;
   }
 

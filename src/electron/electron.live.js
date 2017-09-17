@@ -29,9 +29,9 @@ let introWindow = null;
 
 
 
-let minWidth = 820;
-let minHeight = 502;
-let maxWidth = 1024;
+let minWidth = 1280;
+let minHeight = 768;
+let maxWidth = 1280;
 let maxHeight = 768;
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -590,79 +590,6 @@ ipcMain.on('send-file-to-device', (event, tarFilePath, deviceId, devicePath) => 
 
 
 
-function initIntroWindow() {
-
-    // Create the browser window.
-    introWindow = new BrowserWindow({ width: minWidth, height: minHeight, minWidth: minWidth, minHeight: minHeight })
-        // var targetUrl = `file://${__dirname}/index.html`;
-    var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true })
-        // and load the index.html of the app.
-    introWindow.loadURL(targetUrl)
-
-    // Open the DevTools when in dev mode.
-    // if (process.env.NODE_ENV == 'development')
-    introWindow.webContents.openDevTools()
-
-    // Emitted when the window is closed.
-    introWindow.on('closed', () => {
-        // Dereference the window object, usually you would store windows
-        // in an array if your app supports multi windows, this is the time
-        // when you should delete the corresponding element.
-        introWindow = null
-    })
-}
-
-function initIntroWindowTimeout() {
-
-
-    setTimeout(() => {
-        initIntroWindow();
-    }, 12000)
-}
-
-
-
-
-function initMainWindow(path) {
-
-
-    // Create the browser window.
-    mainWindow = new BrowserWindow({
-        width: maxWidth,
-        height: maxHeight,
-        minWidth: minWidth,
-        minHeight: minHeight,
-        center: true,
-        resizable: true
-    })
-
-
-    // var targetUrl = `file://${__dirname}/index.html`;
-    // var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true })
-    var targetUrl = 'http://localhost:4200' + path;
-    // and load the index.html of the app.
-    console.log("electron path = " + targetUrl);
-
-    mainWindow.loadURL(targetUrl)
-        // Open the DevTools when in dev mode.
-        // if (process.env.NODE_ENV == 'development')
-    mainWindow.webContents.openDevTools()
-        // Emitted when the window is closed.
-    mainWindow.on('closed', () => {
-        // Dereference the window object, usually you would store windows
-        // in an array if your app supports multi windows, this is the time
-        // when you should delete the corresponding element.
-        mainWindow = null;
-        if (!introWindow) {
-            initIntroWindow();
-        }
-
-    })
-    mainWindow.app = app;
-}
-
-
-
 
 ipcMain.on('go-main-window', (event, targetPath) => {
 
@@ -688,15 +615,9 @@ function createWindow() {
         win = new BrowserWindow({ width: maxWidth, height: maxHeight, minWidth: minWidth, minHeight: minHeight })
 
 
-        // var targetUrl = `file://${__dirname}/index.html`;
-        var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true })
-            // and load the index.html of the app.
+        var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true });
+
         win.loadURL(targetUrl)
-
-        // Open the DevTools when in dev mode.
-        // if (process.env.NODE_ENV == 'development') {
-
-        // }
 
         win.webContents.openDevTools();
 
