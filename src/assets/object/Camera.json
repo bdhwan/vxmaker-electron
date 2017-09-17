@@ -1,7 +1,7 @@
 {
     "name": "Camera",
     "type": "Camera",
-    "icon": "assets/images/btn_startlottie.png",
+    "icon": "assets/images/ic_lottie_camera.png",
     "objectProperties": [{
             "name": "type",
             "type": "string",

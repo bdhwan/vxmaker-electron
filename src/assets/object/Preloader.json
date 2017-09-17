@@ -1,13 +1,8 @@
 {
     "name": "Preloader",
     "type": "Preloader",
-    "icon": "assets/images/btn_startlottie.png",
-    "openSource": {
-        "title": "LottieAnimationView",
-        "url": "https://github.com/airbnb/lottie-android",
-        "author": "airbnb",
-        "description": "Render After Effects animations natively on Android and iOS"
-    },
+    "icon": "assets/images/ic_lottie_preloader.png",
+
     "objectProperties": [{
             "name": "type",
             "type": "string",

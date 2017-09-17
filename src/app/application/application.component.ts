@@ -180,7 +180,7 @@ export class ApplicationComponent implements OnInit, AfterViewInit, OnDestroy {
     const activityId = 'activity_' + UUID.UUID();
     const newActivityMetaData = {
       activityId: activityId,
-      activityName: 'UntitledActivityName',
+      activityName: 'UntitledActivityName_' + (this.applicationData.activityList.length),
       createdAt: now,
       updatedAt: now
     };
@@ -194,11 +194,10 @@ export class ApplicationComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.applicationData.activityList.push(newActivityMetaData);
 
-
     this.appDataService.saveApplicationData(this.applicationData);
     this.appDataService.saveActivityData(activityId, newActivityData);
-
     this.router.navigate(['/activity', this.applicationFolderPath, activityId]);
+
 
   }
 
@@ -209,7 +208,8 @@ export class ApplicationComponent implements OnInit, AfterViewInit, OnDestroy {
 
   clickDeleteActivity(activityId): void {
 
-    const result = confirm('will you delete? =' + activityId);
+    const activityName = this.appDataService.getActivityName(activityId);
+    const result = confirm('will you delete ' + activityName + '?');
     if (result) {
       const index = this.findActivityPosition(activityId);
       this.applicationData.activityList.splice(index, 1);

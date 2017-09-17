@@ -1,7 +1,7 @@
 {
     "name": "FavoriteStar",
     "type": "FavoriteStar",
-    "icon": "assets/images/btn_startlottie.png",
+    "icon": "assets/images/ic_lottie_favoritestar.png",
 
     "objectProperties": [{
             "name": "type",

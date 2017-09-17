@@ -15,7 +15,7 @@
                 <button [hidden]="viewMode=='guide'" (click)="clickSelectImage()"> ImageSelect</button>
             </div>
 
-            <div *ngIf="selectedObject.type=='LottieAnimationView'||selectedObject.type=='VideoView'">
+            <div *ngIf="(selectedObject.type=='LottieAnimationView'||selectedObject.type=='VideoView')&&!selectedObject.fixResource">
 
                 <p>{{selectedObject.dataUrl}}</p>
                 <button [hidden]="viewMode=='guide'" (click)="clickSelectFile()"> FileSelect</button>
@@ -27,7 +27,7 @@
 
             <div class="label-properties-2" style="margin-bottom:15px;">Info</div>
             <div class="property-detail-wrap">
-                <div class="property-detail" style="margin-bottom:8px;">
+                <div class="property-detail" style="margin-bottom:8px;" *ngIf="!selectedObject.fixResource">
                     <label>type</label>
                     <div class="property-input">
                         <label>{{selectedObject.type}}</label>
@@ -240,7 +240,7 @@
 
             <!--padding -->
 
-            <div (click)="toggleShowPadding()" class="label-properties-2" style="margin-bottom:15px;">
+            <div (click)="toggleShowPadding()" class="label-properties-2" style="margin-bottom:15px;" [hidden]="true">
                 Padding
                 <i class="fa fa-sort-desc"></i>
             </div>
@@ -323,8 +323,6 @@
                         <p class="input-text">px</p>
                     </div>
                 </div>
-
-
             </div>
 
             <!-- transform@ -->
