@@ -1992,8 +1992,8 @@ export class ApplicationDataServiceService {
     if (stateEventCount > 0) {
       result += '); \n';
       result += (
-        eventVar + '.setupEndValues();\n'
-        + eventVar + '.addListener(new Animator.AnimatorListener() {\n'
+
+        eventVar + '.addListener(new Animator.AnimatorListener() {\n'
         + '@Override\n'
         + 'public void onAnimationStart(Animator animator) {}\n'
         + '@Override\n'
