@@ -144,6 +144,8 @@ export class CodeExportComponent implements OnInit, OnDestroy {
         if (open) {
           self.appDataService.openFinder(checkFolderPath);
         }
+
+        this.clickHideExport();
       });
     }
   }

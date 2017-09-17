@@ -223,6 +223,8 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           this.onCompleteEvent(null);
         } else if (kind === 'close-event') {
           this.onCloseEvent();
+        } else if (kind === 'new-object') {
+          this.clickNewObject(message.type);
         }
 
 
@@ -240,8 +242,8 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         } else if (kind === 'select-file') {
           const dataUrl = message.dataUrl;
           const target = message.target;
-          this.resourceDialog.setSelectedFileUrl(dataUrl);
-          this.resourceDialog.showDialog(target);
+          this.selectFile(dataUrl, target);
+
         } else if (kind === 'select-stage') {
           const stage = message.stage;
           this.onSelectStage(stage);
@@ -252,6 +254,11 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           this.onNewStage();
         }
       });
+  }
+
+  selectFile(dataUrl, target) {
+    this.resourceDialog.setSelectedFileUrl(dataUrl);
+    this.resourceDialog.showDialog(target);
   }
 
 
@@ -566,6 +573,14 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.objectTreeComponent.selectObjectNode(newObject);
     this.objectTreeComponent.expandAll();
 
+    if (type === 'ImageView') {
+      this.selectFile(null, 'image');
+    }
+    // if (type === 'LottieAnimationView') {
+    //   this.selectFile(null, 'file');
+    // }
+
+
   }
 
   onNewStage() {
@@ -692,7 +707,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log("onNewEvent target =" + target);
 
     //check stage count
-    if (this.activityData.stageList.length == 1) {
+    if (this.activityData.stageList.length === 1) {
       this.onMakeNewStage();
     }
 
@@ -707,6 +722,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.activityData.stageList.length === 1) {
       this.onMakeNewStage();
     }
+
     this.eventGenerator.resetData();
     this.eventGenerator.showDialog();
 

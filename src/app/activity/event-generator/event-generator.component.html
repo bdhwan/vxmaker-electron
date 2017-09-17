@@ -23,7 +23,7 @@
                             <div class="btn-trigger btn-click" (click)="clickTrigger('click')">
                                 <img src="assets/images/btn_click.png" />
                                 <p>Tap</p>
-                                <div *ngIf="!triggerEvent" class="click-info trigger-hover">
+                                <div *ngIf="!triggerEvent" class='click-info trigger-hover'>
                                     <h2>Tap</h2>
                                     <p>Press once with one finger and lift immediately.</p>
                                 </div>
@@ -51,7 +51,7 @@
                     <div *ngIf="afterTriggerEventId" align="center">
                         <div class="generator-title">After Animation</div>
                         <div class="after-animation">
-                            <h3>rootStage > Stage 03</h3>
+                            <h3>{{getAfterAnimationTriggerText(afterTriggerEventId)}}</h3>
                             <p>후 일어날 이벤트를 설정해 주세요.</p>
                         </div>
                     </div>
@@ -202,11 +202,9 @@
 
                         <div class="generator-title">Event Detail</div>
                         <div *ngIf="implementEvent.type=='stageChange'" class="detail-content">
-
-
-                            <p>From <b>{{currentSelectedStageId}}</b> select target stage</p>
+                            <p>From <b>{{getStageName(currentSelectedStageId)}}</b> select target stage</p>
                             <select (change)="onChangeStage($event.target.value)"> 
-                        <option *ngFor="let aStage of stageList" [value]="aStage.id">{{aStage.name}}</option>
+                            <option *ngFor="let aStage of getTargetStageList()" [value]="aStage.id">{{aStage.name}}</option>
                     </select>
                         </div>
                         <div *ngIf="implementEvent.type=='startActivity'" class="detail-content">

@@ -31,14 +31,21 @@ export class ObjectNewComponent implements OnInit {
 
   clickResource() {
 
-    this.onShowResourceDialog.emit("image");
+    // this.onShowResourceDialog.emit("image");
   }
 
 
   clickNewObject(type: string) {
 
     console.log("clickNewObject -" + type);
-    this.onClickNewObject.emit(type);
+    // this.onClickNewObject.emit(type);
+
+    const message = {
+      kind: 'new-object',
+      type: type
+    };
+    this.broadcaster.broadcast('activity', message);
+
 
   }
 

@@ -49,10 +49,20 @@ export class EventGeneratorComponent implements OnInit {
 
 
 
+  getTargetStageList() {
+    const result = [];
+    for (let i = 0; i < this.stageList.length; i++) {
+      const aStage = this.stageList[i];
+      if (this.currentSelectedStageId !== aStage.id) {
+        result.push(aStage);
+      }
+    }
+    return result;
+  }
 
 
   onChangeStage(stageId) {
-
+    console.log("onChangeStage = " + stageId);
     this.selectedStageId = stageId;
     this.readyEvent = true;
   }
@@ -101,6 +111,10 @@ export class EventGeneratorComponent implements OnInit {
 
 
 
+  getStageName(stageId) {
+    return this.appDataService.findStageByStageId(stageId).name;
+
+  }
 
 
   // make after animation
@@ -140,13 +154,35 @@ export class EventGeneratorComponent implements OnInit {
     if (target === 'finishActivity') {
       this.readyEvent = true;
     } else {
-      this.selectedStageId = null;
+      this.selectedStageId = this.getNextStageId();
       this.selectedActivityId = null;
       this.readyEvent = false;
       this.selectedLottieViewId = null;
       this.selectedVideoViewId = null;
       this.selectedTakePictureObjectViewId = null;
+      this.selectedStageId = this.getNextStageId();
     }
+  }
+
+
+  getNextStageId() {
+    for (let i = 0; i < this.stageList.length; i++) {
+      const aStage = this.stageList[i];
+      if (this.currentSelectedStageId !== aStage.id) {
+        this.readyEvent = true;
+        return aStage.id;
+      }
+    }
+  }
+
+  getAfterAnimationTriggerText(implEventId) {
+
+    const temp = this.appDataService.findImplentEventByImplEventId(implEventId);
+
+    return this.getStageName(temp.fromStageId) + '>' + this.getStageName(temp.toStageId);
+
+    // return temp;
+
   }
 
   completeEvent() {
