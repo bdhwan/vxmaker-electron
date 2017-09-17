@@ -76,11 +76,14 @@ function PsdUtil() {
             var children = root.children().reverse();
             for (var i = 0; i < children.length; i++) {
                 const aChild = this.createObjectNode(this.rootData, children[i], 0, 0);
-                this.rootData.children.push(aChild);
+                if (aChild) {
+                    this.rootData.children.push(aChild);
+                }
+
             }
         }
 
-        console.log("psd data = " + JSON.stringify(this.rootData));
+        // console.log("psd data = " + JSON.stringify(this.rootData));
     }
 
 
@@ -121,7 +124,11 @@ function PsdUtil() {
                 var children = node.children().reverse();
                 for (var i = 0; i < children.length; i++) {
                     const aChild = this.createObjectNode(aData, children[i], parentX + x, parentY + y);
-                    aData.children.push(aChild);
+
+                    if (aChild) {
+                        aData.children.push(aChild);
+                    }
+
                 }
             }
         } else {

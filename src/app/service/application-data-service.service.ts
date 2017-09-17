@@ -2052,14 +2052,14 @@ export class ApplicationDataServiceService {
     }
 
     //rotate
-    if (fromState.rotation !== toState.rotation) {
-      result += '.rotation(' + (toState.rotation | 0).toFixed(2) + ')';
+    if (fromState.rotate !== toState.rotate) {
+      result += '.rotation(' + (toState.rotate | 0).toFixed(2) + ')';
     }
-    if (fromState.rotationX !== toState.rotationX) {
-      result += '.rotationX(' + (toState.rotationX | 0).toFixed(2) + ')';
+    if (fromState.rotateX !== toState.rotateX) {
+      result += '.rotationX(' + (toState.rotateX | 0).toFixed(2) + ')';
     }
-    if (fromState.rotationY !== toState.rotationY) {
-      result += '.rotationY(' + (toState.rotationY | 0).toFixed(2) + ')';
+    if (fromState.rotateY !== toState.rotateY) {
+      result += '.rotationY(' + (toState.rotateY | 0).toFixed(2) + ')';
     }
 
     //width

@@ -459,10 +459,18 @@ ipcMain.on('copy-folder', (event, src, dst) => {
 
 //copy folder from root
 ipcMain.on('copy-folder-from-root', (event, src, dst) => {
+        console.log(src + ", " + dst);
+        fse.copySync(__dirname + src, dst);
+        event.returnValue = true;
+    })
+    //copy folder from root
+ipcMain.on('copy-file-from-root', (event, src, dst) => {
     console.log(src + ", " + dst);
     fse.copySync(__dirname + src, dst);
     event.returnValue = true;
 })
+
+
 
 ipcMain.on('have-file', (event, path) => {
     console.log("have file = " + path);
@@ -614,22 +622,14 @@ function createWindow() {
         // Create the browser window.
         win = new BrowserWindow({ width: maxWidth, height: maxHeight, minWidth: minWidth, minHeight: minHeight })
 
-
         var targetUrl = `file://${__dirname}/index.html`;
         // var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true })
         // and load the index.html of the app.
+        // var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true });
+
         win.loadURL(targetUrl)
 
-        // Open the DevTools when in dev mode.
-        if (process.env.NODE_ENV == 'development') {
-            targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true });
-            win.webContents.openDevTools();
-        }
-
-        // var
-        // and load the index.html of the app.
-        win.loadURL(targetUrl)
-
+        // win.webContents.openDevTools();
 
 
         // Emitted when the window is closed.
