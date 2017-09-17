@@ -42,7 +42,8 @@
 }
 
 .list-box-left .list-img {
-    padding:15px 75px !important;
+    padding:15px ;
+    text-align: center;
 }
 
 .list-box-left button:hover {

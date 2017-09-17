@@ -20,40 +20,44 @@
             <div *ngFor="let aEvent of triggerEventList" class="event-detail-wrap" (click)="clickDetailEvent(aEvent)">
 
                 <div class="event-detail" *ngIf="aEvent.implEvent">
-                    {{aEvent.name}}
-                    <div *ngIf="aEvent.type==='click'">
-                        <img src="assets/images/btn_click.png" />
+                   <h5> {{aEvent.name}}</h5>
+
+                    <div style="padding-top:5px; padding-bottom:5px;">
+                        <div *ngIf="aEvent.type==='click'">
+                            <img src="assets/images/btn_click.png" />
+                        </div>
+                        <div *ngIf="aEvent.type==='onCreate'">
+                            <img src="assets/images/btn_oncreate.png" />
+                        </div>
+                        <div *ngIf="aEvent.type==='backKey'">
+                            <img src="assets/images/btn_backkey.png" />
+                        </div>
+                        <div *ngIf="aEvent.type==='afterAnimation'">
+                            <img src="assets/images/btn_afteranimation.png" />
+                        </div>
+
+                        <!-- impl -->
+                        <span style="color:#898989;">{{aEvent.implEvent.name}}</span>
+
                     </div>
-                    <div *ngIf="aEvent.type==='onCreate'">
-                        <img src="assets/images/btn_oncreate.png" />
-                    </div>
-                    <div *ngIf="aEvent.type==='backKey'">
-                        <img src="assets/images/btn_backkey.png" />
-                    </div>
-                    <div *ngIf="aEvent.type==='afterAnimation'">
-                        <img src="assets/images/btn_afteranimation.png" />
+                    <div style="padding-top:5px; padding-bottom:5px; padding-left:20px;">
+                        <div *ngIf="aEvent.implEvent.type==='stageChange'">
+                            <img src="assets/images/btn_stagechange.png" />
+                        </div>
+                        <div *ngIf="aEvent.implEvent.type==='startActivity'">
+                            <img src="assets/images/btn_startactivity.png" />
+                        </div>
+                        <div *ngIf="aEvent.implEvent.type==='finishActivity'">
+                            <img src="assets/images/btn_finishactivity.png" />
+                        </div>
+                        <div *ngIf="aEvent.implEvent.type==='stageChange'">
+                                <span style="color:#898989;">{{aEvent.implEvent.fromStageName}} -> {{aEvent.implEvent.toStageName}}</span>
+
+                        </div>
                     </div>
 
-
-
-
-                    <!-- impl -->
-                    {{aEvent.implEvent.name}}
-                    <div *ngIf="aEvent.implEvent.type==='stageChange'">
-                        <img src="assets/images/btn_stagechange.png" />
-                    </div>
                     <div *ngIf="aEvent.implEvent.type==='startActivity'">
-                        <img src="assets/images/btn_startactivity.png" />
-                    </div>
-                    <div *ngIf="aEvent.implEvent.type==='finishActivity'">
-                        <img src="assets/images/btn_finishactivity.png" />
-                    </div>
-                    <div *ngIf="aEvent.implEvent.type==='stageChange'">
-                        {{aEvent.implEvent.fromStageName}} -> {{aEvent.implEvent.toStageName}}
-                    </div>
-
-                    <div *ngIf="aEvent.implEvent.type==='startActivity'">
-                        {{aEvent.implEvent.toActivityName}}
+                       <span style="color:#898989;"> {{aEvent.implEvent.toActivityName}}</span>
                     </div>
 
                     <button class="btn-trash" (click)="clickDeleteEvent($event,aEvent)"><i class="fa fa-trash-o"></i></button>
