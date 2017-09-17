@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { ApplicationDataServiceService } from '../service/application-data-service.service';
@@ -8,15 +8,17 @@ import { environment } from '../../environments/environment';
 
 import { RecentProjectComponent } from '../init/recent-project/recent-project.component';
 
-
 @Component({
   selector: 'app-init',
   templateUrl: './init.component.html',
   styleUrls: ['./init.component.css'],
   providers: [BroadcastService, MessageEventService]
 })
-export class InitComponent implements OnInit, OnDestroy {
+export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
   imgPrefix = environment.imgPrefix;
+  isGuideMode = environment.guideMode;
+  isProdMode = environment.production;
+
   messageListener;
 
 
@@ -30,11 +32,24 @@ export class InitComponent implements OnInit, OnDestroy {
     private appDataService: ApplicationDataServiceService,
     private broadcaster: BroadcastService,
     private messageEvent: MessageEventService
-  ) { }
+  ) {
+
+
+  }
 
   ngOnInit() {
     this.registerStringBroadcast();
+
+
+
   }
+
+  ngAfterViewInit() {
+    if (this.isGuideMode) {
+      this.router.navigate(['/guide/init']);
+    }
+  }
+
   ngOnDestroy() {
     if (this.messageListener) {
       this.messageListener.unsubscribe();

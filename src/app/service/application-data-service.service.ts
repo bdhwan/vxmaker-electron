@@ -87,6 +87,7 @@ export class ApplicationDataServiceService {
   constructor(private http: Http, private broadcaster: BroadcastService) {
     const self = this;
 
+
     if (electron) {
       electron.ipcRenderer.on('parse-psd-result', (event, arg) => {
         this.parsePsdPromise(arg);
@@ -1688,8 +1689,10 @@ export class ApplicationDataServiceService {
     this.makeFolder(guideRoot);
 
 
-    this.copyFolder(this.applicationFolderPath, guideRoot + '/assets/data');
+    const guideTemplatePath = '/template/guide_template';
 
+    this.copyFolderFromRoot(guideTemplatePath, guideRoot);
+    this.copyFolder(this.applicationFolderPath, guideRoot + '/assets/data');
 
   }
 

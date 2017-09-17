@@ -9,11 +9,11 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "build-guide": "ng build --base-href ./ && cp -r dist guide",
+        "build-guide": "ng build --environment=guide --base-href ./ && rm -rf dist/assets/data && rm -rf guide_template && rm -rf src/electron/template/guide_template && mv dist guide_template && cp src/index-guide.html guide_template/index.html && cp -r guide_template src/electron/template/guide_template && rm -rf guide_template",
         "build-electron": "ng build --base-href ./ --environment=prod && cp -r src/electron/* dist/",
         "electron": "npm run build-electron --environment=prod && electron dist/",
         "build-angular": "ng build --base-href ./ && cp -r src/electron/* dist/",
-        "deploy": "npm run build-electron && ls && cd dist && ls && electron-packager . --platform=win32 --electron-version=1.6.8 && zip -r win32.zip angular-electron-win32-x64 && node ../deploy.js  --base-href ./"
+        "deploy": "npm run build-guide && npm run build-electron && ls && cd dist && ls && electron-packager . --platform=win32 --electron-version=1.6.8 && zip -r win32.zip angular-electron-win32-x64 && node ../deploy.js  --base-href ./"
     },
     "private": true,
     "dependencies": {

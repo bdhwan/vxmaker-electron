@@ -34,7 +34,7 @@ import 'rxjs/add/operator/switchMap';
   providers: [BroadcastService, MessageEventService]
 })
 export class GuideComponent implements OnInit, OnDestroy {
-  prefix = '.';
+  prefix = environment.imgPrefix;
 
 
   @ViewChild('objectTree')
@@ -120,7 +120,7 @@ export class GuideComponent implements OnInit, OnDestroy {
       return null;
     }).then(result => {
       console.log("this.applicationData = " + self.applicationData);
-      if (self.activityId === 'init') {
+      if (!self.activityId || self.activityId === 'init') {
         self.activityId = self.applicationData.activityList[0].activityId;
       }
       return self.reloadActivityData();

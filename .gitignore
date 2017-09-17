@@ -43,3 +43,4 @@ Thumbs.db
 workspace
 dist
 src/assets/data
+src/electron/template/guide_template
