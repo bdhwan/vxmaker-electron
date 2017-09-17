@@ -25,11 +25,12 @@
 
                 <h3><span>{{applicationData.applicationName}}</span>
                     <span *ngIf="currentActivityId">> {{getActivityName(currentActivityId)}}</span></h3>
-                <div [hidden]="currentActivityId">
-
+                <div [hidden]="currentActivityId" class="export-code-wrap">
+<div class="export-tab">
                     <button [ngClass]="currentTab=='AndroidManifest'?'tab-selected':''" (click)="clickTab('AndroidManifest')">AndroidManifest.xml</button>
                     <button [ngClass]="currentTab=='build'?'tab-selected':''" (click)="clickTab('build')">build.gradle </button>
                     <button [ngClass]="currentTab=='strings'?'tab-selected':''" (click)="clickTab('strings')">strings.xml</button>
+</div>
 
                     <div [hidden]="currentTab!=='AndroidManifest'">
                         AndroidManifest.xml <button [clip]="manifestXml" (onClip)="callback($event)">Copy</button>

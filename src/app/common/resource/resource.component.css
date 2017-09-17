@@ -237,7 +237,9 @@
 }
 
 .image-list {
-    overflow: hidden;
+    
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .image-list .bg-img img {
@@ -321,4 +323,16 @@
 
 .file-select-pick {
     color: #46a2ba;
+}
+
+.label-properties-2 {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 10px;
+    background-color: #efeff0;
+    border-top: #dfdfe0 1px solid;
+    border-bottom: #dfdfe0 1px solid;
+    color: #454545;
+    position: relative;
+    margin-bottom: 0px !important;
 }

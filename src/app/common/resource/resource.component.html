@@ -68,18 +68,22 @@
     </div>
 </div>
 
-<div *ngIf="viewMode=='export'">
+<div *ngIf="viewMode=='export'" style="height:100%;">
     <!-- image -->
-    Image {{imageList.length}} <button (click)="clickImageFolder()">Open</button>
-    <div class="image-list" style="height:500px;">
+    <div class="label-properties-2">
+        Image {{imageList.length}} <button (click)="clickImageFolder()">Open</button>
+    </div>
+    <div class="image-list" style="height:45%;">
         <div *ngFor="let imageUrl of imageList" class="bg-img">
             <img [src]="prefix+applicationFolderPath+'/'+imageUrl" (click)="clickFile(imageUrl)">
         </div>
     </div>
 
     <!-- file -->
-    Json {{fileList.length}} <button (click)="clickFileFolder()">Open</button>
-    <div class="image-list" style="height:500px;">
+    <div class="label-properties-2">
+        Json {{fileList.length}} <button (click)="clickFileFolder()">Open</button>
+    </div>
+    <div class="image-list" style="height:45%;">
 
         <div class="image-list">
             <div *ngFor="let fileUrl of fileList" class="bg-img">
