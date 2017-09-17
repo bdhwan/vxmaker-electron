@@ -1,0 +1,59 @@
+{
+    "name": "LottieAnimationView",
+    "type": "LottieAnimationView",
+    "icon": "assets/images/btn_startlottie.png",
+    "openSource": {
+        "title": "LottieAnimationView",
+        "url": "https://github.com/airbnb/lottie-android",
+        "author": "airbnb",
+        "description": "Render After Effects animations natively on Android and iOS"
+    },
+    "objectProperties": [{
+            "name": "type",
+            "type": "string",
+            "default": "LottieAnimationView"
+        },
+        {
+            "name": "name",
+            "type": "string",
+            "default": "LottieAnimationView"
+        },
+        {
+            "name": "backgroundColor",
+            "type": "string",
+            "default": "#f9f9f9"
+        },
+        {
+            "name": "dataUrl",
+            "type": "string",
+            "default": null
+        },
+        {
+            "name": "canHaveChildren",
+            "type": "boolean",
+            "default": false
+        },
+        {
+            "name": "loop",
+            "type": "boolean",
+            "default": true
+        },
+        {
+            "name": "autoPlay",
+            "type": "boolean",
+            "default": true
+        }
+    ],
+    "stateProperties": [{
+            "name": "width",
+            "type": "int",
+            "default": 1440
+        },
+        {
+            "name": "height",
+            "type": "int",
+            "default": 2560
+        }
+    ]
+
+}

@@ -1,0 +1,53 @@
+{
+    "name": "VideoView",
+    "type": "VideoView",
+    "icon": "assets/images/btn_startvideo.png",
+    "objectProperties": [{
+            "name": "type",
+            "type": "string",
+            "default": "VideoView"
+        },
+        {
+            "name": "name",
+            "type": "string",
+            "default": "VideoView"
+        },
+        {
+            "name": "dataUrl",
+            "type": "string",
+            "default": null
+        },
+        {
+            "name": "backgroundColor",
+            "type": "string",
+            "default": "#f1f1f1"
+        },
+        {
+            "name": "canHaveChildren",
+            "type": "boolean",
+            "default": false
+        },
+        {
+            "name": "loop",
+            "type": "boolean",
+            "default": true
+        },
+        {
+            "name": "autoPlay",
+            "type": "boolean",
+            "default": true
+        }
+    ],
+    "stateProperties": [{
+            "name": "width",
+            "type": "int",
+            "default": 600
+        },
+        {
+            "name": "height",
+            "type": "int",
+            "default": 580
+        }
+    ]
+
+}

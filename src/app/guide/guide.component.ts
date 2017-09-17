@@ -225,6 +225,7 @@ export class GuideComponent implements OnInit, OnDestroy {
   reloadActivityData() {
 
     const self = this;
+    this.router.navigate(['/guide', this.activityId]);
 
     return new Promise((resolve, reject) => {
       self.appDataService.loadInitDataFromFile().then((data) => {

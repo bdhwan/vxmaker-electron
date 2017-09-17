@@ -1,0 +1,17 @@
+/*@font-face {
+    font-family: spoqa ;
+    src: url('../fonts/Spoqa Han Sans Regular.eot'),
+    url(../fonts/Spoqa Han Sans Regular.woff)format('woff');
+    font-weight: normal;
+    font-style: normal;
+}*/
+
+@font-face {
+    font-family: spoqa ;
+    src: url('../fonts/SpoqaHanSans-Regular.eot');
+    src: local(※),
+    url(../fonts/SpoqaHanSans-Regular.woff)format('woff');
+ 
+}
+
+
