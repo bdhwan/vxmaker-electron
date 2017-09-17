@@ -6,9 +6,9 @@
     <nav id="topSide" class="navbar navbar-default activity-nav" *ngIf="activityMetaData" style="height:50px;">
         <div class="container-fluid" style="padding-left: 0;">
             <div style="float:left;" class="nav-project">
-                <button class="open-activity" (click)="toggleActivityList()">
+                <!-- <button class="open-activity" (click)="toggleActivityList()">
                   <i class="fa fa-navicon" style="font-size:24px"></i>
-                </button>
+                </button> -->
 
                 <button (click)="clickRoot()">{{applicationData.applicationName}}</button>
 
@@ -37,8 +37,9 @@
         <div class="activity-left">
 
             <div>
+                    <button [ngClass]="!isOpenActivityList?'selected-tab':''" (click)="setActivityListTab(false)">Layer</button>
                 <button [ngClass]="isOpenActivityList?'selected-tab':''" (click)="setActivityListTab(true)">Application</button>
-                <button [ngClass]="!isOpenActivityList?'selected-tab':''" (click)="setActivityListTab(false)">Layer</button>
+               
             </div>
 
 
