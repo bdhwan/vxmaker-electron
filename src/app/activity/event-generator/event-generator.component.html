@@ -115,50 +115,53 @@
                                 </div>
                             </div>
 
-                            <div class="event-kind">Lottie</div>
-                            <div class="btn-trigger btn-startlottie" (click)="clickImplement('startLottie')">
-                                <img src="assets/images/btn_startlottie.png" />
-                                <p>startLottie</p>
-                                <div *ngIf="!implementEvent" class="startlottie-info event-hover">
-                                    <h2>startLottie</h2>
-                                    <p>Play the motion graphics of LottieAnimationView with JSON file applied</p>
-                                </div>
-                            </div>
-                            <div class="btn-trigger btn-stoplottie" (click)="clickImplement('stopLottie')">
-                                <img src="assets/images/btn_stoplottie.png" />
-                                <p>stopLottie</p>
-                                <div *ngIf="!implementEvent" class="stoplottie-info event-hover">
-                                    <h2>stopLottie</h2>
-                                    <p>Stop motion graphics of LottieAnimationView.</p>
-                                </div>
-                            </div>
 
-                            <div class="event-kind">Camera</div>
-                            <div class="btn-trigger btn-takepicture" (click)="clickImplement('takePicture')">
-                                <img src="assets/images/btn_takepicture.png" />
-                                <p>takePicture</p>
-                                <div *ngIf="!implementEvent" class="takepicture-info event-hover">
-                                    <h2>takePicture</h2>
-                                    <p>It acts as a camera shutter when shooting with 'CameraView'. You can also select a layer to show the captured image.</p>
+                            <div [hidden]="true">
+                                <div class="event-kind">Lottie</div>
+                                <div class="btn-trigger btn-startlottie" (click)="clickImplement('startLottie')">
+                                    <img src="assets/images/btn_startlottie.png" />
+                                    <p>startLottie</p>
+                                    <div *ngIf="!implementEvent" class="startlottie-info event-hover">
+                                        <h2>startLottie</h2>
+                                        <p>Play the motion graphics of LottieAnimationView with JSON file applied</p>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="btn-trigger btn-stoplottie" (click)="clickImplement('stopLottie')">
+                                    <img src="assets/images/btn_stoplottie.png" />
+                                    <p>stopLottie</p>
+                                    <div *ngIf="!implementEvent" class="stoplottie-info event-hover">
+                                        <h2>stopLottie</h2>
+                                        <p>Stop motion graphics of LottieAnimationView.</p>
+                                    </div>
+                                </div>
+
+                                <div class="event-kind">Camera</div>
+                                <div class="btn-trigger btn-takepicture" (click)="clickImplement('takePicture')">
+                                    <img src="assets/images/btn_takepicture.png" />
+                                    <p>takePicture</p>
+                                    <div *ngIf="!implementEvent" class="takepicture-info event-hover">
+                                        <h2>takePicture</h2>
+                                        <p>It acts as a camera shutter when shooting with 'CameraView'. You can also select a layer to show the captured image.</p>
+                                    </div>
+                                </div>
 
 
-                            <div class="event-kind">VideoView</div>
-                            <div class="btn-trigger btn-startvideo" (click)="clickImplement('startVideo')">
-                                <img src="assets/images/btn_startvideo.png" />
-                                <p> startVideo</p>
-                                <div *ngIf="!implementEvent" class="startvideo-info event-hover">
-                                    <h2>startVideo</h2>
-                                    <p>Play video from VideoView.</p>
+                                <div class="event-kind">VideoView</div>
+                                <div class="btn-trigger btn-startvideo" (click)="clickImplement('startVideo')">
+                                    <img src="assets/images/btn_startvideo.png" />
+                                    <p> startVideo</p>
+                                    <div *ngIf="!implementEvent" class="startvideo-info event-hover">
+                                        <h2>startVideo</h2>
+                                        <p>Play video from VideoView.</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="btn-trigger btn-stopvideo" (click)="clickImplement('stopVideo')">
-                                <img src="assets/images/btn_stopvideo.png" />
-                                <p> stopVideo</p>
-                                <div *ngIf="!implementEvent" class="stopvideo-info event-hover">
-                                    <h2>stopVideo</h2>
-                                    <p>Stop video playing in VideoView.</p>
+                                <div class="btn-trigger btn-stopvideo" (click)="clickImplement('stopVideo')">
+                                    <img src="assets/images/btn_stopvideo.png" />
+                                    <p> stopVideo</p>
+                                    <div *ngIf="!implementEvent" class="stopvideo-info event-hover">
+                                        <h2>stopVideo</h2>
+                                        <p>Stop video playing in VideoView.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
