@@ -56,11 +56,11 @@
     overflow-x: auto;
     overflow-y: scroll;
     padding-left: 280px;
-    padding-right: 500px;
+    padding-right: 430px;
 }
 
 .list-wrap .list-right {
-    width: 500px;
+    width: 430px;
     height: 100%;
     float: right;
     z-index: 9999;
