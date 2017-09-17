@@ -2,28 +2,33 @@
 
     <div class="first" [ngStyle]="getFixHeightStyle()">
 
-        <button (click)="clickRoot()">Home</button>
+        <!-- <button (click)="clickRoot()">Home</button> -->
 
         <div class="activity-left" *ngIf="applicationData">
             <app-application-info [prefix]="prefix" [viewMode]="'guide'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-application-info>
-            <app-activity-list [prefix]="prefix" [viewMode]="'guide'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath" [currentActivityId]="activityId"></app-activity-list>
+            <app-activity-list [prefix]="prefix" [viewMode]="'guide'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"
+                [currentActivityId]="activityId"></app-activity-list>
         </div>
     </div>
 
     <div class="second" [ngStyle]="getFixHeightStyle()">
-        <app-object-tree #objectTree [prefix]="prefix" [viewMode]="'guide'" (onChangeNode)="onChangeNodeFromTree($event)" (onClickNewFile)="clickNewFile($event)" (onSelectNode)="onSelectNodeFromTree($event)"></app-object-tree>
+        <div class="label-properties" >Layers</div>
+        <app-object-tree #objectTree [prefix]="prefix" [viewMode]="'guide'" (onChangeNode)="onChangeNodeFromTree($event)" (onClickNewFile)="clickNewFile($event)"
+            (onSelectNode)="onSelectNodeFromTree($event)"></app-object-tree>
     </div>
 
 
     <div class="third" [ngStyle]="getFixHeightStyle()">
-
+            <div class="label-properties" >Preview</div>
         <div class="activity-canvas" [ngStyle]="getPreviewWindowStyle()">
             <app-stage-list #stageList [viewMode]="'guide'" (onSelectStage)="onSelectStage($event)" (onNewStage)="onNewStage()"></app-stage-list>
-            <app-preview #previewCanvas [viewMode]="'guide'" [prefix]="prefix" (onSelectNodeFromOther)="onSelectNodeFromOther($event)" (onShowResourceDialog)="onShowResourceDialog($event)"></app-preview>
+            <app-preview #previewCanvas [viewMode]="'guide'" [prefix]="prefix" (onSelectNodeFromOther)="onSelectNodeFromOther($event)"
+                (onShowResourceDialog)="onShowResourceDialog($event)"></app-preview>
         </div>
     </div>
     <div class="fourth" [ngStyle]="getFixHeightStyle()">
-        <app-object-property [viewMode]="'guide'" [applicationFolderPath]="applicationFolderPath" [prefix]="prefix" #objectProperty (onShowResourceDialog)="onShowResourceDialog($event)" (onChangeTreeData)="changePropertyData($event)"></app-object-property>
+        <app-object-property [viewMode]="'guide'" [applicationFolderPath]="applicationFolderPath" [prefix]="prefix" #objectProperty
+            (onShowResourceDialog)="onShowResourceDialog($event)" (onChangeTreeData)="changePropertyData($event)"></app-object-property>
     </div>
 
     <div class="fiveth" [ngStyle]="getFixHeightStyle()">

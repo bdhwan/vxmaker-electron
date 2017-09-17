@@ -5,6 +5,8 @@
     background-color: #fff;
     color: #454545;
     position: relative;
+    border-right: 1px solid #ececec;
+    border-bottom: 1px solid #ececec;
 }
 
 .label-properties-2 {

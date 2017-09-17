@@ -113,7 +113,7 @@
                 {{applicationData.activityList.length}} Activities
             </div>
         </div>
-        <div class="list-box-export">
+        <div class="list-box-export" style="margin-top:284px;">
             <div *ngFor="let activity of applicationData.activityList" class="list-box list-box-left">
                 <div [ngClass]="activity.activityId===currentActivityId?'activity-current':''">
                     <div class="list-img" (click)="clickActivity(activity.activityId)">

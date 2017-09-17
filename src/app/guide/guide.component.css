@@ -7,30 +7,45 @@
 
 .first {
     width: 15%;
-    background-color: blue;
+    background-color: #ebebeb;
     overflow: auto;
+    position: relative;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 999;
 }
 
 .second {
     width: 15%;
-    background-color: green;
+    background-color: #f9fafb;
     overflow-y: scroll;
 }
 
 .third {
     width: 30%;
-    background-color: yellow;
+
     overflow-y: scroll;
+    background: #dde3eb;
 }
 
 .fourth {
     width: 20%;
-    background-color: red;
+    background-color: #f9fafb;
     overflow-y: scroll;
 }
 
 .fiveth {
     width: 20%;
-    background-color: red;
+    background-color: #dde3eb;
     overflow-y: scroll;
+}
+
+.label-properties {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 6px 10px;
+    background-color: #fff;
+    color: #454545;
+    position: relative;
+    border-right: 1px solid #ececec;
+    border-bottom: 1px solid #ececec;
 }
