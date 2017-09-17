@@ -13,8 +13,6 @@ import { BroadcastService } from '../../service/broadcast.service';
 export class EventGeneratorComponent implements OnInit {
 
 
-  // @Output() onCompleteEvent = new EventEmitter<string>();
-
   triggerEvent;
   implementEvent;
 
