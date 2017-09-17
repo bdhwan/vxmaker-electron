@@ -3,10 +3,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ApplicationDataServiceService } from '../service/application-data-service.service';
 
 
-declare var electron: any;
-
-
-
 @Component({
   selector: 'app-new-application',
   templateUrl: './new-application.component.html',
@@ -27,13 +23,13 @@ export class NewApplicationComponent implements OnInit {
 
   ngOnInit() {
     this.applicationName = 'UntitledApplication';
-    this.workspaceFolderPath = this.appDataService.getWorkspaceFolderPath();// electron.ipcRenderer.sendSync('get-workspace-folder-path');
+    this.workspaceFolderPath = this.appDataService.getWorkspaceFolderPath();
   }
 
 
   //change project folder
   clickChangeFolder(): void {
-    const folder = this.appDataService.selectWorkspaceFolderPathFrom(this.workspaceFolderPath);// electron.ipcRenderer.sendSync('select-workspace-folder-path', this.workspaceFolderPath);
+    const folder = this.appDataService.selectWorkspaceFolderPathFrom(this.workspaceFolderPath);
     if (folder) {
       this.workspaceFolderPath = folder;
     }
@@ -52,48 +48,9 @@ export class NewApplicationComponent implements OnInit {
       alert('enter application name');
       return;
     }
-
     const applicationFolder = this.workspaceFolderPath + '/' + this.applicationName;
-
-
-
-    electron.ipcRenderer.sendSync('make-folder', applicationFolder);
-    electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/activity');
-    electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/image');
-    electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/file');
-
-    this.appDataService.copyFolderFromRoot('/template/sample/file', applicationFolder + '/file');
-    this.appDataService.copyFolderFromRoot('/template/sample/image', applicationFolder + '/image');
-
-    electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/export');
-    electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/preview');
-    electron.ipcRenderer.sendSync('copy-from-root-file', 'template/source_template/ic_launcher.png', applicationFolder + '/image/ic_launcher.png');
-
-
-
-    const now = new Date().getTime();
-    const data = {
-      createdAt: now,
-      updatedAt: now,
-      applicationName: this.applicationName,
-      applicationId: 'com.altamirasoft.' + this.applicationName,
-      iconPath: 'image/ic_launcher.png',
-      activityList: [],
-      imageList: [],
-      fileList: []
-    };
-
-    const filePath = applicationFolder + '/app.json';
-    electron.ipcRenderer.sendSync('save-file-data', filePath, data);
+    this.appDataService.createNewApplication(applicationFolder, this.applicationName);
     this.router.navigate(['/application', applicationFolder]);
-
-
-
-    // //new window
-    // const path = '/application/' + encodeURIComponent(applicationFolder);
-    // this.appDataService.openMainWindowUrl(path);
-
-
   }
 
 

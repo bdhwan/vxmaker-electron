@@ -740,30 +740,15 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   clickNewActivity(): void {
     console.log("click new Activity");
-    const now = new Date().getTime();
-    const activityId = 'activity_' + UUID.UUID();
-    const newActivityMetaData = {
-      activityId: activityId,
-      activityName: 'UntitledActivityName',
-      createdAt: now,
-      updatedAt: now
-    };
-    const newActivityData = {
-      activityId: activityId
-    };
 
-    if (this.applicationData.activityList.length === 0) {
-      this.applicationData.launcherActivityId = activityId;
-    }
-
-    this.applicationData.activityList.push(newActivityMetaData);
-
-
-    this.appDataService.saveApplicationData(this.applicationData);
-    this.appDataService.saveActivityData(activityId, newActivityData);
-
-    this.router.navigate(['/activity', this.applicationFolderPath, activityId]);
-
+    this.saveProcessAsync().then(result => {
+      const activityId = 'activity_' + UUID.UUID();
+      this.appDataService.createNewActivity(this.applicationFolderPath, activityId);
+      this.router.navigate(['/activity', this.applicationFolderPath, activityId]);
+      this.activityId = activityId;
+      this.appDataService.initActivityId(this.activityId);
+      this.reloadActivityData();
+    });
   }
 
 

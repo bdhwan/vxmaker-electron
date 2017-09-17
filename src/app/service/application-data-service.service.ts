@@ -101,7 +101,63 @@ export class ApplicationDataServiceService {
   }
 
 
+  createNewActivity(applicationFolderPath, activityId) {
 
+    const now = new Date().getTime();
+    const newActivityMetaData = {
+      activityId: activityId,
+      activityName: 'UntitledActivityName_' + (this.applicationData.activityList.length),
+      createdAt: now,
+      updatedAt: now,
+      previewPath: 'preview/' + activityId + '.jpg'
+    };
+    const newActivityData = {
+      activityId: activityId
+    };
+
+    if (this.applicationData.activityList.length === 0) {
+      this.applicationData.launcherActivityId = activityId;
+    }
+
+    this.applicationData.activityList.push(newActivityMetaData);
+
+    this.saveApplicationData(this.applicationData);
+    this.saveActivityData(activityId, newActivityData);
+    this.copyFileFromRoot('/template/sample/temp/white.png', this.applicationFolderPath + '/' + newActivityMetaData.previewPath);
+
+  }
+
+
+  createNewApplication(applicationFolder, applicationName) {
+
+
+
+
+    electron.ipcRenderer.sendSync('make-folder', applicationFolder);
+    electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/activity');
+    electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/image');
+    electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/file');
+
+    this.copyFolderFromRoot('/template/sample/file', applicationFolder + '/file');
+    this.copyFolderFromRoot('/template/sample/image', applicationFolder + '/image');
+
+    electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/export');
+    electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/preview');
+
+    const now = new Date().getTime();
+    const data = {
+      createdAt: now,
+      updatedAt: now,
+      applicationName: applicationName,
+      applicationId: 'com.altamirasoft.' + applicationName,
+      iconPath: 'image/ic_launcher.png',
+      activityList: [],
+      imageList: [],
+      fileList: []
+    };
+    const filePath = applicationFolder + '/app.json';
+    electron.ipcRenderer.sendSync('save-file-data', filePath, data);
+  }
 
 
   parsePsdFile(psdFilePath, applicationFolderPath) {
@@ -210,6 +266,7 @@ export class ApplicationDataServiceService {
 
   deleteActivity(activityId) {
     electron.ipcRenderer.sendSync('delete-file', this.applicationFolderPath + '/activity/' + activityId + '.json');
+    electron.ipcRenderer.sendSync('delete-file', this.applicationFolderPath + '/preview/' + activityId + '.jpg');
   }
 
   captureScreen(x, y, w, h, filePath) {
@@ -293,7 +350,10 @@ export class ApplicationDataServiceService {
     electron.ipcRenderer.sendSync('copy-folder-from-root', src, dst);
     return true;
   }
-
+  copyFileFromRoot(src, dst) {
+    electron.ipcRenderer.sendSync('copy-file-from-root', src, dst);
+    return true;
+  }
   makeFolder(path) {
     electron.ipcRenderer.sendSync('make-folder', path);
   }

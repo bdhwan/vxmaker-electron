@@ -176,26 +176,27 @@ export class ApplicationComponent implements OnInit, AfterViewInit, OnDestroy {
 
   clickNewActivity(): void {
     console.log("click new Activity");
-    const now = new Date().getTime();
     const activityId = 'activity_' + UUID.UUID();
-    const newActivityMetaData = {
-      activityId: activityId,
-      activityName: 'UntitledActivityName_' + (this.applicationData.activityList.length),
-      createdAt: now,
-      updatedAt: now
-    };
-    const newActivityData = {
-      activityId: activityId
-    };
+    this.appDataService.createNewActivity(this.applicationFolderPath, activityId);
 
-    if (this.applicationData.activityList.length === 0) {
-      this.applicationData.launcherActivityId = activityId;
-    }
+    // const newActivityMetaData = {
+    //   activityId: activityId,
+    //   activityName: 'UntitledActivityName_' + (this.applicationData.activityList.length),
+    //   createdAt: now,
+    //   updatedAt: now
+    // };
+    // const newActivityData = {
+    //   activityId: activityId
+    // };
 
-    this.applicationData.activityList.push(newActivityMetaData);
+    // if (this.applicationData.activityList.length === 0) {
+    //   this.applicationData.launcherActivityId = activityId;
+    // }
 
-    this.appDataService.saveApplicationData(this.applicationData);
-    this.appDataService.saveActivityData(activityId, newActivityData);
+    // this.applicationData.activityList.push(newActivityMetaData);
+
+    // this.appDataService.saveApplicationData(this.applicationData);
+    // this.appDataService.saveActivityData(activityId, newActivityData);
     this.router.navigate(['/activity', this.applicationFolderPath, activityId]);
 
 
@@ -213,7 +214,6 @@ export class ApplicationComponent implements OnInit, AfterViewInit, OnDestroy {
     if (result) {
       const index = this.findActivityPosition(activityId);
       this.applicationData.activityList.splice(index, 1);
-
       this.appDataService.deleteActivity(activityId);
       this.clickSave();
     }
