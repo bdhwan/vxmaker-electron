@@ -1,174 +1,173 @@
 <div *ngIf="!selectedTriggerEvent||viewMode=='guide'">
-  <div class="object-property" style="padding-top:0;">
-    <div class="label-properties" style="margin-bottom:15px;">Properties</div>
-    <div *ngIf="selectedObject" class="btn-img">
+    <div class="object-property" style="padding-top:0;">
+        <div class="label-properties" style="margin-bottom:15px;">Properties</div>
+        <div *ngIf="selectedObject" class="btn-img">
 
-      <!-- 이미지, 파일 선택버튼 -->
-      <div *ngIf="selectedObject.type=='ImageView'">
-        <div *ngIf="selectedObject.dataUrl" class="img-selected">
-          <img [src]="prefix+applicationFolderPath+'/'+selectedObject.dataUrl" />
-          <div class="img-sub">
-            <p>{{selectedObject.dataUrl}}</p>
-            <p class="img-sub-size" (click)="clickDownload(prefix+applicationFolderPath+'/'+selectedObject.dataUrl)">Donwload</p>
-          </div>
-        </div>
-        <button [hidden]="viewMode=='guide'" (click)="clickSelectImage()"> ImageSelect</button>
-      </div>
-
-      <div *ngIf="selectedObject.type=='LottieAnimationView'||selectedObject.type=='VideoView'">
-
-        <p>{{selectedObject.dataUrl}}</p>
-        <button [hidden]="viewMode=='guide'" (click)="clickSelectFile()"> FileSelect</button>
-      </div>
-
-
-
-      <!-- 이미지, 파일 선택버튼@ -->
-
-      <div class="label-properties-2" style="margin-bottom:15px;">Info</div>
-      <div class="property-detail-wrap">
-        <div class="property-detail" style="margin-bottom:8px;">
-          <label>type</label>
-          <div class="property-input">
-            <label>{{selectedObject.type}}</label>
-          </div>
-        </div>
-        <div *ngIf="selectedObject.type=='TextView'">
-           
-          <div class="property-detail">
-              <label>text</label>
-              <div class="property-input">
-                  <input [(ngModel)]="selectedObject.contentText" placeholder="Write something" />
-              </div>
+            <!-- 이미지, 파일 선택버튼 -->
+            <div *ngIf="selectedObject.type=='ImageView'">
+                <div *ngIf="selectedObject.dataUrl" class="img-selected">
+                    <img [src]="prefix+applicationFolderPath+'/'+selectedObject.dataUrl" />
+                    <div class="img-sub">
+                        <p>{{selectedObject.dataUrl}}</p>
+                        <p class="img-sub-size" (click)="clickDownload(prefix+applicationFolderPath+'/'+selectedObject.dataUrl)">Donwload</p>
+                    </div>
+                </div>
+                <button [hidden]="viewMode=='guide'" (click)="clickSelectImage()"> ImageSelect</button>
             </div>
-        </div>
-        <div class="property-detail">
-          <label>name</label>
-          <div class="property-input">
-            <input [(ngModel)]="selectedObject.name">
-          </div>
-        </div>
-        <div class="property-detail">
-          <label>background</label>
-          <div class="property-input">
-            <input [(ngModel)]="selectedObject.backgroundColor">
-          </div>
-        </div>
-      </div>
+
+            <div *ngIf="selectedObject.type=='LottieAnimationView'||selectedObject.type=='VideoView'">
+
+                <p>{{selectedObject.dataUrl}}</p>
+                <button [hidden]="viewMode=='guide'" (click)="clickSelectFile()"> FileSelect</button>
+            </div>
 
 
-    </div>
 
-    <!-- <div class="btn-more">
+            <!-- 이미지, 파일 선택버튼@ -->
+
+            <div class="label-properties-2" style="margin-bottom:15px;">Info</div>
+            <div class="property-detail-wrap">
+                <div class="property-detail" style="margin-bottom:8px;">
+                    <label>type</label>
+                    <div class="property-input">
+                        <label>{{selectedObject.type}}</label>
+                    </div>
+                </div>
+                <div *ngIf="selectedObject.type=='TextView'">
+
+                    <div class="property-detail">
+                        <label>text</label>
+                        <div class="property-input">
+                            <input [(ngModel)]="selectedObject.contentText" placeholder="Write something" />
+                        </div>
+                    </div>
+                </div>
+                <div class="property-detail">
+                    <label>name</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedObject.name">
+                    </div>
+                </div>
+                <div class="property-detail">
+                    <label>background</label>
+                    <div class="property-input">
+                        <input [(ngModel)]="selectedObject.backgroundColor">
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- <div class="btn-more">
             <button style="margin-bottom:8px;">Open source(이미지출처) <i class="fa fa-sort-desc"></i></button>
         </div> -->
 
 
-    <div *ngIf="openSource">
-      <div class="label-properties-2" style="margin-top:15px;margin-bottom:15px;">
-        Open Source
-      </div>
-      <div class="opensource-info">
-        <div class="info-title">{{openSource.title}}</div>
-        <div class="info-author">Author:{{openSource.author}}</div>
-        <div class="info-description">Description: {{openSource.description}}</div>
-        <div class="info-link"><a (click)="clickLink(openSource.url)">{{openSource.url}}</a></div>
-      </div>
-    </div>
-
-
-    <div *ngIf="selectedState">
-      <!-- 타이포그래피 -->
-
-      <div [hidden]="true">
-        <div (click)="toggleShowText()" class="label-properties-2" style="margin-bottom:15px;">
-          Typography
-          <i class="fa fa-sort-desc"></i>
+        <div *ngIf="openSource">
+            <div class="label-properties-2" style="margin-top:15px;margin-bottom:15px;">
+                Open Source
+            </div>
+            <div class="opensource-info">
+                <div class="info-title">{{openSource.title}}</div>
+                <div class="info-author">Author:{{openSource.author}}</div>
+                <div class="info-description">Description: {{openSource.description}}</div>
+                <div class="info-link"><a (click)="clickLink(openSource.url)">{{openSource.url}}</a></div>
+            </div>
         </div>
 
-        <div class="property-detail-wrap" [hidden]="!needShowText">
-          <div class="property-detail">
-            <label>fontFamily</label>
-            <div class="property-input">
-              <input />
+
+        <div *ngIf="selectedState">
+            <!-- 타이포그래피 -->
+
+            <div [hidden]="true">
+                <div (click)="toggleShowText()" class="label-properties-2" style="margin-bottom:15px;">
+                    Typography
+                    <i class="fa fa-sort-desc"></i>
+                </div>
+
+                <div class="property-detail-wrap" [hidden]="!needShowText">
+                    <div class="property-detail">
+                        <label>fontFamily</label>
+                        <div class="property-input">
+                            <input />
+                        </div>
+                    </div>
+                    <div class="property-detail">
+                        <label>style/size</label>
+                        <div class="property-input">
+                            <input />
+                        </div>
+                    </div>
+                    <div class="property-detail">
+                        <label>lineHeight</label>
+                        <div class="property-input">
+                            <input />
+                        </div>
+                    </div>
+                    <div class="property-detail">
+                        <label>fontColor</label>
+                        <div class="property-input">
+                            <input />
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="property-detail">
-            <label>style/size</label>
-            <div class="property-input">
-              <input />
+            <!-- 타이포그래피@ -->
+
+            <!-- 사이즈 -->
+
+
+            <div (click)="toggleShowSize()" class="label-properties-2" style="margin-bottom:15px;">
+                Size
+                <i class="fa fa-sort-desc"></i>
             </div>
-          </div>
-          <div class="property-detail">
-            <label>lineHeight</label>
-            <div class="property-input">
-              <input />
+
+            <div class="property-detail-wrap" [hidden]="!needShowSize">
+                <div class="property-detail">
+                    <div class="col-6">
+                        <label>width</label>
+                        <div class="property-input">
+                            <input type="number" [(ngModel)]="selectedState.width">
+                            <p class="input-text">px</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label>height</label>
+                        <div class="property-input">
+                            <input type="number" [(ngModel)]="selectedState.height">
+                            <p class="input-text">px</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="property-detail" [hidden]="true">
+                    <div class="col-6">
+                        <label>scaleX</label>
+                        <div class="property-input">
+                            <input [(ngModel)]="selectedState.scaleX">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label>scaleY</label>
+                        <div class="property-input">
+                            <input [(ngModel)]="selectedState.scaleY">
+                        </div>
+                    </div>
+                </div>
+
             </div>
-          </div>
-          <div class="property-detail">
-            <label>fontColor</label>
-            <div class="property-input">
-              <input />
+
+            <!-- 사이즈@ -->
+
+            <!--마진 -->
+            <div (click)="toggleShowMargin()" class="label-properties-2" style="margin-bottom:15px;">
+                Margin
+                <i class="fa fa-sort-desc"></i>
             </div>
-          </div>
-        </div>
-      </div>
-      <!-- 타이포그래피@ -->
 
-      <!-- 사이즈 -->
-
-
-      <div (click)="toggleShowSize()" class="label-properties-2" style="margin-bottom:15px;">
-        Size
-        <i class="fa fa-sort-desc"></i>
-      </div>
-
-      <div class="property-detail-wrap" [hidden]="!needShowSize">
-        <div class="property-detail">
-          <div class="col-6">
-            <label>width</label>
-            <div class="property-input">
-              <input type="number" [(ngModel)]="selectedState.width">
-              <p class="input-text">px</p>
-            </div>
-          </div>
-          <div class="col-6">
-            <label>height</label>
-            <div class="property-input">
-              <input type="number" [(ngModel)]="selectedState.height">
-              <p class="input-text">px</p>
-            </div>
-          </div>
-
-        </div>
-        <div class="property-detail">
-          <div class="col-6">
-            <label>scaleX</label>
-            <div class="property-input">
-              <input [(ngModel)]="selectedState.scaleX">
-            </div>
-          </div>
-          <div class="col-6">
-            <label>scaleY</label>
-            <div class="property-input">
-              <input [(ngModel)]="selectedState.scaleY">
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- 사이즈@ -->
-
-      <!--마진 -->
-      <div (click)="toggleShowMargin()" class="label-properties-2" style="margin-bottom:15px;">
-        Margin
-        <i class="fa fa-sort-desc"></i>
-      </div>
-
-      <div class="property-detail-wrap" [hidden]="!needShowMargin">
-        <!-- 
+            <div class="property-detail-wrap" [hidden]="!needShowMargin">
+                <!-- 
         <div class="property-detail">
           <label>top:</label>
           <div class="property-input">
@@ -194,154 +193,154 @@
           </div>
         </div> -->
 
-        <!-- property detail test -->
+                <!-- property detail test -->
 
 
-        <div class="property-detail">
-          <div class="col-6">
-            <label>top</label>
-            <div class="property-input">
-              <input type="number" [(ngModel)]="selectedState.marginTop">
-              <p class="input-text">px</p>
+                <div class="property-detail">
+                    <div class="col-6">
+                        <label>top</label>
+                        <div class="property-input">
+                            <input type="number" [(ngModel)]="selectedState.marginTop">
+                            <p class="input-text">px</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label>bottom</label>
+                        <div class="property-input">
+                            <input type="number" [(ngModel)]="selectedState.marginBottom">
+                            <p class="input-text">px</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-detail">
+                    <div class="col-6">
+                        <label>left</label>
+                        <div class="property-input">
+                            <input type="number" [(ngModel)]="selectedState.marginLeft">
+                            <p class="input-text">px</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label>right</label>
+                        <div class="property-input">
+                            <input type="number" [(ngModel)]="selectedState.marginRight">
+                            <p class="input-text">px</p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <!-- property detail test@ -->
+
             </div>
-          </div>
-          <div class="col-6">
-            <label>bottom</label>
-            <div class="property-input">
-              <input type="number" [(ngModel)]="selectedState.marginBottom">
-              <p class="input-text">px</p>
+            <!--마진@ -->
+
+            <!--padding -->
+
+            <div (click)="toggleShowPadding()" class="label-properties-2" style="margin-bottom:15px;">
+                Padding
+                <i class="fa fa-sort-desc"></i>
             </div>
-          </div>
+
+            <div class="property-detail-wrap" [hidden]="!needShowPadding">
+                <div class="property-detail">
+                    <div class="col-6">
+                        <label>top</label>
+                        <div class="property-input">
+                            <input type="number" [(ngModel)]="selectedState.paddingTop">
+                            <p class="input-text">px</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label>bottom</label>
+                        <div class="property-input">
+                            <input type="number" [(ngModel)]="selectedState.paddingBottom">
+                            <p class="input-text">px</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-detail">
+                    <div class="col-6">
+                        <label>left</label>
+                        <div class="property-input">
+                            <input type="number" [(ngModel)]="selectedState.paddingLeft">
+                            <p class="input-text">px</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label>right</label>
+                        <div class="property-input">
+                            <input type="number" [(ngModel)]="selectedState.paddingRight">
+                            <p class="input-text">px</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!--padding @-->
+
+            <!-- transform -->
+
+            <div (click)="toggleShowTranslation()" class="label-properties-2" style="margin-bottom:15px;">
+                Transform
+                <i class="fa fa-sort-desc"></i>
+            </div>
+
+            <div class="property-detail-wrap" [hidden]="!needShowTranslation">
+
+                <div class="property-detail">
+                    <div class="col-6">
+                        <label>rotate</label>
+                        <div class="property-input">
+                            <input type="number" [(ngModel)]="selectedState.rotate">
+                            <p class="input-text">deg</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label>alpha</label>
+                        <div class="property-input">
+                            <input type="number" [(ngModel)]="selectedState.alpha">
+                            <p class="input-text">px</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="property-detail">
+                    <label>translationX</label>
+                    <div class="property-input">
+                        <input type="number" [(ngModel)]="selectedState.translationX">
+                        <p class="input-text">px</p>
+                    </div>
+                </div>
+                <div class="property-detail">
+                    <label>translationY</label>
+                    <div class="property-input">
+                        <input type="number" [(ngModel)]="selectedState.translationY">
+                        <p class="input-text">px</p>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- transform@ -->
+
+            <!--code -->
+            <div (click)="toggleShowCode()" class="label-properties-2" style="margin-bottom:15px;">
+                Code
+                <i class="fa fa-sort-desc"></i>
+            </div>
+            <div *ngIf="selectedState&&needShowCode&&objectLayoutData">
+                <button class="btn-copy" [clip]="objectLayoutData" (onClip)="callback($event)"><i class="fa fa-copy" style="margin-right:3px;"></i>copy</button>
+                <handy-syntax-highlighter *ngIf="objectLayoutData" [language]="'java'" [content]="objectLayoutData"></handy-syntax-highlighter>
+            </div>
+            <!--code@ -->
         </div>
 
-        <div class="property-detail">
-          <div class="col-6">
-            <label>left</label>
-            <div class="property-input">
-              <input type="number" [(ngModel)]="selectedState.marginLeft">
-              <p class="input-text">px</p>
-            </div>
-          </div>
-          <div class="col-6">
-            <label>right</label>
-            <div class="property-input">
-              <input type="number" [(ngModel)]="selectedState.marginRight">
-              <p class="input-text">px</p>
-            </div>
-          </div>
-
-        </div>
-
-
-
-        <!-- property detail test@ -->
-
-      </div>
-      <!--마진@ -->
-
-      <!--padding -->
-
-      <div (click)="toggleShowPadding()" class="label-properties-2" style="margin-bottom:15px;">
-        Padding
-        <i class="fa fa-sort-desc"></i>
-      </div>
-
-      <div class="property-detail-wrap" [hidden]="!needShowPadding">
-        <div class="property-detail">
-          <div class="col-6">
-            <label>top</label>
-            <div class="property-input">
-              <input type="number" [(ngModel)]="selectedState.paddingTop">
-              <p class="input-text">px</p>
-            </div>
-          </div>
-          <div class="col-6">
-            <label>bottom</label>
-            <div class="property-input">
-              <input type="number" [(ngModel)]="selectedState.paddingBottom">
-              <p class="input-text">px</p>
-            </div>
-          </div>
-        </div>
-        <div class="property-detail">
-          <div class="col-6">
-            <label>left</label>
-            <div class="property-input">
-              <input type="number" [(ngModel)]="selectedState.paddingLeft">
-              <p class="input-text">px</p>
-            </div>
-          </div>
-          <div class="col-6">
-            <label>right</label>
-            <div class="property-input">
-              <input type="number" [(ngModel)]="selectedState.paddingRight">
-              <p class="input-text">px</p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-      <!--padding @-->
-
-      <!-- transform -->
-
-      <div (click)="toggleShowTranslation()" class="label-properties-2" style="margin-bottom:15px;">
-        Transform
-        <i class="fa fa-sort-desc"></i>
-      </div>
-
-      <div class="property-detail-wrap" [hidden]="!needShowTranslation">
-
-        <div class="property-detail">
-          <div class="col-6">
-            <label>rotate</label>
-            <div class="property-input">
-              <input type="number" [(ngModel)]="selectedState.rotate">
-              <p class="input-text">px</p>
-            </div>
-          </div>
-          <div class="col-6">
-            <label>alpha</label>
-            <div class="property-input">
-              <input type="number" [(ngModel)]="selectedState.alpha">
-              <p class="input-text">px</p>
-            </div>
-          </div>
-
-        </div>
-        <div class="property-detail">
-          <label>translationX</label>
-          <div class="property-input">
-            <input type="number" [(ngModel)]="selectedState.translationX">
-            <p class="input-text">px</p>
-          </div>
-        </div>
-        <div class="property-detail">
-          <label>translationY</label>
-          <div class="property-input">
-            <input type="number" [(ngModel)]="selectedState.translationY">
-            <p class="input-text">px</p>
-          </div>
-        </div>
-
-
-      </div>
-
-      <!-- transform@ -->
-
-      <!--code -->
-      <div (click)="toggleShowCode()" class="label-properties-2" style="margin-bottom:15px;">
-        Code
-        <i class="fa fa-sort-desc"></i>
-      </div>
-      <div *ngIf="selectedState&&needShowCode&&objectLayoutData">
-        <button class="btn-copy" [clip]="objectLayoutData" (onClip)="callback($event)"><i class="fa fa-copy" style="margin-right:3px;"></i>copy</button>
-        <handy-syntax-highlighter *ngIf="objectLayoutData" [language]="'java'" [content]="objectLayoutData"></handy-syntax-highlighter>
-      </div>
-      <!--code@ -->
     </div>
-
-  </div>
 
 </div>
