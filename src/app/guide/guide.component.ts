@@ -147,10 +147,12 @@ export class GuideComponent implements OnInit, OnDestroy {
           const targetUrl = message.url;
           this.appDataService.openUrl(targetUrl);
         } else if (kind === 'select-object') {
+          this.onCloseEvent();
           const selectedObject = this.appDataService.findObjectById(message.objectId);
           this.appDataService.setSelectedObject(selectedObject);
           this.notifySelectedObjectChanged();
         } else if (kind === 'go-detail-activity') {
+          this.onCloseEvent();
           this.clickActivity(activityId);
         } else if (kind === 'detail-event') {
           const detailEvent = message.event;
@@ -161,18 +163,24 @@ export class GuideComponent implements OnInit, OnDestroy {
           // this.onClickDetailEvent(null);
         } else if (kind === 'close-event') {
           this.onCloseEvent();
-        } else if (kind === 'select-object') {
+        }
 
-          const selectedObject = this.appDataService.findObjectById(message.objectId);
-          this.onSelectNodeFromOther(message.objectId);
-          this.appDataService.setSelectedObject(selectedObject);
-          this.notifySelectedObjectChanged();
+        // else if (kind === 'select-object') {
+
+        //   const selectedObject = this.appDataService.findObjectById(message.objectId);
+        //   this.onSelectNodeFromOther(message.objectId);
+        //   this.appDataService.setSelectedObject(selectedObject);
+        //   this.notifySelectedObjectChanged();
 
 
-        } else if (kind === 'select-stage') {
+        // } 
+
+        else if (kind === 'select-stage') {
+          this.onCloseEvent();
           const stage = message.stage;
           this.onSelectStage(stage);
         } else if (kind === 'delete-stage') {
+          this.onCloseEvent();
           const stage = message.stage;
           this.onSelectStage(stage);
         }
@@ -180,7 +188,6 @@ export class GuideComponent implements OnInit, OnDestroy {
 
       });
   }
-
 
 
   clickActivity(activityId) {
@@ -239,7 +246,6 @@ export class GuideComponent implements OnInit, OnDestroy {
       }).then((result) => {
 
         self.appDataService.setActivityData(result);
-
         self.applicationData = self.appDataService.getApplicationData();
         self.activityMetaData = self.appDataService.getActivityMetaData();
         self.activityData = self.appDataService.getActivityData();

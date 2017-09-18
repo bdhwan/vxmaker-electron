@@ -206,12 +206,15 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           });
 
         } else if (kind === 'go-detail-activity') {
+          this.onCompleteEvent(null);
           this.clickActivity(activityId);
         } else if (kind === 'delete-activity') {
           this.clickDeleteActivity(activityId);
         } else if (kind === 'duplicate-activity') {
+          this.onCompleteEvent(null);
           this.clickDuplicateActivity(activityId);
         } else if (kind === 'new-activity') {
+          this.onCompleteEvent(null);
           this.clickNewActivity();
         } else if (kind === 'set-launcher-activity') {
           this.onClickLauncherActivity(activityId);

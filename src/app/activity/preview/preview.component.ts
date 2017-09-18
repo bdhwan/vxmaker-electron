@@ -52,7 +52,7 @@ export class PreviewComponent implements OnInit {
 
 
   isKeyCTRL = false;
-
+  isKeyALT = false;
 
   constructor(private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) {
 
@@ -70,6 +70,10 @@ export class PreviewComponent implements OnInit {
     if ($event.keyCode === 17) {
       this.isKeyCTRL = true;
     }
+    if ($event.keyCode === 18) {
+      this.isKeyALT = true;
+    }
+
 
 
 
@@ -79,7 +83,10 @@ export class PreviewComponent implements OnInit {
     console.log("keyUp-" + $event.keyCode);
     if ($event.keyCode === 17) {
       this.isKeyCTRL = false;
-    } else if ($event.keyCode === 46) {
+    }
+    if ($event.keyCode === 18) {
+      this.isKeyALT = false;
+    } else if ($event.keyCode === 46 || ($event.keyCode === 8 && this.isKeyALT)) {
       const message = {
         kind: 'delete-current-object',
       };

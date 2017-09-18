@@ -49,8 +49,24 @@ export class NewApplicationComponent implements OnInit {
       return;
     }
     const applicationFolder = this.workspaceFolderPath + '/' + this.applicationName;
-    this.appDataService.createNewApplication(applicationFolder, this.applicationName);
-    this.router.navigate(['/application', applicationFolder]);
+
+
+
+    const checkFolderPath = this.workspaceFolderPath + '/' + this.applicationName;
+    const haveFolder = this.appDataService.haveFile(checkFolderPath);
+    let result = true;
+    if (haveFolder) {
+      result = confirm('The folder is not empty. will you override it?');
+    }
+
+    if (result) {
+
+      this.appDataService.deleteFile(applicationFolder);
+      this.appDataService.createNewApplication(applicationFolder, this.applicationName);
+      this.router.navigate(['/application', applicationFolder]);
+    }
+
+
   }
 
 

@@ -304,7 +304,7 @@
                         <label>alpha</label>
                         <div class="property-input">
                             <input type="number" [(ngModel)]="selectedState.alpha">
-                       
+
                         </div>
                     </div>
 
@@ -328,14 +328,14 @@
             <!-- transform@ -->
 
             <!--code -->
-            <div (click)="toggleShowCode()" class="label-properties-2" style="margin-bottom:15px;">
+            <!-- <div (click)="toggleShowCode()" class="label-properties-2" style="margin-bottom:15px;">
                 Code
                 <i class="fa fa-sort-desc"></i>
             </div>
             <div *ngIf="selectedState&&needShowCode&&objectLayoutData">
                 <button class="btn-copy" [clip]="objectLayoutData" (onClip)="callback($event)"><i class="fa fa-copy" style="margin-right:3px;"></i>copy</button>
                 <handy-syntax-highlighter *ngIf="objectLayoutData" [language]="'java'" [content]="objectLayoutData"></handy-syntax-highlighter>
-            </div>
+            </div> -->
             <!--code@ -->
         </div>
 

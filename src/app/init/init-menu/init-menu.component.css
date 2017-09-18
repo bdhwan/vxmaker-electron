@@ -1,21 +1,20 @@
 .menu-main-list button {
-background: transparent;
-font-size: 15px;
-font-weight: 400;
-color:#fff;
-text-shadow: 0px 0px 11px rgba(0,0,0,0.45);
-border:none;
+    background: transparent;
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+    text-shadow: 0px 0px 11px rgba(0, 0, 0, 0.45);
+    border: none;
 }
 
 .menu-main-list button:hover {
     cursor: pointer;
-    color:#ececec;
+    color: #ececec;
 }
 
 .menu-main-list {
     margin-top: 25px;
-max-width:270px;
-
+    max-width: 270px;
 }
 
 #center {
@@ -24,7 +23,7 @@ max-width:270px;
 }
 
 .vc {
-    max-height:400px;
+    max-height: 400px;
     top: 0;
     bottom: 0;
     margin-top: auto;
@@ -40,8 +39,9 @@ max-width:270px;
 }
 
 .menu-main-list .main-img {
-    width:140px;
+    width: 140px;
 }
+
 
 /*.hc {
     max-width: 280px;
@@ -65,12 +65,10 @@ max-width:270px;
     z-index: 9999!important;
 }*/
 
-.menu-list  div img {
-    width:35px;
-    padding:6px;
+.menu-list div img {
+    width: 35px;
+    padding: 6px;
 }
-
-
 
 .menu-list {
     vertical-align: middle;

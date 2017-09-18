@@ -2018,15 +2018,20 @@ export class ApplicationDataServiceService {
   getStateAnimationString(event) {
     const fromState = this.findStateByStateId(this.activityData, event.fromStateId);
     const toState = this.findStateByStateId(this.activityData, event.toStateId);
-    const object = this.findObjectById(toState.objectId);
+
     let result = '';
-    if (object && toState && fromState) {
-      console.log("have state");
-      result = this.getStateAnimationCode(object.resourceId, fromState, toState, event);
+    if (toState && fromState) {
+      const object = this.findObjectById(toState.objectId);
+
+      if (object && toState && fromState) {
+        console.log("have state");
+        result = this.getStateAnimationCode(object.resourceId, fromState, toState, event);
+      }
+      else {
+        console.log("null state");
+      }
     }
-    else {
-      console.log("null state");
-    }
+
     return result;
   }
 
@@ -2045,21 +2050,21 @@ export class ApplicationDataServiceService {
 
     //scale
     if (fromState.scaleX !== toState.scaleX) {
-      result += '.scaleX(' + (toState.scaleX | 1).toFixed(2) + ')';
+      result += '.scaleX(' + (toState.scaleX | 1).toFixed(2) + 'f)';
     }
     if (fromState.scaleY !== toState.scaleY) {
-      result += '.scaleY(' + (toState.scaleY | 1).toFixed(2) + ')';
+      result += '.scaleY(' + (toState.scaleY | 1).toFixed(2) + 'f)';
     }
 
     //rotate
     if (fromState.rotate !== toState.rotate) {
-      result += '.rotation(' + (toState.rotate | 0).toFixed(2) + ')';
+      result += '.rotation(' + (toState.rotate | 0).toFixed(2) + 'f)';
     }
     if (fromState.rotateX !== toState.rotateX) {
-      result += '.rotationX(' + (toState.rotateX | 0).toFixed(2) + ')';
+      result += '.rotationX(' + (toState.rotateX | 0).toFixed(2) + 'f)';
     }
     if (fromState.rotateY !== toState.rotateY) {
-      result += '.rotationY(' + (toState.rotateY | 0).toFixed(2) + ')';
+      result += '.rotationY(' + (toState.rotateY | 0).toFixed(2) + 'f)';
     }
 
     //width
@@ -2074,7 +2079,7 @@ export class ApplicationDataServiceService {
 
     //alpha
     if (fromState.alpha !== toState.alpha) {
-      result += '.alpha(' + (toState.alpha | 0).toFixed(2) + ')';
+      result += '.alpha(' + (toState.alpha | 0).toFixed(2) + 'f)';
     }
 
 
