@@ -11,28 +11,28 @@
 }
 
 .menu-list {
-   height:100%;
+    height:100%;
     background: #edf0f4;
-   max-width:280px;
- position: absolute;
-   overflow-y:auto;
-   overflow-x:hidden;
+    max-width:280px;
+    position: absolute;
+    overflow-y:auto;
+    overflow-x:hidden;
     float:left;
     padding-top: 46px;
 }
 
 .menu-main {
     height:100%;
-padding:30px;
-   overflow: hidden;
- margin-left: 250px;
- position: relative;
+    padding:30px;
+    overflow: hidden;
+    margin-left: 250px;
+    position: relative;
 }
 
 /*.menu-list + .menu-main {
     width:70%;
     float:left;
-    }*/
+}*/
 
 .version-info {
     position: absolute;
@@ -40,7 +40,7 @@ padding:30px;
     top:0;
     margin-top: 20px;
     margin-right: 20px;
-    font-size: 13px;
+    font-size: 12px;
     color:rgba(255,255,255,0.5);
 }
 
@@ -59,12 +59,12 @@ padding:30px;
 }
 
 .go-download p {
- font-size: 11px;
- color:rgba(255,255,255, 0.8);
- font-weight: lighter;
- float: right;
- margin: 6px;
- margin-top: 10px;
+    font-size: 11px;
+    color:rgba(255,255,255, 0.8);
+    font-weight: lighter;
+    float: right;
+    margin: 6px;
+    margin-top: 10px;
 }
 
 .go-download img {
