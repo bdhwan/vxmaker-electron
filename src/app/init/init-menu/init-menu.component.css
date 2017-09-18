@@ -3,13 +3,15 @@
     font-size: 15px;
     font-weight: 400;
     color: #fff;
-    text-shadow: 0px 0px 11px rgba(0, 0, 0, 0.45);
+    text-shadow: 0px 0px 11px rgba(0, 0, 0, 0.2);
     border: none;
 }
 
 .menu-main-list button:hover {
     cursor: pointer;
-    color: #ececec;
+    border: solid 1px;
+    border-radius: 4px;
+    background-color:rgba(255, 255, 255, 0.2);
 }
 
 .menu-main-list {
@@ -49,7 +51,7 @@
     right: 0;
     margin-left: auto;
     margin-right: auto;
-
+    
 }
 
 .vc {

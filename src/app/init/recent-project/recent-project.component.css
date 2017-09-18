@@ -7,13 +7,13 @@
     position: fixed;
     top:0;
     width:250px;
-background: #edf0f4;
+    background: #edf0f4;
 }
 
 .recent-project-list {
     padding:15px;
     border-bottom: 1px solid #ccc;
-width:250px;
+    width:250px;
 }
 
 .recent-project-list h5 {
@@ -31,6 +31,6 @@ width:250px;
 }
 
 .recent-project-list:hover {
- cursor: pointer;
- background: rgba(227,232,239,1);
+    cursor: pointer;
+    background: rgba(227,232,239,1);
 }
