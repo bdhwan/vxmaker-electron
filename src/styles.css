@@ -5,6 +5,7 @@
 body {
     font-family: 'spoqa', Arial, Helvetica, sans-serif; 
     /*font-family: 'Roboto', sans-serif;*/
+    background: white;
     margin: 0;
     line-height: 1.42857143;
 }
@@ -22,7 +23,10 @@ input, textarea, keygen, select, button {
 display: none;
 }
 
-::selection{background:#bec9e5;}
+::selection{
+    background:#46a2ba;
+    color:white;
+}
 
 :focus {
     outline: none;
