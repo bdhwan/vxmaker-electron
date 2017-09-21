@@ -3,9 +3,15 @@ http = require('http');
 url = require('url');
 
 
-http.createServer(function(req, res) {
+http.createServer(function (req, res) {
     var request = url.parse(req.url, true);
-    var action = decodeURIComponent(request.pathname);
+    var temp = decodeURIComponent(request.pathname) + '';
+    console.log("temp = " + temp);
+    var action = temp;
+    if(temp.startsWith('/')){
+        action = temp.replace('/', '');        
+    }
+    
     console.log("action = " + action);
 
     if (fs.existsSync(action)) {
