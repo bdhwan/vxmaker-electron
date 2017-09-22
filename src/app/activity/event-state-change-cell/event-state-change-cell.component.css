@@ -80,13 +80,13 @@ input:checked+.slider:before {
 }
 
 .event-time input {
-    width: 83px;
+    width: 80px;
     margin-left: 10px;
     background: #f1f1f1;
     border-radius: 3px;
     border: none;
     padding: 3px;
-        padding-left: 10px;
+    padding-left: 10px;
     padding-right: 10px;
 }
 
@@ -282,4 +282,21 @@ padding-top: 6px;
 .btn-code:hover {
     background: #ececec;
     cursor: pointer;
+}
+
+.btn-copy {
+    border: 1px solid #ccc!important;
+    color:#454545!important;
+    font-size: 12px!important;
+    padding: 3px 8px!important;
+    position: relative;
+    margin: 4px;
+    background: rgba(255,255,255,1)!important;
+    
+}
+
+.btn-copy:hover {
+    cursor: pointer;
+    color:#fff;
+    background:#f9f9f9!important;
 }
