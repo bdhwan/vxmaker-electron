@@ -4,7 +4,7 @@
     <div class="navbar">
         <button class="btn-back" (click)="clickBack()">◄ Back</button>
         <button class="btn-back" (click)="clickRoot()"><i class="fa fa-home"></i> Home</button>
-        <button class="btn-back btn-export" (click)="clickShowExport()"><i class="fa fa-share-square-o" style="margin-right:3px;"></i>Export</button>
+        <button class="btn-back btn-export" (click)="clickShowExport()"><i class="fa fa-external-link"></i>Export</button>
 
     </div>
 
@@ -96,7 +96,7 @@
 
                 <div class="export-popup-nav">
                     <div class="export-text">
-                        <span>Export</span> for developer
+                        <span>Export</span>  for developer
                     </div>
                 </div>
 
@@ -121,8 +121,8 @@
                 </div>
                 <div class="export-popup-footer">
                     <div class="btn-new-save">
-                        <button class="export-popup-delete" (click)="clickHideExport()">Cancel</button>
-                        <button (click)="clickExport()">export </button>
+                        <button class="export-popup-cancel" (click)="clickHideExport()">Cancel</button>
+                        <button (click)="clickExport() "class="final-export">Export </button>
                     </div>
                 </div>
             </div>
