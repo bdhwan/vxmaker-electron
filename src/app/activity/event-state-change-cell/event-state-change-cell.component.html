@@ -101,7 +101,7 @@
             <div>
                 <button class="btn-code" (click)="toggleShowCode()">code<i class="fa fa-sort-desc"></i></button>
                 <div *ngIf="needShowCode&&stateChangeAnimationCode">
-                    <button [clip]="stateChangeAnimationCode" (onClip)="callback($event)">copy</button>
+                    <button class="btn-copy" [clip]="stateChangeAnimationCode" (onClip)="callback($event)">copy</button>
                     <handy-syntax-highlighter *ngIf="stateChangeAnimationCode" [language]="'java'" [content]="stateChangeAnimationCode"></handy-syntax-highlighter>
 
                     powered by viewpropertyobjectanimator from blipinsk

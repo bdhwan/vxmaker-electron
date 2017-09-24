@@ -8,10 +8,13 @@ body {
     background: white;
     margin: 0;
     line-height: 1.42857143;
+    word-spacing: 1px;
+    letter-spacing: .4px;
 }
 
 input, textarea, keygen, select, button {
     font-family: 'spoqa', Arial, Helvetica, sans-serif; 
+    letter-spacing: .4px
     /*font-family: 'Roboto', sans-serif;*/
 }
 
