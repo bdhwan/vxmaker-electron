@@ -1,7 +1,7 @@
 {
     "name": "MailSent",
     "type": "MailSent",
-    "icon": "assets/images/ic_lottie_meailsent.png",
+    "icon": "assets/images/ic_lottie_mailsent.png",
 
     "objectProperties": [{
             "name": "type",
