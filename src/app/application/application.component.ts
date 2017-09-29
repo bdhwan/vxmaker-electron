@@ -210,7 +210,7 @@ export class ApplicationComponent implements OnInit, AfterViewInit, OnDestroy {
   clickDeleteActivity(activityId): void {
 
     const activityName = this.appDataService.getActivityName(activityId);
-    const result = confirm('will you delete ' + activityName + '?');
+    const result = confirm('Are you sure you want to delete "' +activityName+'"?\nOnce you delete it, you cannot recover it again.');
     if (result) {
       const index = this.findActivityPosition(activityId);
       this.applicationData.activityList.splice(index, 1);
