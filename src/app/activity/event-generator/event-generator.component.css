@@ -46,7 +46,7 @@
 
 .popup {
     margin: 70px auto;
- 
+    
     background: #fff;
     border-radius: 5px;
     width: 800px;
@@ -149,7 +149,7 @@
     height: 100%;
     padding-top: 50px;
     padding-bottom: 50px;
-  
+    
 }
 
 .popup .generator-footer {
@@ -162,7 +162,7 @@
     background: #fff;
     padding:12px;
     text-align: right;
-box-shadow: 0px -1px 6px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px -1px 6px 0px rgba(0,0,0,0.2);
 }
 
 .popup .generator-footer button {
@@ -174,24 +174,22 @@ box-shadow: 0px -1px 6px 0px rgba(0,0,0,0.2);
 }
 
 .popup .generator-footer button:hover {
-
- cursor: pointer;
- 
+    
+    cursor: pointer;
+    
     color:#46a2ba;
 }
 
 .popup .generator-nav {
     position: absolute;
-   top:0;
+    top:0;
     left:0;
     right:0;
     height: 50px;
     border-bottom: 1px solid #ececec;
     box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
     padding:12px;
-    font-weight: bold;
-      font-family: Tahoma, Arial, sans-serif;
-
+    font-weight: 600;    
 }
 
 .trigger-select {
@@ -204,13 +202,13 @@ box-shadow: 0px -1px 6px 0px rgba(0,0,0,0.2);
 .event-select {
     border-right: 1px solid #ececec;
     height: 100%;
-       background: #fff;
-           overflow-y: auto;
+    background: #fff;
+    overflow-y: auto;
 }
 
 .trigger-select img{
     width:40px;
-
+    
 }
 
 .trigger-select p {
@@ -219,7 +217,7 @@ box-shadow: 0px -1px 6px 0px rgba(0,0,0,0.2);
 
 .event-select img{
     width:40px;
-
+    
 }
 
 .event-select p {
@@ -231,14 +229,14 @@ box-shadow: 0px -1px 6px 0px rgba(0,0,0,0.2);
     padding:6px;
     text-align: center;
     border-bottom: 1px solid #ececec;
-        font-family: Tahoma, Arial, sans-serif;
-font-weight: bold;
-color:#454545;
-   background: #fff;
+    font-family: Tahoma, Arial, sans-serif;
+    font-weight: bold;
+    color:#454545;
+    background: #fff;
 }
 
 .trigger-intro {
-   height: 100%;
+    height: 100%;
     background: #dde3eb;
     padding:15px;
     padding-left: 36%;
@@ -250,7 +248,7 @@ color:#454545;
 }
 
 .event-intro {
-      height: 100%;
+    height: 100%;
     background: #dde3eb;
     padding: 20px;
     overflow-y: auto;
@@ -286,7 +284,7 @@ color:#454545;
 
 
 .btn-trigger:hover p{
-  margin-top: -20px;
+    margin-top: -20px;
 }
 
 
@@ -309,7 +307,7 @@ color:#454545;
 .detail-content select {
     width:100%;
     margin-top: 10px;
-        height: 30px;
+    height: 30px;
     border: #ccc 1px solid;
 }
 
@@ -324,7 +322,7 @@ color:#454545;
     font-size: 12px;
     border-bottom: 1px solid #ececec;
     font-family: Tahoma, Arial, sans-serif;
-font-weight: bold;
+    font-weight: bold;
 }
 
 .after-animation {
@@ -388,7 +386,7 @@ font-weight: bold;
     width: 240px;
     height: 400px;
     background: #dde3eb;
-   display: none;
+    display: none;
 }
 
 .event-hover p {
@@ -434,7 +432,7 @@ font-weight: bold;
 }
 .trigger-sub p {
     margin-top: 7px;
-
+    
 }
 
 .event-intro h4 {
@@ -442,5 +440,5 @@ font-weight: bold;
 }
 .event-intro p {
     margin-top: 7px;
-
+    
 }
