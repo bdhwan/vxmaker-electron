@@ -102,7 +102,7 @@ input:checked+.slider:before {
 /* 인터폴레이터 커브그래프 @*/
 
 .curve-input input {
-      width: 141px;
+    width: 141px;
     margin-bottom: 6px;
     background: #f1f1f1;
     border-radius: 3px;
@@ -113,12 +113,28 @@ input:checked+.slider:before {
 
 }
 
-.curve-input .input-left {
+.curve-input .input-start-x {
     margin-right: 4px;
+    color:#ffffff;
+    background-color: #ff0088;
 }
 
-.curve-input .input-right {
+.curve-input .input-start-y {
     margin-left: 4px;
+    color:#ffffff;
+    background-color: #ff0088;
+}
+
+.curve-input .input-end-x {
+    margin-right: 4px;
+    color:#ffffff;
+    background-color: #00aabb;
+}
+
+.curve-input .input-end-y {
+    margin-left: 4px;
+    color:#ffffff;
+    background-color: #00aabb;
 }
 
 .object-detail {
