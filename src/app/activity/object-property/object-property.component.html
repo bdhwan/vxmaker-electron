@@ -38,20 +38,20 @@
                     <div class="property-detail">
                         <label>text</label>
                         <div class="property-input">
-                            <input [(ngModel)]="selectedObject.contentText" placeholder="Write something" />
+                            <input [(ngModel)]="selectedObject.contentText" placeholder="Write something" (focus)="onFocus()" (blur)="onBlur()" />
                         </div>
                     </div>
                 </div>
                 <div class="property-detail">
                     <label>name</label>
                     <div class="property-input">
-                        <input [(ngModel)]="selectedObject.name">
+                        <input [(ngModel)]="selectedObject.name" (focus)="onFocus()" (blur)="onBlur()">
                     </div>
                 </div>
                 <div class="property-detail">
                     <label>background</label>
                     <div class="property-input">
-                        <input [(ngModel)]="selectedObject.backgroundColor">
+                        <input [(ngModel)]="selectedObject.backgroundColor" (focus)="onFocus()" (blur)="onBlur()">
                     </div>
                 </div>
             </div>
@@ -80,8 +80,8 @@
         <div *ngIf="selectedState">
             <!-- 타이포그래피 -->
 
-            <div [hidden]="true">
-                <div (click)="toggleShowText()" class="label-properties-2" style="margin-bottom:15px;">
+            <div>
+                <div (click)="toggleShowText()" ng-keyup="cancel($event)" class="label-properties-2" style="margin-bottom:15px;">
                     Typography
                     <i class="fa fa-sort-desc"></i>
                 </div>
@@ -90,25 +90,25 @@
                     <div class="property-detail">
                         <label>fontFamily</label>
                         <div class="property-input">
-                            <input />
+                            <input (focus)="onFocus()" (blur)="onBlur()" />
                         </div>
                     </div>
                     <div class="property-detail">
                         <label>style/size</label>
                         <div class="property-input">
-                            <input />
+                            <input (focus)="onFocus()" (blur)="onBlur()" />
                         </div>
                     </div>
                     <div class="property-detail">
                         <label>lineHeight</label>
                         <div class="property-input">
-                            <input />
+                            <input (focus)="onFocus()" (blur)="onBlur()" />
                         </div>
                     </div>
                     <div class="property-detail">
                         <label>fontColor</label>
                         <div class="property-input">
-                            <input />
+                            <input (focus)="onFocus()" (blur)="onBlur()" />
                         </div>
                     </div>
                 </div>
@@ -128,14 +128,14 @@
                     <div class="col-6">
                         <label>width</label>
                         <div class="property-input">
-                            <input type="number" [(ngModel)]="selectedState.width">
+                            <input type="number" [(ngModel)]="selectedState.width" (focus)="onFocus()" (blur)="onBlur()">
                             <p class="unit">px</p>
                         </div>
                     </div>
                     <div class="col-6">
                         <label>height</label>
                         <div class="property-input">
-                            <input type="number" [(ngModel)]="selectedState.height">
+                            <input type="number" [(ngModel)]="selectedState.height" (focus)="onFocus()" (blur)="onBlur()">
                             <p class="unit">px</p>
                         </div>
                     </div>
@@ -145,13 +145,13 @@
                     <div class="col-6">
                         <label>scaleX</label>
                         <div class="property-input">
-                            <input [(ngModel)]="selectedState.scaleX">
+                            <input [(ngModel)]="selectedState.scaleX" (focus)="onFocus()" (blur)="onBlur()">
                         </div>
                     </div>
                     <div class="col-6">
                         <label>scaleY</label>
                         <div class="property-input">
-                            <input [(ngModel)]="selectedState.scaleY">
+                            <input [(ngModel)]="selectedState.scaleY" (focus)="onFocus()" (blur)="onBlur()">
                         </div>
                     </div>
                 </div>
@@ -200,14 +200,14 @@
                     <div class="col-6">
                         <label>top</label>
                         <div class="property-input">
-                            <input type="number" [(ngModel)]="selectedState.marginTop">
+                            <input type="number" [(ngModel)]="selectedState.marginTop" (focus)="onFocus()" (blur)="onBlur()">
                             <p class="unit">px</p>
                         </div>
                     </div>
                     <div class="col-6">
                         <label>bottom</label>
                         <div class="property-input">
-                            <input type="number" [(ngModel)]="selectedState.marginBottom">
+                            <input type="number" [(ngModel)]="selectedState.marginBottom" (focus)="onFocus()" (blur)="onBlur()">
                             <p class="unit">px</p>
                         </div>
                     </div>
@@ -217,14 +217,14 @@
                     <div class="col-6">
                         <label>left</label>
                         <div class="property-input">
-                            <input type="number" [(ngModel)]="selectedState.marginLeft">
+                            <input type="number" [(ngModel)]="selectedState.marginLeft" (focus)="onFocus()" (blur)="onBlur()">
                             <p class="unit">px</p>
                         </div>
                     </div>
                     <div class="col-6">
                         <label>right</label>
                         <div class="property-input">
-                            <input type="number" [(ngModel)]="selectedState.marginRight">
+                            <input type="number" [(ngModel)]="selectedState.marginRight" (focus)="onFocus()" (blur)="onBlur()">
                             <p class="unit">px</p>
                         </div>
                     </div>
@@ -296,14 +296,14 @@
                     <div class="col-6">
                         <label>rotate</label>
                         <div class="property-input">
-                            <input type="number" [(ngModel)]="selectedState.rotate">
+                            <input type="number" [(ngModel)]="selectedState.rotate" (focus)="onFocus()" (blur)="onBlur()">
                             <p class="unit">deg</p>
                         </div>
                     </div>
                     <div class="col-6">
                         <label>alpha</label>
                         <div class="property-input">
-                            <input type="number" [(ngModel)]="selectedState.alpha">
+                            <input type="number" [(ngModel)]="selectedState.alpha" (focus)="onFocus()" (blur)="onBlur()">
 
                         </div>
                     </div>
@@ -312,14 +312,14 @@
                 <div class="property-detail">
                     <label>translationX</label>
                     <div class="property-input">
-                        <input type="number" [(ngModel)]="selectedState.translationX">
+                        <input type="number" [(ngModel)]="selectedState.translationX" (focus)="onFocus()" (blur)="onBlur()">
                         <p class="unit">px</p>
                     </div>
                 </div>
                 <div class="property-detail">
                     <label>translationY</label>
                     <div class="property-input">
-                        <input type="number" [(ngModel)]="selectedState.translationY">
+                        <input type="number" [(ngModel)]="selectedState.translationY" (focus)="onFocus()" (blur)="onBlur()">
                         <p class="unit">px</p>
                     </div>
                 </div>
