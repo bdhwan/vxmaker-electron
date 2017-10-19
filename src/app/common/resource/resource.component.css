@@ -341,8 +341,9 @@
     background: transparent;
     position: absolute;
     right:0;
-    border:none;
-    font-size: 18px;
+    border: none;
+    padding: 6px 10px;
+    font-size: 14px;
     color:#898989;
     top:0;
 }

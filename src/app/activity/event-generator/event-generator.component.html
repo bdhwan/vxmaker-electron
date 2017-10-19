@@ -20,15 +20,15 @@
 
                         <div class="btn-scroll">
 
-                            <div class="btn-trigger btn-click" (click)="clickTrigger('click')">
+                            <div class="btn-trigger btn-click" (click)="clickTrigger('click')" [ngClass]="'click'===currentSelectedTrigger?'selected-trigger':''">
                                 <img src="assets/images/btn_click.png" />
-                                <p>Tap</p>
+                                <p>Click</p>
                                 <div *ngIf="!triggerEvent" class='click-info trigger-hover'>
-                                    <h2>Tap</h2>
+                                    <h2>Click</h2>
                                     <p>Press once with one finger and lift immediately.</p>
                                 </div>
                             </div>
-                            <div class="btn-trigger btn-oncreate" (click)="clickTrigger('onCreate')">
+                            <div class="btn-trigger btn-oncreate" (click)="clickTrigger('onCreate')" [ngClass]="'onCreate'===currentSelectedTrigger?'selected-trigger':''">
                                 <img src="assets/images/btn_oncreate.png" />
                                 <p>onCreate</p>
                                 <div *ngIf="!triggerEvent" class="oncreate-info trigger-hover">
@@ -36,7 +36,7 @@
                                     <p>Executing an event at the same time that the Activity starts.</p>
                                 </div>
                             </div>
-                            <div class="btn-trigger btn-backkey" (click)="clickTrigger('backKey')">
+                            <div class="btn-trigger btn-backkey" (click)="clickTrigger('backKey')" [ngClass]="'backKey'===currentSelectedTrigger?'selected-trigger':''">
                                 <img src="assets/images/btn_backkey.png" />
                                 <p>backKey</p>
                                 <div *ngIf="!triggerEvent" class="backkey-info trigger-hover">
@@ -51,8 +51,8 @@
                     <div *ngIf="afterTriggerEventId" align="center">
                         <div class="generator-title">After Animation</div>
                         <div class="after-animation">
+                            <p>Select an event that occur consecutively after the event generated in</p>
                             <h3>{{getAfterAnimationTriggerText(afterTriggerEventId)}}</h3>
-                            <p>후 일어날 이벤트를 설정해 주세요.</p>
                         </div>
                     </div>
 
@@ -66,7 +66,7 @@
                         <p>A user action to trigger an event, such as changing the state of objects or switching between Activities. Select the trigger you want on the left.
                         </p>
 
-                        <h4>Tap</h4>
+                        <h4>Click</h4>
                         <p>Press once with one finger and lift immediately.</p>
                         <h4>OnCreate</h4>
                         <p>Executing an event at the same time that the Activity starts.</p>
@@ -86,11 +86,8 @@
                 <div *ngIf="triggerEvent " class="col-4">
                     <div class="generator-title">Event</div>
                     <div class="event-select ">
-
-
-
                         <div class="btn-scroll" style="padding-bottom:50px;">
-                            <div class="btn-trigger btn-stagechange" (click)="clickImplement('stageChange')">
+                            <div class="btn-trigger btn-stagechange" (click)="clickImplement('stageChange')" [ngClass]="'stageChange'===currentSelectedImpl?'selected-trigger':''">
                                 <img src="assets/images/btn_stagechange.png" />
                                 <p>stageChange</p>
                                 <div *ngIf="!implementEvent" class="stage-info event-hover">
@@ -98,7 +95,7 @@
                                     <p>All states such as object position, size, shape and color can be changed through 'StageChange'.</p>
                                 </div>
                             </div>
-                            <div class="btn-trigger btn-startactivity" (click)="clickImplement('startActivity')">
+                            <div class="btn-trigger btn-startactivity" (click)="clickImplement('startActivity')" [ngClass]="'startActivity'===currentSelectedImpl?'selected-trigger':''">
                                 <img src="assets/images/btn_startactivity.png" />
                                 <p>startActivity</p>
                                 <div *ngIf="!implementEvent" class="startactivity-info event-hover">
@@ -106,7 +103,7 @@
                                     <p>This event starts another new Activity. It is used to move from the current Activity to another Activity.</p>
                                 </div>
                             </div>
-                            <div class="btn-trigger btn-finishactivity" (click)="clickImplement('finishActivity')">
+                            <div class="btn-trigger btn-finishactivity" (click)="clickImplement('finishActivity')" [ngClass]="'finishActivity'===currentSelectedImpl?'selected-trigger':''">
                                 <img src="assets/images/btn_finishactivity.png" />
                                 <p>finishActivity</p>
                                 <div *ngIf="!implementEvent" class="finishactivity-info event-hover">

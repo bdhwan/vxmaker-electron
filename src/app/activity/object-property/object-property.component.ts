@@ -112,6 +112,29 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
 
   }
 
+  onFocus() {
+    console.log("focus");
+    const message = {
+      kind: 'focus'
+    };
+    this.broadcaster.broadcast('activity', message);
+
+  }
+
+  onBlur() {
+    console.log("blur");
+    const message = {
+      kind: 'blur'
+    };
+    this.broadcaster.broadcast('activity', message);
+  }
+
+
+
+  cancel($event) {
+    console.log("cancel");
+    $event.stopPropagation();
+  }
   ngAfterViewInit() {
     // this.imageComponent.setFileResourceVisible(false);
     // this.fileComponent.setImageResourceVisible(false);

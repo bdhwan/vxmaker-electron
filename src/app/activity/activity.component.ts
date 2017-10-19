@@ -106,14 +106,10 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   objectTypeData: any;
   defaultStateData;
-
-
   previewCss = {};
-
-
-
   messageListener;
 
+  haveInputFocus;
 
   constructor(
     private route: ActivatedRoute,
@@ -169,17 +165,13 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
             this.appDataService.deleteObject(objectId);
             this.onClickSave();
           }
-        } else if (kind === 'delete-current-object') {
-          const selectedObject = this.appDataService.getSelectedObject();
-          if (selectedObject) {
-            const objectId = selectedObject.id;
-            if (objectId !== 'root') {
-              this.appDataService.deleteObject(objectId);
-              this.notifySelectedObjectChanged();
-              this.objectTreeComponent.initObjectData();
-              this.onClickSave();
-            }
+        } else if (kind === 'delete-current-object-by-key') {
+          if (!this.haveInputFocus) {
+            this.deleteCurrentObject();
           }
+        } else if (kind === 'delete-current-object') {
+          this.deleteCurrentObject();
+
         } else if (kind === 'delete-event') {
           this.appDataService.deleteTriggerEventByTriggerEventId(message.triggerEventId);
           this.notifySelectedObjectChanged();
@@ -228,11 +220,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           this.onCloseEvent();
         } else if (kind === 'new-object') {
           this.clickNewObject(message.type);
-        }
-
-
-
-        else if (kind === 'new-event') {
+        } else if (kind === 'new-event') {
           this.onNewEvent();
         } else if (kind === 'detail-event') {
           const detailEvent = message.event;
@@ -255,8 +243,26 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           this.onDeleteStage(stage);
         } else if (kind === 'new-stage') {
           this.onNewStage();
+        } else if (kind === 'focus') {
+          this.haveInputFocus = true;
+        } else if (kind === 'blur') {
+          this.haveInputFocus = false;
         }
       });
+  }
+
+  deleteCurrentObject() {
+    const selectedObject = this.appDataService.getSelectedObject();
+    if (selectedObject) {
+      const objectId = selectedObject.id;
+      if (objectId !== 'root') {
+        this.appDataService.deleteObject(objectId);
+        this.notifySelectedObjectChanged();
+        this.objectTreeComponent.initObjectData();
+        this.onClickSave();
+      }
+    }
+
   }
 
   selectFile(dataUrl, target) {
@@ -498,13 +504,40 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.appDataService.saveActivityData(this.activityId, this.activityData);
   }
 
-  captureScreen() {
+
+  captureScreen2() {
     return new Promise((resolve, reject) => {
       const self = this;
       const fileName = 'preview/' + self.activityId + '.jpg';
       const filePath = self.applicationFolderPath + '/' + fileName;
       this.appDataService.captureScreen(288, 120, window.innerWidth - 288 - 320, window.innerHeight - 80 * 2, filePath).then(result => {
         // this.savePreviewImagePath(fileName);
+        resolve(fileName);
+      });
+    });
+  }
+  //  342, 447, 400, 600,
+  //  288, 120, 507, 858,
+
+  captureScreen() {
+    return new Promise((resolve, reject) => {
+      const self = this;
+      const fileName = 'preview/' + self.activityId + '.jpg';
+      const filePath = self.applicationFolderPath + '/' + fileName;
+      const centerWidth = window.innerWidth - 288 - 320;
+      const centerHeight = window.innerHeight - 100;
+      const captureWidth = 560;
+      const captureHeight = 840;
+      const centerX = 288 + centerWidth / 2;
+      const centerY = 100 + centerHeight / 2;
+
+
+      const x = centerX - captureWidth / 2;
+      const y = centerY - captureHeight / 2;
+      const w = captureWidth;
+      const h = captureHeight;
+      console.log(x + ',' + y + ',' + w + ',' + h);
+      this.appDataService.captureScreen(Number(x.toFixed(0)), Number(y.toFixed(0)), Number(w.toFixed(0)), Number(h.toFixed(0)), filePath).then(result => {
         resolve(fileName);
       });
     });

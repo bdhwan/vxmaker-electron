@@ -74,9 +74,6 @@ export class PreviewComponent implements OnInit {
       this.isKeyALT = true;
     }
 
-
-
-
   }
 
   keyUp($event) {
@@ -88,7 +85,7 @@ export class PreviewComponent implements OnInit {
       this.isKeyALT = false;
     } else if ($event.keyCode === 46 || ($event.keyCode === 8 && this.isKeyALT)) {
       const message = {
-        kind: 'delete-current-object',
+        kind: 'delete-current-object-by-key',
       };
       this.broadcaster.broadcast('activity', message);
     }

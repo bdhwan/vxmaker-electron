@@ -3,8 +3,8 @@
     <!-- nav bar top -->
     <div class="navbar">
         <button class="btn-back" (click)="clickBack()">◄ Back</button>
-        <button class="btn-back" (click)="clickRoot()"><i class="fa fa-home"></i> Home</button>
-        <button class="btn-back btn-export" (click)="clickShowExport()"><i class="fa fa-share-square-o" style="margin-right:3px;"></i>Export</button>
+        <button class="btn-home" (click)="clickRoot()"><i class="fa fa-home"></i> Home</button>
+        <button class="btn-back btn-export" (click)="clickShowExport()"><i class="fa fa-external-link"></i>Export</button>
 
     </div>
 
@@ -35,17 +35,17 @@
                     </div>
 
                     <div [hidden]="currentTab!=='AndroidManifest'">
-                        <button class="btn-copy" [clip]="manifestXml" (onClip)="callback($event)"><i class="fa fa-copy" style="margin-right:3px;"></i>Copy</button>
+                        <button class="btn-copy" [clip]="manifestXml" (onClip)="callback($event)"><i class="fa fa-clone" style="margin-right:3px;"></i>Copy</button>
                         <handy-syntax-highlighter *ngIf="manifestXml" [language]="'java'" [content]="manifestXml"></handy-syntax-highlighter>
                     </div>
 
                     <div [hidden]="currentTab!=='build'">
-                        <button class="btn-copy" [clip]="buildGradle" (onClip)="callback($event)"><i class="fa fa-copy" style="margin-right:3px;"></i>Copy</button>
+                        <button class="btn-copy" [clip]="buildGradle" (onClip)="callback($event)"><i class="fa fa-clone" style="margin-right:3px;"></i>Copy</button>
                         <handy-syntax-highlighter *ngIf="buildGradle" [language]="'java'" [content]="buildGradle"></handy-syntax-highlighter>
                     </div>
 
                     <div [hidden]="currentTab!=='strings'">
-                        <button class="btn-copy" [clip]="stringXml" (onClip)="callback($event)"><i class="fa fa-copy" style="margin-right:3px;"></i>Copy</button>
+                        <button class="btn-copy" [clip]="stringXml" (onClip)="callback($event)"><i class="fa fa-clone" style="margin-right:3px;"></i>Copy</button>
                         <handy-syntax-highlighter *ngIf="stringXml" [language]="'java'" [content]="stringXml"></handy-syntax-highlighter>
                     </div>
 
@@ -62,12 +62,12 @@
                     <div *ngFor="let aData of activityDataList">
                         <div [hidden]="aData.activityId!==currentActivityId">
                             <div [hidden]="currentActivityTab=='java'">
-                                <p style="font-size:13px;">{{aData.codeLayoutName}}.xml </p><button class="btn-copy" [clip]="aData.layout" (onClip)="callback($event)"><i class="fa fa-copy" style="margin-right:3px;"></i>Copy</button>
+                                <p style="font-size:13px;">{{aData.codeLayoutName}}.xml </p><button class="btn-copy" [clip]="aData.layout" (onClip)="callback($event)"><i class="fa fa-clone" style="margin-right:3px;"></i>Copy</button>
                                 <handy-syntax-highlighter [language]="'java'" [content]="aData.layout"></handy-syntax-highlighter>
                             </div>
                             <div [hidden]="currentActivityTab=='xml'">
                                 <p style="font-size:13px;"> {{aData.codeActivityName}}.java </p>
-                                <button class="btn-copy" [clip]="aData.java" (onClip)="callback($event)"><i class="fa fa-copy" style="margin-right:3px;"></i>Copy</button>
+                                <button class="btn-copy" [clip]="aData.java" (onClip)="callback($event)"><i class="fa fa-clone" style="margin-right:3px;"></i>Copy</button>
                                 <handy-syntax-highlighter [language]="'java'" [content]="aData.java"></handy-syntax-highlighter>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
 
                 <div class="export-popup-nav">
                     <div class="export-text">
-                        <span>Export</span> for developer
+                        <span>Export</span>  for developer
                     </div>
                 </div>
 
@@ -121,8 +121,8 @@
                 </div>
                 <div class="export-popup-footer">
                     <div class="btn-new-save">
-                        <button class="export-popup-delete" (click)="clickHideExport()">Cancel</button>
-                        <button (click)="clickExport()">export </button>
+                        <button class="export-popup-cancel" (click)="clickHideExport()">Cancel</button>
+                        <button (click)="clickExport() "class="final-export">Export </button>
                     </div>
                 </div>
             </div>
