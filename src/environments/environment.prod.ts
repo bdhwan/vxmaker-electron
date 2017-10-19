@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
   imgPrefix: 'file://',
-  guideMode: false
+  guideMode: false,
+  font_api_key: 'AIzaSyDe78EAz3NfRuZRe5Wxynk_a4WGN8rXMOY'
 };

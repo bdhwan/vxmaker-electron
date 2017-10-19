@@ -6,8 +6,8 @@
 export const environment = {
   production: false,
   imgPrefix: 'http://localhost:8080/',
-  guideMode: false
-
+  guideMode: false,
+  font_api_key: 'AIzaSyDe78EAz3NfRuZRe5Wxynk_a4WGN8rXMOY'
 };
 
 

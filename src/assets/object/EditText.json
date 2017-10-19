@@ -1,19 +1,19 @@
 {
-    "name": "TextView",
-    "type": "TextView",
+    "name": "EditText",
+    "type": "EditText",
     "icon": "assets/images/btn_text.png",
     "objectProperties": [
 
         {
             "name": "type",
             "type": "string",
-            "default": "TextView"
+            "default": "EditText"
         },
 
         {
             "name": "name",
             "type": "string",
-            "default": "TextView"
+            "default": "EditText"
         },
         {
             "name": "backgroundColor",
@@ -30,12 +30,6 @@
             "type": "int",
             "default": 20
         },
-        {
-            "name": "font",
-            "type": "string",
-            "default": ""
-        },
-
         {
             "name": "textColor",
             "type": "string",

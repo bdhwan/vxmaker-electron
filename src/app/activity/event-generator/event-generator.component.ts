@@ -29,6 +29,9 @@ export class EventGeneratorComponent implements OnInit {
   afterTriggerEventId;
   readyEvent = false;
   visibility = false;
+  currentSelectedTrigger;
+  currentSelectedImpl;
+
   constructor(private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) { }
 
   ngOnInit() {
@@ -37,6 +40,9 @@ export class EventGeneratorComponent implements OnInit {
 
 
   public resetData() {
+    this.currentSelectedTrigger = null;
+    this.currentSelectedImpl = null;
+
     this.afterTriggerEventId = null;
     this.triggerEvent = null;
     this.implementEvent = null;
@@ -132,6 +138,8 @@ export class EventGeneratorComponent implements OnInit {
 
   clickTrigger(target) {
     const id = 'trigger_' + UUID.UUID();
+    this.currentSelectedTrigger = target;
+
     this.triggerEvent = {
       id: id,
       stageId: this.currentSelectedStageId,
@@ -143,6 +151,7 @@ export class EventGeneratorComponent implements OnInit {
 
 
   clickImplement(target) {
+    this.currentSelectedImpl = target;
     const id = 'implement_' + UUID.UUID();
     this.implementEvent = {
       id: id,
