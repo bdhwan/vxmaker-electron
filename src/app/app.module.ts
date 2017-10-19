@@ -41,6 +41,7 @@ import { WindowProxyComponent } from './window-proxy/window-proxy.component';
 import { Ng2HandySyntaxHighlighterModule } from 'ng2-handy-syntax-highlighter';
 import { ClipModule } from 'ng2-clip';
 import { CodeExportComponent } from './code-export/code-export.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -94,6 +95,7 @@ const appRoutes: Routes = [
     CodeExportComponent
   ],
   imports: [
+    NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpModule,
