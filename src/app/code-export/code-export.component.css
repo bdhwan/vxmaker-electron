@@ -10,14 +10,47 @@
     margin-bottom: 0;
 }
 
-.navbar .btn-back {
+.navbar .btn-back, .navbar .btn-home {
+    float:left;
+    width: 90px;
     height: 50px;
     border: none;
     color: rgba(0, 0, 0, 0.5);
     background: none;
-    padding-left: 20px;
     font-size: 13px;
     font-weight: 600;
+}
+
+.navbar .btn-home {
+    border-left:solid 1px rgba(0,0,0,.1);
+}
+
+.navbar .btn-back:hover {
+    cursor: pointer;
+    background: #f9f9f9;
+}
+
+.navbar .btn-home:hover {
+    cursor: pointer;
+    background: #f9f9f9;
+}
+
+.navbar .btn-export {
+    float: right;
+    font-size: 12px;
+    color:#46a2ba;
+	font-weight: 600;
+	line-height: 1.3;
+    text-align: center;
+    
+    width: 54px;
+    height:50px;
+    background: none;
+    border-left:solid 1px rgba(0,0,0,.1);
+    padding-top: 7px;
+	padding-left: 2px;
+	padding-right: 2px;
+	margin: 0;
 }
 
 .list-wrap {
@@ -279,7 +312,7 @@
 .export-code-wrap {
     background: #ffffff;
     margin:15px;
-position: relative;
+    position: relative;
     padding:10px;
     border-radius: 5px;
 }
@@ -330,16 +363,10 @@ position: relative;
     background: rgba(255,255,255,1)!important;
 }
 
-.navbar .btn-export {
-float: right;
-padding-right: 20px;
-font-weight: 600;
-color:#46a2ba;
-}
-
-.navbar .btn-back:hover {
-    cursor: pointer;
-    background: #f9f9f9;
+i.fa.fa-external-link{
+    font-size: 14px;
+    
+	vertical-align: bottom;
 }
 
 .export-popup-footer {
@@ -361,17 +388,38 @@ color:#46a2ba;
     padding: 12px;
 }
 
-.export-popup-footer .btn-new-save button {
+.export-popup-footer .btn-new-save .export-popup-cancel {
     background: transparent;
+    width: 70px;
+    padding: 1px 6px 1px 5px;
     border: none;
     font-size: 15px;
     font-weight: 600;
     color: #454545;
 }
 
-.export-popup-footer .btn-new-save button:hover {
+.export-popup-footer .btn-new-save .export-popup-cancel:hover {
     cursor: pointer;
     color:#46a2ba;
+} 
+
+.export-popup-footer .btn-new-save .final-export {
+    background: transparent;
+    width: 70px;
+    padding: 1px 6px 1px 5px;
+    border: solid 1px;
+    border-radius: 3px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #454545;
+}
+
+.export-popup-footer .btn-new-save .final-export:hover {
+    cursor: pointer;
+    border: solid 1px #46a2ba;
+    border-radius: 3px;
+    background: #46a2ba;
+    color:#fff;
 } 
 
 .export-popup-nav {
@@ -386,11 +434,12 @@ color:#46a2ba;
 
 .export-popup-nav .export-text {
     padding:13px;
-    font-weight: 600;
+    font-weight: 300;
     color:#898989;
 }
 
 .export-popup-nav .export-text span {
+    font-weight: 600;
     color:#46a2ba;
 }
 

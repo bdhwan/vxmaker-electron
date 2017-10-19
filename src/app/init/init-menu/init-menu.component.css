@@ -1,16 +1,26 @@
 .menu-main-list button {
+    /* color */
     background: transparent;
+    /* position */
+    position: relative;
+    top: 1px;
+    /* typo */
     font-size: 15px;
     font-weight: 400;
+    text-align:left;
     color: #fff;
-    text-shadow: 0px 0px 11px rgba(0, 0, 0, 0.2);
+    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    /* sytle */
+    width: 100%;
     border: none;
+    padding-right: 4px;
+    margin: 4px;
 }
 
 .menu-main-list button:hover {
     cursor: pointer;
-    border: solid 1px;
-    border-radius: 4px;
+    /* border: solid 1px; */
+    border-radius: 3px;
     background-color:rgba(255, 255, 255, 0.2);
 }
 
@@ -33,7 +43,7 @@
 }
 
 .hc {
-    max-width: 320px;
+    max-width: 280px;
     left: 0;
     right: 0;
     margin-left: auto;
@@ -68,8 +78,9 @@
 }*/
 
 .menu-list div img {
-    width: 35px;
-    padding: 6px;
+    width: 40px;
+    height: 25px;
+    padding-right: 15px;
 }
 
 .menu-list {

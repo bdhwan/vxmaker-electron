@@ -3,7 +3,14 @@
     margin-top: 20px;
 }
 
+.btn-icon>img{
+    border: 1px dashed rgba(0, 0, 0, .4);
+    border-radius: 10px;
+}
+
 .btn-icon-edit {
+    width: 26px;
+    height: 26px;
     position: absolute;
     bottom: -8px;
     right: 65px;
@@ -11,9 +18,7 @@
     border: 1px solid #ececec;
     border-radius: 4px;
     color: #898989;
-    padding: 0px;
-    padding: 2px 6px;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .btn-icon-edit:hover {

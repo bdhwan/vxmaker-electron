@@ -14,7 +14,6 @@
     font-weight: 600;
     padding: 6px 10px;
     background-color: #efeff0;
-    border-top: #dfdfe0 1px solid;
     border-bottom: #dfdfe0 1px solid;
     color: #454545;
     position: relative;
@@ -68,8 +67,8 @@
     color: #898989;
     padding-top: 7px;
     float: left;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 .btn-img button {
@@ -174,7 +173,7 @@
     float:left;
 }
 
-.property-input .input-text {
+.property-input .unit {
     position: absolute;
     right: 0;
     top: 0;

@@ -1,4 +1,5 @@
 <div *ngIf="viewMode==='application'" style="padding:15px;">
+    
     <div class="btn-icon" align="center">
         <img [src]="prefix+applicationFolderPath+'/'+applicationData.iconPath" width="100px" height="100px">
         <button class="btn-icon-edit" (click)="clickIcon()"><i class="fa fa-edit"></i></button>
@@ -26,6 +27,7 @@
 
 
 <div *ngIf="viewMode==='export'||viewMode==='guide'" style="padding:15px;" (click)="clickApplicationInfo()" [ngClass]="!currentActivityId?'application-current':''">
+        
     <div class="btn-icon" align="center">
         <img [src]="prefix+applicationFolderPath+'/'+applicationData.iconPath" width="100px" height="100px">
     </div>

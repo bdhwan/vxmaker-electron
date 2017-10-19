@@ -1,11 +1,12 @@
 .activities-top {
     height: 40px;
     background: #f5f6f7;
-    font-size: 15px;
+    font-size: 13px;
+    font-weight: 600;
     color: #898989;
     padding: 9px 15px;
     margin-bottom: 0px;
-    padding-top: 11px;
+    padding-top: 12px;
 }
 
 .activities-top p {
@@ -63,7 +64,7 @@
 }
 
 .activity-current .list-box-bottom button:hover{
-   background: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.5);
 }
 
 .list-box-left .list-box-bottom button {
@@ -98,10 +99,15 @@
 }
 
 .list-box-left .btn-trash{
+    width: 24px;
     background: transparent;
     border: none;   
-    padding: 5px;
-    font-size: 15px;
+    padding: 6px;
+    font-size: 12px;
+}
+
+i.fa.fa-trash{
+    font-size: 14px;
 }
 
 .list-box .list-text {
@@ -195,7 +201,7 @@
     color: #fff;
     border-radius: 50px;
     display: block;
-    border: 2px solid #fff;
+    border: 1.5px solid #fff;
     width: 110px;
     margin-left: auto;
     margin-right: auto;
@@ -238,30 +244,31 @@
 }
 
 .list-img .btn-home-on {
-     position: absolute;
+    position: absolute; 
     top: 0;
     left: 0;
     background: #46a2ba;
     /*background-image: url(../../../assets/images/homebutton_on.png);*/
     background-size: cover;
- margin-left: 8px;
-  margin-top: -5px;
+    margin-left: 8px;
+    margin-top: -5px;
     width:25px;
     height: 25px;
     padding:10px;
-
+    
 }
 
 .list-img .btn-home-on p {
-      margin: 0px;
+    margin: 0px;
     margin-top: -28px;
     font-size: 12px;
+    font-weight: 600;
     margin-left: -14px;
     color: #46a2ba;
 }
 
 .list-img .btn-home-on:after {
-        content: "";
+    content: "";
     width: 0;
     height: 0;
     position: absolute;
@@ -279,18 +286,18 @@
     background: #fff;
     /*background-image: url(../../../assets/images/homebutton_on.png);*/
     background-size: cover;
- margin-left: 8px;
-  margin-top: -5px;
+    margin-left: 8px;
+    margin-top: -5px;
     width:25px;
     height: 25px;
     padding:10px;
     -webkit-box-shadow: -1px -2px 5px -1px rgba(0,0,0,0.17);
--moz-box-shadow: -1px -2px 5px -1px rgba(0,0,0,0.17);
-box-shadow: -1px -2px 5px -1px rgba(0,0,0,0.17);
+    -moz-box-shadow: -1px -2px 5px -1px rgba(0,0,0,0.17);
+    box-shadow: -1px -2px 5px -1px rgba(0,0,0,0.17);
 }
 
 .list-img .btn-home:after {
-         content: "";
+    content: "";
     width: 0;
     height: 0;
     position: absolute;
@@ -303,7 +310,7 @@ box-shadow: -1px -2px 5px -1px rgba(0,0,0,0.17);
 
 .list-hover .btn-home:hover {
     background-image: url(../../../assets/images/homebutton_small.png);
- width:26px;
+    width:26px;
     height: 26px;
     cursor: pointer;
 }
@@ -323,7 +330,7 @@ box-shadow: -1px -2px 5px -1px rgba(0,0,0,0.17);
     right: 0;
     bottom: 0;
     margin-left: 280px;
-    margin-top: 110px;
+    margin-top: 110px;  
     min-width:800px;
 }
 
@@ -338,25 +345,25 @@ box-shadow: -1px -2px 5px -1px rgba(0,0,0,0.17);
     width:30px;
     height: 30px;
     background: #46a2ba;
-      position: relative;
-      float: left;
+    position: relative;
+    float: left;
 }
 
 .home-tag-wrap .home-tag img {
     width:20px;
-        margin-left: 5px;
+    margin-left: 5px;
     margin-top: 7px;
 }
 
 .home-tag-wrap p {
-        float: left;
+    float: left;
     margin-top: 9px;
     font-size: 13px;
     margin-left: 5px;
 }
 
 .home-tag:after {
-        content: "";
+    content: "";
     width: 0;
     height: 0;
     position: absolute;
@@ -368,7 +375,7 @@ box-shadow: -1px -2px 5px -1px rgba(0,0,0,0.17);
 }
 
 .list-box-export {
-
+    
     position: absolute;
     top: 0;
     left: 0;

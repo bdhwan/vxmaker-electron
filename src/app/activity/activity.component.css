@@ -48,6 +48,7 @@
 }
 
 .activity-nav .navbar-right {
+    margin-right:2px;
     float: right;
 }
 
@@ -94,10 +95,6 @@
     left: 0;
     border: none;
     color: #454545;
-}
-
-.activity-left .layer-tab {
-    border-bottom: 2px solid #ffffff;
 }
 
 .activity-left .layer-tab button {

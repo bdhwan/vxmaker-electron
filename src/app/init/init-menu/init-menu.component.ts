@@ -58,8 +58,8 @@ export class InitMenuComponent implements OnInit {
   }
 
 
-  clickGuide() {
-    this.router.navigate(['/guide/init']);
-  }
+  // clickGuide() {
+  //   this.router.navigate(['/guide/init']);
+  // }
 
 }
