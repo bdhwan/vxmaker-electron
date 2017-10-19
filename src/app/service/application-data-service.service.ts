@@ -42,7 +42,7 @@ export class ApplicationDataServiceService {
 
 
 
-  zoom = 0.2;
+  zoom = 0.26;
 
   templeteFolderPath = './assets/template';
   templateHash = {};

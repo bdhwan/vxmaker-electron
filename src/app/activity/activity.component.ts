@@ -526,8 +526,8 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
       const filePath = self.applicationFolderPath + '/' + fileName;
       const centerWidth = window.innerWidth - 288 - 320;
       const centerHeight = window.innerHeight - 100;
-      const captureWidth = 400;
-      const captureHeight = 600;
+      const captureWidth = 560;
+      const captureHeight = 840;
       const centerX = 288 + centerWidth / 2;
       const centerY = 100 + centerHeight / 2;
 
