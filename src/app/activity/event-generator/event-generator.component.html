@@ -22,9 +22,9 @@
 
                             <div class="btn-trigger btn-click" (click)="clickTrigger('click')">
                                 <img src="assets/images/btn_click.png" />
-                                <p>Tap</p>
+                                <p>Click</p>
                                 <div *ngIf="!triggerEvent" class='click-info trigger-hover'>
-                                    <h2>Tap</h2>
+                                    <h2>Click</h2>
                                     <p>Press once with one finger and lift immediately.</p>
                                 </div>
                             </div>
@@ -51,8 +51,8 @@
                     <div *ngIf="afterTriggerEventId" align="center">
                         <div class="generator-title">After Animation</div>
                         <div class="after-animation">
+                            <p>Select an event that occur consecutively after the event generated in</p>
                             <h3>{{getAfterAnimationTriggerText(afterTriggerEventId)}}</h3>
-                            <p>후 일어날 이벤트를 설정해 주세요.</p>
                         </div>
                     </div>
 
@@ -66,7 +66,7 @@
                         <p>A user action to trigger an event, such as changing the state of objects or switching between Activities. Select the trigger you want on the left.
                         </p>
 
-                        <h4>Tap</h4>
+                        <h4>Click</h4>
                         <p>Press once with one finger and lift immediately.</p>
                         <h4>OnCreate</h4>
                         <p>Executing an event at the same time that the Activity starts.</p>
