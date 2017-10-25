@@ -48,7 +48,11 @@ export class FontSelectComponent implements OnInit {
 
 
   toggleFamilyPanel() {
+
     this.showSelectFamily = !this.showSelectFamily;
+    if (this.showSelectFamily) {
+      this.selectedObject = this.appDataService.getSelectedObject();
+    }
   }
 
   getFont() {

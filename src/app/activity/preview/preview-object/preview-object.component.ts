@@ -47,6 +47,9 @@ export class PreviewObjectComponent implements OnInit {
 
   convertReadableString(text) {
     let readable = '';
+    if (!text) {
+      return '';
+    }
     for (let i = 0; i < text.length; ++i) {
       const code = text.charCodeAt(i);
       if (code == 10) {
