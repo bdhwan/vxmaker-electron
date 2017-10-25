@@ -230,6 +230,14 @@ export class PreviewComponent implements OnInit {
       }
     }
 
+    this.appDataService.getSelectedState().width = Math.round(this.appDataService.getSelectedState().width);
+    this.appDataService.getSelectedState().height = Math.round(this.appDataService.getSelectedState().height);
+    this.appDataService.getSelectedState().translationX = Math.round(this.appDataService.getSelectedState().translationX);
+    this.appDataService.getSelectedState().translationY = Math.round(this.appDataService.getSelectedState().translationY);
+    this.appDataService.getSelectedState().marginLeft = Math.round(this.appDataService.getSelectedState().marginLeft);
+    this.appDataService.getSelectedState().marginTop = Math.round(this.appDataService.getSelectedState().marginTop);
+
+
 
 
     this.beforeX = currentX;
@@ -324,8 +332,8 @@ export class PreviewComponent implements OnInit {
 
 
     return {
-      'margin-left': marginLeft + 'px',
-      'margin-top': marginTop + 'px',
+      'margin-left': marginLeft.toFixed(0) + 'px',
+      'margin-top': marginTop.toFixed(0) + 'px',
       'position': 'relative',
       'cursor': cursor
     };
