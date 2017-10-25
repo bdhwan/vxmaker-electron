@@ -518,9 +518,27 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   //  342, 447, 400, 600,
   //  288, 120, 507, 858,
+  getRootWidth() {
+    let zoom = this.appDataService.getZoom();
+    let rootState = this.appDataService.findStateByObjectId('root');
+    return rootState.width * zoom;
+  }
+
+
+  getRootHeight() {
+    let zoom = this.appDataService.getZoom();
+    let rootState = this.appDataService.findStateByObjectId('root');
+    return rootState.height * zoom;
+  }
+
+
+
 
   captureScreen() {
     return new Promise((resolve, reject) => {
+
+      console.log('w =' + this.getRootWidth() + ', ' + this.getRootHeight());
+
       const self = this;
       const fileName = 'preview/' + self.activityId + '.jpg';
       const filePath = self.applicationFolderPath + '/' + fileName;
@@ -530,7 +548,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
       const captureHeight = 840;
       const centerX = 288 + centerWidth / 2;
       const centerY = 100 + centerHeight / 2;
-
 
       const x = centerX - captureWidth / 2;
       const y = centerY - captureHeight / 2;

@@ -1,0 +1,36 @@
+<div *ngIf="selectedObject">
+    <div>
+
+        <div [ngStyle]="getPreviewStyle()">
+            this is sample text
+        </div>
+        <div class="font-text-box">
+            <button (click)="toggleFamilyPanel()">{{selectedObject.family}}</button>
+        </div>
+        <div class="font-text-box">
+            <button (click)="toggleVaiantPanel()">{{selectedObject.variant}}</button>
+        </div>
+    </div>
+
+    <div class="select-panel">
+        <div>
+            <div *ngIf="fontList">
+                <div class="font-panel font-panel-left" *ngIf="showSelectFamily">
+                    <div *ngFor="let item of fontList" (click)="clickSelectFamily(item)">
+                        <label class="test">{{item.family}}</label>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="selectedFont">
+                <div *ngIf="selectedFont.variants&&showSelectVariant">
+                    <div class="variants-panel font-panel-left">
+                        <div *ngFor="let item of selectedFont.variants; let index = index" (click)="clickSelectVariant(item)">
+                            {{item}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

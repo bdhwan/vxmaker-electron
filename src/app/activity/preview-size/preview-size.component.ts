@@ -15,7 +15,8 @@ export class PreviewSizeComponent implements OnInit {
 
   showZoom = false;
   showRootSize = false;
-
+  dpi;
+  showDpi;
   zoomLevel;
 
   rootWidth;
@@ -25,10 +26,12 @@ export class PreviewSizeComponent implements OnInit {
   constructor(private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) { }
 
   ngOnInit() {
+    this.dpi = this.appDataService.getDpi();
     this.zoomLevel = this.appDataService.getZoom() * 100;
   }
 
   onChangeData() {
+    this.dpi = this.appDataService.getDpi();
     this.zoomLevel = this.appDataService.getZoom() * 100;
 
     const rootState = this.appDataService.findStateByObjectId('root');
@@ -41,14 +44,28 @@ export class PreviewSizeComponent implements OnInit {
     this.zoomLevel = value;
     this.appDataService.setZoom(this.zoomLevel / 100);
     this.showZoom = false;
+    this.showDpi = false;
   }
 
   clickZoomToggle() {
     this.showZoom = !this.showZoom;
-    if (this.showRootSize) {
-      this.showRootSize = false;
-    }
+
+    this.showZoom = false;
+    this.showRootSize = false;
+
   }
+  clickDpiToggle() {
+    this.showDpi = !this.showDpi;
+    this.showRootSize = false;
+    this.showZoom = false;
+  }
+
+  changeDpi(value) {
+    this.dpi = value;
+    this.appDataService.setDpi(value);
+    this.showDpi = false;
+  }
+
 
   changeW(event) {
     console.log("changeW = " + this.rootWidth);

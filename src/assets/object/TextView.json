@@ -28,14 +28,33 @@
         {
             "name": "textSize",
             "type": "int",
-            "default": 20
+            "default": 10
         },
         {
-            "name": "font",
-            "type": "string",
-            "default": ""
+            "name": "lineSpacingExtra",
+            "type": "int",
+            "default": 0
         },
-
+        {
+            "name": "letterSpacing",
+            "type": "int",
+            "default": 0
+        },
+        {
+            "name": "family",
+            "type": "string",
+            "default": "Droid Sans"
+        },
+        {
+            "name": "variant",
+            "type": "string",
+            "default": "Droid Sans"
+        },
+        {
+            "name": "fontUrl",
+            "type": "string",
+            "default": "http://fonts.gstatic.com/s/droidsans/v8/rS9BT6-asrfjpkcV3DXf__esZW2xOQ-xsNqO47m55DA.ttf"
+        },
         {
             "name": "textColor",
             "type": "string",

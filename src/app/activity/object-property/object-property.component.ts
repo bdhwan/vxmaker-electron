@@ -52,7 +52,7 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
     'translationY'
   ];
 
-  needShowText = false;
+  needShowText = true;
   needShowSize = false;
   needShowMargin = false;
   needShowPadding = false;
@@ -167,6 +167,12 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
     };
     this.broadcaster.broadcast('activity', message);
     // this.onShowResourceDialog.emit(target);
+  }
+
+  clickSearchFont() {
+    this.appDataService.loadFontData().then(result => {
+      console.log("i got font = " + JSON.stringify(result['items']));
+    });
   }
 
   clickDownload(url) {

@@ -4,7 +4,6 @@ import { LottieAnimationViewComponent } from '../../lottie-animation-view/lottie
 import { environment } from '../../../../environments/environment';
 
 
-
 @Component({
   selector: 'app-preview-object',
   templateUrl: './preview-object.component.html',
@@ -36,10 +35,32 @@ export class PreviewObjectComponent implements OnInit {
 
   }
 
+  getFontStyle() {
+    return {
+      'font-family': this.objectData.family + '-' + this.objectData.variant,
+      'font-size': this.objectData.textSize + 'pt',
+      'color': this.objectData.textColor,
+      'line-height': (this.objectData.lineSpacingExtra) + 'px',
+      'letter-spacing': this.objectData.letterSpacing + 'px'
+    };
+  }
+
+  convertReadableString(text) {
+    let readable = '';
+    for (let i = 0; i < text.length; ++i) {
+      const code = text.charCodeAt(i);
+      if (code == 10) {
+        readable += '<br>';
+      } else if (code == 13) {
+        // readable += '<br>';
+      } else {
+        readable += text[i];
+      }
+    }
+    return readable;
+  }
+
   getObjectStyle() {
-
-
-
     if (this.objectData.type === 'LottieAnimationView') {
       if (this.objectData.dataUrl) {
         // const url = this.prefix + this.applicationFolderPath + '/' + this.objectData.dataUrl;

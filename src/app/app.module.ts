@@ -41,6 +41,7 @@ import { WindowProxyComponent } from './window-proxy/window-proxy.component';
 import { Ng2HandySyntaxHighlighterModule } from 'ng2-handy-syntax-highlighter';
 import { ClipModule } from 'ng2-clip';
 import { CodeExportComponent } from './code-export/code-export.component';
+import { FontSelectComponent } from './activity/font-select/font-select.component';
 
 
 
@@ -91,7 +92,8 @@ const appRoutes: Routes = [
     LottieAnimationViewComponent,
     GuideComponent,
     WindowProxyComponent,
-    CodeExportComponent
+    CodeExportComponent,
+    FontSelectComponent
   ],
   imports: [
 

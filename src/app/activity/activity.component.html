@@ -37,23 +37,20 @@
         <div class="activity-left">
 
             <div class="layer-tab">
-                    <button [ngClass]="isOpenActivityList?'selected-tab':''" (click)="setActivityListTab(true)">Application</button>
+                <button [ngClass]="isOpenActivityList?'selected-tab':''" (click)="setActivityListTab(true)">Application</button>
                 <button [ngClass]="!isOpenActivityList?'selected-tab':''" (click)="setActivityListTab(false)">Layer</button>
-               
+
             </div>
 
 
             <div *ngIf="applicationData" [hidden]="!isOpenActivityList">
                 <app-application-info [prefix]="prefix" [viewMode]="'activity'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"></app-application-info>
-                <app-activity-list #activityList [prefix]="prefix" [viewMode]="'activity'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath"
-                    [currentActivityId]="activityId"></app-activity-list>
+                <app-activity-list #activityList [prefix]="prefix" [viewMode]="'activity'" [applicationData]="applicationData" [applicationFolderPath]="applicationFolderPath" [currentActivityId]="activityId"></app-activity-list>
             </div>
 
             <div [hidden]="isOpenActivityList">
-                <app-object-tree #objectTree [prefix]="prefix" (onChangeNode)="onChangeNodeFromTree($event)" (onClickNewFile)="clickNewFile($event)"
-                    (onSelectNode)="onSelectNodeFromTree($event)"></app-object-tree>
-                <app-object-new #objectNew [prefix]="prefix" (onShowResourceDialog)="onShowResourceDialog($event)" (onClickNewObject)="clickNewObject($event)"
-                    (onChangeTreeData)="changeTreeData($event)"></app-object-new>
+                <app-object-tree #objectTree [prefix]="prefix" (onChangeNode)="onChangeNodeFromTree($event)" (onClickNewFile)="clickNewFile($event)" (onSelectNode)="onSelectNodeFromTree($event)"></app-object-tree>
+                <app-object-new #objectNew [prefix]="prefix" (onShowResourceDialog)="onShowResourceDialog($event)" (onClickNewObject)="clickNewObject($event)" (onChangeTreeData)="changeTreeData($event)"></app-object-new>
             </div>
         </div>
 
@@ -63,8 +60,7 @@
 
         <div class="activity-canvas" [style.width]="getPreviewWidth()" [style.height]="getPreviewHeight()">
             <app-stage-list #stageList [viewMode]="'activity'"></app-stage-list>
-            <app-preview #previewCanvas [prefix]="prefix" [viewMode]="'activity'" (onSelectNodeFromOther)="onSelectNodeFromOther($event)"
-                (onShowResourceDialog)="onShowResourceDialog($event)"></app-preview>
+            <app-preview #previewCanvas [prefix]="prefix" [viewMode]="'activity'" (onSelectNodeFromOther)="onSelectNodeFromOther($event)" (onShowResourceDialog)="onShowResourceDialog($event)"></app-preview>
 
         </div>
 
@@ -76,8 +72,7 @@
         <div class="activity-right" id="rightSide">
 
             <app-preview-size [viewMode]="'activity'" #previewSize></app-preview-size>
-            <app-object-property [viewMode]="'activity'" [applicationFolderPath]="applicationFolderPath" [prefix]="prefix" #objectProperty
-                (onShowResourceDialog)="onShowResourceDialog($event)" (onChangeTreeData)="changePropertyData($event)"></app-object-property>
+            <app-object-property [viewMode]="'activity'" [applicationFolderPath]="applicationFolderPath" [prefix]="prefix" #objectProperty (onShowResourceDialog)="onShowResourceDialog($event)" (onChangeTreeData)="changePropertyData($event)"></app-object-property>
             <app-event-list [viewMode]="'activity'" #eventList></app-event-list>
             <app-event-detail-stage-change [viewMode]="'activity'" #eventDetailStageChange></app-event-detail-stage-change>
             <app-event-detail-start-activity [viewMode]="'activity'" #eventDetailStartActivity></app-event-detail-start-activity>
@@ -88,7 +83,6 @@
         <!-- activity right@-->
 
     </div>
-
 
 
 </div>

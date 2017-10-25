@@ -41,7 +41,7 @@ export class ApplicationDataServiceService {
   deviceList = [];
 
 
-
+  dpi = 'xxxhdpi';
   zoom = 0.26;
 
   templeteFolderPath = './assets/template';
@@ -59,7 +59,7 @@ export class ApplicationDataServiceService {
 
   objectList;
   codeResult = {};
-
+  fontData;
 
   //template data hash
   templateDataHash = {};
@@ -248,10 +248,12 @@ export class ApplicationDataServiceService {
   }
 
   saveApplicationData(applicationData) {
+
     electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + '/app.json', applicationData);
   }
 
   saveActivityData(activityId, activityData) {
+    activityData.dpi = this.dpi;
     electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + '/activity/' + activityId + '.json', activityData);
   }
 
@@ -453,8 +455,9 @@ export class ApplicationDataServiceService {
     const ext = this.getFileExt(path);
     name = this.getUniuqeId(this.fileResourceList, name);
     return name + ext;
-
   }
+
+
 
 
 
@@ -527,6 +530,20 @@ export class ApplicationDataServiceService {
   }
 
 
+
+  loadFontData() {
+    return new Promise((resolve, reject) => {
+      const self = this;
+      if (this.fontData) {
+        resolve(this.fontData);
+      } else {
+        this.getHttpToJson('assets/fonts/webfonts.json').then(result => {
+          self.fontData = result;
+          resolve(self.fontData);
+        });
+      }
+    });
+  }
 
 
   loadInitDataFromFile() {
@@ -1150,7 +1167,13 @@ export class ApplicationDataServiceService {
   }
 
 
+  setDpi(value) {
+    this.dpi = value;
+  }
 
+  getDpi() {
+    return this.dpi;
+  }
   setZoom(value) {
     this.zoom = value;
   }

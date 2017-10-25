@@ -31,6 +31,21 @@
             "default": 20
         },
         {
+            "name": "family",
+            "type": "string",
+            "default": "Droid Sans"
+        },
+        {
+            "name": "weight",
+            "type": "string",
+            "default": "Droid Sans"
+        },
+        {
+            "name": "fontUrl",
+            "type": "string",
+            "default": "http://fonts.gstatic.com/s/droidsans/v8/rS9BT6-asrfjpkcV3DXf__esZW2xOQ-xsNqO47m55DA.ttf"
+        },
+        {
             "name": "textColor",
             "type": "string",
             "default": "#000000"
