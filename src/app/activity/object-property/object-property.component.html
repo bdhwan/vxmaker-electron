@@ -91,11 +91,11 @@
                 </div>
                 <div class="property-detail-wrap " [hidden]="!needShowText ">
                     <div class="property-detail ">
-                        <label>fontFamily</label>
+                        <label class="label-font-family">font-family / font-weight</label>
                         <app-font-select></app-font-select>
                     </div>
                     <div class="property-detail ">
-                        <label>style/size</label>
+                        <label>size</label>
                         <div class="property-input ">
                             <input (focus)="onFocus() " (blur)="onBlur() " [(ngModel)]="selectedObject.textSize" />
                         </div>
