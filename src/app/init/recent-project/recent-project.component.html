@@ -1,8 +1,7 @@
-<div [hidden]="!(recentProjects!=null )">
+<div [style.height.px]="getViewHeight()" class="recent-container">
     <p class="recent-project">Recent projects</p>
     <div class="recent-project-list" *ngFor="let application of recentProjects" (click)="clickApplication(application.applicationFolderPath)">
         <h5>{{application.applicationName}}</h5>
         <p>{{application.applicationFolderPath}}</p>
-
     </div>
 </div>

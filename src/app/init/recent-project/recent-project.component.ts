@@ -39,5 +39,9 @@ export class RecentProjectComponent implements OnInit {
     this.recentProjects = this.appDataService.getRecentProjectList();
   }
 
+  getViewHeight() {
+    return window.innerHeight;
+  }
+
 
 }

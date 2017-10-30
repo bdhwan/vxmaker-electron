@@ -41,7 +41,8 @@ export class PreviewObjectComponent implements OnInit {
       'font-size': this.objectData.textSize + 'pt',
       'color': this.objectData.textColor,
       'line-height': (this.objectData.lineSpacingExtra) + 'px',
-      'letter-spacing': this.objectData.letterSpacing + 'px'
+      'letter-spacing': this.objectData.letterSpacing + 'px',
+      'text-align': this.objectData.textAlign
     };
   }
 
