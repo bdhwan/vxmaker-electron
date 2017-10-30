@@ -52,8 +52,6 @@
                     </div>
                 </span>
 
-
-
                 <div class="property-detail">
                     <label>name</label>
                     <div class="property-input">
@@ -89,9 +87,9 @@
         </div>
 
 
-        <div *ngIf="selectedState&&(selectedObject.type=='TextView'||selectedObject.type=='EditText'||selectedObject.type=='Button')">
+        <div *ngIf="selectedState">
             <!-- 타이포그래피 -->
-            <div>
+            <div *ngIf="(selectedObject.type=='TextView'||selectedObject.type=='EditText'||selectedObject.type=='Button')">
                 <div (click)=" toggleShowText() " ng-keyup="cancel($event) " class="label-properties-2 " style="margin-bottom:15px; ">
                     Typography
                     <i class="fa fa-sort-desc "></i>
@@ -130,8 +128,6 @@
             <!-- 타이포그래피@ -->
 
             <!-- 사이즈 -->
-
-
             <div (click)="toggleShowSize() " class="label-properties-2 " style="margin-bottom:15px; ">
                 Size
                 <i class="fa fa-sort-desc "></i>
@@ -155,7 +151,7 @@
                     </div>
 
                 </div>
-                <div class="property-detail " [hidden]="true ">
+                <div class="property-detail ">
                     <div class="col-6 ">
                         <label>scaleX</label>
                         <div class="property-input ">
@@ -181,31 +177,31 @@
             </div>
 
             <div class="property-detail-wrap " [hidden]="!needShowMargin ">
-                <!-- 
-        <div class="property-detail ">
-          <label>top:</label>
-          <div class="property-input ">
-            <input [(ngModel)]="selectedState.marginTop ">
-          </div>
-        </div>
-        <div class="property-detail ">
-          <label>left:</label>
-          <div class="property-input ">
-            <input [(ngModel)]="selectedState.marginLeft ">
-          </div>
-        </div>
-        <div class="property-detail ">
-          <label>right:</label>
-          <div class="property-input ">
-            <input [(ngModel)]="selectedState.marginRight ">
-          </div>
-        </div>
-        <div class="property-detail ">
-          <label>bottom:</label>
-          <div class="property-input ">
-            <input [(ngModel)]="selectedState.marginBottom ">
-          </div>
-        </div> -->
+
+                <div class="property-detail ">
+                    <label>top:</label>
+                    <div class="property-input ">
+                        <input [(ngModel)]="selectedState.marginTop ">
+                    </div>
+                </div>
+                <div class="property-detail ">
+                    <label>left:</label>
+                    <div class="property-input ">
+                        <input [(ngModel)]="selectedState.marginLeft ">
+                    </div>
+                </div>
+                <div class="property-detail ">
+                    <label>right:</label>
+                    <div class="property-input ">
+                        <input [(ngModel)]="selectedState.marginRight ">
+                    </div>
+                </div>
+                <div class="property-detail ">
+                    <label>bottom:</label>
+                    <div class="property-input ">
+                        <input [(ngModel)]="selectedState.marginBottom ">
+                    </div>
+                </div>
 
                 <!-- property detail test -->
 
@@ -254,7 +250,7 @@
 
             <!-- padding -->
 
-            <!-- <div (click)="toggleShowPadding() " class="label-properties-2 " style="margin-bottom:15px; " [hidden]="true ">
+            <div (click)="toggleShowPadding() " class="label-properties-2 " style="margin-bottom:15px; " [hidden]="true ">
                 Padding
                 <i class="fa fa-sort-desc "></i>
             </div>
@@ -294,7 +290,7 @@
 
                 </div>
 
-            </div> -->
+            </div>
             <!--padding @ -->
 
             <!-- transform -->
@@ -342,14 +338,14 @@
             <!-- transform@ -->
 
             <!--code -->
-            <!-- <div (click)="toggleShowCode() " class="label-properties-2 " style="margin-bottom:15px; ">
+            <div (click)="toggleShowCode() " class="label-properties-2 " style="margin-bottom:15px; ">
                 Code
                 <i class="fa fa-sort-desc "></i>
             </div>
             <div *ngIf="selectedState&&needShowCode&&objectLayoutData ">
                 <button class="btn-copy " [clip]="objectLayoutData " (onClip)="callback($event) "><i class="fa fa-copy " style="margin-right:3px; "></i>copy</button>
                 <handy-syntax-highlighter *ngIf="objectLayoutData " [language]=" 'java' " [content]="objectLayoutData "></handy-syntax-highlighter>
-            </div> -->
+            </div>
             <!--code@ -->
         </div>
 
