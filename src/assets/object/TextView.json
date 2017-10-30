@@ -16,9 +16,14 @@
             "default": "TextView"
         },
         {
+            "name": "contentText",
+            "type": "string",
+            "default": "TextView"
+        },
+        {
             "name": "backgroundColor",
             "type": "string",
-            "default": "#d8d8d8"
+            "default": "#00000000"
         },
         {
             "name": "text",

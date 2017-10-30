@@ -16,9 +16,14 @@
             "default": "EditText"
         },
         {
+            "name": "contentText",
+            "type": "string",
+            "default": "EditText"
+        },
+        {
             "name": "backgroundColor",
             "type": "string",
-            "default": "#d8d8d8"
+            "default": "#00d8d8d8"
         },
         {
             "name": "text",

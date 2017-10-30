@@ -42,7 +42,7 @@ export class ApplicationDataServiceService {
 
 
   dpi = 'xxxhdpi';
-  zoom = 0.26;
+  zoom = 0.23;
 
   templeteFolderPath = './assets/template';
   templateHash = {};
