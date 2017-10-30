@@ -193,7 +193,8 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
     this.objectLayoutData = null;
     const self = this;
     setTimeout(function () {
-      self.objectLayoutData = self.appDataService.makeBeautify(self.appDataService.insertChild(self.selectedObject.id));
+      // self.objectLayoutData = self.appDataService.makeBeautify('<!--start code!-->' + self.appDataService.insertChild(self.selectedObject.id) + '\n<!--end code!-->');
+      self.objectLayoutData = self.appDataService.insertChild(self.selectedObject.id);
     }, 10);
 
   }
@@ -212,7 +213,10 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
       url: targetUrl
     };
     this.broadcaster.broadcast('activity', message);
+  }
 
+  pxToDp(value) {
+    return this.appDataService.pxToDp(value);
   }
 
 }
