@@ -138,15 +138,18 @@
                     <div class="col-6 ">
                         <label>width</label>
                         <div class="property-input ">
-                            <input type="number " [(ngModel)]="selectedState.width " (focus)="onFocus() " (blur)="onBlur() ">
+
+                            <input type="number " [(ngModel)]="selectedState.width" (focus)="onFocus() " (blur)="onBlur() ">
                             <p class="unit ">px</p>
+                            <label>{{pxToDp(selectedState.width)}}dp</label>
                         </div>
                     </div>
                     <div class="col-6 ">
                         <label>height</label>
                         <div class="property-input ">
-                            <input type="number " [(ngModel)]="selectedState.height " (focus)="onFocus() " (blur)="onBlur() ">
+                            <input type="number " [(ngModel)]="selectedState.height" (focus)="onFocus() " (blur)="onBlur() ">
                             <p class="unit ">px</p>
+                            <label>{{pxToDp(selectedState.height)}}dp</label>
                         </div>
                     </div>
 
@@ -178,7 +181,7 @@
 
             <div class="property-detail-wrap " [hidden]="!needShowMargin ">
 
-                <div class="property-detail ">
+                <!-- <div class="property-detail ">
                     <label>top:</label>
                     <div class="property-input ">
                         <input [(ngModel)]="selectedState.marginTop ">
@@ -201,7 +204,7 @@
                     <div class="property-input ">
                         <input [(ngModel)]="selectedState.marginBottom ">
                     </div>
-                </div>
+                </div> -->
 
                 <!-- property detail test -->
 
@@ -212,6 +215,7 @@
                         <div class="property-input ">
                             <input type="number " [(ngModel)]="selectedState.marginTop " (focus)="onFocus() " (blur)="onBlur() ">
                             <p class="unit ">px</p>
+                            <label>{{pxToDp(selectedState.marginTop)}}dp</label>
                         </div>
                     </div>
                     <div class="col-6 ">
@@ -219,6 +223,7 @@
                         <div class="property-input ">
                             <input type="number " [(ngModel)]="selectedState.marginBottom " (focus)="onFocus() " (blur)="onBlur() ">
                             <p class="unit ">px</p>
+                            <label>{{pxToDp(selectedState.marginBottom)}}dp</label>
                         </div>
                     </div>
                 </div>
@@ -229,6 +234,7 @@
                         <div class="property-input ">
                             <input type="number " [(ngModel)]="selectedState.marginLeft " (focus)="onFocus() " (blur)="onBlur() ">
                             <p class="unit ">px</p>
+                            <label>{{pxToDp(selectedState.marginLeft)}}dp</label>
                         </div>
                     </div>
                     <div class="col-6 ">
@@ -236,6 +242,7 @@
                         <div class="property-input ">
                             <input type="number " [(ngModel)]="selectedState.marginRight " (focus)="onFocus() " (blur)="onBlur() ">
                             <p class="unit ">px</p>
+                            <label>{{pxToDp(selectedState.marginRight)}}dp</label>
                         </div>
                     </div>
 

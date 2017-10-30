@@ -1444,39 +1444,60 @@ export class ApplicationDataServiceService {
     }
     return xmlString;
   }
+
+
   pxToDp(px) {
-    // const result = Number(px * (160 / 640));
-    // return result.toFixed(0);
-    return px;
+
+    let density = 1;
+    if (this.dpi === 'ldpi') {
+      density = 0.75;
+    } else if (this.dpi === 'mdpi') {
+      density = 1;
+    } else if (this.dpi === 'hdpi') {
+      density = 1.5;
+    } else if (this.dpi === 'xhdpi') {
+      density = 2;
+    } else if (this.dpi === 'xxhdpi') {
+      density = 3;
+    } else if (this.dpi === 'xxxhdpi') {
+      density = 4;
+    }
+
+    const result = Number(px / density);
+    return result.toFixed(0);
+
   }
 
+  ptToSp(pt) {
+    return pt * 20 / 9;
+  }
 
   getObjectString(object, state) {
 
     if (object.type === '#') {
       return '<FrameLayout\n' + this.getStateStringById(object, state) + '>\n';
     } else if (object.type === 'FrameLayout') {
-      return '\n<FrameLayout\n' + this.getStateStringById(object, state) + '>\n';
+      return '<FrameLayout\n' + this.getStateStringById(object, state) + '>\n';
     } else if (object.type === 'RelativeLayout') {
-      return '\n<RelativeLayout\n' + this.getStateStringById(object, state) + '>\n';
+      return '<RelativeLayout\n' + this.getStateStringById(object, state) + '>\n';
     } else if (object.type === 'LinearLayout') {
-      return '\n<LinearLayout\n' + this.getStateStringById(object, state) + '>\n';
+      return '<LinearLayout\n' + this.getStateStringById(object, state) + '>\n';
     } else if (object.type === 'ScrollView') {
-      return '\n<ScrollView\n' + this.getStateStringById(object, state) + '>\n';
+      return '<ScrollView\n' + this.getStateStringById(object, state) + '>\n';
     } else if (object.type === 'HorizontalScrollView') {
-      return '\n<HorizontalScrollView\n' + this.getStateStringById(object, state) + '>\n';
+      return '<HorizontalScrollView\n' + this.getStateStringById(object, state) + '>\n';
     } else if (object.type === 'ImageView') {
-      return '\n<ImageView\n' + this.getStateStringById(object, state) + ' />';
+      return '<ImageView\n' + this.getStateStringById(object, state) + ' />';
     } else if (object.type === 'Button') {
-      return '\n<Button\n' + this.getStateStringById(object, state) + ' />';
+      return '<Button\n' + this.getStateStringById(object, state) + ' />';
     } else if (object.type === 'TextView') {
-      return '\n<TextView\n' + this.getStateStringById(object, state) + ' />';
+      return '<TextView\n' + this.getStateStringById(object, state) + ' />';
     } else if (object.type === 'EditText') {
-      return '\n<EditText\n' + this.getStateStringById(object, state) + ' />';
+      return '<EditText\n' + this.getStateStringById(object, state) + ' />';
     } else if (object.type === 'LottieAnimationView') {
-      return '\n<com.airbnb.lottie.LottieAnimationView\n' + this.getStateStringById(object, state) + ' />';
+      return '<com.airbnb.lottie.LottieAnimationView\n' + this.getStateStringById(object, state) + ' />';
     } else if (object.type === 'VideoView') {
-      return '\n<VideoView\n' + this.getStateStringById(object, state) + ' />';
+      return '<VideoView\n' + this.getStateStringById(object, state) + ' />';
     }
     console.log('getObjectString finish');
     return '';
@@ -1489,21 +1510,14 @@ export class ApplicationDataServiceService {
     if (object.type === '#') {
       return '</FrameLayout >';
     } else if (object.type === 'FrameLayout') {
-
       return '</FrameLayout >';
     } else if (object.type === 'RelativeLayout') {
-
       return '</RelativeLayout >';
     } else if (object.type === 'LinearLayout') {
-
       return '</LinearLayout >';
-
     } else if (object.type === 'HorizontalScrollView') {
-
       return '</HorizontalScrollView >';
-
     } else if (object.type === 'ScrollView') {
-
       return '</ScrollView>';
     } else if (object.type === 'ImageView') {
       return '';
@@ -1514,12 +1528,16 @@ export class ApplicationDataServiceService {
 
   getStateStringById(object, state) {
 
-    const temp = 'px';
-    let result = '\n';
+    const temp = 'dp';
+    let result = '';
     if (state === null) {
       console.log('null state!!!');
     } else {
-      result = '\nandroid:id=\"@+id/' + object.resourceId + '\"\nandroid:layout_width=\"' + this.pxToDp(state.width) + temp + '\"\nandroid:layout_height=\"' + this.pxToDp(state.height) + temp + '\"\n';
+      let resourceId = object.resourceId;
+      if (!resourceId) {
+        resourceId = 'objectId';
+      }
+      result = 'android:id=\"@+id/' + resourceId + '\"\nandroid:layout_width=\"' + this.pxToDp(state.width) + temp + '\"\nandroid:layout_height=\"' + this.pxToDp(state.height) + temp + '\"\n';
       if (state.marginLeft) {
         result += 'android:layout_marginLeft=\"' + this.pxToDp(state.marginLeft) + temp + '\"\n';
       }
@@ -1548,7 +1566,8 @@ export class ApplicationDataServiceService {
 
       //TextView
       if (object.contentText) {
-        result += 'android:text=\"' + object.contentText + '\"\n';
+        const text = object.contentText.replace(/\n/gi, '\\n');
+        result += 'android:text=\"' + text + '\"\n';
       }
 
       if (object.textColor) {
@@ -1556,7 +1575,7 @@ export class ApplicationDataServiceService {
       }
 
       if (object.textSize) {
-        result += 'android:textSize=\"' + object.textSize + 'sp\"\n';
+        result += 'android:textSize=\"' + this.ptToSp(object.textSize).toFixed(0) + 'sp\"\n';
       }
 
 

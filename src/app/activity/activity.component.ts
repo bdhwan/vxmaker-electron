@@ -365,7 +365,11 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
         return this.checkEmptyActivityData();
-      }).then((result) => {
+      })
+      // .then(result => {
+      //   return this.appDataService.makeActivitySourceCode();
+      // })
+      .then((result) => {
         return this.initDataToView();
       }).then((result) => {
         this.notifySelectedObjectChanged();
