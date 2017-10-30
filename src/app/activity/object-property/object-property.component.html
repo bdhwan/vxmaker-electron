@@ -16,7 +16,6 @@
             </div>
 
             <div *ngIf="(selectedObject.type=='LottieAnimationView'||selectedObject.type=='VideoView')&&!selectedObject.fixResource">
-
                 <p>{{selectedObject.dataUrl}}</p>
                 <button [hidden]="viewMode=='guide'" (click)="clickSelectFile()"> FileSelect</button>
             </div>
@@ -33,16 +32,28 @@
                         <label>{{selectedObject.type}}</label>
                     </div>
                 </div>
-                <div *ngIf="selectedObject.type=='TextView'">
-
+                <span *ngIf="selectedObject.type=='TextView'">
                     <div class="property-detail">
                         <label>text</label>
-
                         <div class="property-input">
                             <textarea [(ngModel)]="selectedObject.contentText" placeholder="Write something" (focus)="onFocus()" (blur)="onBlur()"></textarea>
                         </div>
                     </div>
-                </div>
+
+                    <div class="property-detail">
+                    <label>text align</label>
+                    <div class="property-input">
+                        <div>
+                            <button style="float:left;width:50px;margin:0px;" (click)="clickTextAlign('left')" [disabled]="selectedObject.textAlign=='left'">left</button>
+                            <button style="float:left;width:50px;margin:0px;" (click)="clickTextAlign('center')" [disabled]="selectedObject.textAlign=='center'">center</button>
+                            <button style="float:left;width:50px;margin:0px;" (click)="clickTextAlign('right')" [disabled]="selectedObject.textAlign=='right'">right</button>
+                        </div>
+                    </div>
+                    </div>
+                </span>
+
+
+
                 <div class="property-detail">
                     <label>name</label>
                     <div class="property-input">
@@ -55,10 +66,6 @@
                         <input [(ngModel)]="selectedObject.backgroundColor" (focus)="onFocus()" (blur)="onBlur()">
                     </div>
                 </div>
-
-
-
-
             </div>
 
 

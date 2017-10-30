@@ -190,9 +190,6 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
       this.openSource = null;
     }
 
-
-
-
     this.objectLayoutData = null;
     const self = this;
     setTimeout(function () {
@@ -201,6 +198,9 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
 
   }
 
+  clickTextAlign(value) {
+    this.selectedObject.textAlign = value;
+  }
 
   callback($event) {
     console.log("done clip");
