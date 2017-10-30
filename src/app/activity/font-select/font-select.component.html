@@ -1,36 +1,40 @@
 <div *ngIf="selectedObject">
     <div>
-
-        <div [ngStyle]="getPreviewStyle()">
-            this is sample text
+        <div class="font-preview" [ngStyle]="getPreviewStyle()">
+                Preview font
         </div>
-        <div class="font-text-box">
-            <button (click)="toggleFamilyPanel()">{{selectedObject.family}}</button>
+        <div class="font-family-box">
+            <button (click)="toggleFamilyPanel()">{{selectedObject.family}}
+                    <i class="fa fa-sort-desc "></i>
+            </button>
         </div>
-        <div class="font-text-box">
-            <button (click)="toggleVaiantPanel()">{{selectedObject.variant}}</button>
+        <div class="font-variant-box">
+            <button (click)="toggleVaiantPanel()">{{selectedObject.variant}}
+                    <i class="fa fa-sort-desc "></i>
+            </button>
         </div>
     </div>
 
     <div class="select-panel">
-        <div>
-            <div *ngIf="fontList">
-                <div class="font-panel font-panel-left" *ngIf="showSelectFamily">
-                    <div *ngFor="let item of fontList" (click)="clickSelectFamily(item)">
-                        <label class="test">{{item.family}}</label>
-                    </div>
+
+        <div class="select-panel-left" *ngIf="fontList">
+            <div class="font-panel font-panel-left" *ngIf="showSelectFamily">
+                <div *ngFor="let item of fontList" (click)="clickSelectFamily(item)">
+                    <label class="test">{{item.family}}</label>
                 </div>
             </div>
-            <div *ngIf="selectedFont">
-                <div *ngIf="selectedFont.variants&&showSelectVariant">
-                    <div class="variants-panel font-panel-left">
-                        <div *ngFor="let item of selectedFont.variants; let index = index" (click)="clickSelectVariant(item)">
-                            {{item}}
-                        </div>
+        </div>
+        
+        <div class="select-panel-left" *ngIf="selectedFont">
+            <div *ngIf="selectedFont.variants&&showSelectVariant">
+                <div class="variants-panel font-panel-left">
+                    <div *ngFor="let item of selectedFont.variants; let index = index" (click)="clickSelectVariant(item)">
+                        {{item}}
                     </div>
                 </div>
             </div>
         </div>
+
 
     </div>
 </div>

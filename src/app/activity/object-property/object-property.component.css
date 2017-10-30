@@ -142,6 +142,10 @@
     overflow: hidden;
 }
 
+.property-detail .label-font-family{
+    width: 100%;
+}
+
 .property-detail-wrap {
     padding-top: 10px;
     padding-bottom: 10px;
