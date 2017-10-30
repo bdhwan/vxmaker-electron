@@ -32,16 +32,22 @@ export class PreviewObjectComponent implements OnInit {
   ngOnInit() {
     this.state = this.appDataService.findStateByObjectId(this.objectData.id);
     this.applicationFolderPath = this.appDataService.getApplicationPath();
-
+    this.zoom = this.appDataService.getZoom();
   }
 
+
+
   getFontStyle() {
+
+    // const lineSpacingExtra = (this.objectData.textSize * 1.333 + this.objectData.lineSpacingExtra) * this.zoom;
+
+    const lineSpacingExtra = (Number(this.objectData.textSize) * 1.3333 + Number(this.objectData.lineSpacingExtra)) * this.zoom;
     return {
       'font-family': this.objectData.family + '-' + this.objectData.variant,
-      'font-size': this.objectData.textSize + 'pt',
+      'font-size': Number(this.objectData.textSize * this.zoom) + 'pt',
       'color': this.objectData.textColor,
-      'line-height': (this.objectData.lineSpacingExtra) + 'px',
-      'letter-spacing': this.objectData.letterSpacing + 'px',
+      'line-height': (lineSpacingExtra) + 'px',
+      'letter-spacing': Number(this.objectData.letterSpacing * this.zoom) + 'px',
       'text-align': this.objectData.textAlign
     };
   }
@@ -53,10 +59,10 @@ export class PreviewObjectComponent implements OnInit {
     }
     for (let i = 0; i < text.length; ++i) {
       const code = text.charCodeAt(i);
-      if (code == 10) {
+      if (code === 10) {
         readable += '<br>';
-      } else if (code == 13) {
-        // readable += '<br>';
+      } else if (code === 13) {
+
       } else {
         readable += text[i];
       }
