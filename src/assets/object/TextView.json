@@ -56,6 +56,12 @@
             "default": "Droid Sans"
         },
         {
+            "name": "textAlign",
+            "type": "string",
+            "default": "left"
+        },
+
+        {
             "name": "fontUrl",
             "type": "string",
             "default": "http://fonts.gstatic.com/s/droidsans/v8/rS9BT6-asrfjpkcV3DXf__esZW2xOQ-xsNqO47m55DA.ttf"

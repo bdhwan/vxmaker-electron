@@ -30,9 +30,9 @@ let introWindow = null;
 
 
 let minWidth = 1280;
-let minHeight = 768;
+let minHeight = 840;
 let maxWidth = 1280;
-let maxHeight = 768;
+let maxHeight = 840;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.

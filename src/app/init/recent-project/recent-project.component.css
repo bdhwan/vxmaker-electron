@@ -1,19 +1,24 @@
+.recent-container {
+    background: #edf0f4;
+    width: 250px;
+}
+
 .recent-project {
-    padding:15px;
+    padding: 15px;
     font-size: 13px;
-    color:#a3a3a3;
+    color: #a3a3a3;
     border-bottom: 1px solid #ccc;
-    margin:0;
+    margin: 0;
     position: fixed;
-    top:0;
-    width:250px;
+    top: 0;
+    width: 250px;
     background: #edf0f4;
 }
 
 .recent-project-list {
-    padding:15px;
+    padding: 15px;
     border-bottom: 1px solid #ccc;
-    width:250px;
+    width: 250px;
 }
 
 .recent-project-list h5 {
@@ -23,8 +28,8 @@
 }
 
 .recent-project-list p {
-    color:#a3a3a3;
-    margin:0;
+    color: #a3a3a3;
+    margin: 0;
     font-size: 12px;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -32,5 +37,5 @@
 
 .recent-project-list:hover {
     cursor: pointer;
-    background: rgba(227,232,239,1);
+    background: rgba(227, 232, 239, 1);
 }
