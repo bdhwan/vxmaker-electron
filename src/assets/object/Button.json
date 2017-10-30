@@ -16,6 +16,11 @@
             "default": "Button"
         },
         {
+            "name": "contentText",
+            "type": "string",
+            "default": "Button"
+        },
+        {
             "name": "backgroundColor",
             "type": "string",
             "default": "#999999"
@@ -30,7 +35,6 @@
             "type": "int",
             "default": 20
         },
-     
         {
             "name": "textColor",
             "type": "string",
@@ -48,15 +52,15 @@
             "type": "int",
             "default": 400
         },
-           {
+        {
             "name": "borderRadius",
             "type": "int",
-            "default":50
+            "default": 50
         },
-            {
+        {
             "name": "fontWeight",
             "type": "string",
-            "default":"bold"
+            "default": "bold"
         },
         {
             "name": "height",

@@ -2,23 +2,25 @@
     "name": "EditText",
     "type": "EditText",
     "icon": "assets/images/btn_text.png",
-    "objectProperties": [
-
-        {
+    "objectProperties": [{
             "name": "type",
             "type": "string",
             "default": "EditText"
         },
-
         {
             "name": "name",
             "type": "string",
             "default": "EditText"
         },
         {
+            "name": "contentText",
+            "type": "string",
+            "default": "EditText"
+        },
+        {
             "name": "backgroundColor",
             "type": "string",
-            "default": "#d8d8d8"
+            "default": "#00d8d8d8"
         },
         {
             "name": "text",

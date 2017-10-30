@@ -13,7 +13,7 @@ import { MessageEventService } from '../../service/message-event.service';
 })
 export class RecentProjectComponent implements OnInit {
 
-  recentProjects;
+  recentProjects = [];
 
   constructor(
     private router: Router,
