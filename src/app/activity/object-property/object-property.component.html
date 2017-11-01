@@ -355,7 +355,7 @@
                 <i class="fa fa-sort-desc "></i>
             </div>
             <div *ngIf="selectedState&&needShowCode&&objectLayoutData ">
-                <button class="btn-copy " [clip]="objectLayoutData " (onClip)="callback($event) "><i class="fa fa-copy " style="margin-right:3px; "></i>copy</button>
+                <button class="btn-copy " [clip]="objectLayoutData " (onClip)="callback($event) "><i class="fa fa-clone " style="margin-right:3px; "></i>copy</button>
                 <handy-syntax-highlighter *ngIf="objectLayoutData " [language]=" 'java' " [content]="objectLayoutData "></handy-syntax-highlighter>
             </div>
             <!--code@ -->

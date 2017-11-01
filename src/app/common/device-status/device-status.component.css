@@ -61,8 +61,9 @@
 
 .device-status .nav-btn:hover {
 	background: rgba(0,0,0,.05);
-	cursor: pointer;
+	cursor: default;
 }
+
 
 .device-status .nav-btn-sending {
 	background: #46a2ba;

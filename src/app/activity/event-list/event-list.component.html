@@ -20,9 +20,8 @@
             <div *ngFor="let aEvent of triggerEventList" class="event-detail-wrap" (click)="clickDetailEvent(aEvent)">
 
                 <div class="event-detail" *ngIf="aEvent.implEvent">
-                   <h5> {{aEvent.name}}</h5>
 
-                    <div style="padding-top:5px; padding-bottom:5px;">
+                    <div class="selected-trigger">
                         <div *ngIf="aEvent.type==='click'">
                             <img src="assets/images/btn_click.png" />
                         </div>
@@ -36,11 +35,10 @@
                             <img src="assets/images/btn_afteranimation.png" />
                         </div>
 
-                        <!-- impl -->
-                        <span style="color:#898989;">{{aEvent.implEvent.name}}</span>
+                        <h5> {{aEvent.name}}</h5>
 
                     </div>
-                    <div style="padding-top:5px; padding-bottom:5px; padding-left:20px;">
+                    <div class="selected-event">
                         <div *ngIf="aEvent.implEvent.type==='stageChange'">
                             <img src="assets/images/btn_stagechange.png" />
                         </div>
@@ -50,14 +48,17 @@
                         <div *ngIf="aEvent.implEvent.type==='finishActivity'">
                             <img src="assets/images/btn_finishactivity.png" />
                         </div>
-                        <div *ngIf="aEvent.implEvent.type==='stageChange'">
-                                <span style="color:#898989;">{{aEvent.implEvent.fromStageName}} -> {{aEvent.implEvent.toStageName}}</span>
+                        <h5> {{aEvent.implEvent.name}}</h5>
+                        
+                    </div>
 
-                        </div>
+                    <div *ngIf="aEvent.implEvent.type==='stageChange'">
+                        <p>{{aEvent.implEvent.fromStageName}} <i class="fa fa-angle-right" style="color:#46a2ba;"></i> {{aEvent.implEvent.toStageName}}</p>
+
                     </div>
 
                     <div *ngIf="aEvent.implEvent.type==='startActivity'">
-                       <span style="color:#898989;"> {{aEvent.implEvent.toActivityName}}</span>
+                        <p><i class="fa fa-angle-right" style="color:#46a2ba;"></i> {{aEvent.implEvent.toActivityName}}</p>
                     </div>
 
                     <button class="btn-trash" (click)="clickDeleteEvent($event,aEvent)"><i class="fa fa-trash-o"></i></button>

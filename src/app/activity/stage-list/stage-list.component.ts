@@ -41,7 +41,7 @@ export class StageListComponent implements OnInit {
 
   clickDeleteStage(event, stage) {
     event.stopPropagation();
-    const result = confirm('Are you sure you want to delete this stage?\nAll events and properties of the corresponding stage will be deleted.');
+    const result = confirm('Do you really want to delete this stage?\nAll events and properties of the corresponding stage will be deleted.');
     if (result) {
       this.sendMessage('delete-stage', stage);
     }

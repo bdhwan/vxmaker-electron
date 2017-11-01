@@ -30,7 +30,7 @@
 }
 
 .tab-class:hover {
-    cursor: pointer;
+    cursor: default;
     
 }
 
@@ -60,7 +60,7 @@
 
 .btn-new-stage:hover {
     color:#fff;
-    cursor: pointer;
+    cursor: default;
 }
 
 .stage-list-wrap {

@@ -81,7 +81,8 @@
 }
 
 .go-event-detail:hover {
-    cursor: pointer;
+    cursor: default;
+
 }
 
 .go-event-detail .btn-trash {
@@ -92,23 +93,24 @@
     top:0;
     padding:12px 15px;
     margin-top: 5px;
+    margin-right: 5px;
 }
 
 .go-event-detail .btn-trash i {
-    font-size: 16px;
+    font-size: 15px;
     opacity: 0.3;
 }
 
-.go-event-detail .btn-trash:hover i {
-    opacity: 0.5;
-    cursor: pointer;
+.go-event-detail .btn-trash:hover{
+    background: rgba(0,0,0,.06);
+    cursor: default;
 }
 
 /* event-detail */
 
 .event-detail{
     overflow: hidden;
-    background: #f9fafb;
+    background: #transparent;
     font-size: 13px;
 }
 
@@ -128,11 +130,27 @@
 
 .event-detail-wrap {
     position: relative;
-    padding:12px 15px;
+    padding: 12px 15px;
     border-bottom: 1px solid #ececec;
+}
+
+.event-detail-wrap:hover {
+    background: rgba(0,0,0,.06);
+}
+
+
+.selected-trigger *, .selected-event *{
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .event-detail h5 {
     font-size: 13px;
     font-weight: 600;
+    margin: 0;
+}
+
+.event-detail p{
+    margin: 0;
+    padding-left: 32px;
 }

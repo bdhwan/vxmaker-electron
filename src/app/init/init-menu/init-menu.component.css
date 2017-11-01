@@ -18,7 +18,7 @@
 }
 
 .menu-main-list button:hover {
-    cursor: pointer;
+    cursor: default;
     /* border: solid 1px; */
     border-radius: 3px;
     background-color:rgba(255, 255, 255, 0.2);

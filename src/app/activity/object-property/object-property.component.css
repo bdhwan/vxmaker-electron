@@ -21,7 +21,7 @@
 }
 
 .label-properties-2:hover {
-    cursor: pointer;
+    cursor: default;
     background-color: #dededf;
 }
 
@@ -203,14 +203,18 @@
 }
 
 .btn-copy {
-    background: none;
-    border:1px solid #898989;
+    border: 1px solid #ccc!important;
+    font-size: 12px!important;
+    font-weight: 600;
+    color:#898989;
+    background: rgba(255,255,255,0.8)!important;
+    padding: 3px 8px!important;
     margin-left: 5px;
     margin-top: 5px;
 }
 
 .btn-copy:hover {
-    cursor: pointer;
-    background: #f1f1f1;
+    color:#454545!important;
+    background: rgba(255,255,255,1)!important;
 }
 

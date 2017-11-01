@@ -66,7 +66,7 @@ export class EventListComponent implements OnInit {
 
   clickDeleteEvent(event, triggerEvent) {
     event.stopPropagation();
-    const result = confirm('will you delete ' + triggerEvent.name + '?');
+    const result = confirm('Do you really want to remove this event triggered by ' + triggerEvent.name + '?');
     if (result) {
       const message = {
         kind: 'delete-event',
