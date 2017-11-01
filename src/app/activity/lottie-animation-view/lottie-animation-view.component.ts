@@ -61,8 +61,7 @@ export class LottieAnimationViewComponent implements OnInit {
 
     if (start === -1) {
       this.animationData = JSON.parse(temp);
-    }
-    else {
+    } else {
       const end = temp.indexOf('},renderer=');
       this.animationData = JSON.parse(temp.substr(start - 1, end));
 
