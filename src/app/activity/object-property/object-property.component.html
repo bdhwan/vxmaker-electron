@@ -60,9 +60,8 @@
                 </div>
                 <div class="property-detail">
                     <label>background</label>
-                    <div class="property-input">
-                        <input [(ngModel)]="selectedObject.backgroundColor" (focus)="onFocus()" (blur)="onBlur()">
-                    </div>
+                    <!-- <input style="float:right;width:183px;margin-right:16px;" [(colorPicker)]="selectedObject.backgroundColor" [cpPositionOffset]="'50%'" [cpPosition]="'left'" [cpAlphaChannel]="'always'" [style.background]="selectedObject.backgroundColor" [value]="selectedObject.backgroundColor"/> -->
+                    <input style="float:right;width:183px;margin-right:16px;" [(colorPicker)]="selectedObject.backgroundColor" [cpPositionOffset]="'0%'" [cpPosition]="'left'" [style.background]="selectedObject.backgroundColor" [value]="selectedObject.backgroundColor" />
                 </div>
             </div>
 
@@ -120,9 +119,7 @@
                     </div>
                     <div class="property-detail ">
                         <label>fontColor</label>
-                        <div class="property-input ">
-                            <input (focus)="onFocus() " (blur)="onBlur() " [(ngModel)]="selectedObject.textColor" />
-                        </div>
+                        <input style="float:right;width:183px;margin-right:16px;" [(colorPicker)]="selectedObject.textColor" [cpPositionOffset]="'50%'" [cpPosition]="'left'" [style.background]="selectedObject.textColor" [value]="selectedObject.textColor" />
                     </div>
                 </div>
             </div>
