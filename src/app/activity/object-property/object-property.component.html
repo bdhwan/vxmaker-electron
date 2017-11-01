@@ -103,6 +103,7 @@
                         <label>size</label>
                         <div class="property-input ">
                             <input (focus)="onFocus() " (blur)="onBlur() " [(ngModel)]="selectedObject.textSize" />
+                            <p class="unit ">pt</p>
                         </div>
                     </div>
                     <div class="property-detail ">
@@ -141,7 +142,9 @@
 
                             <input type="number " [(ngModel)]="selectedState.width" (focus)="onFocus() " (blur)="onBlur() ">
                             <p class="unit ">px</p>
-                            <label>{{pxToDp(selectedState.width)}}dp</label>
+                            <label class="value-dp">{{pxToDp(selectedState.width)}}</label>
+                            <span class="unit-dp">dp</span>
+                            
                         </div>
                     </div>
                     <div class="col-6 ">
@@ -149,7 +152,8 @@
                         <div class="property-input ">
                             <input type="number " [(ngModel)]="selectedState.height" (focus)="onFocus() " (blur)="onBlur() ">
                             <p class="unit ">px</p>
-                            <label>{{pxToDp(selectedState.height)}}dp</label>
+                            <label class="value-dp">{{pxToDp(selectedState.height)}}</label>
+                            <span class="unit-dp">dp</span>
                         </div>
                     </div>
 
@@ -215,7 +219,8 @@
                         <div class="property-input ">
                             <input type="number " [(ngModel)]="selectedState.marginTop " (focus)="onFocus() " (blur)="onBlur() ">
                             <p class="unit ">px</p>
-                            <label>{{pxToDp(selectedState.marginTop)}}dp</label>
+                            <label class="value-dp">{{pxToDp(selectedState.marginTop)}}</label>
+                            <span class="unit-dp">dp</span>
                         </div>
                     </div>
                     <div class="col-6 ">
@@ -223,7 +228,8 @@
                         <div class="property-input ">
                             <input type="number " [(ngModel)]="selectedState.marginBottom " (focus)="onFocus() " (blur)="onBlur() ">
                             <p class="unit ">px</p>
-                            <label>{{pxToDp(selectedState.marginBottom)}}dp</label>
+                            <label class="value-dp">{{pxToDp(selectedState.marginBottom)}}</label>
+                            <span class="unit-dp">dp</span>
                         </div>
                     </div>
                 </div>
@@ -234,7 +240,8 @@
                         <div class="property-input ">
                             <input type="number " [(ngModel)]="selectedState.marginLeft " (focus)="onFocus() " (blur)="onBlur() ">
                             <p class="unit ">px</p>
-                            <label>{{pxToDp(selectedState.marginLeft)}}dp</label>
+                            <label class="value-dp">{{pxToDp(selectedState.marginLeft)}}</label>
+                            <span class="unit-dp">dp</span>
                         </div>
                     </div>
                     <div class="col-6 ">
@@ -242,7 +249,8 @@
                         <div class="property-input ">
                             <input type="number " [(ngModel)]="selectedState.marginRight " (focus)="onFocus() " (blur)="onBlur() ">
                             <p class="unit ">px</p>
-                            <label>{{pxToDp(selectedState.marginRight)}}dp</label>
+                            <label class="value-dp">{{pxToDp(selectedState.marginRight)}}</label>
+                            <span class="unit-dp">dp</span>
                         </div>
                     </div>
 
