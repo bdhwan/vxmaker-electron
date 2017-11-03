@@ -1190,7 +1190,7 @@ export class ApplicationDataServiceService {
       'position': 'absolute',
       'width': state.width * this.zoom + 'px',
       'height': state.height * this.zoom + 'px',
-      'background-color': tempObjectData.backgroundColor,
+      'background-color': this.hexToRgbA(tempObjectData.backgroundColor),
       'opacity': state.alpha,
       'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
       'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
@@ -1198,6 +1198,35 @@ export class ApplicationDataServiceService {
     };
     return objectStyle;
   }
+
+  hexToRgbA(hex) {
+
+    // // Split to four channels
+    // var c = hex.match(/.{1,2}/g);
+
+    // // Function: to decimals (for RGB)
+    // var d = function (v) {
+    //   return parseInt(v, 16);
+    // };
+    // // Function: to percentage (for alpha), to 3 decimals
+    // var p = function (v) {
+    //   return parseFloat(parseInt((parseInt(v, 16) / 255) * 1000) / 1000);
+    // };
+
+    // // Check format: if it's argb, pop the alpha value from the end and move it to front
+    // var a, rgb = [];
+    // if ($('#format').val() == 'argb') {
+    //   c.unshift(c.pop());
+    // }
+
+    // // Convert array into rgba values
+    // a = p(c[3]);
+    // $.each(c.slice(0, 3), function (i, v) {
+    //   rgb.push(d(v));
+    // });
+    return hex;
+  }
+
 
 
   getSelectedObjectStyle(state) {

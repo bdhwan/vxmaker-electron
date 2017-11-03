@@ -1,28 +1,27 @@
 <div class="event-list">
-
-
+    
+    
     <div class="label-properties">
-
-
+        
+        
         <div class="col-8" style="padding-left: 0;">
             Event
         </div>
         <div class="col-4" align="right" style="padding:0;">
-            <div>
-                <img (click)="clickNewEvent()" src="assets/images/btn_motion_add.png" class="img-responsive">
+            <div class="add-new-event">
+                <p (click)="clickNewEvent()">Add</p>
             </div>
         </div>
     </div>
-
+    
     <div *ngIf="!selectedTriggerEvent">
         <!-- 이벤트리스트 -->
         <div *ngIf="triggerEventList" class="go-event-detail">
             <div *ngFor="let aEvent of triggerEventList" class="event-detail-wrap" (click)="clickDetailEvent(aEvent)">
-
+                
                 <div class="event-detail" *ngIf="aEvent.implEvent">
-                   <h5> {{aEvent.name}}</h5>
-
-                    <div style="padding-top:5px; padding-bottom:5px;">
+                    
+                    <div class="selected-trigger">
                         <div *ngIf="aEvent.type==='click'">
                             <img src="assets/images/btn_click.png" />
                         </div>
@@ -35,12 +34,11 @@
                         <div *ngIf="aEvent.type==='afterAnimation'">
                             <img src="assets/images/btn_afteranimation.png" />
                         </div>
-
-                        <!-- impl -->
-                        <span style="color:#898989;">{{aEvent.implEvent.name}}</span>
-
+                        
+                        <h5> {{aEvent.name}}</h5>
+                        
                     </div>
-                    <div style="padding-top:5px; padding-bottom:5px; padding-left:20px;">
+                    <div class="selected-event">
                         <div *ngIf="aEvent.implEvent.type==='stageChange'">
                             <img src="assets/images/btn_stagechange.png" />
                         </div>
@@ -50,30 +48,36 @@
                         <div *ngIf="aEvent.implEvent.type==='finishActivity'">
                             <img src="assets/images/btn_finishactivity.png" />
                         </div>
-                        <div *ngIf="aEvent.implEvent.type==='stageChange'">
-                                <span style="color:#898989;">{{aEvent.implEvent.fromStageName}} -> {{aEvent.implEvent.toStageName}}</span>
-
-                        </div>
+                        <h5> {{aEvent.implEvent.name}}</h5>
+                        
                     </div>
-
+                    
+                    <div *ngIf="aEvent.implEvent.type==='stageChange'">
+                        <p>{{aEvent.implEvent.fromStageName}} <i class="fa fa-angle-right" style="color:#46a2ba;"></i> {{aEvent.implEvent.toStageName}}</p>
+                        
+                    </div>
+                    
                     <div *ngIf="aEvent.implEvent.type==='startActivity'">
-                       <span style="color:#898989;"> {{aEvent.implEvent.toActivityName}}</span>
+                        <p><i class="fa fa-angle-right" style="color:#46a2ba;"></i> {{aEvent.implEvent.toActivityName}}</p>
                     </div>
-
-                    <button class="btn-trash" (click)="clickDeleteEvent($event,aEvent)"><i class="fa fa-trash-o"></i></button>
+                    
+                    <button class="btn-trash" (click)="clickDeleteEvent($event,aEvent)">
+                        <img src="assets/images/ic_trashcan.png">
+                    </button>
                 </div>
             </div>
             <!-- 이벤트리스트 @ -->
         </div>
-
-
-
+        
+        
+        
         <div *ngIf="!selectedTriggerEvent&&viewMode=='activity'" class="noti-addmotions">
-            <img src="assets/images/ic_motion.png" alt="add-motions">
             <a (click)="clickNewEvent()">
-                <h3>Add motion</h3>
+                <h3>+ new event</h3>
             </a>
+            <!-- <img src="assets/images/ic_motion.png" alt="add-motions"> -->
             <p>Select the object layer to trigger on first and proceed with this step.</p>
         </div>
-
+        
     </div>
+</div>

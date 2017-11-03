@@ -1,18 +1,21 @@
 <div *ngIf="!selectedTriggerEvent||viewMode=='guide'">
     <div class="object-property" style="padding-top:0;">
-        <div class="label-properties" style="margin-bottom:15px;">Properties</div>
+        <div class="label-properties">Properties</div>
         <div *ngIf="selectedObject" class="btn-img">
 
+            <div class="label-properties-2">Info</div>
             <!-- 이미지, 파일 선택버튼 -->
             <div *ngIf="selectedObject.type=='ImageView'">
                 <div *ngIf="selectedObject.dataUrl" class="img-selected">
-                    <img [src]="prefix+applicationFolderPath+'/'+selectedObject.dataUrl" />
+                    <div class="img-thumbnail">
+                        <img [src]="prefix+applicationFolderPath+'/'+selectedObject.dataUrl">
+                        <img src="./assets/images/ic_image_select.png" [hidden]="viewMode=='guide'" (click)="clickSelectImage()" class="btn-img-select">
+                    </div>
                     <div class="img-sub">
                         <p>{{selectedObject.dataUrl}}</p>
-                        <p class="img-sub-size" (click)="clickDownload(prefix+applicationFolderPath+'/'+selectedObject.dataUrl)">Donwload</p>
+                        <img src="./assets/images/ic_download_asset.png" class="img-sub-size" (click)="clickDownload(prefix+applicationFolderPath+'/'+selectedObject.dataUrl)">
                     </div>
                 </div>
-                <button [hidden]="viewMode=='guide'" (click)="clickSelectImage()"> ImageSelect</button>
             </div>
 
             <div *ngIf="(selectedObject.type=='LottieAnimationView'||selectedObject.type=='VideoView')&&!selectedObject.fixResource">
@@ -24,9 +27,8 @@
 
             <!-- 이미지, 파일 선택버튼@ -->
 
-            <div class="label-properties-2" style="margin-bottom:15px;">Info</div>
-            <div class="property-detail-wrap">
-                <div class="property-detail" style="margin-bottom:8px;" *ngIf="!selectedObject.fixResource">
+            <div class="property-detail-wrap" style="padding-top:5px;">
+                <div class="property-detail" style="margin-bottom:2px;" *ngIf="!selectedObject.fixResource">
                     <label>type</label>
                     <div class="property-input">
                         <label>{{selectedObject.type}}</label>
@@ -39,17 +41,6 @@
                             <textarea [(ngModel)]="selectedObject.contentText" placeholder="Write something" (focus)="onFocus()" (blur)="onBlur()"></textarea>
                         </div>
                     </div>
-
-                    <div class="property-detail">
-                    <label>text align</label>
-                    <div class="property-input">
-                        <div>
-                            <button style="float:left;width:50px;margin:0px;" (click)="clickTextAlign('left')" [disabled]="selectedObject.textAlign=='left'">left</button>
-                            <button style="float:left;width:50px;margin:0px;" (click)="clickTextAlign('center')" [disabled]="selectedObject.textAlign=='center'">center</button>
-                            <button style="float:left;width:50px;margin:0px;" (click)="clickTextAlign('right')" [disabled]="selectedObject.textAlign=='right'">right</button>
-                        </div>
-                    </div>
-                    </div>
                 </span>
 
                 <div class="property-detail">
@@ -60,9 +51,8 @@
                 </div>
                 <div class="property-detail">
                     <label>background</label>
-                    <div class="property-input">
-                        <input [(ngModel)]="selectedObject.backgroundColor" (focus)="onFocus()" (blur)="onBlur()">
-                    </div>
+                    <!-- <input style="float:right;width:183px;margin-right:16px;" [(colorPicker)]="selectedObject.backgroundColor" [cpPositionOffset]="'50%'" [cpPosition]="'left'" [cpAlphaChannel]="'always'" [style.background]="selectedObject.backgroundColor" [value]="selectedObject.backgroundColor"/> -->
+                    <input style="float:right;width:183px;margin-right:16px;" [(colorPicker)]="selectedObject.backgroundColor" [cpPositionOffset]="'0%'" [cpPosition]="'left'" [style.background]="selectedObject.backgroundColor" [value]="selectedObject.backgroundColor" />
                 </div>
             </div>
 
@@ -75,7 +65,7 @@
 
 
         <div *ngIf="openSource">
-            <div class="label-properties-2" style="margin-top:15px;margin-bottom:15px;">
+            <div class="label-properties-2">
                 Open Source
             </div>
             <div class="opensource-info">
@@ -90,7 +80,7 @@
         <div *ngIf="selectedState">
             <!-- 타이포그래피 -->
             <div *ngIf="(selectedObject.type=='TextView'||selectedObject.type=='EditText'||selectedObject.type=='Button')">
-                <div (click)=" toggleShowText() " ng-keyup="cancel($event) " class="label-properties-2 " style="margin-bottom:15px; ">
+                <div (click)=" toggleShowText() " ng-keyup="cancel($event) " class="label-properties-2">
                     Typography
                     <i class="fa fa-sort-desc "></i>
                 </div>
@@ -103,6 +93,28 @@
                         <label>size</label>
                         <div class="property-input ">
                             <input (focus)="onFocus() " (blur)="onBlur() " [(ngModel)]="selectedObject.textSize" />
+                            <p class="unit ">pt</p>
+                        </div>
+                    </div>
+                    <div class="property-detail ">
+                        <label>fontColor</label>
+                        <button class="color-picker" [(colorPicker)]="selectedObject.textColor" [cpPosition]="'left'" [cpPositionOffset]="'50%'" [style.background]="selectedObject.textColor"></button>
+                        <label style="float:right;width:120px;text-align:center;">{{selectedObject.textColor}}</label>
+                    </div>
+                    <div class="property-detail">
+                        <label>text align</label>
+                        <div class="property-input">
+                            <div class="btn-align">
+                                <button (click)="clickTextAlign('left')" [disabled]="selectedObject.textAlign=='left'">
+                                    <img src="./assets/images/ic_align_left.png">
+                                </button>
+                                <button (click)="clickTextAlign('center')" [disabled]="selectedObject.textAlign=='center'">
+                                    <img src="./assets/images/ic_align_center.png">
+                                </button>
+                                <button (click)="clickTextAlign('right')" [disabled]="selectedObject.textAlign=='right'">
+                                    <img src="./assets/images/ic_align_right.png">
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div class="property-detail ">
@@ -117,18 +129,12 @@
                             <input (focus)="onFocus() " (blur)="onBlur() " [(ngModel)]="selectedObject.letterSpacing" />
                         </div>
                     </div>
-                    <div class="property-detail ">
-                        <label>fontColor</label>
-                        <div class="property-input ">
-                            <input (focus)="onFocus() " (blur)="onBlur() " [(ngModel)]="selectedObject.textColor" />
-                        </div>
-                    </div>
                 </div>
             </div>
             <!-- 타이포그래피@ -->
 
             <!-- 사이즈 -->
-            <div (click)="toggleShowSize() " class="label-properties-2 " style="margin-bottom:15px; ">
+            <div (click)="toggleShowSize() " class="label-properties-2">
                 Size
                 <i class="fa fa-sort-desc "></i>
             </div>
@@ -141,7 +147,9 @@
 
                             <input type="number " [(ngModel)]="selectedState.width" (focus)="onFocus() " (blur)="onBlur() ">
                             <p class="unit ">px</p>
-                            <label>{{pxToDp(selectedState.width)}}dp</label>
+                            <label class="value-dp">{{pxToDp(selectedState.width)}}</label>
+                            <span class="unit-dp">dp</span>
+                            
                         </div>
                     </div>
                     <div class="col-6 ">
@@ -149,7 +157,8 @@
                         <div class="property-input ">
                             <input type="number " [(ngModel)]="selectedState.height" (focus)="onFocus() " (blur)="onBlur() ">
                             <p class="unit ">px</p>
-                            <label>{{pxToDp(selectedState.height)}}dp</label>
+                            <label class="value-dp">{{pxToDp(selectedState.height)}}</label>
+                            <span class="unit-dp">dp</span>
                         </div>
                     </div>
 
@@ -174,12 +183,12 @@
             <!-- 사이즈@ -->
 
             <!--마진 -->
-            <div (click)="toggleShowMargin() " class="label-properties-2 " style="margin-bottom:15px; ">
+            <div (click)="toggleShowMargin() " class="label-properties-2">
                 Margin
                 <i class="fa fa-sort-desc "></i>
             </div>
 
-            <div class="property-detail-wrap " [hidden]="!needShowMargin ">
+            <div class="property-detail-wrap" style="padding-bottom:4px;" [hidden]="!needShowMargin ">
 
                 <!-- <div class="property-detail ">
                     <label>top:</label>
@@ -215,7 +224,8 @@
                         <div class="property-input ">
                             <input type="number " [(ngModel)]="selectedState.marginTop " (focus)="onFocus() " (blur)="onBlur() ">
                             <p class="unit ">px</p>
-                            <label>{{pxToDp(selectedState.marginTop)}}dp</label>
+                            <label class="value-dp">{{pxToDp(selectedState.marginTop)}}</label>
+                            <span class="unit-dp">dp</span>
                         </div>
                     </div>
                     <div class="col-6 ">
@@ -223,7 +233,8 @@
                         <div class="property-input ">
                             <input type="number " [(ngModel)]="selectedState.marginBottom " (focus)="onFocus() " (blur)="onBlur() ">
                             <p class="unit ">px</p>
-                            <label>{{pxToDp(selectedState.marginBottom)}}dp</label>
+                            <label class="value-dp">{{pxToDp(selectedState.marginBottom)}}</label>
+                            <span class="unit-dp">dp</span>
                         </div>
                     </div>
                 </div>
@@ -234,7 +245,8 @@
                         <div class="property-input ">
                             <input type="number " [(ngModel)]="selectedState.marginLeft " (focus)="onFocus() " (blur)="onBlur() ">
                             <p class="unit ">px</p>
-                            <label>{{pxToDp(selectedState.marginLeft)}}dp</label>
+                            <label class="value-dp">{{pxToDp(selectedState.marginLeft)}}</label>
+                            <span class="unit-dp">dp</span>
                         </div>
                     </div>
                     <div class="col-6 ">
@@ -242,7 +254,8 @@
                         <div class="property-input ">
                             <input type="number " [(ngModel)]="selectedState.marginRight " (focus)="onFocus() " (blur)="onBlur() ">
                             <p class="unit ">px</p>
-                            <label>{{pxToDp(selectedState.marginRight)}}dp</label>
+                            <label class="value-dp">{{pxToDp(selectedState.marginRight)}}</label>
+                            <span class="unit-dp">dp</span>
                         </div>
                     </div>
 
@@ -257,7 +270,7 @@
 
             <!-- padding -->
 
-            <div (click)="toggleShowPadding() " class="label-properties-2 " style="margin-bottom:15px; " [hidden]="true ">
+            <div (click)="toggleShowPadding() " class="label-properties-2" [hidden]="true ">
                 Padding
                 <i class="fa fa-sort-desc "></i>
             </div>
@@ -302,7 +315,7 @@
 
             <!-- transform -->
 
-            <div (click)="toggleShowTranslation() " class="label-properties-2 " style="margin-bottom:15px; ">
+            <div (click)="toggleShowTranslation() " class="label-properties-2">
                 Transform
                 <i class="fa fa-sort-desc "></i>
             </div>
@@ -345,12 +358,12 @@
             <!-- transform@ -->
 
             <!--code -->
-            <div (click)="toggleShowCode() " class="label-properties-2 " style="margin-bottom:15px; ">
+            <div (click)="toggleShowCode() " class="label-properties-2">
                 Code
                 <i class="fa fa-sort-desc "></i>
             </div>
             <div *ngIf="selectedState&&needShowCode&&objectLayoutData ">
-                <button class="btn-copy " [clip]="objectLayoutData " (onClip)="callback($event) "><i class="fa fa-copy " style="margin-right:3px; "></i>copy</button>
+                <button class="btn-copy " [clip]="objectLayoutData " (onClip)="callback($event) "><i class="fa fa-clone " style="margin-right:3px; "></i>copy</button>
                 <handy-syntax-highlighter *ngIf="objectLayoutData " [language]=" 'java' " [content]="objectLayoutData "></handy-syntax-highlighter>
             </div>
             <!--code@ -->

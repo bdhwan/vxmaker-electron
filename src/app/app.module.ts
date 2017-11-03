@@ -42,7 +42,7 @@ import { Ng2HandySyntaxHighlighterModule } from 'ng2-handy-syntax-highlighter';
 import { ClipModule } from 'ng2-clip';
 import { CodeExportComponent } from './code-export/code-export.component';
 import { FontSelectComponent } from './activity/font-select/font-select.component';
-
+import { ColorPickerModule } from 'ngx-color-picker';
 
 
 const appRoutes: Routes = [
@@ -96,14 +96,15 @@ const appRoutes: Routes = [
     FontSelectComponent
   ],
   imports: [
-
     BrowserModule,
     FormsModule,
     HttpModule,
     TreeModule,
     ClipModule,
+
     Ng2HandySyntaxHighlighterModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    ColorPickerModule
   ],
   providers: [ApplicationDataServiceService, BroadcastService],
   bootstrap: [AppComponent]

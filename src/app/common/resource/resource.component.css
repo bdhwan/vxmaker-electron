@@ -305,7 +305,7 @@
 }
 
 .image-list:hover {
-    cursor: pointer;
+    cursor: default;
 }
 
 .file-list {
@@ -318,7 +318,7 @@
 
 .file-list:hover {
     color: #46a2ba;
-    cursor: pointer;
+    cursor: default;
 }
 
 .file-select-pick {
@@ -350,5 +350,5 @@
 
 .label-properties-2 button:hover {
     color:#454545;
-    cursor: pointer;
+    cursor: default;
 }

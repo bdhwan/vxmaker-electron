@@ -297,7 +297,7 @@ input:checked+.slider:before {
 
 .btn-code:hover {
     background: #ececec;
-    cursor: pointer;
+    cursor: default;
 }
 
 .btn-copy {
@@ -312,7 +312,7 @@ input:checked+.slider:before {
 }
 
 .btn-copy:hover {
-    cursor: pointer;
+    cursor: default;
     color:#fff;
     background:#f9f9f9!important;
 }
