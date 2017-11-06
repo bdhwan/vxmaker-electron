@@ -30,7 +30,17 @@
         {
             "name": "textSize",
             "type": "int",
-            "default": 20
+            "default": 60
+        },
+        {
+            "name": "lineSpacingExtra",
+            "type": "int",
+            "default": 0
+        },
+        {
+            "name": "letterSpacing",
+            "type": "int",
+            "default": 0
         },
         {
             "name": "family",
@@ -38,12 +48,12 @@
             "default": "Droid Sans"
         },
         {
-            "name": "weight",
+            "name": "variant",
             "type": "string",
-            "default": "Droid Sans"
+            "default": "regular"
         },
         {
-            "name": "text-align",
+            "name": "textAlign",
             "type": "string",
             "default": "left"
         },

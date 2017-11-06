@@ -57,7 +57,6 @@ export class ResourceComponent implements OnInit {
       return this.appDataService.loadFileResourceList();
     }).then((result: any) => {
       this.refreshFileList();
-
     });
   }
 

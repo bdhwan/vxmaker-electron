@@ -27,19 +27,27 @@ export class FontSelectComponent implements OnInit {
     this.appDataService.loadFontData().then(result => {
       const temp = JSON.parse(JSON.stringify(result));
       this.fontList = temp.items;
-      this.selectedObject = this.appDataService.getSelectedObject();
-      if (this.selectedObject.family) {
+      this.refreshData();
 
-        for (let i = 0; i < this.fontList.length; i++) {
-          if (this.selectedObject.family === this.fontList[i].family) {
-            this.selectedFont = this.fontList[i];
-            this.selectedVariant = this.selectedObject.family;
-            break;
-          }
-        }
-      }
+
     });
   }
+
+
+  public refreshData() {
+    this.selectedObject = this.appDataService.getSelectedObject();
+    if (this.selectedObject.family) {
+
+      for (let i = 0; i < this.fontList.length; i++) {
+        if (this.selectedObject.family === this.fontList[i].family) {
+          this.selectedFont = this.fontList[i];
+          this.selectedVariant = this.selectedObject.family;
+          break;
+        }
+      }
+    }
+  }
+
   getPreviewStyle() {
     return {
       'font-family': this.selectedObject.family + '-' + this.selectedObject.variant
@@ -55,9 +63,9 @@ export class FontSelectComponent implements OnInit {
     }
   }
 
-  getFont() {
-    return 'http://fonts.gstatic.com/s/almendra/v10/-tXHKMcnn6FqrhJV3l1e3QJKKGfqHaYFsRG-T3ceEVo.ttf';
-  }
+  // getFont() {
+  //   return 'http://fonts.gstatic.com/s/almendra/v10/-tXHKMcnn6FqrhJV3l1e3QJKKGfqHaYFsRG-T3ceEVo.ttf';
+  // }
 
   toggleVaiantPanel() {
     this.showSelectVariant = !this.showSelectVariant;

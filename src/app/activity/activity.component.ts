@@ -538,6 +538,34 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
+  // captureScreen() {
+  //   return new Promise((resolve, reject) => {
+
+  //     console.log('w =' + this.getRootWidth() + ', ' + this.getRootHeight());
+
+  //     const self = this;
+  //     const fileName = 'preview/' + self.activityId + '.jpg';
+  //     const filePath = self.applicationFolderPath + '/' + fileName;
+  //     const centerWidth = window.innerWidth - 288 - 320;
+  //     const centerHeight = window.innerHeight - 100;
+  //     const captureWidth = 560;
+  //     const captureHeight = 840;
+  //     const centerX = 288 + centerWidth / 2;
+  //     const centerY = 100 + centerHeight / 2;
+
+  //     const x = centerX - captureWidth / 2;
+  //     const y = centerY - captureHeight / 2;
+  //     const w = captureWidth;
+  //     const h = captureHeight;
+  //     console.log(x + ',' + y + ',' + w + ',' + h);
+  //     this.appDataService.captureScreen(Number(x.toFixed(0)), Number(y.toFixed(0)), Number(w.toFixed(0)), Number(h.toFixed(0)), filePath).then(result => {
+  //       resolve(fileName);
+  //     });
+  //   });
+  // }
+
+
+
   captureScreen() {
     return new Promise((resolve, reject) => {
 
@@ -563,6 +591,10 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     });
   }
+
+
+
+
 
   savePreviewImagePath(filePath) {
     for (let i = 0; i < this.applicationData.activityList.length; i++) {

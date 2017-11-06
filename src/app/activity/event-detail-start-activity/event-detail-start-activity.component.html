@@ -1,4 +1,11 @@
 <div *ngIf="selectedTriggerEvent">
+
+    <div *ngIf="selectedTriggerEvent.type=='click'">
+        ({{getObjectData(selectedTriggerEvent.objectId).type}})- {{getObjectData(selectedTriggerEvent.objectId).name}}
+    </div>
+
+
+
     <div *ngIf="selectedImplementEvent.type=='startActivity'" class="event-stageChange">
 
 

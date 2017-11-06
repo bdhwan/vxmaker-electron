@@ -3,6 +3,7 @@ import { ApplicationDataServiceService } from '../../service/application-data-se
 
 import { PreviewSizeComponent } from '../preview-size/preview-size.component';
 import { BroadcastService } from '../../service/broadcast.service';
+import { FontSelectComponent } from '../font-select/font-select.component';
 
 
 @Component({
@@ -26,6 +27,8 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
   objectBasicData;
   openSource;
 
+  @ViewChild('fontSelect')
+  private fontSelect: FontSelectComponent;
 
   showPropertyKeys = [
     'name',
@@ -192,6 +195,10 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
 
     this.objectLayoutData = null;
     const self = this;
+
+    if (this.fontSelect) {
+      this.fontSelect.refreshData();
+    }
     setTimeout(function () {
       // self.objectLayoutData = self.appDataService.makeBeautify('<!--start code!-->' + self.appDataService.insertChild(self.selectedObject.id) + '\n<!--end code!-->');
       self.objectLayoutData = self.appDataService.insertChild(self.selectedObject.id);

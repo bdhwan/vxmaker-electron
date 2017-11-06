@@ -36,4 +36,13 @@ export class EventDetailFinishActivityComponent implements OnInit {
     this.broadcaster.broadcast(this.viewMode, message);
 
   }
+
+
+
+  getObjectData(objectId) {
+    return this.appDataService.findObjectById(objectId);
+  }
+
+
+
 }

@@ -34,7 +34,7 @@
                         <label>{{selectedObject.type}}</label>
                     </div>
                 </div>
-                <span *ngIf="selectedObject.type=='TextView'">
+                <span *ngIf="selectedObject.type=='TextView'||selectedObject.type=='EditText'||selectedObject.type=='Button'">
                     <div class="property-detail">
                         <label>text</label>
                         <div class="property-input">
@@ -52,11 +52,11 @@
                 <div class="property-detail">
                     <label>background</label>
                     <!-- <input style="float:right;width:183px;margin-right:16px;" [(colorPicker)]="selectedObject.backgroundColor" [cpPositionOffset]="'50%'" [cpPosition]="'left'" [cpAlphaChannel]="'always'" [style.background]="selectedObject.backgroundColor" [value]="selectedObject.backgroundColor"/> -->
-                    <input style="float:right;width:183px;margin-right:16px;" [(colorPicker)]="selectedObject.backgroundColor" [cpPositionOffset]="'0%'" [cpPosition]="'left'" [style.background]="selectedObject.backgroundColor" [value]="selectedObject.backgroundColor" />
+                    <button class="color-picker" [(colorPicker)]="selectedObject.backgroundColor" [cpPosition]="'left'" [cpPositionOffset]="'0%'" [style.background]="selectedObject.backgroundColor"></button>
+                    <label style="float:right;width:120px;text-align:center;">{{selectedObject.backgroundColor}}</label>
+                    <!-- <input style="float:right;width:183px;margin-right:16px;" [(colorPicker)]="selectedObject.backgroundColor" [cpPositionOffset]="'0%'" [cpPosition]="'left'" [style.background]="selectedObject.backgroundColor" [value]="selectedObject.backgroundColor" /> -->
                 </div>
             </div>
-
-
         </div>
 
         <!-- <div class="btn-more">
@@ -87,7 +87,7 @@
                 <div class="property-detail-wrap " [hidden]="!needShowText ">
                     <div class="property-detail ">
                         <label class="label-font-family">font-family / font-weight</label>
-                        <app-font-select></app-font-select>
+                        <app-font-select #fontSelect></app-font-select>
                     </div>
                     <div class="property-detail ">
                         <label>size</label>
@@ -98,7 +98,7 @@
                     </div>
                     <div class="property-detail ">
                         <label>fontColor</label>
-                        <button class="color-picker" [(colorPicker)]="selectedObject.textColor" [cpPosition]="'left'" [cpPositionOffset]="'50%'" [style.background]="selectedObject.textColor"></button>
+                        <button class="color-picker" [(colorPicker)]="selectedObject.textColor" [cpPosition]="'left'" [cpPositionOffset]="'0%'" [style.background]="selectedObject.textColor"></button>
                         <label style="float:right;width:120px;text-align:center;">{{selectedObject.textColor}}</label>
                     </div>
                     <div class="property-detail">
@@ -149,7 +149,7 @@
                             <p class="unit ">px</p>
                             <label class="value-dp">{{pxToDp(selectedState.width)}}</label>
                             <span class="unit-dp">dp</span>
-                            
+
                         </div>
                     </div>
                     <div class="col-6 ">

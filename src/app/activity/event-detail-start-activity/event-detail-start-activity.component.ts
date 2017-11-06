@@ -38,4 +38,9 @@ export class EventDetailStartActivityComponent implements OnInit {
 
   }
 
+  getObjectData(objectId) {
+    return this.appDataService.findObjectById(objectId);
+  }
+
+
 }

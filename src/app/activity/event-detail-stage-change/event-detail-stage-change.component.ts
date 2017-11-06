@@ -256,6 +256,11 @@ export class EventDetailStageChangeComponent implements OnInit, AfterViewInit {
 
 
 
+  getObjectData(objectId) {
+    return this.appDataService.findObjectById(objectId);
+  }
+
+
 
 
 }

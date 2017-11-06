@@ -1,7 +1,10 @@
 <div *ngIf="selectedTriggerEvent">
-    <div *ngIf="selectedImplementEvent.type=='finishActivity'">
-        event-detail-finish-activity works!
+    <div *ngIf="selectedTriggerEvent.type=='click'">
+        ({{getObjectData(selectedTriggerEvent.objectId).type}})- {{getObjectData(selectedTriggerEvent.objectId).name}}
+    </div>
 
+    <div *ngIf="selectedImplementEvent.type=='finishActivity'">
+        Will finish this activity
         <button (click)="clickClose()">back</button>
     </div>
 
