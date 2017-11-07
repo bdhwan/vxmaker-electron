@@ -166,9 +166,9 @@
 
 .object-property .img-selected .img-thumbnail .btn-img-select {
     width: auto;
-    border: 1px solid #ececec;
+    border: none;
     border-radius: 3px;
-    background : rgba(255, 255, 255, .6);
+    background : #fff;
     opacity: 0.6;
     position: absolute;
     right: 0;
@@ -178,7 +178,8 @@
 }
 
 .object-property .img-selected .img-thumbnail .btn-img-select:hover{
-    background : rgba(255, 255, 255, .9);
+    background : #fff;
+    opacity: 0.8;
 }
 
 .object-property .img-selected .img-sub {

@@ -13,14 +13,14 @@
     /* sytle */
     width: 100%;
     border: none;
-    padding-right: 4px;
-    margin: 4px;
+    border-radius: 4px;
+    padding: 3px 2px 3px 6px;
+    margin: 2px;
 }
 
 .menu-main-list button:hover {
     cursor: default;
     /* border: solid 1px; */
-    border-radius: 3px;
     background-color:rgba(255, 255, 255, 0.2);
 }
 
