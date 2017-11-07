@@ -210,6 +210,17 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
     this.selectedObject.textAlign = value;
   }
 
+  onChangeColor(value) {
+    console.log('onChangeColor =' + value);
+  }
+
+  onChangeTextColor(value) {
+    console.log('onChangeTextColor =' + value);
+
+  }
+
+
+
   callback($event) {
     console.log("done clip");
   }

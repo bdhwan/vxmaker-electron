@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { UUID } from 'angular2-uuid';
 import { BroadcastService } from './broadcast.service';
+import { ColorPickerService, Rgba } from 'ngx-color-picker';
+
 
 declare var electron: any;
 declare var html_beautify: any;
@@ -84,7 +86,7 @@ export class ApplicationDataServiceService {
 
 
 
-  constructor(private http: Http, private broadcaster: BroadcastService) {
+  constructor(private http: Http, private cpService: ColorPickerService, private broadcaster: BroadcastService) {
     const self = this;
 
 
@@ -1590,7 +1592,7 @@ export class ApplicationDataServiceService {
       }
       //object data
       if (object.background) {
-        result += 'android:background=\"' + object.background + '\"\n';
+        result += 'android:background=\"' + this.getColorValue(object.background) + '\"\n';
       }
 
       //TextView
@@ -1600,7 +1602,7 @@ export class ApplicationDataServiceService {
       }
 
       if (object.textColor) {
-        result += 'android:textColor=\"' + object.textColor + '\"\n';
+        result += 'android:textColor=\"' + this.getColorValue(object.textColor) + '\"\n';
       }
 
       if (object.textSize) {
@@ -1630,6 +1632,42 @@ export class ApplicationDataServiceService {
     return result;
 
   }
+
+  getColorValue(rgba) {
+    if (rgba.startsWith('#')) {
+      return rgba;
+    } else {
+
+      if (rgba.startsWith('rgb(')) {
+        const parts = rgba.replace('rgb(', '').replace(')', '').split(',');
+        const r = parseInt(this.trim(parts[0]), 10);
+        const g = parseInt(this.trim(parts[1]), 10);
+        const b = parseInt(this.trim(parts[2]), 10);
+        const temp = new Rgba(r, g, b, 0);
+        return this.cpService.hexText(temp, false);
+      } else {
+        const parts = rgba.replace('rgba(', '').replace(')', '').split(',');
+        const r = parseInt(this.trim(parts[0]), 10);
+        const g = parseInt(this.trim(parts[1]), 10);
+        const b = parseInt(this.trim(parts[2]), 10);
+        const alpha = parseFloat(this.trim(parts[3]));
+        const temp = new Rgba(r, g, b, alpha);
+        const result = this.cpService.hexText(temp, true);
+        const fixResult = '#' + result[7] + result[8] + result[1] + result[2] + result[3] + result[4] + result[5] + result[6];
+        return fixResult;
+      }
+    }
+  }
+
+
+
+
+  trim(str) {
+    return str.replace(/^\s+|\s+$/gm, '');
+  }
+
+
+
 
 
   // getStateStringById(object, state) {

@@ -52,7 +52,7 @@
                 <div class="property-detail">
                     <label>background</label>
                     <!-- <input style="float:right;width:183px;margin-right:16px;" [(colorPicker)]="selectedObject.backgroundColor" [cpPositionOffset]="'50%'" [cpPosition]="'left'" [cpAlphaChannel]="'always'" [style.background]="selectedObject.backgroundColor" [value]="selectedObject.backgroundColor"/> -->
-                    <button class="color-picker" [(colorPicker)]="selectedObject.backgroundColor" [cpPosition]="'left'" [cpPositionOffset]="'0%'" [style.background]="selectedObject.backgroundColor"></button>
+                    <button class="color-picker" [(colorPicker)]="selectedObject.backgroundColor" [cpPosition]="'left'" [cpPositionOffset]="'0%'" [cpOutputFormat]="'rgba'" [style.background]="selectedObject.backgroundColor" [cpAlphaChannel]="'always'" (colorPickerChange)="onChangeColor($event)"></button>
                     <label style="float:right;width:120px;text-align:center;">{{selectedObject.backgroundColor}}</label>
                     <!-- <input style="float:right;width:183px;margin-right:16px;" [(colorPicker)]="selectedObject.backgroundColor" [cpPositionOffset]="'0%'" [cpPosition]="'left'" [style.background]="selectedObject.backgroundColor" [value]="selectedObject.backgroundColor" /> -->
                 </div>
@@ -98,7 +98,7 @@
                     </div>
                     <div class="property-detail ">
                         <label>fontColor</label>
-                        <button class="color-picker" [(colorPicker)]="selectedObject.textColor" [cpPosition]="'left'" [cpPositionOffset]="'0%'" [style.background]="selectedObject.textColor"></button>
+                        <button class="color-picker" (colorPickerChange)="onChangeTextColor(value)" [cpOutputFormat]="'rgba'" [(colorPicker)]="selectedObject.textColor" [cpPosition]="'left'" [cpPositionOffset]="'0%'" [style.background]="selectedObject.textColor"></button>
                         <label style="float:right;width:120px;text-align:center;">{{selectedObject.textColor}}</label>
                     </div>
                     <div class="property-detail">
@@ -189,35 +189,6 @@
             </div>
 
             <div class="property-detail-wrap" style="padding-bottom:4px;" [hidden]="!needShowMargin ">
-
-                <!-- <div class="property-detail ">
-                    <label>top:</label>
-                    <div class="property-input ">
-                        <input [(ngModel)]="selectedState.marginTop ">
-                    </div>
-                </div>
-                <div class="property-detail ">
-                    <label>left:</label>
-                    <div class="property-input ">
-                        <input [(ngModel)]="selectedState.marginLeft ">
-                    </div>
-                </div>
-                <div class="property-detail ">
-                    <label>right:</label>
-                    <div class="property-input ">
-                        <input [(ngModel)]="selectedState.marginRight ">
-                    </div>
-                </div>
-                <div class="property-detail ">
-                    <label>bottom:</label>
-                    <div class="property-input ">
-                        <input [(ngModel)]="selectedState.marginBottom ">
-                    </div>
-                </div> -->
-
-                <!-- property detail test -->
-
-
                 <div class="property-detail ">
                     <div class="col-6 ">
                         <label>top</label>
@@ -258,11 +229,7 @@
                             <span class="unit-dp">dp</span>
                         </div>
                     </div>
-
                 </div>
-
-
-
                 <!-- property detail test@ -->
 
             </div>
