@@ -216,10 +216,18 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
 
   onChangeTextColor(value) {
     console.log('onChangeTextColor =' + value);
-
   }
 
 
+
+  toggleColorPicker(value) {
+    console.log('toggleColorPicker =' + value);
+    if (value) {
+      this.onFocus();
+    } else {
+      this.onBlur();
+    }
+  }
 
   callback($event) {
     console.log("done clip");

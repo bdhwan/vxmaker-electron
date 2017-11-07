@@ -67,12 +67,12 @@ export class PreviewSizeComponent implements OnInit {
   }
 
 
-  changeW(event) {
+  changeW($event) {
     console.log("changeW = " + this.rootWidth);
     this.changeRootSizeData();
   }
 
-  changeH(event) {
+  changeH($event) {
     console.log("changeH = " + this.rootHeight);
     this.changeRootSizeData();
   }

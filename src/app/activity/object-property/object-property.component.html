@@ -98,7 +98,7 @@
                     </div>
                     <div class="property-detail ">
                         <label>fontColor</label>
-                        <button class="color-picker" (colorPickerChange)="onChangeTextColor(value)" [cpOutputFormat]="'rgba'" [(colorPicker)]="selectedObject.textColor" [cpPosition]="'left'" [cpPositionOffset]="'0%'" [style.background]="selectedObject.textColor"></button>
+                        <button class="color-picker" (cpToggleChange)="toggleColorPicker($event)" (colorPickerChange)="onChangeTextColor($event)" [cpOutputFormat]="'rgba'" [(colorPicker)]="selectedObject.textColor" [cpPosition]="'left'" [cpPositionOffset]="'0%'" [style.background]="selectedObject.textColor"></button>
                         <label style="float:right;width:120px;text-align:center;">{{selectedObject.textColor}}</label>
                     </div>
                     <div class="property-detail">
