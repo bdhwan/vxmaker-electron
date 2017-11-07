@@ -78,6 +78,10 @@ export class EventListComponent implements OnInit {
 
 
 
+  getIcon(type) {
+    return this.appDataService.getIcon(type);
+  }
+
 
   getObjectData(objectId) {
     return this.appDataService.findObjectById(objectId);

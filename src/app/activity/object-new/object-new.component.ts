@@ -9,54 +9,46 @@ import { BroadcastService } from '../../service/broadcast.service';
 })
 export class ObjectNewComponent implements OnInit {
 
-  @Output() onClickNewObject = new EventEmitter<string>();
-  @Output() onChangeTreeData = new EventEmitter<any>();
-  @Output() onShowResourceDialog = new EventEmitter<string>();
-  objectTypeData = [];
   @Input() prefix: any;
+  objectTypeData = [];
 
 
-  constructor(private broadcaster: BroadcastService) { }
+
+  constructor(private broadcaster: BroadcastService) {
+
+  }
 
   ngOnInit() {
 
   }
 
-
-
-  public setObjectTypeData(objectTypeData: any) {
+  public setObjectTypeData(objectTypeData) {
     this.objectTypeData = objectTypeData;
-
   }
+
+
+
 
   clickResource() {
-
-    // this.onShowResourceDialog.emit("image");
   }
 
 
-  clickNewObject(type: string) {
-
+  clickNewObject(type) {
     console.log("clickNewObject -" + type);
-    // this.onClickNewObject.emit(type);
-
     const message = {
       kind: 'new-object',
       type: type
     };
     this.broadcaster.broadcast('activity', message);
-
-
   }
 
+
+
   clickPSD() {
-
-
     const message = {
       kind: 'select-psd',
     };
     this.broadcaster.broadcast('activity', message);
-
   }
 
 }

@@ -144,6 +144,17 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  changePropertyData($event) {
+
+  }
+
+
+  clickNewFile($event) {
+
+  }
+
+
+
   registerStringBroadcast() {
     this.messageListener = this.broadcaster.on<any>('activity')
       .subscribe(message => {
@@ -745,7 +756,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
-  changeTreeData(data) {
+  changeTreeData($event) {
 
 
   }

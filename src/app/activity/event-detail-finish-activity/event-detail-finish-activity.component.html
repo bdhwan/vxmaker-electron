@@ -1,9 +1,13 @@
 <div *ngIf="selectedTriggerEvent">
-    <div *ngIf="selectedTriggerEvent.type=='click'">
-        ({{getObjectData(selectedTriggerEvent.objectId).type}})- {{getObjectData(selectedTriggerEvent.objectId).name}}
-    </div>
+
 
     <div *ngIf="selectedImplementEvent.type=='finishActivity'">
+
+        <div *ngIf="selectedTriggerEvent.type=='click'">
+            ({{getObjectData(selectedTriggerEvent.objectId).type}})- {{getObjectData(selectedTriggerEvent.objectId).name}}
+        </div>
+
+
         Will finish this activity
         <button (click)="clickClose()">back</button>
     </div>

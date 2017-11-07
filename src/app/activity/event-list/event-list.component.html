@@ -1,9 +1,5 @@
 <div class="event-list">
-
-
     <div class="label-properties">
-
-
         <div class="col-8" style="padding-left: 0;">
             Event
         </div>
@@ -34,7 +30,7 @@
                         <div *ngIf="aEvent.type==='afterAnimation'">
                             <img src="assets/images/btn_afteranimation.png" />
                         </div>
-                        <h5>({{getObjectData(aEvent.objectId).type}}){{getObjectData(aEvent.objectId).name}} {{aEvent.name}}</h5>
+                        <h5> <img style="width:20px;height:20px;margin-right:10px;" [src]="getIcon(getObjectData(aEvent.objectId).type)"> ({{getObjectData(aEvent.objectId).type}}){{getObjectData(aEvent.objectId).name}} {{aEvent.name}}</h5>
                     </div>
                     <div class="selected-event">
                         <div *ngIf="aEvent.implEvent.type==='stageChange'">
@@ -47,12 +43,10 @@
                             <img src="assets/images/btn_finishactivity.png" />
                         </div>
                         <h5> {{aEvent.implEvent.name}}</h5>
-
                     </div>
 
                     <div *ngIf="aEvent.implEvent.type==='stageChange'">
                         <p>{{aEvent.implEvent.fromStageName}} <i class="fa fa-angle-right" style="color:#46a2ba;"></i> {{aEvent.implEvent.toStageName}}</p>
-
                     </div>
 
                     <div *ngIf="aEvent.implEvent.type==='startActivity'">

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { ApplicationComponent } from '../../application/application.component'
+import { ApplicationComponent } from '../../application/application.component';
 import { BroadcastService } from '../../service/broadcast.service';
 
 
