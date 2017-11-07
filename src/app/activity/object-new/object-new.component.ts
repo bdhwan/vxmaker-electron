@@ -26,6 +26,9 @@ export class ObjectNewComponent implements OnInit {
     this.objectTypeData = objectTypeData;
   }
 
+
+
+
   clickResource() {
   }
 

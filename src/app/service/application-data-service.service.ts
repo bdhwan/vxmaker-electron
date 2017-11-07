@@ -2220,6 +2220,11 @@ export class ApplicationDataServiceService {
 
 
 
+  getIcon(type) {
+    return this.findObjectBasicDataByType(type).icon;
+  }
+
+
 
 
 

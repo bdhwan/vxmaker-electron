@@ -51,6 +51,9 @@ export class ObjectTreeComponent implements OnInit {
   }
 
 
+  getIcon(type) {
+    return this.appDataService.getIcon(type);
+  }
 
 
   ngOnInit() {
