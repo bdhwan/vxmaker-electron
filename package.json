@@ -5,7 +5,7 @@
     "scripts": {
         "ng": "ng",
         "start": "concurrently \"ng serve\" \"electron src/electron/electron.live.js\" \"node src/imageserver/server.js\"",
-        "build": "ng build --environment=prod",
+        "build": "ng build --environment=prod --aot",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
@@ -26,7 +26,7 @@
         "@angular/platform-browser-dynamic": "^4.0.0",
         "@angular/router": "^4.0.0",
         "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.5",
-        "angular2-tree-component": "3.1.0",
+        "angular2-tree-component": "^3.1.0",
         "angular2-uuid": "^1.1.1",
         "bodymovin": "^4.6.10",
         "bootstrap": "^4.0.0-beta",
@@ -44,8 +44,8 @@
         "zone.js": "^0.8.4"
     },
     "devDependencies": {
-        "@angular/cli": "1.3.0",
-        "@angular/compiler-cli": "^4.0.0",
+        "@angular/cli": "1.4.9",
+        "@angular/compiler-cli": "^4.2.4",
         "@types/jasmine": "2.5.38",
         "@types/node": "~6.0.60",
         "codelyzer": "~2.0.0",

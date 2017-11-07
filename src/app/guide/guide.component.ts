@@ -128,9 +128,25 @@ export class GuideComponent implements OnInit, OnDestroy {
       self.invalidatePreviewSize();
     });
   }
+  onChangeNodeFromTree($event) {
+
+  }
+
+  clickNewFile($event) {
+
+  }
+
+  onNewStage($event) {
+
+  }
+
+  changePropertyData(event) {
 
 
+  }
+  onShowResourceDialog(event) {
 
+  }
   ngOnDestroy() {
     if (this.messageListener) {
       this.messageListener.unsubscribe();
