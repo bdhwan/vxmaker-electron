@@ -16,23 +16,34 @@
             <div *ngFor="let aEvent of triggerEventList" class="event-detail-wrap" (click)="clickDetailEvent(aEvent)">
                 
                 <div class="event-detail" *ngIf="aEvent.implEvent">
-                    <div class="selected-trigger">
+
+                    <div class="selected-object">
+                        <div>
+                            <img style="width:20px;height:20px;" [src]="getIcon(getObjectData(aEvent.objectId).type)">
+                        </div>
+                        <h5>
+                            {{getObjectData(aEvent.objectId).name}}
+                        </h5>
                         
-                        <div *ngIf="aEvent.type==='click'">
-                            <img src="assets/images/btn_click.png" />
+                        <div class="selected-trigger">
+                            <div *ngIf="aEvent.type==='click'">
+                                <img src="assets/images/btn_click.png" />
+                            </div>
+                            <div *ngIf="aEvent.type==='onCreate'">
+                                <img src="assets/images/btn_oncreate.png" />
+                            </div>
+                            <div *ngIf="aEvent.type==='backKey'">
+                                <img src="assets/images/btn_backkey.png" />
+                            </div>
+                            <div *ngIf="aEvent.type==='afterAnimation'">
+                                <img src="assets/images/btn_afteranimation.png" />
+                            </div>
+                            <h5>
+                                {{aEvent.name}}
+                            </h5>
                         </div>
-                        <div *ngIf="aEvent.type==='onCreate'">
-                            <img src="assets/images/btn_oncreate.png" />
-                        </div>
-                        <div *ngIf="aEvent.type==='backKey'">
-                            <img src="assets/images/btn_backkey.png" />
-                        </div>
-                        <div *ngIf="aEvent.type==='afterAnimation'">
-                            <img src="assets/images/btn_afteranimation.png" />
-                        </div>
-                        <h5> <img style="width:20px;height:20px;margin-right:10px;" [src]="getIcon(getObjectData(aEvent.objectId).type)"> ({{getObjectData(aEvent.objectId).type}}){{getObjectData(aEvent.objectId).name}} {{aEvent.name}}</h5>
                     </div>
-        
+                                        
                     <div class="selected-event">
                         <div *ngIf="aEvent.implEvent.type==='stageChange'">
                             <img src="assets/images/btn_stagechange.png" />
