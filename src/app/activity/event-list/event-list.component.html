@@ -9,12 +9,12 @@
             </div>
         </div>
     </div>
-    
+
     <div *ngIf="!selectedTriggerEvent">
         <!-- 이벤트리스트 -->
         <div *ngIf="triggerEventList" class="go-event-detail">
             <div *ngFor="let aEvent of triggerEventList" class="event-detail-wrap" (click)="clickDetailEvent(aEvent)">
-                
+
                 <div class="event-detail" *ngIf="aEvent.implEvent">
 
                     <div class="selected-object">
@@ -24,7 +24,7 @@
                         <h5>
                             {{getObjectData(aEvent.objectId).name}}
                         </h5>
-                        
+
                         <div class="selected-trigger">
                             <div *ngIf="aEvent.type==='click'">
                                 <img src="assets/images/btn_click.png" />
@@ -43,7 +43,7 @@
                             </h5>
                         </div>
                     </div>
-                                        
+
                     <div class="selected-event">
                         <div *ngIf="aEvent.implEvent.type==='stageChange'">
                             <img src="assets/images/btn_stagechange.png" />
@@ -54,17 +54,22 @@
                         <div *ngIf="aEvent.implEvent.type==='finishActivity'">
                             <img src="assets/images/btn_finishactivity.png" />
                         </div>
+                        <div *ngIf="aEvent.implEvent.type==='takePicture'">
+                            <img src="assets/images/btn_finishactivity.png" />
+                        </div>
+
+
                         <h5> {{aEvent.implEvent.name}}</h5>
                     </div>
-                    
+
                     <div *ngIf="aEvent.implEvent.type==='stageChange'">
                         <p>{{aEvent.implEvent.fromStageName}} <i class="fa fa-angle-right" style="color:#46a2ba;"></i> {{aEvent.implEvent.toStageName}}</p>
                     </div>
-                    
+
                     <div *ngIf="aEvent.implEvent.type==='startActivity'">
                         <p><i class="fa fa-angle-right" style="color:#46a2ba;"></i> {{aEvent.implEvent.toActivityName}}</p>
                     </div>
-                    
+
                     <button class="btn-trash" (click)="clickDeleteEvent($event,aEvent)">
                         <img src="assets/images/ic_trashcan.png">
                     </button>
@@ -72,9 +77,9 @@
             </div>
             <!-- 이벤트리스트 @ -->
         </div>
-        
-        
-        
+
+
+
         <div *ngIf="!selectedTriggerEvent&&viewMode=='activity'" class="noti-addmotions">
             <a (click)="clickNewEvent()">
                 <h3>+ new event</h3>
@@ -82,6 +87,6 @@
             <!-- <img src="assets/images/ic_motion.png" alt="add-motions"> -->
             <p>Select the object layer to trigger on first and proceed with this step.</p>
         </div>
-        
+
     </div>
 </div>

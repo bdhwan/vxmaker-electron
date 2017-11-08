@@ -2224,7 +2224,13 @@ export class ApplicationDataServiceService {
     return this.findObjectBasicDataByType(type).icon;
   }
 
-
+  getIconSmall(type) {
+    if (this.findObjectBasicDataByType(type)) {
+      return this.findObjectBasicDataByType(type).icon.replace('.png', '_s.png');
+    } else {
+      return '';
+    }
+  }
 
 
 

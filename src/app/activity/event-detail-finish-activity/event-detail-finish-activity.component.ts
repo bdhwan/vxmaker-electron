@@ -42,7 +42,9 @@ export class EventDetailFinishActivityComponent implements OnInit {
   getObjectData(objectId) {
     return this.appDataService.findObjectById(objectId);
   }
-
+  getIcon(type) {
+    return this.appDataService.getIconSmall(type);
+  }
 
 
 }

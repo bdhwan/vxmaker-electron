@@ -261,6 +261,8 @@ export class EventDetailStageChangeComponent implements OnInit, AfterViewInit {
   }
 
 
-
+  getIcon(type) {
+    return this.appDataService.getIconSmall(type);
+  }
 
 }

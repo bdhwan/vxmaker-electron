@@ -13,12 +13,7 @@ export class EventDetailStartActivityComponent implements OnInit {
   selectedTriggerEvent;
   selectedImplementEvent;
 
-
-
   constructor(private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) { }
-
-
-
 
   ngOnInit() {
   }
@@ -40,6 +35,8 @@ export class EventDetailStartActivityComponent implements OnInit {
   getObjectData(objectId) {
     return this.appDataService.findObjectById(objectId);
   }
-
+  getIcon(type) {
+    return this.appDataService.getIconSmall(type);
+  }
 
 }
