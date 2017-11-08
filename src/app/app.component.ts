@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import 'rxjs/add/operator/distinctUntilChanged';
 
-
+declare var gtag: Function;
 
 @Component({
   selector: 'app-root',
@@ -9,8 +11,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  test = 'this is test value';
-
+  constructor(public router: Router) {
+    router.events.distinctUntilChanged((previous: any, current: any) => {
+      if (current instanceof NavigationEnd) {
+        return previous.url === current.url;
+      }
+      return true;
+    }).subscribe((x: any) => {
+      console.log('router.change', x);
+      gtag('event', x.url);
+    });
+  }
 
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ApplicationDataServiceService } from '../../service/application-data-service.service';
+import { BroadcastService } from '../../service/broadcast.service';
 
 
 @Component({
@@ -150,7 +151,7 @@ export class EventStateChangeCellComponent implements OnInit {
     }
   ];
 
-  constructor(private appDataService: ApplicationDataServiceService) { }
+  constructor(private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) { }
 
   ngOnInit() {
     console.log("maxtime =" + this.maxTotalTime);
@@ -192,7 +193,22 @@ export class EventStateChangeCellComponent implements OnInit {
   }
 
 
+  clickObject(objectId) {
+    const message = {
+      kind: 'select-object',
+      objectId: objectId
+    };
+    this.broadcaster.broadcast('activity', message);
+  }
+
+  getSelectedObjectId() {
+    return this.appDataService.getSelectedObject().id;
+  }
+
+
+
   callback($event) {
+
 
   }
 
@@ -208,6 +224,13 @@ export class EventStateChangeCellComponent implements OnInit {
 
   }
 
+  getIcon(type) {
+    return this.appDataService.getIconSmall(type);
+  }
+
+  getObjectData(objectId) {
+    return this.appDataService.findObjectById(objectId);
+  }
 
 
 }
