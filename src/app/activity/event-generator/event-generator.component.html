@@ -1,25 +1,25 @@
 <div class="popup-wrap" *ngIf="visibility">
     <div id="popup1" class="overlay" (click)="hideDialog()">
         <div class="popup" (click)="nothing($event)">
-
+            
             <div class="generator-nav">
                 Detail Event Generator
                 <!--<button (click)="hideDialog()">Hide</button>-->
             </div>
-
-
+            
+            
             <div class="generator-wrap">
                 <!-- 트리거 버튼 -->
-
-
+                
+                
                 <div class="trigger-select col-4">
-
+                    
                     <!-- 트리거 선택하기 -->
                     <div *ngIf="!afterTriggerEventId">
                         <div class="generator-title">Trigger</div>
-
+                        
                         <div class="btn-scroll">
-
+                            
                             <div class="btn-trigger btn-click" (click)="clickTrigger('click')" [ngClass]="'click'===currentSelectedTrigger?'selected-trigger':''">
                                 <img src="assets/images/btn_click.png" />
                                 <p>Click</p>
@@ -46,7 +46,7 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <!-- 애프터 애니메이션 -->
                     <div *ngIf="afterTriggerEventId" align="center">
                         <div class="generator-title">After Animation</div>
@@ -55,17 +55,17 @@
                             <h3>{{getAfterAnimationTriggerText(afterTriggerEventId)}}</h3>
                         </div>
                     </div>
-
+                    
                 </div>
-
+                
                 <!--트리거 관련 설명 -->
-
+                
                 <div class="trigger-intro" *ngIf="!triggerEvent">
                     <div class="trigger-sub">
                         <h2>Trigger</h2>
                         <p>A user action to trigger an event, such as changing the state of objects or switching between Activities. Select the trigger you want on the left.
                         </p>
-
+                        
                         <h4>Click</h4>
                         <p>Press once with one finger and lift immediately.</p>
                         <h4>OnCreate</h4>
@@ -73,15 +73,15 @@
                         <h4>BackKey</h4>
                         <p>Tap the backkey once on the android navigation bar.</p>
                     </div>
-
-
+                    
+                    
                 </div>
-
+                
                 <!--트리거 관련 설명@ -->
-
+                
                 <!-- 트리거 버튼 @-->
-
-
+                
+                
                 <!-- 이벤트 종류 정하기 -->
                 <div *ngIf="triggerEvent " class="col-4">
                     <div class="generator-title">Event</div>
@@ -111,10 +111,10 @@
                                     <p>This event closes the current Activity and returns it to the previous Activity. We often use backkeys inside apps.</p>
                                 </div>
                             </div>
-
-
+                            
+                            
                             <div class="event-kind">Lottie</div>
-                            <div class="btn-trigger btn-startlottie" (click)="clickImplement('startLottie')">
+                            <div class="btn-trigger btn-startlottie" (click)="clickImplement('startLottie')" [ngClass]="'startLottie'===currentSelectedImpl?'selected-trigger':''">
                                 <img src="assets/images/btn_startlottie.png" />
                                 <p>startLottie</p>
                                 <div *ngIf="!implementEvent" class="startlottie-info event-hover">
@@ -122,7 +122,7 @@
                                     <p>Play the motion graphics of LottieAnimationView with JSON file applied</p>
                                 </div>
                             </div>
-                            <div class="btn-trigger btn-stoplottie" (click)="clickImplement('stopLottie')">
+                            <div class="btn-trigger btn-stoplottie" (click)="clickImplement('stopLottie')" [ngClass]="'stopLottie'===currentSelectedImpl?'selected-trigger':''">
                                 <img src="assets/images/btn_stoplottie.png" />
                                 <p>stopLottie</p>
                                 <div *ngIf="!implementEvent" class="stoplottie-info event-hover">
@@ -130,9 +130,9 @@
                                     <p>Stop motion graphics of LottieAnimationView.</p>
                                 </div>
                             </div>
-
+                            
                             <div class="event-kind">Camera</div>
-                            <div class="btn-trigger btn-takepicture" (click)="clickImplement('takePicture')">
+                            <div class="btn-trigger btn-takepicture" (click)="clickImplement('takePicture')" [ngClass]="'takePicture'===currentSelectedImpl?'selected-trigger':''">
                                 <img src="assets/images/btn_takepicture.png" />
                                 <p>takePicture</p>
                                 <div *ngIf="!implementEvent" class="takepicture-info event-hover">
@@ -140,10 +140,10 @@
                                     <p>It acts as a camera shutter when shooting with 'CameraView'. You can also select a layer to show the captured image.</p>
                                 </div>
                             </div>
-
-
+                            
+                            
                             <div class="event-kind">VideoView</div>
-                            <div class="btn-trigger btn-startvideo" (click)="clickImplement('startVideo')">
+                            <div class="btn-trigger btn-startvideo" (click)="clickImplement('startVideo')" [ngClass]="'startVideo'===currentSelectedImpl?'selected-trigger':''">
                                 <img src="assets/images/btn_startvideo.png" />
                                 <p> startVideo</p>
                                 <div *ngIf="!implementEvent" class="startvideo-info event-hover">
@@ -151,7 +151,7 @@
                                     <p>Play video from VideoView.</p>
                                 </div>
                             </div>
-                            <div class="btn-trigger btn-stopvideo" (click)="clickImplement('stopVideo')">
+                            <div class="btn-trigger btn-stopvideo" (click)="clickImplement('stopVideo')" [ngClass]="'stopVideo'===currentSelectedImpl?'selected-trigger':''">
                                 <img src="assets/images/btn_stopvideo.png" />
                                 <p> stopVideo</p>
                                 <div *ngIf="!implementEvent" class="stopvideo-info event-hover">
@@ -162,14 +162,14 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!--이벤트 관련 설명 -->
-
+                
                 <div class="event-intro" *ngIf="!implementEvent">
-
+                    
                     <h2>Event</h2>
                     <p>The movement within the app that works to interact with the user. Select the event you want to activate.</p>
-
+                    
                     <h4>StageChange</h4>
                     <p>All states such as object position, size, shape and color can be changed through 'StageChange'.</p>
                     <h4>StartActivity</h4>
@@ -187,91 +187,91 @@
                     <h4>stopVideo</h4>
                     <p>Stop video playing in VideoView.</p>
                 </div>
-
+                
                 <!--이벤트 관련 설명@ -->
-
+                
                 <!-- 이벤트 종류 정하기 @ -->
-
+                
                 <!-- 이벤트 상세설정 -->
-
+                
                 <div *ngIf="implementEvent">
-
+                    
                     <div class="event-detail col-4">
-
+                        
                         <div class="generator-title">Event Detail</div>
                         <div *ngIf="implementEvent.type=='stageChange'" class="detail-content">
                             <p>From <b>{{getStageName(currentSelectedStageId)}}</b> select target stage</p>
                             <select (change)="onChangeStage($event.target.value)"> 
-                            <option *ngFor="let aStage of getTargetStageList()" [value]="aStage.id">{{aStage.name}}</option>
-                    </select>
+                                <option *ngFor="let aStage of getTargetStageList()" [value]="aStage.id">{{aStage.name}}</option>
+                            </select>
                         </div>
                         <div *ngIf="implementEvent.type=='startActivity'" class="detail-content">
                             <p> Select target activity</p>
                             <select [(ngModel)]="selectedActivityId" (change)="onChangeActivity($event.target.value)"> 
-                        <option  *ngFor="let aActivity of activityList" [value]="aActivity.activityId">{{aActivity.activityName}}</option>
-                    </select>
+                                <option  *ngFor="let aActivity of activityList" [value]="aActivity.activityId">{{aActivity.activityName}}</option>
+                            </select>
                         </div>
                         <div *ngIf="implementEvent.type=='finishActivity'" class="detail-content">
                             <p> Will finish activity</p>
                         </div>
-
-
+                        
+                        
                         <div *ngIf="implementEvent.type=='startLottie'" class="detail-content">
                             <p>Select Lottie to start</p>
                             <select [(ngModel)]="selectedLottieViewId" (change)="onChangeActivity($event.target.value)"> 
-                        <option  *ngFor="let aObject of getLottieViewList()" [value]="aObject.id">{{aObject.name}}</option>
-                    </select>
+                                <option  *ngFor="let aObject of getLottieViewList()" [value]="aObject.id">{{aObject.name}}</option>
+                            </select>
                         </div>
-
+                        
                         <div *ngIf="implementEvent.type=='stopLottie'" class="detail-content">
                             <p>Select Lottie to start</p>
                             <select [(ngModel)]="selectedLottieViewId" (change)="onChangeLottiView($event.target.value)"> 
-                        <option *ngFor="let aObject of getLottieViewList()" [value]="aObject.id">{{aObject.name}}</option>
-                    </select>
+                                <option *ngFor="let aObject of getLottieViewList()" [value]="aObject.id">{{aObject.name}}</option>
+                            </select>
                         </div>
-
-
+                        
+                        
                         <div *ngIf="implementEvent.type=='startVideo'" class="detail-content">
                             <p>Select Lottie to start</p>
                             <select [(ngModel)]="selectedVideoViewId" (change)="onChangeVideoView($event.target.value)"> 
-                        <option  *ngFor="let aObject of getVideoViewList()" [value]="aObject.id">{{aObject.name}}</option>
-                    </select>
+                                <option  *ngFor="let aObject of getVideoViewList()" [value]="aObject.id">{{aObject.name}}</option>
+                            </select>
                         </div>
-
+                        
                         <div *ngIf="implementEvent.type=='stopVideo'" class="detail-content">
                             <p>Select Lottie to start</p>
                             <select [(ngModel)]="selectedVideoViewId" (change)="onChangeVideoView($event.target.value)"> 
-                        <option *ngFor="let aObject of getVideoViewList()" [value]="aObject.id">{{aObject.name}}</option>
-                    </select>
+                                <option *ngFor="let aObject of getVideoViewList()" [value]="aObject.id">{{aObject.name}}</option>
+                            </select>
                         </div>
-
-
-
-
+                        
+                        
+                        
+                        
                         <div *ngIf="implementEvent.type=='takePicture'" class="detail-content">
                             <p>Select view to picture</p>
                             <select [(ngModel)]="selectedTakePictureObjectViewId" (change)="onChangeCameraPictureView($event.target.value)"> 
-                        <option  *ngFor="let aObject of getImageViewList()" [value]="aObject.id">{{aObject.name}}</option>
-                    </select>
+                                <option  *ngFor="let aObject of getImageViewList()" [value]="aObject.id">{{aObject.name}}</option>
+                            </select>
                         </div>
-
+                        
                     </div>
                 </div>
-
-
+                
+                
                 <!-- 이벤트 상세설정 @ -->
-
+                
             </div>
-
+            
             <div class="generator-footer">
-
+                
                 <button (click)="hideDialog()">Cancel</button>
                 <button *ngIf="readyEvent" (click)="completeEvent()">Done</button>
-
+                
             </div>
-
-
-
+            
+            
+            
         </div>
     </div>
 </div>

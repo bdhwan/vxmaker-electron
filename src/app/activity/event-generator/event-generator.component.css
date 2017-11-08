@@ -23,13 +23,7 @@
 }
 
 .selected-trigger {
-    background: #46a2ba;
-    color: #fff;
-}
-
-.button:hover {
-    background: #46a2ba;
-    color: #fff;
+    background: #eee;
 }
 
 .overlay {
@@ -273,13 +267,8 @@
 }
 
 .btn-trigger:hover {
-    cursor: pointer;
-    background: #46a2ba;
-    color: #fff;
-}
-
-.btn-trigger:hover p {
-    margin-top: -20px;
+    cursor: default;
+    background: #eee;
 }
 
 .event-detail {
