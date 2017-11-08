@@ -138,8 +138,7 @@ img {
 }
 
 .tree-node-active>.node-wrapper>.node-content-wrapper {
-    background: #46a2ba!important;
-    color: #fff;
+    background: #eee!important;
     box-shadow: none!important;
 }
 
