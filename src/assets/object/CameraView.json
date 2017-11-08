@@ -1,7 +1,7 @@
 {
     "name": "CameraView",
     "type": "CameraView",
-    "icon": "assets/images/btn_takepicture.png",
+    "icon": "assets/images/btn_cameraview.png",
     "openSource": {
         "title": "Fotoapparat",
         "url": "https://github.com/Fotoapparat/Fotoapparat",

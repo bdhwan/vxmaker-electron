@@ -35,7 +35,6 @@ export class EventDetailStartActivityComponent implements OnInit {
       kind: 'close-event'
     };
     this.broadcaster.broadcast(this.viewMode, message);
-
   }
 
   getObjectData(objectId) {
