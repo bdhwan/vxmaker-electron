@@ -1,0 +1,169 @@
+.label-properties {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 6px 10px;
+    background-color: #fff;
+    color: #454545;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.col-8 {
+    width: 66%;
+    float: left;
+}
+
+.col-4 {
+    width: 33%;
+    float: right;
+}
+
+.label-properties .add-new-event {
+    color: #aaa;
+    font-size: 13px;
+    font-weight: 400;
+    width: 42px;
+    padding: 0px;
+    border: 1px solid #aaa;
+    border-radius: 12px;
+}
+
+.label-properties .add-new-event:hover {
+    color: #fff;
+    background: #aaa;
+    border: 1px solid #aaa;
+    opacity: 1;
+    cursor: default;
+}
+
+.label-properties p {
+    text-align: center;
+    margin: 0;
+}
+
+.noti-addmotions {
+    text-align: center;
+    padding: 20px 60px 20px 60px;
+}
+
+.noti-addmotions img {
+    width: 80px;
+    opacity: 0.4;
+}
+
+.noti-addmotions a {
+    color: #aaa;
+}
+
+.noti-addmotions a:hover {
+    color: #fff;
+    cursor: default;
+}
+
+.noti-addmotions p {
+    color: #aaa;
+    font-size: 10px;
+    font-weight: 100;
+    word-spacing: 0px;
+    margin-top: 10px;
+}
+
+.noti-addmotions h3 {
+    font-size: 16px;
+    font-weight: 500;
+    border: solid 1px #aaa;
+    border-radius: 50px;
+    padding-bottom: 2px;
+}
+
+.noti-addmotions h3:hover {
+    background-color: #aaa;
+}
+
+.go-event-detail {
+    background: #f9fafb;
+    border-bottom: 1px solid #ececec;
+    font-size: 13px;
+    color: #454545;
+    position: relative;
+}
+
+.go-event-detail:hover {
+    cursor: default;
+}
+
+.go-event-detail .btn-trash {
+    background: transparent;
+    width: 28px;
+    height: auto;
+    border: none;
+    border-radius: 4px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.go-event-detail .btn-trash img {
+    opacity: 0.5;
+    width: auto;
+}
+
+.go-event-detail .btn-trash:hover {
+    background: rgba(0, 0, 0, .08);
+    cursor: default;
+}
+
+
+/* event-detail */
+
+.event-detail {
+    overflow: hidden;
+    background: transparent;
+    font-size: 13px;
+}
+
+.event-detail img {
+    width: 28px;
+    float: left;
+}
+
+.event-detail h4 {
+    float: left;
+    margin: 0;
+    font-size: 13px;
+    color: #454545;
+    margin-top: 4px;
+    padding-left: 10px;
+}
+
+.event-detail-wrap {
+    position: relative;
+    padding: 12px 15px;
+    border-bottom: 1px solid #ececec;
+}
+
+.event-detail-wrap:hover {
+    background: rgba(0, 0, 0, .04);
+}
+
+.selected-object *,
+.selected-trigger *,
+.selected-event * {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.event-detail h5 {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.event-detail p {
+    margin: 0;
+    padding-left: 32px;
+}

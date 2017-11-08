@@ -43,6 +43,7 @@ import { ClipModule } from 'ng2-clip';
 import { CodeExportComponent } from './code-export/code-export.component';
 import { FontSelectComponent } from './activity/font-select/font-select.component';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { EventListCellComponent } from './activity/event-list-cell/event-list-cell.component';
 
 
 const appRoutes: Routes = [
@@ -93,7 +94,8 @@ const appRoutes: Routes = [
     GuideComponent,
     WindowProxyComponent,
     CodeExportComponent,
-    FontSelectComponent
+    FontSelectComponent,
+    EventListCellComponent
   ],
   imports: [
     BrowserModule,

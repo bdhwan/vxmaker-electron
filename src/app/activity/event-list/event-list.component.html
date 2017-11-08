@@ -13,72 +13,13 @@
     <div *ngIf="!selectedTriggerEvent">
         <!-- 이벤트리스트 -->
         <div *ngIf="triggerEventList" class="go-event-detail">
-            <div *ngFor="let aEvent of triggerEventList" class="event-detail-wrap" (click)="clickDetailEvent(aEvent)">
-
-                <div class="event-detail" *ngIf="aEvent.implEvent">
-
-                    <div class="selected-object">
-                        <div>
-                            <img style="width:20px;height:20px;" [src]="getIcon(getObjectData(aEvent.objectId).type)">
-                        </div>
-                        <h5>
-                            {{getObjectData(aEvent.objectId).name}}
-                        </h5>
-
-                        <div class="selected-trigger">
-                            <div *ngIf="aEvent.type==='click'">
-                                <img src="assets/images/btn_click.png" />
-                            </div>
-                            <div *ngIf="aEvent.type==='onCreate'">
-                                <img src="assets/images/btn_oncreate.png" />
-                            </div>
-                            <div *ngIf="aEvent.type==='backKey'">
-                                <img src="assets/images/btn_backkey.png" />
-                            </div>
-                            <div *ngIf="aEvent.type==='afterAnimation'">
-                                <img src="assets/images/btn_afteranimation.png" />
-                            </div>
-                            <h5>
-                                {{aEvent.name}}
-                            </h5>
-                        </div>
-                    </div>
-
-                    <div class="selected-event">
-                        <div *ngIf="aEvent.implEvent.type==='stageChange'">
-                            <img src="assets/images/btn_stagechange.png" />
-                        </div>
-                        <div *ngIf="aEvent.implEvent.type==='startActivity'">
-                            <img src="assets/images/btn_startactivity.png" />
-                        </div>
-                        <div *ngIf="aEvent.implEvent.type==='finishActivity'">
-                            <img src="assets/images/btn_finishactivity.png" />
-                        </div>
-                        <div *ngIf="aEvent.implEvent.type==='takePicture'">
-                            <img src="assets/images/btn_finishactivity.png" />
-                        </div>
-
-
-                        <h5> {{aEvent.implEvent.name}}</h5>
-                    </div>
-
-                    <div *ngIf="aEvent.implEvent.type==='stageChange'">
-                        <p>{{aEvent.implEvent.fromStageName}} <i class="fa fa-angle-right" style="color:#46a2ba;"></i> {{aEvent.implEvent.toStageName}}</p>
-                    </div>
-
-                    <div *ngIf="aEvent.implEvent.type==='startActivity'">
-                        <p><i class="fa fa-angle-right" style="color:#46a2ba;"></i> {{aEvent.implEvent.toActivityName}}</p>
-                    </div>
-
-                    <button class="btn-trash" (click)="clickDeleteEvent($event,aEvent)">
-                        <img src="assets/images/ic_trashcan.png">
-                    </button>
+            <div *ngFor="let aEvent of triggerEventList">
+                <div *ngIf="aEvent.type!=='afterAnimation'">
+                    <app-event-list-cell [aEvent]="aEvent" (onClickDetailEvent)="clickDetailEvent($event)" (onClickDeleteEvent)="clickDeleteEvent($event)"></app-event-list-cell>
                 </div>
             </div>
             <!-- 이벤트리스트 @ -->
         </div>
-
-
 
         <div *ngIf="!selectedTriggerEvent&&viewMode=='activity'" class="noti-addmotions">
             <a (click)="clickNewEvent()">
