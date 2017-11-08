@@ -1,7 +1,7 @@
 {
     "name": "EditText",
     "type": "EditText",
-    "icon": "assets/images/btn_text.png",
+    "icon": "assets/images/btn_edittext.png",
     "objectProperties": [{
             "name": "type",
             "type": "string",

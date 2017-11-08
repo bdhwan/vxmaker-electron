@@ -79,9 +79,8 @@ export class EventListComponent implements OnInit {
 
 
   getIcon(type) {
-    return this.appDataService.getIcon(type);
+    return this.appDataService.getIcon(type).replace('.png', '_s.png');
   }
-
 
   getObjectData(objectId) {
     return this.appDataService.findObjectById(objectId);

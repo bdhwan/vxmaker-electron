@@ -1,7 +1,7 @@
 {
     "name": "TextView",
     "type": "TextView",
-    "icon": "assets/images/btn_text.png",
+    "icon": "assets/images/btn_textview.png",
     "objectProperties": [
 
         {
