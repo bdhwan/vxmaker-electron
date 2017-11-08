@@ -166,9 +166,9 @@
 
 .object-property .img-selected .img-thumbnail .btn-img-select {
     width: auto;
-    border: 1px solid #ececec;
+    border: none;
     border-radius: 3px;
-    background : rgba(255, 255, 255, .6);
+    background : #fff;
     opacity: 0.6;
     position: absolute;
     right: 0;
@@ -178,7 +178,8 @@
 }
 
 .object-property .img-selected .img-thumbnail .btn-img-select:hover{
-    background : rgba(255, 255, 255, .9);
+    background : #fff;
+    opacity: 0.8;
 }
 
 .object-property .img-selected .img-sub {
@@ -226,17 +227,20 @@
 .property-detail-wrap {
     padding-top: 10px;
     padding-bottom: 10px;
+    position: relative;
 }
 
 .property-detail .color-picker {
-    float:right;
-    width:60px;
+    position: absolute;
+    right: 0;
+    width:26px;
     height:26px;
     margin:1px 16px 1px 3px;
-    cursor:default;
+    cursor: pointer;
+    vertical-align: middle;
 
-    border-radius: 4px;
-    border: none;
+    border-radius: 13px;
+    border: solid 1px #ccc;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .07);
 }
 

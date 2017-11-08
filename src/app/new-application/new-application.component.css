@@ -1,43 +1,55 @@
-.btn-back {
-    background: none;
-    border: none;
-    color: #898989;
-    font-weight: 700;
-    font-size: 14px;
+.new-project{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%)
 }
 
-.btn-back:hover {
-    cursor: pointer;
-    color: #454545;
+.new-project-top, .btn-new-save{
+    width: 49%;
+}
+
+.new-project-top {
+    float: left;
 }
 
 .btn-new-save {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    margin-bottom: 30px;
-    margin-right: 20px;
+    float: right;
 }
 
-.btn-new-save button:hover {
-    cursor: pointer;
-}
-
-.btn-new-save button {
+.btn-back, .btn-next{
     font-weight: 700;
     font-size: 14px;
-    border: none;
-    color: #46a2ba;
     background: transparent;
+    border: none;
+    border-radius: 8px;
+    margin: 10px 0px 0px;
 }
 
-.btn-new-save button:hover {
-    color: #2c869d;
+.btn-back {
+    float: left;
+    color: #898989;
+    padding: 10px 18px 12px 14px;
+}
+
+.btn-back:hover {
+    cursor: default;
+    background: #eee;
+}
+
+.btn-next{
+    float: right;
+    color: #46a2ba;
+    padding: 10px 14px 12px 18px;
+}
+
+.btn-next:hover {
+    background: #eee;
+    cursor: default;
 }
 
 .ic-newproject {
     text-align: center;
-    margin-top: 35px;
     margin-bottom: 30px;
 }
 

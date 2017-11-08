@@ -153,7 +153,7 @@
 }
 
 
-.selected-trigger *, .selected-event *{
+.selected-object *, .selected-trigger *, .selected-event *{
     display: inline-block;
     vertical-align: middle;
 }
