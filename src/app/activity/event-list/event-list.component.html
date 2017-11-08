@@ -16,7 +16,7 @@
             <div *ngFor="let aEvent of triggerEventList" class="event-detail-wrap" (click)="clickDetailEvent(aEvent)">
                 
                 <div class="event-detail" *ngIf="aEvent.implEvent">
-
+                    
                     <div class="selected-object">
                         <div>
                             <img style="width:20px;height:20px;" [src]="getIcon(getObjectData(aEvent.objectId).type)">
@@ -27,32 +27,47 @@
                         
                         <div class="selected-trigger">
                             <div *ngIf="aEvent.type==='click'">
-                                <img src="assets/images/btn_click.png" />
+                                <img src="assets/images/btn_click_s.png" />
                             </div>
                             <div *ngIf="aEvent.type==='onCreate'">
-                                <img src="assets/images/btn_oncreate.png" />
+                                <img src="assets/images/btn_oncreate_s.png" />
                             </div>
                             <div *ngIf="aEvent.type==='backKey'">
-                                <img src="assets/images/btn_backkey.png" />
+                                <img src="assets/images/btn_backkey_s.png" />
                             </div>
                             <div *ngIf="aEvent.type==='afterAnimation'">
-                                <img src="assets/images/btn_afteranimation.png" />
+                                <img src="assets/images/btn_afteranimation_s.png" />
                             </div>
                             <h5>
                                 {{aEvent.name}}
                             </h5>
                         </div>
                     </div>
-                                        
+                    
                     <div class="selected-event">
                         <div *ngIf="aEvent.implEvent.type==='stageChange'">
-                            <img src="assets/images/btn_stagechange.png" />
+                            <img src="assets/images/btn_stagechange_s.png" />
                         </div>
                         <div *ngIf="aEvent.implEvent.type==='startActivity'">
-                            <img src="assets/images/btn_startactivity.png" />
+                            <img src="assets/images/btn_startactivity_s.png" />
                         </div>
                         <div *ngIf="aEvent.implEvent.type==='finishActivity'">
-                            <img src="assets/images/btn_finishactivity.png" />
+                            <img src="assets/images/btn_finishactivity_s.png" />
+                        </div>
+                        <div *ngIf="aEvent.implEvent.type==='startLottie'">
+                            <img src="assets/images/btn_startlottie_s.png" />
+                        </div>
+                        <div *ngIf="aEvent.implEvent.type==='stopLottie'">
+                            <img src="assets/images/btn_stoplottie_s.png" />
+                        </div>
+                        <div *ngIf="aEvent.implEvent.type==='startVideo'">
+                            <img src="assets/images/btn_startvideo_s.png" />
+                        </div>
+                        <div *ngIf="aEvent.implEvent.type==='stopVideo'">
+                            <img src="assets/images/btn_stopvideo_s.png" />
+                        </div>
+                        <div *ngIf="aEvent.implEvent.type==='takePicture'">
+                            <img src="assets/images/btn_takepicture_s.png" />
                         </div>
                         <h5> {{aEvent.implEvent.name}}</h5>
                     </div>

@@ -152,6 +152,7 @@
 
 .object-property .img-selected .img-thumbnail {
     width: 62px;
+    min-height: 62px;
     position: relative;
     border: 1px dashed #ccc;
     border-radius: 3px;
@@ -166,7 +167,7 @@
 
 .object-property .img-selected .img-thumbnail .btn-img-select {
     width: auto;
-    border: none;
+    border: 1px solid #bbb;
     border-radius: 3px;
     background : #fff;
     opacity: 0.6;
@@ -179,6 +180,7 @@
 
 .object-property .img-selected .img-thumbnail .btn-img-select:hover{
     background : #fff;
+    cursor: pointer;
     opacity: 0.8;
 }
 
