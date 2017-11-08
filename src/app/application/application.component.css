@@ -127,16 +127,16 @@ display: none;
 }
 
 .navbar .btn-back {
+    width: 90px;
     height:50px;
     border:none;
     color:rgba(0,0,0,0.5);
     background: none;
-    padding-left: 20px;
     font-size: 13px;
     font-weight: 600;
 }
 
 .navbar .btn-back:hover {
-    color:rgba(0,0,0,0.7);
+    background: #eee;
     cursor: pointer;
 }
