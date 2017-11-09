@@ -134,14 +134,17 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.activityId = this.route.snapshot.params['activityId'];
     this.appDataService.initApplicationPath(this.applicationFolderPath);
     this.appDataService.initActivityId(this.activityId);
-
     this.registerStringBroadcast();
   }
 
   ngOnDestroy() {
+    this.onCloseEvent();
+
     if (this.messageListener) {
       this.messageListener.unsubscribe();
     }
+
+
   }
 
   changePropertyData($event) {

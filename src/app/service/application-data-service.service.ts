@@ -1469,6 +1469,16 @@ export class ApplicationDataServiceService {
 
   }
 
+  getActivityPreviewImage(activityId) {
+
+    for (let i = 0; i < this.applicationData.activityList.length; i++) {
+      const aActivity = this.applicationData.activityList[i];
+      if (activityId === aActivity.activityId) {
+        return aActivity.previewPath;
+      }
+    }
+    return null;
+  }
 
 
   insertChild(objectId) {

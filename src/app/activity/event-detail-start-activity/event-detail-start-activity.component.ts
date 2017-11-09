@@ -8,14 +8,17 @@ import { BroadcastService } from '../../service/broadcast.service';
   styleUrls: ['./event-detail-start-activity.component.css']
 })
 export class EventDetailStartActivityComponent implements OnInit {
+  @Input() prefix: string;
 
   @Input() viewMode: string;
   selectedTriggerEvent;
   selectedImplementEvent;
-
+  timestamp;
   constructor(private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) { }
 
   ngOnInit() {
+
+    this.timestamp = new Date().getTime();
   }
 
 
@@ -38,5 +41,13 @@ export class EventDetailStartActivityComponent implements OnInit {
   getIcon(type) {
     return this.appDataService.getIconSmall(type);
   }
-
+  getCurrentActivityName() {
+    return this.appDataService.getActivityMetaData().activityName;
+  }
+  getCurrentActivityPreviewImage() {
+    return this.getActivityPreviewImage(this.appDataService.getActivityMetaData().activityId);
+  }
+  getActivityPreviewImage(activityId) {
+    return this.prefix + this.appDataService.applicationFolderPath + '/' + this.appDataService.getActivityPreviewImage(activityId) + '?' + this.timestamp;
+  }
 }
