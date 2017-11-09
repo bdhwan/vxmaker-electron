@@ -1,5 +1,5 @@
 {
-    "name": "angular-electron",
+    "name": "vxmaker",
     "version": "0.1.0",
     "main": "electron.js",
     "dependencies": {

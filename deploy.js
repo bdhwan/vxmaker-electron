@@ -60,8 +60,11 @@ try {
 
 const targetPath = new Date().toLocaleString() + "_win32.zip";
 console.log("targetPath =" + targetPath);
-
 fs.renameSync(__dirname + "/dist/win32.zip", __dirname + "/dist/upload/" + targetPath);
+
+targetPath = new Date().toLocaleString() + "_osx.zip";
+console.log("targetPath =" + targetPath);
+fs.renameSync(__dirname + "/dist/osx.zip", __dirname + "/dist/upload/" + targetPath);
 
 
 var config = {
