@@ -1,19 +1,7 @@
-<div *ngIf="selectedTriggerEvent">
+<div *ngIf="selectedTriggerEvent&&selectedImplementEvent.type=='startActivity'">
+    <div class="event-stageChange">
 
-
-
-    <div *ngIf="selectedImplementEvent.type=='startActivity'" class="event-stageChange">
-
-        <div *ngIf="selectedTriggerEvent.type=='click'">
-
-            <div>
-                <img style="width:20px;height:20px;" [src]="getIcon(getObjectData(selectedTriggerEvent.objectId).type)">
-            </div>
-
-            ({{getObjectData(selectedTriggerEvent.objectId).type}})- {{getObjectData(selectedTriggerEvent.objectId).name}}
-        </div>
-
-
+        <app-event-detail-trigger-object [viewMode]="viewMode" [prefix]="prefix" [selectedTriggerEvent]="selectedTriggerEvent"></app-event-detail-trigger-object>
         <div class="event-detail">
             <!--{{selectedImplementEvent.type}}-->
             <!-- 이벤트에 대한 상세 정보 -->

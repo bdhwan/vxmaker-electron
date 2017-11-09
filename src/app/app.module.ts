@@ -47,6 +47,7 @@ import { EventDetailStartLottieComponent } from './activity/event-detail-start-l
 import { EventDetailStopLottieComponent } from './activity/event-detail-stop-lottie/event-detail-stop-lottie.component';
 import { EventDetailStartVideoComponent } from './activity/event-detail-start-video/event-detail-start-video.component';
 import { EventDetailStopVideoComponent } from './activity/event-detail-stop-video/event-detail-stop-video.component';
+import { EventDetailTriggerObjectComponent } from './activity/event-detail-trigger-object/event-detail-trigger-object.component';
 
 
 const appRoutes: Routes = [
@@ -103,7 +104,8 @@ const appRoutes: Routes = [
     EventDetailStartLottieComponent,
     EventDetailStopLottieComponent,
     EventDetailStartVideoComponent,
-    EventDetailStopVideoComponent
+    EventDetailStopVideoComponent,
+    EventDetailTriggerObjectComponent
   ],
   imports: [
     BrowserModule,

@@ -71,4 +71,8 @@ export class EventListCellComponent implements OnInit {
     }
     return null;
   }
+
+  getCurrentStageId() {
+    return this.appDataService.selectedStage.id;
+  }
 }

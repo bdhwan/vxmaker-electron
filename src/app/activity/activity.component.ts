@@ -19,6 +19,15 @@ import { UUID } from 'angular2-uuid';
 import { BroadcastService } from '../service/broadcast.service';
 import { MessageEventService } from '../service/message-event.service';
 import { environment } from '../../environments/environment';
+
+import { EventDetailTakePictureComponent } from '../activity/event-detail-take-picture/event-detail-take-picture.component';
+import { EventDetailStartLottieComponent } from '../activity/event-detail-start-lottie/event-detail-start-lottie.component';
+import { EventDetailStopLottieComponent } from '../activity/event-detail-stop-lottie/event-detail-stop-lottie.component';
+import { EventDetailStartVideoComponent } from '../activity/event-detail-start-video/event-detail-start-video.component';
+import { EventDetailStopVideoComponent } from '../activity/event-detail-stop-video/event-detail-stop-video.component';
+import { EventDetailTriggerObjectComponent } from '../activity/event-detail-trigger-object/event-detail-trigger-object.component';
+
+
 import 'rxjs/add/operator/switchMap';
 
 declare var rasterizeHTML: any;
@@ -65,6 +74,21 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('eventDetailFinishActivity')
   private eventDetailFinishActivity: EventDetailFinishActivityComponent;
+
+  @ViewChild('eventDetailTakePicture')
+  private eventDetailTakePicture: EventDetailTakePictureComponent;
+
+  @ViewChild('eventDetailStartLottie')
+  private eventDetailStartLottie: EventDetailStartLottieComponent;
+
+  @ViewChild('eventDetailStopLottie')
+  private eventDetailStopLottie: EventDetailStopLottieComponent;
+
+  @ViewChild('eventDetailStartVideo')
+  private eventDetailStartVideo: EventDetailStartVideoComponent;
+
+  @ViewChild('eventDetailStopVideo')
+  private eventDetailStopVideo: EventDetailStopVideoComponent;
 
   @ViewChild('previewSize')
   private previewSize: PreviewSizeComponent;
@@ -782,6 +806,15 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.eventDetailStageChange.onChangeData();
     this.eventDetailStartActivity.onChangeData();
     this.eventDetailFinishActivity.onChangeData();
+
+
+    this.eventDetailStartVideo.onChangeData();
+    this.eventDetailStopVideo.onChangeData();
+    this.eventDetailStopLottie.onChangeData();
+    this.eventDetailStartLottie.onChangeData();
+    this.eventDetailTakePicture.onChangeData();
+
+
   }
 
 

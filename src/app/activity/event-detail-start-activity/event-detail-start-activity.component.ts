@@ -9,8 +9,9 @@ import { BroadcastService } from '../../service/broadcast.service';
 })
 export class EventDetailStartActivityComponent implements OnInit {
   @Input() prefix: string;
-
   @Input() viewMode: string;
+
+
   selectedTriggerEvent;
   selectedImplementEvent;
   timestamp;

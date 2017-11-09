@@ -36,7 +36,6 @@
     font-size: 13px;
     color: #454545;
     position: relative;
-
     overflow: hidden;
     background: transparent;
     font-size: 13px;
@@ -52,6 +51,8 @@
     display: inline-block;
     vertical-align: middle;
 }
+
+
 /* 
 .after-animation {
     margin-left: 20px;
@@ -162,4 +163,12 @@
 .event-detail p {
     margin: 0;
     padding-left: 24px;
+}
+
+.event-disable-stage {
+    background: #bbbbbb;
+}
+
+.event-disable-stage:hover {
+    background: #bbbbbb;
 }

@@ -9,8 +9,11 @@ import { BroadcastService } from '../../service/broadcast.service';
 })
 export class EventDetailFinishActivityComponent implements OnInit {
   @Input() viewMode: string;
+  @Input() prefix: string;
+
   selectedTriggerEvent;
   selectedImplementEvent;
+  timestamp;
 
 
 
@@ -21,6 +24,7 @@ export class EventDetailFinishActivityComponent implements OnInit {
 
 
   ngOnInit() {
+    this.timestamp = new Date().getTime();
   }
 
 
@@ -45,6 +49,10 @@ export class EventDetailFinishActivityComponent implements OnInit {
   getIcon(type) {
     return this.appDataService.getIconSmall(type);
   }
-
-
+  getCurrentActivityPreviewImage() {
+    return this.getActivityPreviewImage(this.appDataService.getActivityMetaData().activityId);
+  }
+  getActivityPreviewImage(activityId) {
+    return this.prefix + this.appDataService.applicationFolderPath + '/' + this.appDataService.getActivityPreviewImage(activityId) + '?' + this.timestamp;
+  }
 }

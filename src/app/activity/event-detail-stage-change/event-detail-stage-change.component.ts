@@ -10,6 +10,7 @@ import { BroadcastService } from '../../service/broadcast.service';
 export class EventDetailStageChangeComponent implements OnInit, AfterViewInit {
 
   @Input() viewMode: string;
+  @Input() prefix: string;
 
   @Output() onNewAfterAnimationEvent = new EventEmitter<string>();
   @Output() onCloseEvent = new EventEmitter<string>();

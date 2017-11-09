@@ -62,12 +62,14 @@
 
         <!-- activity right-->
         <div class="activity-right" id="rightSide">
+
+
             <app-preview-size [viewMode]="'activity'" #previewSize></app-preview-size>
             <app-object-property [viewMode]="'activity'" [applicationFolderPath]="applicationFolderPath" [prefix]="prefix" #objectProperty (onShowResourceDialog)="onShowResourceDialog($event)" (onChangeTreeData)="changePropertyData($event)"></app-object-property>
             <app-event-list [viewMode]="'activity'" #eventList></app-event-list>
-            <app-event-detail-stage-change [viewMode]="'activity'" #eventDetailStageChange></app-event-detail-stage-change>
+            <app-event-detail-stage-change [prefix]="prefix" [viewMode]="'activity'" #eventDetailStageChange></app-event-detail-stage-change>
             <app-event-detail-start-activity [prefix]="prefix" [viewMode]="'activity'" #eventDetailStartActivity></app-event-detail-start-activity>
-            <app-event-detail-finish-activity [viewMode]="'activity'" #eventDetailFinishActivity></app-event-detail-finish-activity>
+            <app-event-detail-finish-activity [prefix]="prefix" [viewMode]="'activity'" #eventDetailFinishActivity></app-event-detail-finish-activity>
             <app-event-detail-start-lottie [prefix]="prefix" [viewMode]="'activity'" #eventDetailStartLottie></app-event-detail-start-lottie>
             <app-event-detail-stop-lottie [prefix]="prefix" [viewMode]="'activity'" #eventDetailStopLottie></app-event-detail-stop-lottie>
             <app-event-detail-start-video [prefix]="prefix" [viewMode]="'activity'" #eventDetailStartVideo></app-event-detail-start-video>

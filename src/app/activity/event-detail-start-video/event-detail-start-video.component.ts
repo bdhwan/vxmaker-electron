@@ -28,4 +28,20 @@ export class EventDetailStartVideoComponent implements OnInit {
     this.selectedImplementEvent = this.appDataService.getSelectedImplementEvent();
   }
 
+
+
+  clickCancel() {
+    const message = {
+      kind: 'close-event'
+    };
+    this.broadcaster.broadcast(this.viewMode, message);
+  }
+
+
+  getObjectData(objectId) {
+    return this.appDataService.findObjectById(objectId);
+  }
+  getIcon(type) {
+    return this.appDataService.getIconSmall(type);
+  }
 }

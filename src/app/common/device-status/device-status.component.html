@@ -5,23 +5,23 @@
     </p>-->
 
     <p class="device-unconnected" *ngIf="deviceList.length == 0">
-        Please connect the device. <span (click)="clickHowToConnect('http://vxmaker.com')">How to connect <i class="fa fa-question-circle-o"></i></span>
+        <span (click)="clickHowToConnect('http://vxmaker.com')">How to connect <i class="fa fa-question-circle-o"></i></span>
     </p>
 
-    <p [hidden]="sendStatus" class="btn-preview nav-btn" (click)='clickSendFile()'>
-        <i class="fa fa-usb"></i><br>
-        Send
+
+    <p *ngIf="deviceList.length > 0" class="btn-preview nav-btn" (click)='clickSendFile()'>
+        <i class="fa fa-usb"></i><br> Send
     </p>
 
     <p class="btn-save nav-btn" (click)='clickSaveFile()'>
-        <i class="fa fa-floppy-o"></i><br>
-        Save
+        <i class="fa fa-floppy-o"></i><br> Save
     </p>
 
     <p class="btn-code nav-btn" (click)='clickExportCode()'>
-        <i class="fa fa-code"></i><br>
-        Code
+        <i class="fa fa-code"></i><br> Code
     </p>
+
+
 
     <!-- <p class="btn-preview nav-btn" (click)='clickExportGuide()'>
         <i class="fa fa-mobile"></i>Guide
