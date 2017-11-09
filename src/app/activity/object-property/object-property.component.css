@@ -152,12 +152,18 @@
 
 .object-property .img-selected .img-thumbnail {
     width: 62px;
+    min-height: 62px;
     position: relative;
     border: 1px dashed #ccc;
     border-radius: 3px;
     padding: 5px;
     float: left;
     margin-right: 15px;
+
+    /* 세로 중앙 정렬 */
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
 .object-property .img-selected .img-thumbnail img{
@@ -166,7 +172,7 @@
 
 .object-property .img-selected .img-thumbnail .btn-img-select {
     width: auto;
-    border: none;
+    border: 1px solid #bbb;
     border-radius: 3px;
     background : #fff;
     opacity: 0.6;

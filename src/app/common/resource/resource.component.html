@@ -2,30 +2,30 @@
     <div class="popup-wrap" *ngIf="visibility">
         <div id="popup1" class="overlay" (click)="hideDialog()">
             <div class="popup" (click)="nothing($event)">
-
+                
                 <div class="resource-nav">
                     <button class="btn-image btn-select btn-tab" style="color:#46a2ba;" *ngIf="tab=='image'" (click)="clickTab($event,'image')">Image</button>
                     <button class="btn-image  btn-tab" *ngIf="tab!='image'" (click)="clickTab($event,'image')">Image</button>
-
+                    
                     <button class="btn-file btn-select btn-tab" style="color:#46a2ba;" *ngIf="tab=='video'" (click)="clickTab($event,'video')">Video</button>
                     <button class="btn-file btn-tab" *ngIf="tab!='video'" (click)="clickTab($event,'video')">Video</button>
-
+                    
                     <button class="btn-file btn-select btn-tab" style="color:#46a2ba;" *ngIf="tab=='lottie'" (click)="clickTab($event,'lottie')">Lottie</button>
                     <button class="btn-file btn-tab" *ngIf="tab!='lottie'" (click)="clickTab($event,'lottie')">Lottie</button>
-
-
-
+                    
+                    
+                    
                     <div class="resource-add">
                         <button *ngIf="tab=='image'" (click)="clickNewFile($event,'image')">+ New Image</button>
                         <button *ngIf="tab=='file'" align="left" (click)="clickNewFile($event,'file')">+ New File</button>
                         <button class="resource-delete" (click)="clickDeleteMode()">
-                        <i class="fa fa-trash-o" ></i>
-                    </button>
+                            <img src="assets/images/ic_trashcan.png" />
+                        </button>
                     </div>
                 </div>
-
-
-
+                
+                
+                
                 <div class="resource-wrap">
                     <div *ngIf="tab=='image'">
                         <h3>Uploaded Image</h3>
@@ -42,14 +42,15 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div *ngIf="tab=='file'">
                         <h3>Uploaded File</h3>
                         <div class="image-list">
                             <div *ngFor="let fileUrl of fileList" class="bg-img">
                                 <div class="img-delete" *ngIf="isDeleteMode" (click)="clickDeleteFile(fileUrl)">
                                     <div class="img-delete-icon">
-                                        <i class="fa fa-trash-o" style="font-size:21px;"></i>
+                                        <img src="assets/images/ic_trashcan.png" />
+                                        
                                     </div>
                                 </div>
                                 <div class="img-select" *ngIf="fileUrl==selectedFileUrl">
@@ -60,7 +61,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="resource-footer">
                     <div>Filename: <span class="file-select-pick ">{{selectedFileUrl}}</span></div>
                     <div class="resource-apply">
@@ -83,20 +84,20 @@
             <img [src]="prefix+applicationFolderPath+'/'+imageUrl" (click)="clickFile(imageUrl)">
         </div>
     </div>
-
+    
     <!-- file -->
     <div class="label-properties-2">
         Json {{fileList.length}} <button (click)="clickFileFolder()"><i class="fa fa-folder-open"></i></button>
     </div>
     <div class="image-list" style="height:45%;">
-
+        
         <div class="image-list">
             <div *ngFor="let fileUrl of fileList" class="bg-img">
-
+                
                 <app-lottie-animation-view [initUrl]="fileUrl" style="width:100%;height:100%;" (click)="clickFile(fileUrl)">
                 </app-lottie-animation-view>
             </div>
         </div>
-
+        
     </div>
 </div>
