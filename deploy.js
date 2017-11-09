@@ -58,13 +58,13 @@ try {
 
 
 
-const targetPath = new Date().toLocaleString() + "_win32.zip";
-console.log("targetPath =" + targetPath);
-fs.renameSync(__dirname + "/dist/win32.zip", __dirname + "/dist/upload/" + targetPath);
+const targetPathWin = new Date().toLocaleString() + "_win32.zip";
+console.log("targetPath =" + targetPathWin);
+fs.renameSync(__dirname + "/dist/win32.zip", __dirname + "/dist/upload/" + targetPathWin);
 
-targetPath = new Date().toLocaleString() + "_osx.zip";
-console.log("targetPath =" + targetPath);
-fs.renameSync(__dirname + "/dist/osx.zip", __dirname + "/dist/upload/" + targetPath);
+const targetPathOSX = new Date().toLocaleString() + "_osx.zip";
+console.log("targetPath =" + targetPathOSX);
+fs.renameSync(__dirname + "/dist/osx.zip", __dirname + "/dist/upload/" + targetPathOSX);
 
 
 var config = {
@@ -74,7 +74,7 @@ var config = {
     port: 21,
     localRoot: __dirname + "/dist/upload",
     remoteRoot: "/home/vxmaker/",
-    include: [targetPath],
+    include: [targetPathWin, targetPathOSX],
     exclude: ['dist/*', 'adb', '.idea', 'tmp/*', 'build/*']
 }
 

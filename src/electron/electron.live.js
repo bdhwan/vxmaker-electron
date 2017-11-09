@@ -1,6 +1,6 @@
 // src/electron.js
 
-const { app, dialog, shell, Menu, Tray, BrowserWindow, ipcMain } = require('electron')
+const { app, dialog, shell, Menu, autoUpdater, Tray, BrowserWindow, ipcMain } = require('electron')
 var path = require("path");
 const url = require('url');
 var fse = require('fs-extra');
@@ -22,7 +22,16 @@ var settings = new ElectronData({
 
 console.log("userDatapath = " + app.getPath('userData'));
 
+// const server = 'https://vxmaker.com'
+// const feed = `${server}/update/${process.platform}/${app.getVersion()}`
 
+// console.log('update feed = ' + feed);
+// autoUpdater.setFeedURL(feed)
+
+
+// setInterval(() => {
+//     autoUpdater.checkForUpdates()
+// }, 60000);
 
 let mainWindow = null;
 let introWindow = null;
