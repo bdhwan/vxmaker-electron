@@ -1,6 +1,61 @@
+.event-detail-wrap {
+    position: relative;
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.event-detail-wrap .btn-trash {
+    background: transparent;
+    width: 28px;
+    height: auto;
+    border: none;
+    border-radius: 4px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.event-detail-wrap .btn-trash img {
+    opacity: 0.5;
+    width: auto;
+}
+
+.event-detail-wrap .btn-trash:hover {
+    background: rgba(0, 0, 0, .08);
+    cursor: default;
+}
+
+.event-detail-wrap:hover {
+    background: rgba(0, 0, 0, .04);
+}
+
+.event-detail {
+    font-size: 13px;
+    color: #454545;
+    position: relative;
+
+    overflow: hidden;
+    background: transparent;
+    font-size: 13px;
+}
+
+.event-detail:hover {
+    cursor: default;
+}
+
+.selected-object *,
+.selected-trigger *,
+.selected-event * {
+    display: inline-block;
+    vertical-align: middle;
+}
+/* 
 .after-animation {
     margin-left: 20px;
-}
+} */
 
 .label-properties {
     font-size: 14px;
@@ -10,7 +65,6 @@
     color: #454545;
     position: relative;
     overflow: hidden;
-    border-bottom: 1px solid #eaeaea;
 }
 
 .col-8 {
@@ -85,53 +139,8 @@
     background-color: #aaa;
 }
 
-.go-event-detail {
-    background: #f9fafb;
-    border-bottom: 1px solid #ececec;
-    font-size: 13px;
-    color: #454545;
-    position: relative;
-}
-
-.go-event-detail:hover {
-    cursor: default;
-}
-
-.go-event-detail .btn-trash {
-    background: transparent;
-    width: 28px;
-    height: auto;
-    border: none;
-    border-radius: 4px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: 0;
-    margin-top: 10px;
-    margin-right: 10px;
-}
-
-.go-event-detail .btn-trash img {
-    opacity: 0.5;
-    width: auto;
-}
-
-.go-event-detail .btn-trash:hover {
-    background: rgba(0, 0, 0, .08);
-    cursor: default;
-}
-
-
-/* event-detail */
-
-.event-detail {
-    overflow: hidden;
-    background: transparent;
-    font-size: 13px;
-}
-
 .event-detail img {
-    width: 28px;
+    width: 20px;
     float: left;
 }
 
@@ -144,23 +153,6 @@
     padding-left: 10px;
 }
 
-.event-detail-wrap {
-    position: relative;
-    padding: 12px 15px;
-    border-bottom: 1px solid #ececec;
-}
-
-.event-detail-wrap:hover {
-    background: rgba(0, 0, 0, .04);
-}
-
-.selected-object *,
-.selected-trigger *,
-.selected-event * {
-    display: inline-block;
-    vertical-align: middle;
-}
-
 .event-detail h5 {
     font-size: 13px;
     font-weight: 600;
@@ -169,5 +161,5 @@
 
 .event-detail p {
     margin: 0;
-    padding-left: 32px;
+    padding-left: 24px;
 }
