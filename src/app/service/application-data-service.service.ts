@@ -81,9 +81,19 @@ export class ApplicationDataServiceService {
   ];
 
 
+  triggerEventIconHash = {
+    click: 'assets/images/btn_click.png',
+    onCreate: 'assets/images/btn_oncreate.png',
+    backKey: 'assets/images/btn_backkey.png',
+    afterAnimation: 'assets/images/btn_afteranimation.png'
+  };
 
-
-
+  implEventIconHash = {
+    stageChange: 'assets/images/btn_stagechange.png',
+    startActivity: 'assets/images/btn_startactivity.png',
+    finishActivity: 'assets/images/btn_finishactivity.png',
+    takePicture: 'assets/images/btn_takepicture.png'
+  };
 
 
   constructor(private http: Http, private cpService: ColorPickerService, private broadcaster: BroadcastService) {
@@ -2225,6 +2235,13 @@ export class ApplicationDataServiceService {
     return this.findObjectBasicDataByType(type).icon;
   }
 
+  getTriggerEventIcon(type) {
+    return this.triggerEventIconHash[type];
+  }
+
+  getImplEventIcon(type) {
+    return this.implEventIconHash[type];
+  }
   getIconSmall(type) {
     if (this.findObjectBasicDataByType(type)) {
       return this.findObjectBasicDataByType(type).icon.replace('.png', '_s.png');

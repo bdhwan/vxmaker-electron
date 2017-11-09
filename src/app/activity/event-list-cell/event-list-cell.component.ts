@@ -44,6 +44,20 @@ export class EventListCellComponent implements OnInit {
     return this.appDataService.getIconSmall(type);
   }
 
+
+
+  getTriggerEventTypeIcon(type) {
+    return this.appDataService.getTriggerEventIcon(type);
+  }
+
+  getImplEventTypeIcon(type) {
+    return this.appDataService.getImplEventIcon(type);
+  }
+
+
+
+
+
   getObjectData(objectId) {
     return this.appDataService.findObjectById(objectId);
   }
