@@ -22,11 +22,9 @@ import { PreviewComponent } from './activity/preview/preview.component';
 import { StageListComponent } from './activity/stage-list/stage-list.component';
 import { PreviewSizeComponent } from './activity/preview-size/preview-size.component';
 import { EventGeneratorComponent } from './activity/event-generator/event-generator.component';
-
 import { TreeModule } from 'angular2-tree-component';
 import { PreviewObjectComponent } from './activity/preview/preview-object/preview-object.component';
 import { ApplicationDataServiceService } from './service/application-data-service.service';
-
 import { BroadcastService } from './service/broadcast.service';
 import { ResourceComponent } from './common/resource/resource.component';
 import { EventDetailStageChangeComponent } from './activity/event-detail-stage-change/event-detail-stage-change.component';
@@ -44,6 +42,11 @@ import { CodeExportComponent } from './code-export/code-export.component';
 import { FontSelectComponent } from './activity/font-select/font-select.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { EventListCellComponent } from './activity/event-list-cell/event-list-cell.component';
+import { EventDetailTakePictureComponent } from './activity/event-detail-take-picture/event-detail-take-picture.component';
+import { EventDetailStartLottieComponent } from './activity/event-detail-start-lottie/event-detail-start-lottie.component';
+import { EventDetailStopLottieComponent } from './activity/event-detail-stop-lottie/event-detail-stop-lottie.component';
+import { EventDetailStartVideoComponent } from './activity/event-detail-start-video/event-detail-start-video.component';
+import { EventDetailStopVideoComponent } from './activity/event-detail-stop-video/event-detail-stop-video.component';
 
 
 const appRoutes: Routes = [
@@ -95,7 +98,12 @@ const appRoutes: Routes = [
     WindowProxyComponent,
     CodeExportComponent,
     FontSelectComponent,
-    EventListCellComponent
+    EventListCellComponent,
+    EventDetailTakePictureComponent,
+    EventDetailStartLottieComponent,
+    EventDetailStopLottieComponent,
+    EventDetailStartVideoComponent,
+    EventDetailStopVideoComponent
   ],
   imports: [
     BrowserModule,

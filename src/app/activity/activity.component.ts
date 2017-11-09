@@ -1,33 +1,24 @@
 import { Component, OnInit, OnDestroy, NgZone, ViewChild, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-
 import { ObjectTreeComponent } from '../activity/object-tree/object-tree.component';
 import { ObjectNewComponent } from '../activity/object-new/object-new.component';
 import { ObjectPropertyComponent } from '../activity/object-property/object-property.component';
 import { PreviewComponent } from '../activity/preview/preview.component';
 import { PreviewSizeComponent } from '../activity/preview-size/preview-size.component';
-
 import { StageListComponent } from '../activity/stage-list/stage-list.component';
 import { ResourceComponent } from '../common/resource/resource.component';
 import { EventListComponent } from '../activity/event-list/event-list.component';
 import { EventDetailStageChangeComponent } from '../activity/event-detail-stage-change/event-detail-stage-change.component';
 import { EventDetailStartActivityComponent } from '../activity/event-detail-start-activity/event-detail-start-activity.component';
 import { EventDetailFinishActivityComponent } from '../activity/event-detail-finish-activity/event-detail-finish-activity.component';
-
-
 import { ActivityListComponent } from '../application/activity-list/activity-list.component';
-
-
-
 import { EventGeneratorComponent } from '../activity/event-generator/event-generator.component';
 import { ApplicationDataServiceService } from '../service/application-data-service.service';
 import { UUID } from 'angular2-uuid';
 import { BroadcastService } from '../service/broadcast.service';
 import { MessageEventService } from '../service/message-event.service';
 import { environment } from '../../environments/environment';
-
-
 import 'rxjs/add/operator/switchMap';
 
 declare var rasterizeHTML: any;
@@ -41,7 +32,6 @@ declare var rasterizeHTML: any;
 export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   prefix;
-
 
   @ViewChild('objectTree')
   private objectTreeComponent: ObjectTreeComponent;
@@ -85,30 +75,21 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   saveStatus: Boolean = false;
-
   sendStatus: Boolean = false;
-
   isOpenActivityList: Boolean = false;
-
   isReadyToRender: Boolean = false;
-
   activityId: String;
   applicationFolderPath: string;
   applicationData;
   activityMetaData;
   activityData;
-
   selectedTriggerEvent;
-
   imageList = [];
   fileList = [];
-
-
   objectTypeData: any;
   defaultStateData;
   previewCss = {};
   messageListener;
-
   haveInputFocus;
 
   constructor(
@@ -184,12 +165,15 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
             this.deleteCurrentObject();
           }
         } else if (kind === 'delete-current-object') {
+
           this.deleteCurrentObject();
 
         } else if (kind === 'delete-event') {
+
           this.appDataService.deleteTriggerEventByTriggerEventId(message.triggerEventId);
           this.notifySelectedObjectChanged();
           this.onClickSave();
+
         } else if (kind === 'select-psd') {
 
           const selectedPSD = this.appDataService.selectPsdFile();
@@ -376,8 +360,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         this.activityMetaData = this.appDataService.getActivityMetaData();
         this.activityData = this.appDataService.getActivityData();
         this.selectedTriggerEvent = this.appDataService.getSelectedTriggerEvent();
-
-
         return this.checkEmptyActivityData();
       })
       // .then(result => {
@@ -439,9 +421,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
         //6. stateEventList;
         this.activityData.stateEventList = [];
-
-
-
       }
       console.log("check stage list = " + JSON.stringify(this.activityData.stageList));
       resolve(true);

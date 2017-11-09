@@ -2,11 +2,11 @@
     <div class="object-property" style="padding-top:0;">
         <div class="label-properties">Properties</div>
         <div *ngIf="selectedObject" class="btn-img">
-            
+
             <div class="label-properties-2">Info</div>
             <!-- 이미지, 파일 선택버튼 -->
             <div *ngIf="selectedObject.type=='ImageView'">
-                <div *ngIf="selectedObject.dataUrl" class="img-selected">
+                <div class="img-selected">
                     <div class="img-thumbnail">
                         <img [src]="prefix+applicationFolderPath+'/'+selectedObject.dataUrl">
                         <img src="./assets/images/ic_image_select.png" [hidden]="viewMode=='guide'" (click)="clickSelectImage()" class="btn-img-select">
@@ -17,16 +17,16 @@
                     </div>
                 </div>
             </div>
-            
+
             <div *ngIf="(selectedObject.type=='LottieAnimationView'||selectedObject.type=='VideoView')&&!selectedObject.fixResource">
                 <p>{{selectedObject.dataUrl}}</p>
                 <button [hidden]="viewMode=='guide'" (click)="clickSelectFile()"> FileSelect</button>
             </div>
-            
-            
-            
+
+
+
             <!-- 이미지, 파일 선택버튼@ -->
-            
+
             <div class="property-detail-wrap" style="padding-top:5px;">
                 <div class="property-detail" style="margin-bottom:2px;" *ngIf="!selectedObject.fixResource">
                     <label>type</label>
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                 </span>
-                
+
                 <div class="property-detail">
                     <label>name</label>
                     <div class="property-input">
@@ -60,12 +60,12 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- <div class="btn-more">
             <button style="margin-bottom:8px;">Open source(이미지출처) <i class="fa fa-sort-desc"></i></button>
         </div> -->
-        
-        
+
+
         <div *ngIf="openSource">
             <div class="label-properties-2">
                 Open Source
@@ -77,8 +77,8 @@
                 <div class="info-link"><a (click)="clickLink(openSource.url)">{{openSource.url}}</a></div>
             </div>
         </div>
-        
-        
+
+
         <div *ngIf="selectedState">
             <!-- 타이포그래피 -->
             <div *ngIf="(selectedObject.type=='TextView'||selectedObject.type=='EditText'||selectedObject.type=='Button')">
@@ -136,24 +136,24 @@
                 </div>
             </div>
             <!-- 타이포그래피@ -->
-            
+
             <!-- 사이즈 -->
             <div (click)="toggleShowSize() " class="label-properties-2">
                 Size
                 <i class="fa fa-sort-desc "></i>
             </div>
-            
+
             <div class="property-detail-wrap " [hidden]="!needShowSize ">
                 <div class="property-detail ">
                     <div class="col-6 ">
                         <label>width</label>
                         <div class="property-input ">
-                            
+
                             <input type="number " [(ngModel)]="selectedState.width" (focus)="onFocus() " (blur)="onBlur() ">
                             <p class="unit ">px</p>
                             <label class="value-dp">{{pxToDp(selectedState.width)}}</label>
                             <span class="unit-dp">dp</span>
-                            
+
                         </div>
                     </div>
                     <div class="col-6 ">
@@ -165,7 +165,7 @@
                             <span class="unit-dp">dp</span>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="property-detail ">
                     <div class="col-6 ">
@@ -181,17 +181,17 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
-            
+
             <!-- 사이즈@ -->
-            
+
             <!--마진 -->
             <div (click)="toggleShowMargin() " class="label-properties-2">
                 Margin
                 <i class="fa fa-sort-desc "></i>
             </div>
-            
+
             <div class="property-detail-wrap" style="padding-bottom:4px;" [hidden]="!needShowMargin ">
                 <div class="property-detail ">
                     <div class="col-6 ">
@@ -213,7 +213,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="property-detail ">
                     <div class="col-6 ">
                         <label>left</label>
@@ -235,17 +235,17 @@
                     </div>
                 </div>
                 <!-- property detail test@ -->
-                
+
             </div>
             <!--마진@ -->
-            
+
             <!-- padding -->
-            
+
             <div (click)="toggleShowPadding() " class="label-properties-2" [hidden]="true ">
                 Padding
                 <i class="fa fa-sort-desc "></i>
             </div>
-            
+
             <div class="property-detail-wrap " [hidden]="!needShowPadding ">
                 <div class="property-detail ">
                     <div class="col-6 ">
@@ -278,21 +278,21 @@
                             <p class="unit ">px</p>
                         </div>
                     </div>
-                    
+
                 </div>
-                
+
             </div>
             <!--padding @ -->
-            
+
             <!-- transform -->
-            
+
             <div (click)="toggleShowTranslation() " class="label-properties-2">
                 Transform
                 <i class="fa fa-sort-desc "></i>
             </div>
-            
+
             <div class="property-detail-wrap " [hidden]="!needShowTranslation ">
-                
+
                 <div class="property-detail ">
                     <div class="col-6 ">
                         <label>rotate</label>
@@ -305,10 +305,10 @@
                         <label>alpha</label>
                         <div class="property-input ">
                             <input type="number " [(ngModel)]="selectedState.alpha " (focus)="onFocus() " (blur)="onBlur() ">
-                            
+
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="property-detail ">
                     <label>translationX</label>
@@ -325,9 +325,9 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- transform@ -->
-            
+
             <!--code -->
             <div (click)="toggleShowCode() " class="label-properties-2">
                 Code
@@ -339,7 +339,7 @@
             </div>
             <!--code@ -->
         </div>
-        
+
     </div>
-    
+
 </div>

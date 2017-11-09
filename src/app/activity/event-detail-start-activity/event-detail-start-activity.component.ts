@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ApplicationDataServiceService } from '../../service/application-data-service.service'
+import { ApplicationDataServiceService } from '../../service/application-data-service.service';
 import { BroadcastService } from '../../service/broadcast.service';
 
 @Component({

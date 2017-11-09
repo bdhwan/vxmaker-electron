@@ -38,10 +38,8 @@ let introWindow = null;
 
 
 
-let minWidth = 1280;
-let minHeight = 840;
-let maxWidth = 1280;
-let maxHeight = 840;
+let minWidth = 1080;
+let minHeight = 720;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -601,35 +599,11 @@ ipcMain.on('send-file-to-device', (event, tarFilePath, deviceId, devicePath) => 
 })
 
 
-
-
-
-
-
-
-
-ipcMain.on('go-main-window', (event, targetPath) => {
-
-    console.log("go-main-window path = " + targetPath);
-    initMainWindow(targetPath);
-    introWindow.close();
-    event.returnValue = true;
-})
-
-//copy file
-ipcMain.on('close-main-window', (event) => {
-    initIntroWindow();
-    mainWindow.close();
-    event.returnValue = true;
-})
-
-
-
 function createWindow() {
 
     setTimeout(() => {
         // Create the browser window.
-        win = new BrowserWindow({ width: maxWidth, height: maxHeight, minWidth: minWidth, minHeight: minHeight })
+        win = new BrowserWindow({ width: 1080, height: 640, minWidth: 1080, minHeight: 640 })
 
         // var targetUrl = `file://${__dirname}/index.html`;
         // var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true })
