@@ -23,7 +23,7 @@
 }
 
 .selected-trigger {
-    background: #46a2ba;
+    background: #eee;
     color: #fff;
 }
 
@@ -273,13 +273,8 @@
 }
 
 .btn-trigger:hover {
-    cursor: pointer;
-    background: #46a2ba;
-    color: #fff;
-}
-
-.btn-trigger:hover p {
-    margin-top: -20px;
+    cursor: default;
+    background: #eee;
 }
 
 .event-detail {
@@ -305,7 +300,7 @@
 }
 
 .detail-content select:hover {
-    cursor: pointer;
+    cursor: default;
 }
 
 .event-kind {

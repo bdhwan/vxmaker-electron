@@ -82,17 +82,21 @@ export class ApplicationDataServiceService {
 
 
   triggerEventIconHash = {
-    click: 'assets/images/btn_click.png',
-    onCreate: 'assets/images/btn_oncreate.png',
-    backKey: 'assets/images/btn_backkey.png',
-    afterAnimation: 'assets/images/btn_afteranimation.png'
+    click: 'assets/images/btn_click_s.png',
+    onCreate: 'assets/images/btn_oncreate_s.png',
+    backKey: 'assets/images/btn_backkey_s.png',
+    afterAnimation: 'assets/images/btn_afteranimation_ss.png'
   };
 
   implEventIconHash = {
-    stageChange: 'assets/images/btn_stagechange.png',
-    startActivity: 'assets/images/btn_startactivity.png',
-    finishActivity: 'assets/images/btn_finishactivity.png',
-    takePicture: 'assets/images/btn_takepicture.png'
+    stageChange: 'assets/images/btn_stagechange_s.png',
+    startActivity: 'assets/images/btn_startactivity_s.png',
+    finishActivity: 'assets/images/btn_finishactivity_s.png',
+    takePicture: 'assets/images/btn_takepicture_s.png',
+    startLottie: 'assets/images/btn_startlottie_s.png',
+    stopLottie: 'assets/images/btn_stoplottie_s.png',
+    startVideo: 'assets/images/btn_startvideo_s.png',
+    stopVideo: 'assets/images/btn_stopvideo_s.png'
   };
 
 
