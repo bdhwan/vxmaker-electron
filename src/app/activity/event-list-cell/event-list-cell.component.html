@@ -1,6 +1,6 @@
 <div class="event-detail-wrap">
     <div *ngIf="aEvent.type==='afterAnimation'" style="float:left;">
-        -
+        <img src="assets/images/sub-cell.png" style="opacity:0.4;">
     </div>
     <div class="event-detail" [ngClass]="aEvent.type==='afterAnimation'?'after-animation':''" *ngIf="aEvent.implEvent" (click)="clickDetailEvent($event,aEvent)">
         <div class="selected-object">

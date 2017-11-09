@@ -85,7 +85,7 @@ export class ApplicationDataServiceService {
     click: 'assets/images/btn_click_s.png',
     onCreate: 'assets/images/btn_oncreate_s.png',
     backKey: 'assets/images/btn_backkey_s.png',
-    afterAnimation: 'assets/images/btn_afteranimation_s.png'
+    afterAnimation: 'assets/images/btn_afteranimation_ss.png'
   };
 
   implEventIconHash = {
