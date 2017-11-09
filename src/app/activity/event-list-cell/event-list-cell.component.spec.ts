@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { EventListCellComponent } from './event-list-cell.component';
 
 describe('EventListCellComponent', () => {
