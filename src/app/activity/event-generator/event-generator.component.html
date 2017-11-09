@@ -114,7 +114,7 @@
 
 
                             <div class="event-kind">Lottie</div>
-                            <div class="btn-trigger btn-startlottie" (click)="clickImplement('startLottie')">
+                            <div class="btn-trigger btn-startlottie" (click)="clickImplement('startLottie')" [ngClass]="'startLottie'===currentSelectedImpl?'selected-trigger':''">
                                 <img src="assets/images/btn_startlottie.png" />
                                 <p>startLottie</p>
                                 <div *ngIf="!implementEvent" class="startlottie-info event-hover">
@@ -122,7 +122,7 @@
                                     <p>Play the motion graphics of LottieAnimationView with JSON file applied</p>
                                 </div>
                             </div>
-                            <div class="btn-trigger btn-stoplottie" (click)="clickImplement('stopLottie')">
+                            <div class="btn-trigger btn-stoplottie" (click)="clickImplement('stopLottie')" [ngClass]="'stopLottie'===currentSelectedImpl?'selected-trigger':''">
                                 <img src="assets/images/btn_stoplottie.png" />
                                 <p>stopLottie</p>
                                 <div *ngIf="!implementEvent" class="stoplottie-info event-hover">
@@ -132,7 +132,7 @@
                             </div>
 
                             <div class="event-kind">Camera</div>
-                            <div class="btn-trigger btn-takepicture" (click)="clickImplement('takePicture')">
+                            <div class="btn-trigger btn-takepicture" (click)="clickImplement('takePicture')" [ngClass]="'takePicture'===currentSelectedImpl?'selected-trigger':''">
                                 <img src="assets/images/btn_takepicture.png" />
                                 <p>takePicture</p>
                                 <div *ngIf="!implementEvent" class="takepicture-info event-hover">
@@ -143,7 +143,7 @@
 
 
                             <div class="event-kind">VideoView</div>
-                            <div class="btn-trigger btn-startvideo" (click)="clickImplement('startVideo')">
+                            <div class="btn-trigger btn-startvideo" (click)="clickImplement('startVideo')" [ngClass]="'startVideo'===currentSelectedImpl?'selected-trigger':''">
                                 <img src="assets/images/btn_startvideo.png" />
                                 <p> startVideo</p>
                                 <div *ngIf="!implementEvent" class="startvideo-info event-hover">
@@ -151,7 +151,7 @@
                                     <p>Play video from VideoView.</p>
                                 </div>
                             </div>
-                            <div class="btn-trigger btn-stopvideo" (click)="clickImplement('stopVideo')">
+                            <div class="btn-trigger btn-stopvideo" (click)="clickImplement('stopVideo')" [ngClass]="'stopVideo'===currentSelectedImpl?'selected-trigger':''">
                                 <img src="assets/images/btn_stopvideo.png" />
                                 <p> stopVideo</p>
                                 <div *ngIf="!implementEvent" class="stopvideo-info event-hover">

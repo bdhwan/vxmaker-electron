@@ -4,7 +4,7 @@
     </div>
     <div class="event-detail" [ngClass]="aEvent.type==='afterAnimation'?'after-animation':''" *ngIf="aEvent.implEvent" (click)="clickDetailEvent($event,aEvent)">
         <div class="selected-object">
-
+            
             <div *ngIf="aEvent.type!=='afterAnimation'">
                 <div>
                     <img style="width:20px;height:20px;" [src]="getIcon(getObjectData(aEvent.objectId).type)">
@@ -13,35 +13,38 @@
                     {{getObjectData(aEvent.objectId).name}}
                 </h5>
             </div>
-
-
+            
+            
             <div class="selected-trigger">
-                <img [src]="getTriggerEventTypeIcon(aEvent.type)" />
+                <div>
+                    <img [src]="getTriggerEventTypeIcon(aEvent.type)" />
+                </div>
                 <h5>
                     {{aEvent.name}}
                 </h5>
             </div>
         </div>
-
+        
         <div class="selected-event">
-            <img [src]="getImplEventTypeIcon(aEvent.implEvent.type)" />
+            <div>
+                <img [src]="getImplEventTypeIcon(aEvent.implEvent.type)" />
+            </div>
             <h5> {{aEvent.implEvent.name}}</h5>
         </div>
-
+        
         <div *ngIf="aEvent.implEvent.type==='stageChange'">
             <p>{{aEvent.implEvent.fromStageName}} <i class="fa fa-angle-right" style="color:#46a2ba;"></i> {{aEvent.implEvent.toStageName}}</p>
         </div>
-
+        
         <div *ngIf="aEvent.implEvent.type==='startActivity'">
             <p><i class="fa fa-angle-right" style="color:#46a2ba;"></i> {{aEvent.implEvent.toActivityName}}</p>
         </div>
-
-        <button class="btn-trash" (click)="clickDeleteEvent($event, aEvent)">
-                        <img src="assets/images/ic_trashcan.png">
-                    </button>
     </div>
-
-
+    <button class="btn-trash" (click)="clickDeleteEvent($event, aEvent)">
+        <img src="assets/images/ic_trashcan.png">
+    </button>
+    
+    
 </div>
 
 <app-event-list-cell *ngIf="getAfterAnimationEvent()" [aEvent]="getAfterAnimationEvent()" (onClickDetailEvent)="clickDetailEventBy($event)" (onClickDeleteEvent)="clickDeleteEventBy($event)"></app-event-list-cell>
