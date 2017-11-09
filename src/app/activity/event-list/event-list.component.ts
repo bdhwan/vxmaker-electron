@@ -23,7 +23,12 @@ export class EventListComponent implements OnInit {
 
   public onChangeData() {
     this.selectedTriggerEvent = this.appDataService.getSelectedTriggerEvent();
+
+
+
     this.triggerEventList = this.appDataService.getActivityData().triggerEventList;
+
+
 
     for (let i = 0; i < this.triggerEventList.length; i++) {
       const aEvent = this.triggerEventList[i];
@@ -55,22 +60,24 @@ export class EventListComponent implements OnInit {
     this.broadcaster.broadcast(this.viewMode, message);
   }
 
-  clickDetailEvent(event) {
-    console.log("clickDetailEvent = " + JSON.stringify(event));
+  clickDetailEvent(triggerEvent) {
+    console.log("clickDetailEvent = " + triggerEvent);
+    const temp = JSON.parse(triggerEvent);
     const message = {
       kind: 'detail-event',
-      event: event
+      event: temp
     };
     this.broadcaster.broadcast(this.viewMode, message);
   }
 
-  clickDeleteEvent(event, triggerEvent) {
-    event.stopPropagation();
-    const result = confirm('Do you really want to remove this event triggered by ' + triggerEvent.name + '?');
+  clickDeleteEvent(triggerEvent) {
+    console.log("clickDeleteEvent =" + triggerEvent);
+    const temp = JSON.parse(triggerEvent);
+    const result = confirm('Do you really want to remove this event triggered by ' + temp.name + '?');
     if (result) {
       const message = {
         kind: 'delete-event',
-        triggerEventId: triggerEvent.id
+        triggerEventId: temp.id
       };
       this.broadcaster.broadcast(this.viewMode, message);
     }

@@ -1,4 +1,4 @@
-<div #cellRoot>
+<div #cellRoot [ngClass]="stateEventData.objectId===getSelectedObjectId()?'selected':''">
 
 
     <!-- 오브젝트 이름-->
@@ -7,12 +7,18 @@
         <!--<input type="checkbox" [(ngModel)]="stateEventData.isEnabled">-->
 
         <!-- 오브젝트 이벤트 활성화 온오프 버튼 -->
+        <div class="object-id object-list">
 
-        <label class="control control--checkbox object-id object-list">
-            {{getObjectName(stateEventData.objectId).name}}
-            <input type="checkbox" checked="checked"  [(ngModel)]="stateEventData.isEnabled"/>
-            <div class="control__indicator"></div>
-        </label>
+            <div class="control--checkbox control" style="float:left;">
+                <input type="checkbox" checked="checked" [(ngModel)]="stateEventData.isEnabled" />
+                <div class="control__indicator"></div>
+            </div>
+
+            <div (click)="clickObject(stateEventData.objectId)">
+                <img style="width:20px;height:20px;" [src]="getIcon(getObjectData(stateEventData.objectId).type)">
+                <span *ngIf="getObjectName(stateEventData.objectId)">{{getObjectName(stateEventData.objectId).name}}</span>
+            </div>
+        </div>
 
 
 
