@@ -1,6 +1,6 @@
 // src/electron.js
 
-const { app, dialog, shell, Menu, Tray, BrowserWindow, ipcMain } = require('electron')
+const { app, dialog, shell, Menu, autoUpdater, Tray, BrowserWindow, ipcMain } = require('electron')
 var path = require("path");
 const url = require('url');
 var fse = require('fs-extra');
@@ -14,6 +14,7 @@ var fstream = require("fstream");
 var Promise = require('bluebird');
 var PsdUtil = require('./psd-util.js');
 // var screenshot = require('electron-screenshot-service');
+const isDev = require('electron-is-dev');
 
 var settings = new ElectronData({
     path: app.getPath('userData'),
@@ -22,6 +23,92 @@ var settings = new ElectronData({
 
 console.log("userDatapath = " + app.getPath('userData'));
 
+const server = 'http://update.vxmaker.com'
+const feed = `${server}/update/${process.platform}/${app.getVersion()}`
+
+console.log('update feed = ' + feed);
+
+
+
+if (isDev) {
+    console.log('Running in development');
+} else {
+
+
+}
+
+
+function startUpdateCheck() {
+
+
+    setInterval(() => {
+        console.log('will check update');
+        autoUpdater.checkForUpdates();
+    }, 60000);
+
+    autoUpdater.on('checking-for-update', (event, temp) => {
+        showMessage('checking-for-update', 'checking-for-update' + event);
+    });
+
+    autoUpdater.on('update-available', (event, temp) => {
+        showMessage('update-available', 'update-available' + event);
+    });
+
+    autoUpdater.on('update-not-available', (event, temp) => {
+        showMessage('update-not-available', 'update-not-available' + event);
+    });
+
+    autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
+        const dialogOpts = {
+            type: 'info',
+            buttons: ['Restart', 'Later'],
+            title: 'Application Update',
+            detail: 'A new version has been downloaded. Restart the application to apply the updates.'
+        }
+
+        dialog.showMessageBox(dialogOpts, (response) => {
+            if (response === 0) autoUpdater.quitAndInstall()
+        })
+    });
+
+    autoUpdater.on('error', message => {
+        console.error('There was a problem updating the application')
+        console.error(message)
+        showMessage('error', message);
+    });
+
+    autoUpdater.setFeedURL(feed);
+    autoUpdater.checkForUpdates();
+}
+
+function showMessage(title, message) {
+    const dialogOpts = {
+        type: 'info',
+        buttons: ['Ok'],
+        title: title,
+        message: message,
+        detail: message
+    }
+    dialog.showMessageBox(dialogOpts, (response) => {
+
+    });
+
+}
+
+function checkVersionDialog() {
+    const dialogOpts = {
+        type: 'info',
+        buttons: ['Ok'],
+        title: 'version check',
+        message: 'check',
+        detail: feed + ', ' + isDev
+    }
+    dialog.showMessageBox(dialogOpts, (response) => {
+
+    });
+}
+
+
 
 
 let mainWindow = null;
@@ -29,10 +116,8 @@ let introWindow = null;
 
 
 
-let minWidth = 1280;
-let minHeight = 840;
-let maxWidth = 1280;
-let maxHeight = 840;
+let minWidth = 1080;
+let minHeight = 720;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -592,54 +677,53 @@ ipcMain.on('send-file-to-device', (event, tarFilePath, deviceId, devicePath) => 
 })
 
 
-
-
-
-
-
-
-
-ipcMain.on('go-main-window', (event, targetPath) => {
-
-    console.log("go-main-window path = " + targetPath);
-    initMainWindow(targetPath);
-    introWindow.close();
-    event.returnValue = true;
-})
-
-//copy file
-ipcMain.on('close-main-window', (event) => {
-    initIntroWindow();
-    mainWindow.close();
-    event.returnValue = true;
-})
-
-
-
 function createWindow() {
 
-    setTimeout(() => {
+
+    if (isDev) {
+        setTimeout(() => {
+            // Create the browser window.
+            win = new BrowserWindow({ width: 1080, height: 640, minWidth: 1080, minHeight: 640 })
+
+            var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true });
+            // var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true })
+
+            win.loadURL(targetUrl)
+            if (isDev) {
+                win.webContents.openDevTools();
+            }
+
+            // Emitted when the window is closed.
+            win.on('closed', () => {
+                // Dereference the window object, usually you would store windows
+                // in an array if your app supports multi windows, this is the time
+                // when you should delete the corresponding element.
+                win = null
+            })
+
+            checkVersionDialog();
+            registADB();
+        }, 12000)
+    } else {
         // Create the browser window.
-        win = new BrowserWindow({ width: maxWidth, height: maxHeight, minWidth: minWidth, minHeight: minHeight })
+        win = new BrowserWindow({ width: 1080, height: 640, minWidth: 1080, minHeight: 640 })
 
         var targetUrl = `file://${__dirname}/index.html`;
         // var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true })
         // and load the index.html of the app.
-        // var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true });
-
         win.loadURL(targetUrl)
-
-        win.webContents.openDevTools();
-
-
-        // Emitted when the window is closed.
+            // Emitted when the window is closed.
         win.on('closed', () => {
             // Dereference the window object, usually you would store windows
             // in an array if your app supports multi windows, this is the time
             // when you should delete the corresponding element.
             win = null
         })
-    }, 12000)
+        checkVersionDialog();
+        startUpdateCheck();
+        registADB();
+    }
+
 
 }
 
@@ -673,82 +757,82 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-
-
-
 //adb 관련 
 var deviceListener;
-ipcMain.on('get-device-list', (event) => {
-    event.returnValue = deviceList;
-})
 
-ipcMain.on('regist-device-connect-status', (event, arg) => {
-    // console.log(arg) // prints "ping"
-    deviceListener = event;
-    event.returnValue = true;
-});
-
-ipcMain.on('unregist-device-connect-status', (event, arg) => {
-    // console.log(arg) // prints "ping"
-    deviceListener = null;
-    event.returnValue = true;
-});
-
-
-ipcMain.on('get-file-name-base', (event, filePath) => {
-    console.log("get-file-name-base = " + filePath);
-
-    event.returnValue = path.parse(filePath).base;
-});
-
-ipcMain.on('get-file-name', (event, filePath) => {
-    console.log("get-file-name = " + filePath);
-
-    event.returnValue = path.parse(filePath).name;
-});
-
-ipcMain.on('get-file-ext', (event, filePath) => {
-    console.log("get-file-ext = " + filePath);
-
-    event.returnValue = path.parse(filePath).ext;
-});
-
-
-
-//개발버전 adb 경로
-var adbFilePath = __dirname + "/adb/adb";
-
-// 프로덕션 버전에서 adb 경로
-// var adbFilePath = app.getAppPath() + "/adb/adb";
-var client = adb.createClient({ bin: adbFilePath });
-var deviceList = [];
-client.trackDevices()
-    .then(function(tracker) {
-        tracker.on('add', function(device) {
-            console.log('Device %s was plugged in', device.id)
-            console.log('device ' + JSON.stringify(device))
-            deviceList.push(device.id);
-            console.log('deviceList = ', deviceList.length);
-            if (deviceListener) {
-                deviceListener.sender.send('device-status', 'add');
-            }
-        })
-        tracker.on('remove', function(device) {
-            console.log('Device %s was unplugged', device.id)
-            var index = deviceList.indexOf(device.id); // <-- Not supported in <IE9
-            if (index !== -1) {
-                deviceList.splice(index, 1);
-            }
-            console.log('deviceList = ', deviceList.length);
-            if (deviceListener) {
-                deviceListener.sender.send('device-status', 'remove');
-            }
-
-        })
-        tracker.on('end', function() {
-            console.log('Tracking stopped')
-        })
+function registADB() {
+    ipcMain.on('get-device-list', (event) => {
+        event.returnValue = deviceList;
     })
-    .catch(function(err) {
-        console.error('Something went wrong:', err.stack)
+
+    ipcMain.on('regist-device-connect-status', (event, arg) => {
+        // console.log(arg) // prints "ping"
+        deviceListener = event;
+        event.returnValue = true;
     });
+
+    ipcMain.on('unregist-device-connect-status', (event, arg) => {
+        // console.log(arg) // prints "ping"
+        deviceListener = null;
+        event.returnValue = true;
+    });
+
+
+    ipcMain.on('get-file-name-base', (event, filePath) => {
+        console.log("get-file-name-base = " + filePath);
+
+        event.returnValue = path.parse(filePath).base;
+    });
+
+    ipcMain.on('get-file-name', (event, filePath) => {
+        console.log("get-file-name = " + filePath);
+
+        event.returnValue = path.parse(filePath).name;
+    });
+
+    ipcMain.on('get-file-ext', (event, filePath) => {
+        console.log("get-file-ext = " + filePath);
+
+        event.returnValue = path.parse(filePath).ext;
+    });
+
+
+
+    //개발버전 adb 경로
+    var adbFilePath = __dirname + "/adb/adb";
+
+    // 프로덕션 버전에서 adb 경로
+    // var adbFilePath = app.getAppPath() + "/adb/adb";
+    var client = adb.createClient({ bin: adbFilePath });
+    var deviceList = [];
+    client.trackDevices()
+        .then(function(tracker) {
+            tracker.on('add', function(device) {
+                console.log('Device %s was plugged in', device.id)
+                console.log('device ' + JSON.stringify(device))
+                deviceList.push(device.id);
+                console.log('deviceList = ', deviceList.length);
+                if (deviceListener) {
+                    deviceListener.sender.send('device-status', 'add');
+                }
+            })
+            tracker.on('remove', function(device) {
+                console.log('Device %s was unplugged', device.id)
+                var index = deviceList.indexOf(device.id); // <-- Not supported in <IE9
+                if (index !== -1) {
+                    deviceList.splice(index, 1);
+                }
+                console.log('deviceList = ', deviceList.length);
+                if (deviceListener) {
+                    deviceListener.sender.send('device-status', 'remove');
+                }
+
+            })
+            tracker.on('end', function() {
+                console.log('Tracking stopped')
+            })
+        })
+        .catch(function(err) {
+            console.error('Something went wrong:', err.stack)
+        });
+}
