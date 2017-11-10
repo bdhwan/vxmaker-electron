@@ -1,0 +1,55 @@
+.event-detail {
+    overflow: hidden;
+    background: #f9fafb;
+    padding: 15px;
+
+    font-size: 13px;
+    color: #454545;
+
+    overflow: hidden;
+}
+
+.selected-event * {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.event-detail img {
+    width: 20px;
+}
+
+.event-detail h5 {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0;
+}
+
+
+.event-detail p {
+    margin: 0;
+    text-align: left;
+}
+
+
+.event-detail-footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 320px;
+    background: #ebebeb;
+    padding: 15px;
+}
+
+.event-detail-footer button {
+    background: #46a2ba;
+    color: #fff;
+    width: 142px;
+    padding: 8px;
+    border-radius: 50px;
+    border: none;
+}
+
+.event-detail-footer button:hover {
+    cursor: pointer;
+    background: #3a97af;
+}
