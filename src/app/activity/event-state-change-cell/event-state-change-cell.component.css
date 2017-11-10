@@ -287,6 +287,28 @@ input:checked+.slider:before {
 .control--checkbox input:disabled~.control__indicator:after {
     border-color: #7b7b7b;
 }
+.object-id {
+    position: relative;
+}
+
+.get-object {
+    display: inline-block;
+    vertical-align: middle;
+    position: absolute;
+    top: 5px;
+    left: 30px;
+    width: 100px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:clip;
+
+}
+
+.get-object *{
+    
+    display:inline-block;
+    vertical-align: middle; 
+}
 
 .btn-code i {
     position: absolute;
