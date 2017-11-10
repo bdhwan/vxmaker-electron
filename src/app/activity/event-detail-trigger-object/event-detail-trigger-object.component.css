@@ -1,0 +1,16 @@
+.selected-object *{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+img {
+    width: 20px;
+    height: auto;
+    float: left;
+}
+
+h5 {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0;
+}
