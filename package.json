@@ -16,7 +16,7 @@
         "build-angular": "ng build --base-href ./ && cp -r src/electron/* dist/",
         "deploy": "npm run build-guide && npm run build-electron && ls && cd dist && ls && electron-packager . --asar --platform=win32 --electron-version=1.7.9 && zip -r win32.zip vxmaker-darwin-x64-win32-x64 && node ../deploy.js  --base-href ./",
         "prepare-pack": "npm run build-guide && npm run build-electron",
-        "pack-win32": "cd dist && electron-packager . --asar --platform=win32 --electron-version=1.7.9 --icon=../icon/icon.ico  && zip -r win32.zip vxmaker-win32-x64",
+        "pack-win32": "npm run prepare-pack && cd dist && electron-packager . --asar --platform=win32 --electron-version=1.7.9 --icon=../icon/icon.ico  && zip -r win32.zip vxmaker-win32-x64",
         "pack-osx": "npm run prepare-pack && cd dist && electron-packager . --asar --platform=darwin --platform=darwin --osx-sign.type=distribution --electron-version=1.7.9 --icon=../icon/icon.icns --app-category-type=public.app-category.developer-tools && zip -r osx.zip vxmaker-darwin-x64"
     },
     "build": {

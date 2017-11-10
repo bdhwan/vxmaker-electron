@@ -39,8 +39,6 @@ if (isDev) {
 
 
 function startUpdateCheck() {
-
-
     setInterval(() => {
         console.log('will check update');
         autoUpdater.checkForUpdates();
