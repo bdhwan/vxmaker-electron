@@ -27,7 +27,7 @@
     padding-left: 10px;
 }
 
-.selected-object *, .selected-trigger *, .selected-event *{
+.selected-trigger *, .selected-event *{
     display: inline-block;
     vertical-align: middle;
 }
