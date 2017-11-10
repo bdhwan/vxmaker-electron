@@ -1,12 +1,25 @@
 <div *ngIf="selectedTriggerEvent && selectedImplementEvent.type=='stopLottie'">
-    <app-event-detail-trigger-object [viewMode]="viewMode" [prefix]="prefix" [selectedTriggerEvent]="selectedTriggerEvent"></app-event-detail-trigger-object>
-    <p>
-        Stop Lottie
-    </p>
-    <!-- 이벤트 디테일 하단 : 애프터애니메이션 클릭시 이벤트생성 팝업-->
-    <div class="event-detail-footer">
-        <div>
-            <button (click)="clickCancel()">Done</button>
+    <div class="event-stoplottie">
+        <div class="event-detail">
+            <div>
+                
+                <app-event-detail-trigger-object [viewMode]="viewMode" [prefix]="prefix" [selectedTriggerEvent]="selectedTriggerEvent"></app-event-detail-trigger-object>
+            </div>
+            <div class="selected-event">
+                <div>
+                    <img width="100%" height="auto;" src="assets/images/btn_stoplottie_s.png" />
+                </div>
+                <h5>
+                    Stop Lottie
+                </h5>
+            </div>
+        </div>
+        
+        <!-- 이벤트 디테일 하단 : 애프터애니메이션 클릭시 이벤트생성 팝업-->
+        <div class="event-detail-footer">
+            <div>
+                <button (click)="clickCancel()">Back</button>
+            </div>
         </div>
     </div>
 </div>
