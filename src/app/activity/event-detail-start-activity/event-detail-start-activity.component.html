@@ -1,23 +1,53 @@
 <div *ngIf="selectedTriggerEvent&&selectedImplementEvent.type=='startActivity'">
     <div class="event-stageChange">
-
-        <app-event-detail-trigger-object [viewMode]="viewMode" [prefix]="prefix" [selectedTriggerEvent]="selectedTriggerEvent"></app-event-detail-trigger-object>
         <div class="event-detail">
-            <!--{{selectedImplementEvent.type}}-->
-            <!-- 이벤트에 대한 상세 정보 -->
-            <img src="assets/images/btn_startactivity.png" />
-
-
-            <h4>{{getCurrentActivityName()}} > {{selectedTriggerEvent.implEvent.toActivityName}}</h4>
-
-            <img width="100px" height="150px" [src]="getCurrentActivityPreviewImage()">
-            <img width="100px" height="150px" [src]="getActivityPreviewImage(selectedTriggerEvent.implEvent.toActivityId)">
+            <!-- <div>
+                
+                <app-event-detail-trigger-object [viewMode]="viewMode" [prefix]="prefix" [selectedTriggerEvent]="selectedTriggerEvent"></app-event-detail-trigger-object>
+            </div> -->
+            
+            
+            
+            <div class="selected-event">
+                <div>
+                    <img width="100%" height="auto;" src="assets/images/btn_startactivity_s.png" />
+                </div>
+                <h5>
+                    startActivity
+                </h5>
+            </div>
+            
+            
+            <div class="event-detail" style="padding:12px 24px 24px 24px;">
+                <div class="activity-from">
+                    <div>
+                        <p style="color:#46a2ba;">from</p>
+                        <p>
+                            {{getCurrentActivityName()}}
+                        </p>
+                    </div>
+                    <img [src]="getCurrentActivityPreviewImage()" />
+                </div>
+                
+                
+                <div class="activity-to">
+                    <div>
+                        <p style="color:#46a2ba;">to</p>
+                        <p>
+                            {{selectedTriggerEvent.implEvent.toActivityName}}
+                        </p>
+                    </div>
+                    <img [src]="getActivityPreviewImage(selectedTriggerEvent.implEvent.toActivityId)">
+                </div>
+            </div>
         </div>
-
+        
+        
+        
         <!-- 이벤트 디테일 하단 : 애프터애니메이션 클릭시 이벤트생성 팝업-->
         <div class="event-detail-footer">
             <button (click)="clickCancel()">Back</button>
         </div>
-
+        
     </div>
 </div>
