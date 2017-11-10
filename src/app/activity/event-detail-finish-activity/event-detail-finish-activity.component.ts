@@ -55,4 +55,9 @@ export class EventDetailFinishActivityComponent implements OnInit {
   getActivityPreviewImage(activityId) {
     return this.prefix + this.appDataService.applicationFolderPath + '/' + this.appDataService.getActivityPreviewImage(activityId) + '?' + this.timestamp;
   }
+
+  getTriggerEventTypeIcon(type) {
+    return this.appDataService.getTriggerEventIcon(type);
+  }
+
 }

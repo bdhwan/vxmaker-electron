@@ -43,5 +43,7 @@ export class EventDetailStopLottieComponent implements OnInit {
   getIcon(type) {
     return this.appDataService.getIconSmall(type);
   }
-
+  getTriggerEventTypeIcon(type) {
+    return this.appDataService.getTriggerEventIcon(type);
+  }
 }

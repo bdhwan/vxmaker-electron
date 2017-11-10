@@ -1,11 +1,19 @@
 <div *ngIf="selectedTriggerEvent&&selectedImplementEvent.type=='startActivity'">
     <div class="event-stageChange">
         <div class="event-detail">
-            <!-- <div>
-                
+            <div>
                 <app-event-detail-trigger-object [viewMode]="viewMode" [prefix]="prefix" [selectedTriggerEvent]="selectedTriggerEvent"></app-event-detail-trigger-object>
-            </div> -->
+            </div>
 
+            <div class="selected-trigger">
+                <div>
+                    <img [src]="getTriggerEventTypeIcon(selectedTriggerEvent.type)" />
+                </div>
+
+                <h5>
+                    {{selectedTriggerEvent.name}}
+                </h5>
+            </div>
 
 
             <div class="selected-event">

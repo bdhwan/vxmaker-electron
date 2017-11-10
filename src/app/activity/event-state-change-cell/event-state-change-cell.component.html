@@ -69,8 +69,8 @@
 
                 <!-- 인터폴레이터 수치 입력-->
                 <div class="curve-input">
-                    <input class="input-start-x" [(ngModel)]="stateEventData.cubicValue[0]"><input class="input-start-y" [(ngModel)]="stateEventData.cubicValue[1]">
-                    <input class="input-end-x" [(ngModel)]="stateEventData.cubicValue[2]"><input class="input-end-y" [(ngModel)]="stateEventData.cubicValue[3]">
+                    <input class="input-start-x" (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="stateEventData.cubicValue[0]"><input class="input-start-y" (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="stateEventData.cubicValue[1]">
+                    <input class="input-end-x" (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="stateEventData.cubicValue[2]"><input class="input-end-y" (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="stateEventData.cubicValue[3]">
                 </div>
 
             </div>
@@ -90,10 +90,10 @@
                 <!-- 시작 시간 및 동작 시간-->
                 <div class="event-time">
                     <div class="event-delay">
-                        Delay <input [(ngModel)]="stateEventData.startDelay">
+                        Delay <input (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="stateEventData.startDelay">
                     </div>
                     <div class="event-duration">
-                        Duration<input [(ngModel)]="stateEventData.duration">
+                        Duration<input (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="stateEventData.duration">
                     </div>
                 </div>
 

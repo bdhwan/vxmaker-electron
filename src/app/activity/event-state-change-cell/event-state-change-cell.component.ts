@@ -205,6 +205,22 @@ export class EventStateChangeCellComponent implements OnInit {
     return this.appDataService.getSelectedObject().id;
   }
 
+  onFocus() {
+    console.log("focus");
+    const message = {
+      kind: 'focus'
+    };
+    this.broadcaster.broadcast('activity', message);
+
+  }
+
+  onBlur() {
+    console.log("blur");
+    const message = {
+      kind: 'blur'
+    };
+    this.broadcaster.broadcast('activity', message);
+  }
 
 
   callback($event) {
