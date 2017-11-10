@@ -1,14 +1,14 @@
-// installer.js
-var createInstaller = require('electron-installer-squirrel-windows');
 
-createInstaller({
-    name: 'vxmaker',
-    path: '/Users/bdhwan/git/vxmaker/vxmaker-electron/dist/upload/win32',
-    out: '/Users/bdhwan/git/vxmaker/vxmaker-electron/dist/upload/out',
-    authors: 'Altamirasoft inc.',
-    exe: 'angular-electron-install-setup.exe',
-    overwrite: true,
-    description: 'vxmaker'
-}, function done(e) {
-    console.log('Build success !!');
-});
+var electronInstaller = require('electron-winstaller');
+
+const resultPromise = electronInstaller.createWindowsInstaller({
+    appDirectory: 'win32',
+    outputDirectory: 'installer',
+    authors: 'Altamirasoft Inc.',
+    exe: 'vxmaker.exe',
+    description:'vxmaker tool'
+  });
+
+resultPromise.then(() => console.log("It worked!"), (e) => console.log(`No dice: ${e.message}`));
+
+
