@@ -26,13 +26,8 @@
 }
 
 .navbar .btn-back:hover {
-    cursor: pointer;
-    background: #f9f9f9;
-}
-
-.navbar .btn-home:hover {
-    cursor: pointer;
-    background: #f9f9f9;
+    cursor: default;
+    background: #eee;
 }
 
 .navbar .btn-export {

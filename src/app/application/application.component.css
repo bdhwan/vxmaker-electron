@@ -5,31 +5,31 @@
     margin-bottom: 20px;
     background-color: #fff;
     border: 1px solid #e7e7e7;
-border-top: none;
+    border-top: none;
     box-shadow: 1px 1px 6px rgba(0,0,0,0.2);
     z-index: 9999;
     margin-bottom: 0;
 }
 
 .connect-wrap {
- z-index: 9998;
+    z-index: 9998;
     position: absolute;
     right:0;
-margin-right: 186px;
-width:134px;
+    margin-right: 186px;
+    width:134px;
 }
 
 .howtoconnect {
-   width:100%;
-background: #fff;
-font-size: 12px;
-
-text-align: center;
-padding:8px;
-border-bottom-left-radius: 8px;
-border-bottom-right-radius: 8px;
-   box-shadow: 1px 1px 6px rgba(0,0,0,0.2);
-   color:#898989;
+    width:100%;
+    background: #fff;
+    font-size: 12px;
+    
+    text-align: center;
+    padding:8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 1px 1px 6px rgba(0,0,0,0.2);
+    color:#898989;
 }
 
 .connect-wrap .fa-close {
@@ -41,16 +41,16 @@ border-bottom-right-radius: 8px;
     margin:6px 3px;
     margin-right: 5px;
     font-size: 12px;
-
+    
 }
 
 .connect-wrap .fa-close:hover {
-color:#454545;
-cursor: pointer;
+    color:#454545;
+    cursor: pointer;
 }
 
 .connect-delete {
-       position:absolute;
+    position:absolute;
     right:0;
     top:0;
     color:#898989;
@@ -61,7 +61,7 @@ cursor: pointer;
 }
 
 #how:target{
-display: none;
+    display: none;
 }
 
 
@@ -69,7 +69,7 @@ display: none;
 /*
 .howtoconnect a {
     color:#898989;
- 
+    
     text-decoration: none;
 }
 
@@ -119,7 +119,7 @@ display: none;
     width: 100%;
     height: 100%;
     padding-left: 280px;
-  
+    
 }
 
 .nav-right {
@@ -127,16 +127,16 @@ display: none;
 }
 
 .navbar .btn-back {
+    width:90px;
     height:50px;
     border:none;
     color:rgba(0,0,0,0.5);
     background: none;
-    padding-left: 20px;
     font-size: 13px;
     font-weight: 600;
 }
 
 .navbar .btn-back:hover {
-    color:rgba(0,0,0,0.7);
-    cursor: pointer;
+    background: #eee;
+    cursor: default;
 }

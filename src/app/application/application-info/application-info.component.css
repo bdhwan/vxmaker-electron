@@ -21,11 +21,6 @@
     font-size: 14px;
 }
 
-.btn-icon-edit:hover {
-    cursor: pointer;
-    background: rgba(255, 255, 255, 0.9);
-}
-
 .project-edit {
     background: none;
     border: none;
@@ -54,6 +49,15 @@
     background: rgba(255, 255, 255, 0.7);
 }
 
+.application-current:hover {
+    cursor: pointer;
+    background: #ddd;
+}
+
+.app-info:hover{
+    cursor: pointer;
+    background: #ddd;
+}
 
 /* popup test */
 
