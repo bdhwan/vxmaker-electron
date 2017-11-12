@@ -10,7 +10,7 @@
     overflow: hidden;
 }
 
-.selected-event * {
+.selected-trigger *, .selected-event * {
     display: inline-block;
     vertical-align: middle;
 }
@@ -35,12 +35,12 @@
     margin-bottom: 12px;
 }
 
-.current-activity *,{
+.current-activity *{
     text-align: center;
     display: block;
 }
 
-.current-activity img,{
+.current-activity img{
     width: 100px;
     height: auto;
 }

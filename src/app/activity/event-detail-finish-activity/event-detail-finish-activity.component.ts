@@ -49,6 +49,9 @@ export class EventDetailFinishActivityComponent implements OnInit {
   getIcon(type) {
     return this.appDataService.getIconSmall(type);
   }
+  getCurrentActivityName() {
+    return this.appDataService.getActivityMetaData().activityName;
+  }
   getCurrentActivityPreviewImage() {
     return this.getActivityPreviewImage(this.appDataService.getActivityMetaData().activityId);
   }
