@@ -1,22 +1,21 @@
 <div *ngIf="selectedTriggerEvent&&selectedImplementEvent.type=='finishActivity'">
-    <div class="event-stageChange">
+    <div class="event-finishactivity">
         <div class="event-detail">
             <div>
-
                 <app-event-detail-trigger-object [viewMode]="viewMode" [prefix]="prefix" [selectedTriggerEvent]="selectedTriggerEvent"></app-event-detail-trigger-object>
             </div>
-
+            
             <div class="selected-trigger">
                 <div>
                     <img [src]="getTriggerEventTypeIcon(selectedTriggerEvent.type)" />
                 </div>
-
+                
                 <h5>
                     {{selectedTriggerEvent.name}}
                 </h5>
             </div>
-
-
+            
+            
             <div class="selected-event">
                 <div>
                     <img width="100%" height="auto;" src="assets/images/btn_finishactivity_s.png" />
@@ -25,26 +24,28 @@
                     finishActivity
                 </h5>
             </div>
-
-
-            <div style="padding:12px 24px 24px 24px;">
+            
+            
+            <div class="event-detail" style="padding:12px 24px 24px 24px;">
                 <div class="current-activity">
-                    <p>
-                        {{getCurrentActivityName()}}
-                    </p>
-
+                    <div>
+                        <p>
+                            {{getCurrentActivityName()}}
+                        </p>
+                    </div>
+                    
                     <img [src]="getCurrentActivityPreviewImage()" />
                 </div>
-
+                
             </div>
         </div>
-
-
-
+        
+        
+        
         <!-- 이벤트 디테일 하단 : 애프터애니메이션 클릭시 이벤트생성 팝업-->
         <div class="event-detail-footer">
             <button (click)="clickCancel()">Back</button>
         </div>
-
+        
     </div>
 </div>

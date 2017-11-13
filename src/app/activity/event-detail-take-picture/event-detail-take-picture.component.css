@@ -9,7 +9,7 @@
     overflow: hidden;
 }
 
-.selected-event * {
+.selected-trigger *, .selected-event * {
     display: inline-block;
     vertical-align: middle;
 }

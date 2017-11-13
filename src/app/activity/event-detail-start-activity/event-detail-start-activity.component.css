@@ -10,7 +10,7 @@
     overflow: hidden;
 }
 
-.event-detail *, .selected-trigger *, .selected-event * {
+.selected-trigger *, .selected-event * {
     display: inline-block;
     vertical-align: middle;
 }
@@ -43,6 +43,9 @@
 .activity-from img, .activity-to img{
     width: 100px;
     height: auto;
+    margin-top: 4px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
 }
 
 

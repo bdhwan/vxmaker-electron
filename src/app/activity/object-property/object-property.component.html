@@ -19,9 +19,22 @@
             </div>
 
             <div *ngIf="(selectedObject.type=='LottieAnimationView'||selectedObject.type=='VideoView')&&!selectedObject.fixResource">
+                <div class="img-selected">
+                    <div class="img-thumbnail">
+                        <img src="./assets/images/ic_image_select.png" [hidden]="viewMode=='guide'" (click)="clickSelectFile()" class="btn-img-select">
+                    </div>
+                    <div class="img-sub">
+                        <p>{{selectedObject.dataUrl}}</p>
+                        <!-- <img src="./assets/images/ic_download_asset.png" class="img-sub-size" (click)="clickDownload(prefix+applicationFolderPath+'/'+selectedObject.dataUrl)"> -->
+                    </div>
+                </div>
+            </div>
+            
+<!-- 
+            <div *ngIf="(selectedObject.type=='LottieAnimationView'||selectedObject.type=='VideoView')&&!selectedObject.fixResource">
                 <p>{{selectedObject.dataUrl}}</p>
                 <button [hidden]="viewMode=='guide'" (click)="clickSelectFile()"> FileSelect</button>
-            </div>
+            </div> -->
 
 
 
