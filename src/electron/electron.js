@@ -26,7 +26,12 @@ console.log("userDatapath = " + app.getPath('userData'));
 const server = 'http://update.vxmaker.com'
 const feed = `${server}/update/${process.platform}/${app.getVersion()}`
 
-console.log('update feed = ' + feed);
+
+//adb 관련
+var client;
+var deviceList;
+var adbFilePath;
+
 
 
 
@@ -797,12 +802,12 @@ function registADB() {
 
 
     //개발버전 adb 경로
-    var adbFilePath = __dirname + "/adb/adb";
+    adbFilePath = __dirname + "/adb/adb";
 
     // 프로덕션 버전에서 adb 경로
     // var adbFilePath = app.getAppPath() + "/adb/adb";
-    var client = adb.createClient({ bin: adbFilePath });
-    var deviceList = [];
+    client = adb.createClient({ bin: adbFilePath });
+    deviceList = [];
     client.trackDevices()
         .then(function(tracker) {
             tracker.on('add', function(device) {

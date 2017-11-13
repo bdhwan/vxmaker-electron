@@ -1258,6 +1258,7 @@ export class ApplicationDataServiceService {
         'width': state.width * this.zoom + 'px',
         'height': state.height * this.zoom + 'px',
         'border': '0px solid grey',
+        'vertical-align': 'text-top',
         'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
         'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
       };
@@ -1268,6 +1269,7 @@ export class ApplicationDataServiceService {
         'width': state.width * this.zoom + 'px',
         'height': state.height * this.zoom + 'px',
         'border': '1px solid gold',
+        'vertical-align': 'text-top',
         'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
         'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
       };

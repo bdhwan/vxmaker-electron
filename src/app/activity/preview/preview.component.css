@@ -14,9 +14,8 @@
                                   supported by Chrome and Opera */
 }
 
-
 .preview-dot {
-    width:10px;
+    width: 10px;
     height: 10px;
     background-color: #46a2ba;
     position: absolute;
@@ -24,22 +23,37 @@
 }
 
 .dot-1 {
-    left:0;top:0; margin-left: -5px;margin-top: -5px; cursor:nw-resize;
+    left: 0;
+    top: 0;
+    margin-left: -5px;
+    margin-top: -5px;
+    cursor: nw-resize;
 }
 
 .dot-2 {
-right:0;top:0; margin-right: -5px;margin-top: -5px; cursor:ne-resize;
+    right: 0;
+    top: 0;
+    margin-right: -5px;
+    margin-top: -5px;
+    cursor: ne-resize;
 }
 
-
 .dot-3 {
-left:0;bottom:0; margin-left: -5px;margin-bottom: -5px; cursor:sw-resize;
+    left: 0;
+    bottom: 0;
+    margin-left: -5px;
+    margin-bottom: -5px;
+    cursor: sw-resize;
 }
 
 .dot-4 {
-right:0;bottom:0; margin-right: -5px;margin-bottom: -5px; cursor:se-resize;
+    right: 0;
+    bottom: 0;
+    margin-right: -5px;
+    margin-bottom: -5px;
+    cursor: se-resize;
 }
 
 app-preview-object div:hover {
-border:1px solid #000000;
+    border: 1px solid #000000;
 }

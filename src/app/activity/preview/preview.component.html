@@ -2,6 +2,7 @@
     <div (window:resize)="onResize($event)" *ngIf="activityData">
         <div #previewScreen *ngFor="let aObject of activityData.objectList" [ngStyle]="getCenterStyle()">
             <app-preview-object [objectData]="aObject" [prefix]="prefix"></app-preview-object>
+
             <div [ngStyle]="getSelectedObjectStyle()">
                 <div class="preview-dot dot-1" (mousedown)="resizeDown($event,0)" *ngIf="!isRoot()"></div>
                 <div class="preview-dot dot-2" (mousedown)="resizeDown($event,1)" *ngIf="!isRoot()"></div>
