@@ -2234,7 +2234,7 @@ export class ApplicationDataServiceService {
       result += '.setInterpolator(PathInterpolatorCompat.create(' + event.cubicValue[0] + 'f,' + event.cubicValue[1] + 'f,' + event.cubicValue[2] + 'f,' + event.cubicValue[3] + 'f))';
       result += '.setDuration(' + event.duration + ')';
       if (event.startDelay && event.startDelay !== 0) {
-        result += '.setStartDelay(' + (event.startDelay).toFixed(0) + ')';
+        result += '.setStartDelay(' + (Number(event.startDelay)).toFixed(0) + ')';
       }
       result += '.get()';
       return 'ViewPropertyObjectAnimator.animate(' + view + ')' + result;
