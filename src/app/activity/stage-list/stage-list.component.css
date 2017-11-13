@@ -2,14 +2,14 @@
     padding-top: 10px;
     width: 100%;
     z-index: 66;
-    background-color: #b1b6bc;
+    background-color: #ccc;
     min-width:600px !important;
 }
 
 .stage-line {
-    height: 3px;
+    height: 2px;
     width: 100%;
-    background: radial-gradient(ellipse farthest-side at 100% 130%, #8a94d9 10%, #5aadb1 110%);
+    background: #46a2ba;
     margin-top: 5px;
     z-index: 899;
 }
@@ -43,23 +43,27 @@
 .stage-notcurrent {
     font-weight: 500;
     background: #fff;
-    color: #454545;    
+    color: #898989;    
 }
 
 
-
 .btn-new-stage {
-    border-bottom-width: 0;
-    padding: 6px 15px 7px 15px;
-    background-color: transparent;
-    font-size: 12px;
-    color: #ececec;
+    width: 25px;
+    height: 25px;
     border: none;
+    border-radius: 6px;
+    background: none;
+    margin: 2px 0px 0px 10px;
+    padding: 0px 0px 1px 0px;
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
     z-index: 22;
 }
 
 .btn-new-stage:hover {
-    color:#fff;
+    color:#aaa;
+    background: #fff;
     cursor: default;
 }
 
@@ -93,13 +97,13 @@
 }
 
 .stage-list-wrap:hover {
-    cursor: pointer;
+    cursor: default;
 }
 
 .stage-list-wrap:hover .stage-notcurrent {
     color: #fff;
     font-weight: 500;
-    background: #898989;
+    background: #aaa;
 }
 
 
