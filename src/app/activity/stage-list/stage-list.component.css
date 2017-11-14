@@ -1,16 +1,16 @@
 .stage-list {
-    padding-top: 10px;
+    padding: 10px 0px 0px 0px;
     width: 100%;
     z-index: 66;
     background-color: #ccc;
-    min-width:600px !important;
+    min-width:min-content !important;
 }
 
 .stage-line {
-    height: 2px;
+    height: 1px;
     width: 100%;
-    background: #46a2ba;
-    margin-top: 5px;
+    background: #aaa;
+    margin-top: 8px;
     z-index: 899;
 }
 
@@ -19,8 +19,8 @@
 }
 
 .tab-class {
-    border-radius: 4px;
-    padding: 4px 13px 4px 14px;
+    border-radius: 3px;
+    padding: 4px 25px 4px 8px;
     margin: 2px;
     
     color: #fff;
@@ -48,12 +48,14 @@
 
 
 .btn-new-stage {
-    width: 25px;
+    float:left;
+
+    width: 30px;
     height: 25px;
     border: none;
-    border-radius: 6px;
+    border-radius: 3px;
     background: none;
-    margin: 2px 0px 0px 10px;
+    margin: 2px 0px 0px 2px;
     padding: 0px 0px 1px 0px;
     font-size: 12px;
     text-align: center;
@@ -62,14 +64,13 @@
 }
 
 .btn-new-stage:hover {
-    color:#aaa;
+    color:#46a2ba;
     background: #fff;
     cursor: default;
 }
 
 .stage-list-wrap {
     position: relative;
-    margin-bottom: 3px;
 }
 
 .btn-delete {
@@ -80,11 +81,11 @@
     font-size: 14px;
     color: #fff;
     opacity: 0.4;
-    padding: 4px 8px 7px 8px;
+    padding: 4px 9px 7px 3px;
 }
 
 .stage-list-wrap:hover .tab-class {
-    padding: 4px 25px 4px 14px;
+    padding: 4px 25px 4px 8px;
 }
 
 .stage-list-wrap:hover .btn-delete {
