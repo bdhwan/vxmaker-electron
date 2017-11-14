@@ -184,7 +184,6 @@ export class PreviewComponent implements OnInit {
           this.appDataService.getSelectedState().width += differX;
           this.appDataService.getSelectedState().height += differY;
         } else if (this.resizeIndex === 1) {
-          // this.appDataService.getSelectedState().marginLeft -= differX;
           this.appDataService.getSelectedState().marginTop -= differY;
           this.appDataService.getSelectedState().width -= differX;
           this.appDataService.getSelectedState().height += differY;
@@ -197,7 +196,18 @@ export class PreviewComponent implements OnInit {
         } else if (this.resizeIndex === 3) {
           this.appDataService.getSelectedState().width -= differX;
           this.appDataService.getSelectedState().height -= differY;
+        } else if (this.resizeIndex === 4) {
+          this.appDataService.getSelectedState().marginTop -= differY;
+          this.appDataService.getSelectedState().height += differY;
+        } else if (this.resizeIndex === 5) {
+          this.appDataService.getSelectedState().width -= differX;
+        } else if (this.resizeIndex === 6) {
+          this.appDataService.getSelectedState().height -= differY;
+        } else if (this.resizeIndex === 7) {
+          this.appDataService.getSelectedState().width += differX;
+          this.appDataService.getSelectedState().marginLeft -= differX;
         }
+
       } else if (this.isMouseDown) {
         this.appDataService.getSelectedState().marginLeft -= differX;
         this.appDataService.getSelectedState().marginTop -= differY;
@@ -223,7 +233,22 @@ export class PreviewComponent implements OnInit {
         } else if (this.resizeIndex === 3) {
           this.appDataService.getSelectedState().width -= differX;
           this.appDataService.getSelectedState().height -= differY;
+
+        } else if (this.resizeIndex === 4) {
+          this.appDataService.getSelectedState().translationY -= differY;
+          this.appDataService.getSelectedState().height += differY;
+        } else if (this.resizeIndex === 5) {
+
+          this.appDataService.getSelectedState().width -= differX;
+
+        } else if (this.resizeIndex === 6) {
+          this.appDataService.getSelectedState().height -= differY;
+
+        } else if (this.resizeIndex === 7) {
+          this.appDataService.getSelectedState().width += differX;
+          this.appDataService.getSelectedState().translationX -= differX;
         }
+
       } else if (this.isMouseDown) {
         this.appDataService.getSelectedState().translationX -= differX;
         this.appDataService.getSelectedState().translationY -= differY;
@@ -349,17 +374,37 @@ export class PreviewComponent implements OnInit {
   }
 
 
+  getCenterPoint(target) {
+
+    const center = this.appDataService.getCenterPoint(this.appDataService.getSelectedState());
+
+    if (target === 4) {
+      // console.log('will return ' + center.cx + 'px');
+      return center.cx - 5 + 'px';
+    } else if (target === 5) {
+      // console.log('will return ' + center.cx + 'px');
+      return center.cy - 5 + 'px';
+    } else if (target === 6) {
+      // console.log('will return ' + center.cx + 'px');
+      return center.cx - 5 + 'px';
+    } else if (target === 7) {
+      // console.log('will return ' + center.cx + 'px');
+      return center.cy - 5 + 'px';
+    };
+  }
+
+
 
   getRootWidth() {
-    let zoom = this.appDataService.getZoom();
-    let rootState = this.appDataService.findStateByObjectId('root');
+    const zoom = this.appDataService.getZoom();
+    const rootState = this.appDataService.findStateByObjectId('root');
     return rootState.width * zoom;
   }
 
 
   getRootHeight() {
-    let zoom = this.appDataService.getZoom();
-    let rootState = this.appDataService.findStateByObjectId('root');
+    const zoom = this.appDataService.getZoom();
+    const rootState = this.appDataService.findStateByObjectId('root');
     return rootState.height * zoom;
   }
 

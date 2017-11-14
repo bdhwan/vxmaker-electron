@@ -4,10 +4,15 @@
             <app-preview-object [objectData]="aObject" [prefix]="prefix"></app-preview-object>
 
             <div [ngStyle]="getSelectedObjectStyle()">
-                <div class="preview-dot dot-1" (mousedown)="resizeDown($event,0)" *ngIf="!isRoot()"></div>
-                <div class="preview-dot dot-2" (mousedown)="resizeDown($event,1)" *ngIf="!isRoot()"></div>
-                <div class="preview-dot dot-3" (mousedown)="resizeDown($event,2)" *ngIf="!isRoot()"></div>
-                <div class="preview-dot dot-4" (mousedown)="resizeDown($event,3)" *ngIf="!isRoot()"></div>
+                <div class="preview-dot dot-0" (mousedown)="resizeDown($event,0)" *ngIf="!isRoot()"></div>
+                <div class="preview-dot dot-1" (mousedown)="resizeDown($event,1)" *ngIf="!isRoot()"></div>
+                <div class="preview-dot dot-2" (mousedown)="resizeDown($event,2)" *ngIf="!isRoot()"></div>
+                <div class="preview-dot dot-3" (mousedown)="resizeDown($event,3)" *ngIf="!isRoot()"></div>
+
+                <div class="preview-dot dot-4" [ngStyle]="{'left': getCenterPoint(4)}" (mousedown)="resizeDown($event,4)" *ngIf="!isRoot()"></div>
+                <div class="preview-dot dot-5" [ngStyle]="{'top': getCenterPoint(5)}" (mousedown)="resizeDown($event,5)" *ngIf="!isRoot()"></div>
+                <div class="preview-dot dot-6" [ngStyle]="{'left': getCenterPoint(6)}" (mousedown)="resizeDown($event,6)" *ngIf="!isRoot()"></div>
+                <div class="preview-dot dot-7" [ngStyle]="{'top': getCenterPoint(7)}" (mousedown)="resizeDown($event,7)" *ngIf="!isRoot()"></div>
             </div>
         </div>
     </div>
