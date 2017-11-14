@@ -15,66 +15,65 @@
 }
 
 .preview-dot {
-    width: 10px;
-    height: 10px;
+    width: 6px;
+    height: 6px;
     background-color: #46a2ba;
-    position: absolute;
-    border-radius: 30px;
+    position: absolute; 
 }
 
 .dot-0 {
     left: 0;
     top: 0;
-    margin-left: -5px;
-    margin-top: -5px;
+    margin-left: -3px;
+    margin-top: -3px;
     cursor: nw-resize;
 }
 
 .dot-1 {
     right: 0;
     top: 0;
-    margin-right: -5px;
-    margin-top: -5px;
+    margin-right: -3px;
+    margin-top: -3px;
     cursor: ne-resize;
 }
 
 .dot-2 {
     left: 0;
     bottom: 0;
-    margin-left: -5px;
-    margin-bottom: -5px;
+    margin-left: -3px;
+    margin-bottom: -3px;
     cursor: sw-resize;
 }
 
 .dot-3 {
     right: 0;
     bottom: 0;
-    margin-right: -5px;
-    margin-bottom: -5px;
+    margin-right: -3px;
+    margin-bottom: -3px;
     cursor: se-resize;
 }
 
 .dot-4 {
     top: 0;
-    margin-top: -5px;
+    margin-top: -3px;
     cursor: n-resize;
 }
 
 .dot-5 {
     right: 0;
-    margin-right: -5px;
+    margin-right: -3px;
     cursor: e-resize;
 }
 
 .dot-6 {
     bottom: 0;
-    margin-bottom: -5px;
+    margin-bottom: -3px;
     cursor: s-resize;
 }
 
 .dot-7 {
     left: 0;
-    margin-left: -5px;
+    margin-left: -3px;
     cursor: w-resize;
 }
 
