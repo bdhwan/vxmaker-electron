@@ -13,19 +13,20 @@
                     </div>
                     <div class="img-sub">
                         <p>{{selectedObject.dataUrl}}</p>
-                        <img src="./assets/images/ic_download_asset.png" class="img-sub-size" (click)="clickDownload(prefix+applicationFolderPath+'/'+selectedObject.dataUrl)">
+                        <img src="./assets/images/ic_download_asset.png" class="download-asset" (click)="clickDownload(prefix+applicationFolderPath+'/'+selectedObject.dataUrl)">
                     </div>
                 </div>
             </div>
 
             <div *ngIf="(selectedObject.type=='LottieAnimationView'||selectedObject.type=='VideoView')&&!selectedObject.fixResource">
                 <div class="img-selected">
-                    <div class="img-thumbnail">
-                        <img src="./assets/images/ic_image_select.png" [hidden]="viewMode=='guide'" (click)="clickSelectFile()" class="btn-img-select">
+                    <div class="img-sub">
+                        
+                        <img src="./assets/images/ic_image_select_28x28.png" class="btn-file-select" [hidden]="viewMode=='guide'" (click)="clickSelectFile()">
                     </div>
                     <div class="img-sub">
                         <p>{{selectedObject.dataUrl}}</p>
-                        <!-- <img src="./assets/images/ic_download_asset.png" class="img-sub-size" (click)="clickDownload(prefix+applicationFolderPath+'/'+selectedObject.dataUrl)"> -->
+                        <img src="./assets/images/ic_download_asset.png" class="download-asset" (click)="clickDownload(prefix+applicationFolderPath+'/'+selectedObject.dataUrl)">
                     </div>
                 </div>
             </div>

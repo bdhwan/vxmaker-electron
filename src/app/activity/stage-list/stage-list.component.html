@@ -1,7 +1,7 @@
 <div class="stage-list">
     
     <div *ngIf="stageList">
-        <div style="overflow: hidden;overflow: auto; max-height: 60px; padding-left:10px;">
+        <div style="overflow: auto; overflow: auto; max-height: 45px; padding-left:10px;">
             <div class="stage-list-wrap" style="float: left" *ngFor="let aStage of stageList" (click)="clickSelectStage($event,aStage)">
                 <div *ngIf="aStage">
                     <div [ngClass]="currentSelectedStage.id==aStage.id?'stage-current tab-class':'stage-notcurrent tab-class'">{{aStage.name}}</div>
