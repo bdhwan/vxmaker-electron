@@ -1278,6 +1278,46 @@ export class ApplicationDataServiceService {
   }
 
 
+  getCenterPoint(state) {
+    const tempObjectData = this.findObjectById(state.objectId);
+    if (tempObjectData === null) {
+      return { cx: 0, cy: 0 };
+    }
+
+    return {
+      cx: state.width * this.zoom / 2,
+      cy: state.height * this.zoom / 2
+    };
+
+
+    // if (tempObjectData.id === 'root') {
+    //   const objectStyle = {
+    //     'position': 'absolute',
+    //     'width': state.width * this.zoom + 'px',
+    //     'height': state.height * this.zoom + 'px',
+    //     'border': '0px solid grey',
+    //     'vertical-align': 'text-top',
+    //     'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
+    //     'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
+    //   };
+    //   return objectStyle;
+    // } else {
+    //   const objectStyle = {
+    //     'position': 'absolute',
+    //     'width': state.width * this.zoom + 'px',
+    //     'height': state.height * this.zoom + 'px',
+    //     'border': '1px solid gold',
+    //     'vertical-align': 'text-top',
+    //     'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
+    //     'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
+    //   };
+    //   return objectStyle;
+    // }
+  }
+
+
+
+
   deleteObjectChild(object, objectId) {
     const result = [];
     if (object.children && object.children.length > 0) {
