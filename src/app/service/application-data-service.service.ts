@@ -1268,7 +1268,7 @@ export class ApplicationDataServiceService {
         'position': 'absolute',
         'width': state.width * this.zoom + 'px',
         'height': state.height * this.zoom + 'px',
-        'border': '1px solid gold',
+        'border': '1px solid #46a2ba',
         'vertical-align': 'text-top',
         'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
         'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',

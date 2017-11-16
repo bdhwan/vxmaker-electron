@@ -27,9 +27,16 @@
 }
 
 .activity-canvas {
+    width: inherit;
     float: left;
     overflow-x: scroll;
     overflow-y: scroll;
+}
+
+.activity-canvas app-stage-list{
+    width: inherit;
+    position: fixed;
+    z-index: 65;
 }
 
 .activity-right {
