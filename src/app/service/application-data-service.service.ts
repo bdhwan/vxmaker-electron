@@ -1247,6 +1247,9 @@ export class ApplicationDataServiceService {
 
 
   getSelectedObjectStyle(state) {
+    if (!state) {
+      return {};
+    }
     const tempObjectData = this.findObjectById(state.objectId);
     if (tempObjectData === null) {
       return {};
