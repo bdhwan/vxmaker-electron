@@ -1,124 +1,134 @@
 <div #cellRoot [ngClass]="stateEventData.objectId===getSelectedObjectId()?'selected':''">
 
 
-    <!-- 오브젝트 이름-->
-    <div class="object-name object-list-main">
+  <!-- 오브젝트 이름-->
+  <div class="object-name object-list-main">
 
-        <!--<input type="checkbox" [(ngModel)]="stateEventData.isEnabled">-->
-
-
-
-        <!-- 오브젝트 이벤트 활성화 온오프 버튼 -->
-        <div class="object-id object-list">
-
-            <div class="control--checkbox control" style="float:left;">
-                <input type="checkbox" checked="checked" [(ngModel)]="stateEventData.isEnabled" />
-                <div class="control__indicator"></div>
-            </div>
-
-            <div (click)="clickObject(stateEventData.objectId)" class="get-object">
-                <img style="width:20px;height:20px;" [src]="getIcon(getObjectData(stateEventData.objectId).type)">
-                <span *ngIf="getObjectName(stateEventData.objectId)">{{getObjectName(stateEventData.objectId).name}}</span>
-            </div>
-        </div>
+    <!--<input type="checkbox" [(ngModel)]="stateEventData.isEnabled">-->
 
 
 
-        <!-- 오브젝트 이름 -->
-        <!--<div class="object-id object-list">
+    <!-- 오브젝트 이벤트 활성화 온오프 버튼 -->
+    <div class="object-id object-list">
+
+      <div>
+        <input type="checkbox" [(ngModel)]="stateEventData.isEnabled" />
+      </div>
+
+
+      <div (click)="clickObject(stateEventData.objectId)" class="get-object">
+        <img style="width:20px;height:20px;" [src]="getIcon(getObjectData(stateEventData.objectId).type)">
+        <span *ngIf="getObjectName(stateEventData.objectId)">{{getObjectName(stateEventData.objectId).name}}</span>
+      </div>
+    </div>
+
+
+
+    <!-- 오브젝트 이름 -->
+    <!--<div class="object-id object-list">
             {{getObjectName(stateEventData.objectId).name}}
         </div>-->
 
-        <!-- 그래프 미리보기 -->
-        <app-event-state-change-graph class="go-graph object-list" (click)="toggleDetail()" #graphSmall [stateEventData]="stateEventData" [graphSize]="18"></app-event-state-change-graph>
+    <!-- 그래프 미리보기 -->
+    <app-event-state-change-graph class="go-graph object-list" (click)="toggleDetail()" #graphSmall [stateEventData]="stateEventData"
+      [graphSize]="18"></app-event-state-change-graph>
 
-        <!-- 타임라인 미리보기 -->
-        <app-event-state-change-timeline class="timeline-preview object-list" #timeLineSmall (onChangeTimeLine)="onChangeTimeLineFromTimeLine($event)" [stateEventData]="stateEventData" [timeLinePadding]="1" [timeLineSizeW]="120" [timeLineSizeH]="8" [maxTime]="maxTotalTime"></app-event-state-change-timeline>
+    <!-- 타임라인 미리보기 -->
+    <app-event-state-change-timeline class="timeline-preview object-list" #timeLineSmall (onChangeTimeLine)="onChangeTimeLineFromTimeLine($event)"
+      [stateEventData]="stateEventData" [timeLinePadding]="1" [timeLineSizeW]="120" [timeLineSizeH]="8" [maxTime]="maxTotalTime"></app-event-state-change-timeline>
 
-        <!--<button (click)="toggleDetail()">상세</button>-->
-
-
-
-
-
-    </div>
-    <!-- 오브젝트 이름@-->
-
-    <!-- 오브젝트 상세-->
-    <div [hidden]="!isExpaned">
-
-        <div class="object-detail">
-
-            <!-- 오브젝트 디테일 말풍선 삼각형 -->
-            <!--<div class="tri"></div>-->
+    <!--<button (click)="toggleDetail()">상세</button>-->
 
 
-            <!-- 그래프 전체-->
-
-            <div class="graph-wrap">
-
-                <p style="padding-top:0;">Graph</p>
-
-                <!-- 인터폴레이터 종류 선택-->
-                <select class="interpolator-select" (change)="onChangeInterpolator($event.target.value, stateEventData)"> 
-                    <option *ngFor="let aSet of presetInterpolatorList" [value]="aSet.value">{{aSet.name}}</option>
-                </select>
-
-                <!-- 인터폴레이터 그래프 -->
-                <app-event-state-change-graph #graphBig (onChangeGraph)="onChangeGraph($event)" [needHandler]="true" [stateEventData]="stateEventData" [graphSize]="288" [paddingSize]="20"></app-event-state-change-graph>
-
-                <!-- 인터폴레이터 수치 입력-->
-                <div class="curve-input">
-                    <input class="input-start-x" (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="stateEventData.cubicValue[0]"><input class="input-start-y" (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="stateEventData.cubicValue[1]">
-                    <input class="input-end-x" (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="stateEventData.cubicValue[2]"><input class="input-end-y" (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="stateEventData.cubicValue[3]">
-                </div>
-
-            </div>
-
-            <!-- 그래프 전체@-->
-
-            <!--타임라인 전체 -->
-
-            <div class="timeline-wrap">
-
-                <p style="margin-bottom:10px;">Timeline</p>
-
-                <!-- 타임라인 에디트 -->
-                <app-event-state-change-timeline #timeLineBig (onChangeTimeLine)="onChangeTimeLineFromTimeLine($event)" [stateEventData]="stateEventData" [timeLinePadding]="0" [timeLineSizeW]="288" [timeLineSizeH]="20" [maxTime]="maxTotalTime"></app-event-state-change-timeline>
 
 
-                <!-- 시작 시간 및 동작 시간-->
-                <div class="event-time">
-                    <div class="event-delay">
-                        Delay <input (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="stateEventData.startDelay">
-                    </div>
-                    <div class="event-duration">
-                        Duration<input (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="stateEventData.duration">
-                    </div>
-                </div>
 
-            </div>
+  </div>
+  <!-- 오브젝트 이름@-->
 
-            <!--타임라인 전체 @ -->
+  <!-- 오브젝트 상세-->
+  <div [hidden]="!isExpaned">
 
-            <!-- source code -->
-            <div>
-                <button class="btn-code" (click)="toggleShowCode()">code<i class="fa fa-sort-desc"></i></button>
-                <div *ngIf="needShowCode&&stateChangeAnimationCode">
-                    <button class="btn-copy" [clip]="stateChangeAnimationCode" (onClip)="callback($event)">copy</button>
-                    <handy-syntax-highlighter *ngIf="stateChangeAnimationCode" [language]="'java'" [content]="stateChangeAnimationCode"></handy-syntax-highlighter>
+    <div class="object-detail">
 
-                    powered by viewpropertyobjectanimator from blipinsk
+      <!-- 오브젝트 디테일 말풍선 삼각형 -->
+      <!--<div class="tri"></div>-->
 
-                </div>
-            </div>
 
+      <!-- 그래프 전체-->
+
+      <div class="graph-wrap">
+
+        <p style="padding-top:0;">Graph</p>
+
+        <!-- 인터폴레이터 종류 선택-->
+        <select class="interpolator-select" (change)="onChangeInterpolator($event.target.value, stateEventData)">
+          <option *ngFor="let aSet of presetInterpolatorList" [value]="aSet.value">{{aSet.name}}</option>
+        </select>
+
+        <!-- 인터폴레이터 그래프 -->
+        <app-event-state-change-graph #graphBig (onChangeGraph)="onChangeGraph($event)" [needHandler]="true" [stateEventData]="stateEventData"
+          [graphSize]="288" [paddingSize]="20"></app-event-state-change-graph>
+
+        <!-- 인터폴레이터 수치 입력-->
+        <div class="curve-input">
+          <input class="input-start-x" (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="stateEventData.cubicValue[0]">
+          <input class="input-start-y" (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="stateEventData.cubicValue[1]">
+          <input class="input-end-x" (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="stateEventData.cubicValue[2]">
+          <input class="input-end-y" (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="stateEventData.cubicValue[3]">
         </div>
 
+      </div>
+
+      <!-- 그래프 전체@-->
+
+      <!--타임라인 전체 -->
+
+      <div class="timeline-wrap">
+
+        <p style="margin-bottom:10px;">Timeline</p>
+
+        <!-- 타임라인 에디트 -->
+        <app-event-state-change-timeline #timeLineBig (onChangeTimeLine)="onChangeTimeLineFromTimeLine($event)" [stateEventData]="stateEventData"
+          [timeLinePadding]="0" [timeLineSizeW]="288" [timeLineSizeH]="20" [maxTime]="maxTotalTime"></app-event-state-change-timeline>
 
 
+        <!-- 시작 시간 및 동작 시간-->
+        <div class="event-time">
+          <div class="event-delay">
+            Delay
+            <input (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="stateEventData.startDelay">
+          </div>
+          <div class="event-duration">
+            Duration
+            <input (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="stateEventData.duration">
+          </div>
+        </div>
+
+      </div>
+
+      <!--타임라인 전체 @ -->
+
+      <!-- source code -->
+      <div>
+        <button class="btn-code" (click)="toggleShowCode()">code
+          <i class="fa fa-sort-desc"></i>
+        </button>
+        <div *ngIf="needShowCode&&stateChangeAnimationCode">
+          <button class="btn-copy" [clip]="stateChangeAnimationCode" (onClip)="callback($event)">copy</button>
+          <handy-syntax-highlighter *ngIf="stateChangeAnimationCode" [language]="'java'" [content]="stateChangeAnimationCode"></handy-syntax-highlighter>
+
+          powered by viewpropertyobjectanimator from blipinsk
+
+        </div>
+      </div>
 
     </div>
-    <!-- 오브젝트 상세@-->
+
+
+
+
+  </div>
+  <!-- 오브젝트 상세@-->
 
 </div>

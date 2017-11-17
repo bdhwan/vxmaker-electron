@@ -1,181 +1,181 @@
 .selected {
-    background: #fff;
+  background: #fff;
 }
 
 
 /* The switch - the box around the slider */
 
 .switch {
-    position: relative;
-    display: inline-block;
-    width: 20px;
-    height: 14px;
-    margin-top: 7px;
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 14px;
+  margin-top: 7px;
 }
 
 
 /* Hide default HTML checkbox */
 
 .switch input {
-    display: none;
+  display: none;
 }
 
 
 /* The slider */
 
 .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
 }
 
 .slider:before {
-    position: absolute;
-    content: "";
-    height: 6px;
-    width: 6px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
+  position: absolute;
+  content: "";
+  height: 6px;
+  width: 6px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
 }
 
 input:checked+.slider {
-    background-color: #46abca;
+  background-color: #46abca;
 }
 
 input:focus+.slider {
-    box-shadow: 0 0 1px #46abca;
+  box-shadow: 0 0 1px #46abca;
 }
 
 input:checked+.slider:before {
-    -webkit-transform: translateX(6px);
-    -ms-transform: translateX(6px);
-    transform: translateX(6px);
+  -webkit-transform: translateX(6px);
+  -ms-transform: translateX(6px);
+  transform: translateX(6px);
 }
 
 
 /* Rounded sliders */
 
 .slider.round {
-    border-radius: 34px;
+  border-radius: 34px;
 }
 
 .slider.round:before {
-    border-radius: 50%;
+  border-radius: 50%;
 }
 
 .event-time {
-    overflow: hidden;
-    margin-bottom: 10px;
-    margin-top: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .event-time div {
-    width: 50%;
-    float: left;
+  width: 50%;
+  float: left;
 }
 
 .event-time input {
-    width: 80px;
-    margin-left: 10px;
-    background: #f1f1f1;
-    border-radius: 3px;
-    border: none;
-    padding: 3px;
-    padding-left: 10px;
-    padding-right: 10px;
+  width: 80px;
+  margin-left: 10px;
+  background: #f1f1f1;
+  border-radius: 3px;
+  border: none;
+  padding: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .interpolator-select {
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    height: 30px;
-    font-size: 13px;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 30px;
+  font-size: 13px;
 }
 
 
 /* 인터폴레이터 커브그래프 @*/
 
 .curve-input input {
-    width: 141px;
-    margin-bottom: 6px;
-    background: #f1f1f1;
-    border-radius: 3px;
-    border: none;
-    padding: 3px;
-    padding-left: 10px;
-    padding-right: 10px;
+  width: 141px;
+  margin-bottom: 6px;
+  background: #f1f1f1;
+  border-radius: 3px;
+  border: none;
+  padding: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .curve-input .input-start-x {
-    margin-right: 4px;
-    color: #ffffff;
-    background-color: #ff0088;
+  margin-right: 4px;
+  color: #ffffff;
+  background-color: #ff0088;
 }
 
 .curve-input .input-start-y {
-    margin-left: 4px;
-    color: #ffffff;
-    background-color: #ff0088;
+  margin-left: 4px;
+  color: #ffffff;
+  background-color: #ff0088;
 }
 
 .curve-input .input-end-x {
-    margin-right: 4px;
-    color: #ffffff;
-    background-color: #00aabb;
+  margin-right: 4px;
+  color: #ffffff;
+  background-color: #00aabb;
 }
 
 .curve-input .input-end-y {
-    margin-left: 4px;
-    color: #ffffff;
-    background-color: #00aabb;
+  margin-left: 4px;
+  color: #ffffff;
+  background-color: #00aabb;
 }
 
 .object-detail {
-    background: #fff;
-    padding: 15px;
-    position: relative;
-    margin-top: -1px;
+  background: #fff;
+  padding: 15px;
+  position: relative;
+  margin-top: -1px;
 }
 
 
 /*오브젝트 디테일 말풍선 삼각형 */
 
 .tri {
-    width: 0px;
-    height: 0px;
-    border-top: 10px solid none;
-    border-bottom: 10px solid white;
-    border-right: 15px solid transparent;
-    border-left: 15px solid transparent;
-    position: absolute;
-    top: 0;
-    margin-top: -10px;
-    left: 0;
-    margin-left: 105px;
+  width: 0px;
+  height: 0px;
+  border-top: 10px solid none;
+  border-bottom: 10px solid white;
+  border-right: 15px solid transparent;
+  border-left: 15px solid transparent;
+  position: absolute;
+  top: 0;
+  margin-top: -10px;
+  left: 0;
+  margin-left: 105px;
 }
 
 .object-list-main {
-    vertical-align: middle;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
-    border-bottom: 1px solid #ccc;
-    overflow: hidden;
+  vertical-align: middle;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-bottom: 1px solid #ccc;
+  overflow: hidden;
 }
 
 .object-list {
-    float: left;
+  float: left;
 }
 
 
@@ -191,157 +191,156 @@ input:checked+.slider:before {
 }*/
 
 .timeline-preview {
-    margin-top: 7px;
-    margin-left: 8px;
+  margin-top: 7px;
+  margin-left: 8px;
 }
 
 .go-graph {
-    margin-top: 5px;
+  margin-top: 5px;
 }
 
 .go-graph canvas {
-    background: #fff !important;
+  background: #fff !important;
 }
 
 .go-graph:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .graph-wrap p,
 .timeline-wrap p {
-    padding-top: 10px;
-    font-size: 10px;
-    color: #898989;
-    margin: 0;
+  padding-top: 10px;
+  font-size: 10px;
+  color: #898989;
+  margin: 0;
 }
 
 
 /* 체크박스 */
 
 .control {
-    display: block;
-    position: relative;
-    padding-left: 30px;
-    padding-top: 6px;
-    cursor: pointer;
-    font-size: 10px;
-    width: 140px;
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  padding-top: 6px;
+  cursor: pointer;
+  font-size: 10px;
+  width: 140px;
 }
 
 .control input {
-    position: absolute;
-    z-index: -1;
-    opacity: 0;
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
 }
 
 .control__indicator {
-    position: absolute;
-    top: 5px;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background: #e6e6e6;
-    border-radius: 20px;
+  position: absolute;
+  top: 5px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background: #e6e6e6;
+  border-radius: 20px;
 }
 
 .control:hover input~.control__indicator,
 .control input:focus~.control__indicator {
-    background: #ccc;
+  background: #ccc;
 }
 
 .control input:checked~.control__indicator {
-    background: #2aa1c0;
+  background: #2aa1c0;
 }
 
 .control:hover input:not([disabled]):checked~.control__indicator,
 .control input:checked:focus~.control__indicator {
-    background: #0e647d;
+  background: #0e647d;
 }
 
 .control input:disabled~.control__indicator {
-    background: #e6e6e6;
-    opacity: 0.6;
-    pointer-events: none;
+  background: #e6e6e6;
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 .control__indicator:after {
-    content: '';
-    position: absolute;
-    display: none;
+  content: '';
+  position: absolute;
+  display: none;
 }
 
 .control input:checked~.control__indicator:after {
-    display: block;
+  display: block;
 }
 
 .control--checkbox .control__indicator:after {
-    left: 8px;
-    top: 4px;
-    width: 3px;
-    height: 8px;
-    border: solid #fff;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
+  left: 8px;
+  top: 4px;
+  width: 3px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
 .control--checkbox input:disabled~.control__indicator:after {
-    border-color: #7b7b7b;
+  border-color: #7b7b7b;
 }
+
 .object-id {
-    position: relative;
+  position: relative;
 }
 
 .get-object {
-    display: inline-block;
-    vertical-align: middle;
-    position: absolute;
-    top: 5px;
-    left: 30px;
-    width: 100px;
-    overflow:hidden;
-    white-space:nowrap;
-    text-overflow:clip;
-
+  display: inline-block;
+  vertical-align: middle;
+  position: absolute;
+  top: 5px;
+  left: 30px;
+  width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: clip;
 }
 
-.get-object *{
-    
-    display:inline-block;
-    vertical-align: middle; 
+.get-object * {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .btn-code i {
-    position: absolute;
-    right: 0;
-    margin-right: 10px;
+  position: absolute;
+  right: 0;
+  margin-right: 10px;
 }
 
 .btn-code {
-    background-color: #efeff0;
-    border: 1px solid #ccc;
-    padding: 6px 10px;
-    width: 100%;
-    position: relative;
-    text-align: left;
+  background-color: #efeff0;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  width: 100%;
+  position: relative;
+  text-align: left;
 }
 
 .btn-code:hover {
-    background: #ececec;
-    cursor: default;
+  background: #ececec;
+  cursor: default;
 }
 
 .btn-copy {
-    border: 1px solid #ccc!important;
-    color: #454545!important;
-    font-size: 12px!important;
-    padding: 3px 8px!important;
-    position: relative;
-    margin: 4px;
-    background: rgba(255, 255, 255, 1)!important;
+  border: 1px solid #ccc!important;
+  color: #454545!important;
+  font-size: 12px!important;
+  padding: 3px 8px!important;
+  position: relative;
+  margin: 4px;
+  background: rgba(255, 255, 255, 1)!important;
 }
 
 .btn-copy:hover {
-    cursor: default;
-    color: #fff;
-    background: #f9f9f9!important;
+  cursor: default;
+  color: #fff;
+  background: #f9f9f9!important;
 }
