@@ -1292,7 +1292,7 @@ export class ApplicationDataServiceService {
       cy: state.height * this.zoom / 2
     };
 
-
+  
     // if (tempObjectData.id === 'root') {
     //   const objectStyle = {
     //     'position': 'absolute',

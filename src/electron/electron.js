@@ -675,13 +675,13 @@ ipcMain.on('send-file-to-device', (event, tarFilePath, deviceId, devicePath) => 
 
 function createWindow() {
 
-    
+
     const initWidth = 1280;
     const initHeight = 694;
 
-    const minWidth = 1280;
-    const minHeight = 694;
-    
+    const minWidth = 1280 / 2;
+    const minHeight = 694 / 2;
+
 
 
     if (isDev) {
