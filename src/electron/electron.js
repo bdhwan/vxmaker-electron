@@ -69,17 +69,17 @@ function startUpdateCheck() {
         autoUpdater.checkForUpdates();
     }, 60000);
 
-    autoUpdater.on('checking-for-update', (event, temp) => {
-        // showMessage('checking-for-update', 'checking-for-update' + event);
-    });
+    // autoUpdater.on('checking-for-update', (event, temp) => {
+    //     // showMessage('checking-for-update', 'checking-for-update' + event);
+    // });
 
-    autoUpdater.on('update-available', (event, temp) => {
-        // showMessage('update-available', 'update-available' + event);
-    });
+    // autoUpdater.on('update-available', (event, temp) => {
+    //     // showMessage('update-available', 'update-available' + event);
+    // });
 
-    autoUpdater.on('update-not-available', (event, temp) => {
-        // showMessage('update-not-available', 'update-not-available' + event);
-    });
+    // autoUpdater.on('update-not-available', (event, temp) => {
+    //     // showMessage('update-not-available', 'update-not-available' + event);
+    // });
 
     autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
         const dialogOpts = {
@@ -88,17 +88,16 @@ function startUpdateCheck() {
             title: 'Application Update',
             detail: 'A new version has been downloaded. Restart the application to apply the updates.'
         }
-
         dialog.showMessageBox(dialogOpts, (response) => {
             if (response === 0) autoUpdater.quitAndInstall()
         })
     });
 
-    autoUpdater.on('error', message => {
-        console.error('There was a problem updating the application')
-        console.error(message)
-            // showMessage('error', message);
-    });
+    // autoUpdater.on('error', message => {
+    //     console.error('There was a problem updating the application')
+    //     console.error(message)
+    //         // showMessage('error', message);
+    // });
 
     autoUpdater.setFeedURL(feed);
     autoUpdater.checkForUpdates();
