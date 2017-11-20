@@ -157,8 +157,8 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
     this.clickNewFile('image');
   }
 
-  clickSelectFile(): void {
-    this.clickNewFile('file');
+  clickSelectFile(type): void {
+    this.clickNewFile(type);
   }
 
   clickNewFile(target) {

@@ -514,24 +514,39 @@ ipcMain.on('select-file', (event, arg) => {
     })
     //select image
 ipcMain.on('select-files', (event, arg) => {
-    console.log(arg) // prints "ping"
+        console.log(arg) // prints "ping"
 
-    var files = dialog.showOpenDialog({
-        properties: ['openFile', 'multiSelections'],
-        filters: [
-            { name: 'Files', extensions: ['*'] }
-        ]
-    });
+        var files = dialog.showOpenDialog({
+            properties: ['openFile', 'multiSelections'],
+            filters: [
+                { name: 'Files', extensions: ['*'] }
+            ]
+        });
 
 
-    if (files) {
-        event.returnValue = files;
-    } else {
-        event.returnValue = null;
-    }
-})
+        if (files) {
+            event.returnValue = files;
+        } else {
+            event.returnValue = null;
+        }
+    })
+    //select image
+ipcMain.on('select-files-with-type', (event, fileType) => {
+        console.log(fileType) // prints "ping"
 
-//copy folder
+        var files = dialog.showOpenDialog({
+            properties: ['openFile', 'multiSelections'],
+            filters: [
+                { name: 'Files', extensions: [fileType] }
+            ]
+        });
+        if (files) {
+            event.returnValue = files;
+        } else {
+            event.returnValue = null;
+        }
+    })
+    //copy folder
 ipcMain.on('copy-folder', (event, src, dst) => {
     console.log(src + ", " + dst);
     fse.copySync(src, dst);

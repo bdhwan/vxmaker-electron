@@ -334,6 +334,10 @@ export class ApplicationDataServiceService {
     return electron.ipcRenderer.sendSync('select-files');
   }
 
+  selectFilesWithType(fileType) {
+    return electron.ipcRenderer.sendSync('select-files-with-type', fileType);
+  }
+
 
   getWorkspaceFolderPath() {
     return electron.ipcRenderer.sendSync('get-workspace-folder-path');
@@ -1459,10 +1463,18 @@ export class ApplicationDataServiceService {
 
   loadFileResourceList() {
     return new Promise((resolve, reject) => {
-      this.fileResourceList = electron.ipcRenderer.sendSync('get-file-list', this.applicationFolderPath + '/file');
-      for (let i = 0; i < this.fileResourceList.length; i++) {
-        this.fileResourceList[i] = 'file/' + this.fileResourceList[i];
+      this.fileResourceList = [];
+
+      const tempList = electron.ipcRenderer.sendSync('get-file-list', this.applicationFolderPath + '/file');
+      console.log('tempList = ' + tempList.length);
+      for (let i = 0; i < tempList.length; i++) {
+        if (tempList[i].startsWith('.')) {
+          continue;
+        }
+        this.fileResourceList.push('file/' + tempList[i]);
       }
+
+      console.log('fileResourceList = ' + this.fileResourceList.length);
       resolve(this.fileResourceList);
     });
   }
@@ -1476,13 +1488,16 @@ export class ApplicationDataServiceService {
 
   loadImageResourceList() {
     return new Promise((resolve, reject) => {
-      this.imageResourceList = electron.ipcRenderer.sendSync('get-file-list', this.applicationFolderPath + '/image');
-      console.log('from electron = ' + JSON.stringify(this.imageResourceList));
-      if (!this.imageResourceList) {
-        this.imageResourceList = [];
-      }
-      for (let i = 0; i < this.imageResourceList.length; i++) {
-        this.imageResourceList[i] = 'image/' + this.imageResourceList[i];
+
+      const tempImageResource = electron.ipcRenderer.sendSync('get-file-list', this.applicationFolderPath + '/image');
+      this.imageResourceList = [];
+
+
+      for (let i = 0; i < tempImageResource.length; i++) {
+        if (tempImageResource[i].startsWith('.')) {
+          continue;
+        }
+        this.imageResourceList.push('image/' + tempImageResource[i]);
       }
       resolve(this.imageResourceList);
     });
