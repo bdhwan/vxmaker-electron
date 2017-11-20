@@ -775,9 +775,11 @@ function getTempFolder() {
 //start activity
 ipcMain.on('read-heart-beat', (event, filePath, deviceId) => {
 
-    console.log("start activity = " + filePath);
-    console.log("deviceId = " + deviceId);
-    console.log("target path = " + filePath);
+
+
+    // console.log("start activity = " + filePath);
+    // console.log("deviceId = " + deviceId);
+    // console.log("target path = " + filePath);
     client.pull(deviceId, filePath)
         .then(function(transfer) {
             return new Promise(function(resolve, reject) {
@@ -813,11 +815,11 @@ ipcMain.on('read-heart-beat', (event, filePath, deviceId) => {
 function createWindow() {
 
 
-    const initWidth = 1280;
-    const initHeight = 694;
+    const initWidth = 1024;
+    const initHeight = 720;
 
-    const minWidth = 1280 / 2;
-    const minHeight = 694 / 2;
+    const minWidth = 700;
+    const minHeight = 600;
 
 
 

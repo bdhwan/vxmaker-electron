@@ -6,10 +6,10 @@
 
 
     <p class="device-unconnected" *ngIf="deviceList.length == 0">
-        <span (click)="clickHowToConnect('http://vxmaker.com')">How to connect <i class="fa fa-question-circle-o"></i></span>
+        <span (click)="clickHowToConnect('http://beta.vxmaker.com/howto')">How to connect <i class="fa fa-question-circle-o"></i></span>
     </p>
 
-    <p *ngIf="'installed'===appStatus&&!isSending" class="btn-preview nav-btn" (click)='clickSendFile()'>
+    <p *ngIf="'installed'===appStatus&&!isSending&&deviceList.length != 0" class="btn-preview nav-btn" (click)='clickSendFile()'>
         <i class="fa fa-usb"></i><br> Send
     </p>
 
@@ -17,12 +17,12 @@
         <i class="fa fa-circle-o-notch fa-spin"></i><br> Sending
     </p>
 
-    <p *ngIf="'not_installed'===appStatus" class="btn-preview nav-btn" (click)='clickInstall()'>
+    <p *ngIf="'not_installed'===appStatus&&deviceList.length != 0" class="btn-preview nav-btn" (click)='clickInstall()'>
         <i class="fa fa-download"></i><br> Install
     </p>
 
     <p *ngIf="'installing'===appStatus" class="btn-preview nav-btn">
-        <i class="fa fa-circle-o-notch fa-spin"></i><br> Installing
+        <i class="fa fa-circle-o-notch fa-spin"></i><br> ...
     </p>
 
 
