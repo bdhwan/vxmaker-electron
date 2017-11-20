@@ -18,10 +18,8 @@ const isDev = require('electron-is-dev');
 
 var settings = new ElectronData({
     path: app.getPath('userData'),
-    filename: 'settings_v3'
+    filename: 'settings_v4'
 });
-
-console.log("userDatapath = " + app.getPath('userData'));
 
 const server = 'http://update.vxmaker.com'
 const feed = `${server}/update/${process.platform}/${app.getVersion()}`
@@ -45,20 +43,20 @@ if (isDev) {
 
 function startUpdateCheck() {
     setInterval(() => {
-        console.log('will check update');
+        // console.log('will check update');
         autoUpdater.checkForUpdates();
     }, 60000);
 
     autoUpdater.on('checking-for-update', (event, temp) => {
-        showMessage('checking-for-update', 'checking-for-update' + event);
+        // showMessage('checking-for-update', 'checking-for-update' + event);
     });
 
     autoUpdater.on('update-available', (event, temp) => {
-        showMessage('update-available', 'update-available' + event);
+        // showMessage('update-available', 'update-available' + event);
     });
 
     autoUpdater.on('update-not-available', (event, temp) => {
-        showMessage('update-not-available', 'update-not-available' + event);
+        // showMessage('update-not-available', 'update-not-available' + event);
     });
 
     autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
@@ -77,7 +75,7 @@ function startUpdateCheck() {
     autoUpdater.on('error', message => {
         console.error('There was a problem updating the application')
         console.error(message)
-        showMessage('error', message);
+            // showMessage('error', message);
     });
 
     autoUpdater.setFeedURL(feed);
@@ -625,27 +623,27 @@ ipcMain.on('get-image-size', (event, path) => {
 // send file
 ipcMain.on('tar-folder', (event, folderPath) => {
 
-    console.log("will tar = " + folderPath);
+    // console.log("will tar = " + folderPath);
 
-    var filePath = app.getPath('desktop') + "/temp.tar";
+    var filePath = getTempFolder() + "/temp.tar";
 
     var dirDest = fse.createWriteStream(filePath);
-    console.log("makeNew3");
+    // console.log("makeNew3");
 
     var packer = tar.Pack({ noProprietary: true })
         .on('error', function(err) {
-            console.log("err2=" + JSON.stringify(err));
+            // console.log("err2=" + JSON.stringify(err));
             event.returnValue = false;
         })
         .on('end', function() {
-            console.log("makeNew5=" + folderPath);
-            console.log("makeNew6 will resolve=" + filePath);
+            // console.log("makeNew5=" + folderPath);
+            // console.log("makeNew6 will resolve=" + filePath);
             event.returnValue = filePath;
         });
 
     fstream.Reader({ path: folderPath, type: "Directory" })
         .on('error', function(err) {
-            console.log("err1=" + JSON.stringify(err));
+            // console.log("err1=" + JSON.stringify(err));
             event.returnValue = false;
         })
         .pipe(packer)
@@ -658,9 +656,9 @@ ipcMain.on('tar-folder', (event, folderPath) => {
 // send file
 ipcMain.on('send-file-to-device', (event, tarFilePath, deviceId, devicePath) => {
 
-    console.log("will send file to device = " + tarFilePath);
-    console.log("deviceId = " + deviceId);
-    console.log("devicePath = " + devicePath);
+    // console.log("will send file to device = " + tarFilePath);
+    // console.log("deviceId = " + deviceId);
+    // console.log("devicePath = " + devicePath);
 
     client.push(deviceId, tarFilePath, devicePath)
         .then(function(transfer) {
@@ -691,8 +689,8 @@ ipcMain.on('send-file-to-device', (event, tarFilePath, deviceId, devicePath) => 
 // check isntalled
 ipcMain.on('is-installed-apk', (event, packageName, deviceId) => {
 
-    console.log("is-installed-apk = " + packageName);
-    console.log("deviceId = " + deviceId);
+    // console.log("is-installed-apk = " + packageName);
+    // console.log("deviceId = " + deviceId);
 
 
     client.isInstalled(deviceId, packageName)
@@ -709,8 +707,8 @@ ipcMain.on('is-installed-apk', (event, packageName, deviceId) => {
 //install apk
 ipcMain.on('install-apk', (event, targetFilePath, deviceId) => {
 
-    console.log("install-apk = " + targetFilePath);
-    console.log("deviceId = " + deviceId);
+    // console.log("install-apk = " + targetFilePath);
+    // console.log("deviceId = " + deviceId);
 
 
     client.install(deviceId, __dirname + '/' + targetFilePath)
@@ -728,19 +726,23 @@ ipcMain.on('install-apk', (event, targetFilePath, deviceId) => {
 //start activity
 ipcMain.on('start-activity', (event, option, deviceId) => {
 
-    console.log("start activity = " + option);
-    console.log("deviceId = " + deviceId);
+    // console.log("start activity = " + option);
+    // console.log("deviceId = " + deviceId);
     client.startActivity(deviceId, option)
         .then(result => {
-            console.log("install done! = " + result);
+            // console.log("install done! = " + result);
             event.returnValue = result;
         })
         .catch(function(err) {
-            console.error('Something went wrong:', JSON.stringify(err));
+            // console.error('Something went wrong:', JSON.stringify(err));
             event.returnValue = false;
         });
 });
 
+function getTempFolder() {
+    return app.getPath('temp');
+
+}
 
 //start activity
 ipcMain.on('read-heart-beat', (event, filePath, deviceId) => {
@@ -751,7 +753,7 @@ ipcMain.on('read-heart-beat', (event, filePath, deviceId) => {
     client.pull(deviceId, filePath)
         .then(function(transfer) {
             return new Promise(function(resolve, reject) {
-                var fn = app.getPath('desktop') + '/' + deviceId + '_temp.txt';
+                var fn = getTempFolder() + '/' + deviceId + '_temp.txt';
                 console.log('path = ' + fn);
                 transfer.on('progress', function(stats) {
                     console.log('[%s] Pulled %d bytes so far', deviceId, stats.bytesTransferred)
@@ -812,7 +814,7 @@ function createWindow() {
                 win = null
             })
 
-            checkVersionDialog();
+            // checkVersionDialog();
             registADB();
         }, 12000)
     } else {
@@ -825,12 +827,12 @@ function createWindow() {
         win.loadURL(targetUrl)
             // Emitted when the window is closed.
         win.on('closed', () => {
-            // Dereference the window object, usually you would store windows
-            // in an array if your app supports multi windows, this is the time
-            // when you should delete the corresponding element.
-            win = null
-        })
-        checkVersionDialog();
+                // Dereference the window object, usually you would store windows
+                // in an array if your app supports multi windows, this is the time
+                // when you should delete the corresponding element.
+                win = null
+            })
+            // checkVersionDialog();
         startUpdateCheck();
         registADB();
     }
