@@ -22,11 +22,7 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
 
   isSaving;
   isSending;
-
   appStatus;
-  ticks = 0;
-  private timer;
-  private sub: Subscription;
 
   constructor(public zone: NgZone, private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) { }
 
@@ -38,22 +34,13 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
       });
     });
     this.refreshDeviceStatus();
-
-    this.timer = Observable.timer(0, 60000);
-    // subscribing to a observable returns a subscription object
-    this.sub = this.timer.subscribe(t => this.tickerFunc(t));
   }
 
   ngOnDestroy() {
     electron.ipcRenderer.sendSync('unregist-device-connect-status');
-    this.sub.unsubscribe();
   }
 
-  tickerFunc(tick) {
-    console.log(this);
-    this.ticks = tick;
-    this.checkAppStatus();
-  }
+
 
   public setIsSaving(value) {
     this.isSaving = value;
@@ -69,6 +56,9 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
   refreshDeviceStatus(): void {
     this.appDataService.refreshDeviceList();
     this.deviceList = this.appDataService.getDeviceList();
+    if (this.deviceList.length > 0) {
+      this.checkAppStatus();
+    }
   }
 
   public clickSaveFile(): void {
@@ -129,7 +119,6 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
         this.checkAppStatus();
       });
     }
-
   }
 
   clickReadHeartBeat() {
@@ -148,10 +137,9 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
         console.log("error is isntalled = " + error);
       });
     }
-
-
-
   }
+
+
   clickStartActivity() {
     if (this.deviceList.length > 0) {
       const option = {
@@ -165,7 +153,6 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
         console.log("error start = " + error);
       });
     }
-
   }
 
 
@@ -201,15 +188,12 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
         console.log("error heart beat = " + error);
         this.isSending = false;
         this.checkAppStatus();
-
       });
     }
-
   }
 
 
   checkAppStatus() {
-
     const self = this;
     if (this.deviceList.length > 0) {
       this.appDataService.isInstalled('com.altamirasoft.vxmaker_android').then(result => {
