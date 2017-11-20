@@ -65,6 +65,10 @@ export class CodeExportComponent implements OnInit, OnDestroy {
       self.readyToRender = true;
       self.registerStringBroadcast();
     });
+
+
+
+    this.appDataService.insertHistory('export', null);
   }
 
   callback($event) {

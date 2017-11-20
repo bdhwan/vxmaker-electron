@@ -16,10 +16,32 @@ var PsdUtil = require('./psd-util.js');
 // var screenshot = require('electron-screenshot-service');
 const isDev = require('electron-is-dev');
 
+
 var settings = new ElectronData({
     path: app.getPath('userData'),
     filename: 'settings_v4'
 });
+
+
+let macAddress = getRandMac();
+
+require('getmac').getMac(function(err, _macAddress) {
+    if (!err) {
+        macAddress = _macAddress;
+    }
+});
+
+
+function getRandMac() {
+    var result = settings.get("mac");
+    if (!result) {
+        result = 'no-mac-' + new Date().getTime();
+        settings.set("mac", result);
+    }
+    return result;
+}
+
+
 
 const server = 'http://update.vxmaker.com'
 const feed = `${server}/update/${process.platform}/${app.getVersion()}`
@@ -575,6 +597,12 @@ ipcMain.on('have-file', (event, path) => {
     }
 })
 
+
+//copy file
+ipcMain.on('get-mac-address', (event) => {
+    // Fetch the computer's mac address 
+    event.returnValue = macAddress;
+})
 
 //copy file
 ipcMain.on('copy-file', (event, src, dst) => {

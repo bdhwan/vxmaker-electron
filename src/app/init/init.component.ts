@@ -15,6 +15,8 @@ import { RecentProjectComponent } from '../init/recent-project/recent-project.co
   providers: [BroadcastService, MessageEventService]
 })
 export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
+
+
   imgPrefix = environment.imgPrefix;
   isGuideMode = environment.guideMode;
   isProdMode = environment.production;
@@ -38,6 +40,7 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {
     this.registerStringBroadcast();
 
+    this.appDataService.insertHistory('init', null);
 
 
   }

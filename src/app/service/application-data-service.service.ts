@@ -3,6 +3,8 @@ import { Http } from '@angular/http';
 import { UUID } from 'angular2-uuid';
 import { BroadcastService } from './broadcast.service';
 import { ColorPickerService, Rgba } from 'ngx-color-picker';
+import * as Parse from 'parse';
+
 
 
 declare var electron: any;
@@ -14,8 +16,12 @@ declare var css_beautify: any;
 
 
 
+
 @Injectable()
 export class ApplicationDataServiceService {
+
+  History = Parse.Object.extend('History');
+
 
 
   activityId: String;
@@ -49,13 +55,13 @@ export class ApplicationDataServiceService {
   templeteFolderPath = './assets/template';
   templateHash = {};
 
-
-
   parsePsdPromise: any;
   capturePromise: any;
   isInstallPromise: any;
   installPromise: any;
   heartBeatPromise: any;
+  getMacPromise: any;
+
 
 
   idHash = {};
@@ -128,9 +134,31 @@ export class ApplicationDataServiceService {
       electron.ipcRenderer.on('heart-beat-result', (event, arg) => {
         this.heartBeatPromise(arg);
       });
+
+      electron.ipcRenderer.on('get-mac-address-result', (event, arg) => {
+        this.getMacPromise(arg);
+      });
     }
+  }
 
 
+  insertHistory(page, etc) {
+    console.log("page = " + page);
+    const mac = electron.ipcRenderer.sendSync('get-mac-address');
+    const aNew = new this.History();
+    aNew.set('page', page);
+    aNew.set('mac', mac);
+    if (etc) {
+      aNew.set('etc', etc);
+    }
+    aNew.save();
+  }
+
+  getMacAddress() {
+    return new Promise((resolve, reject) => {
+      this.getMacPromise = resolve;
+
+    });
   }
 
 

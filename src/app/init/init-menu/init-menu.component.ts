@@ -28,7 +28,7 @@ export class InitMenuComponent implements OnInit {
   clickNewApplication(): void {
     console.log("clickNewApplication");
 
-
+    this.appDataService.insertHistory('recent', 'newApplication');
     const message = {
       kind: 'new-application',
     };
@@ -39,6 +39,7 @@ export class InitMenuComponent implements OnInit {
 
   clickOpenApplication(): void {
     console.log("clickOpenApplication");
+    this.appDataService.insertHistory('recent', 'open');
     const message = {
       kind: 'open-application',
     };
@@ -46,6 +47,7 @@ export class InitMenuComponent implements OnInit {
   }
 
   clickHelp(): void {
+    this.appDataService.insertHistory('recent', 'help');
     const message = {
       kind: 'how-to-use',
     };
@@ -54,6 +56,7 @@ export class InitMenuComponent implements OnInit {
 
 
   clickSettingApplication(): void {
+    this.appDataService.insertHistory('recent', 'setting');
     console.log("clickSettingApplication");
   }
 

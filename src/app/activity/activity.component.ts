@@ -146,6 +146,9 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.appDataService.initApplicationPath(this.applicationFolderPath);
     this.appDataService.initActivityId(this.activityId);
     this.registerStringBroadcast();
+
+
+    this.appDataService.insertHistory('activity', this.activityId);
   }
 
   ngOnDestroy() {

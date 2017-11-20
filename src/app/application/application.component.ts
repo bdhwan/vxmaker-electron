@@ -116,7 +116,7 @@ export class ApplicationComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.registerStringBroadcast();
-
+    this.appDataService.insertHistory('application', this.applicationFolderPath);
   }
 
   ngOnDestroy() {
