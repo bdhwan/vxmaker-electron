@@ -53,6 +53,9 @@ export class ApplicationDataServiceService {
 
   parsePsdPromise: any;
   capturePromise: any;
+  isInstallPromise: any;
+  installPromise: any;
+  heartBeatPromise: any;
 
 
   idHash = {};
@@ -105,11 +108,25 @@ export class ApplicationDataServiceService {
 
 
     if (electron) {
+
       electron.ipcRenderer.on('parse-psd-result', (event, arg) => {
         this.parsePsdPromise(arg);
       });
+
       electron.ipcRenderer.on('capture-screen-result', (event, arg) => {
         this.capturePromise(arg);
+      });
+
+      electron.ipcRenderer.on('is-installed-result', (event, arg) => {
+        this.isInstallPromise(arg);
+      });
+
+      electron.ipcRenderer.on('installed-result', (event, arg) => {
+        this.installPromise(arg);
+      });
+
+      electron.ipcRenderer.on('heart-beat-result', (event, arg) => {
+        this.heartBeatPromise(arg);
       });
     }
 
@@ -292,8 +309,6 @@ export class ApplicationDataServiceService {
       this.capturePromise = resolve;
       electron.ipcRenderer.send('capture-screen', x, y, w, h, filePath);
     });
-
-
   }
 
 
@@ -1292,7 +1307,7 @@ export class ApplicationDataServiceService {
       cy: state.height * this.zoom / 2
     };
 
-  
+
     // if (tempObjectData.id === 'root') {
     //   const objectStyle = {
     //     'position': 'absolute',
@@ -1484,6 +1499,59 @@ export class ApplicationDataServiceService {
       }
     });
   }
+
+  readFileFromDevice(targetFilePath) {
+    return new Promise((resolve, reject) => {
+      const data = electron.ipcRenderer.sendSync('read-file-from-device', targetFilePath, this.deviceList[0]);
+      if (data) {
+        resolve(data);
+      } else {
+        reject('no data');
+      }
+    });
+  }
+
+  emptyPromise(result) {
+    return new Promise((resolve, reject) => {
+      resolve(result);
+    });
+  }
+
+  isInstalled(packageName) {
+    return new Promise((resolve, reject) => {
+      this.isInstallPromise = resolve;
+      electron.ipcRenderer.send('is-installed-apk', packageName, this.deviceList[0]);
+    });
+  }
+
+  installApk(targetFilePath) {
+    return new Promise((resolve, reject) => {
+      this.installPromise = resolve;
+      electron.ipcRenderer.send('install-apk', targetFilePath, this.deviceList[0]);
+    });
+  }
+
+  startActivity(option) {
+    return new Promise((resolve, reject) => {
+      const data = electron.ipcRenderer.sendSync('start-activity', option, this.deviceList[0]);
+      if (data) {
+        resolve(data);
+      } else {
+        reject('fail');
+      }
+    });
+  }
+
+
+  readHeartBeat(filePath) {
+    return new Promise((resolve, reject) => {
+      this.heartBeatPromise = resolve;
+      electron.ipcRenderer.send('read-heart-beat', filePath, this.deviceList[0]);
+    });
+  }
+
+
+
 
 
   getViewClass(origin) {

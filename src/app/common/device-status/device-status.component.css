@@ -89,6 +89,18 @@ i.fa.fa-floppy-o {
     margin-bottom: -1px;
 }
 
+i.fa.fa-download {
+    font-size: 15px;
+    vertical-align: bottom;
+    margin-bottom: -1px;
+}
+
+i.fa.fa-spin {
+    font-size: 15px;
+    vertical-align: bottom;
+    margin-bottom: -1px;
+}
+
 i.fa.fa-code {
     font-size: 17px;
     vertical-align: bottom;

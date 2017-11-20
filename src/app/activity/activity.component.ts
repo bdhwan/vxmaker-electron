@@ -26,6 +26,8 @@ import { EventDetailStopLottieComponent } from '../activity/event-detail-stop-lo
 import { EventDetailStartVideoComponent } from '../activity/event-detail-start-video/event-detail-start-video.component';
 import { EventDetailStopVideoComponent } from '../activity/event-detail-stop-video/event-detail-stop-video.component';
 import { EventDetailTriggerObjectComponent } from '../activity/event-detail-trigger-object/event-detail-trigger-object.component';
+import { DeviceStatusComponent } from '../common/device-status/device-status.component';
+
 
 
 import 'rxjs/add/operator/switchMap';
@@ -95,6 +97,10 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('activityList')
   private activityList: ActivityListComponent;
+
+  @ViewChild('deviceStatus')
+  private deviceStatus: DeviceStatusComponent;
+
 
 
 
@@ -635,6 +641,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   saveProcessAsync() {
     const self = this;
     this.saveStatus = true;
+    this.deviceStatus.setIsSaving(true);
 
     return new Promise((resolve, reject) => {
       self.captureScreen().then(result => {
@@ -642,6 +649,8 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         self.saveApplicationData();
         self.saveActivityData();
         self.saveStatus = false;
+
+        self.deviceStatus.setIsSaving(false);
         resolve(true);
       });
     });
@@ -652,9 +661,11 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   onClickSendDevice(value: string): void {
     this.sendStatus = true;
     const self = this;
+    this.deviceStatus.setIsSending(true);
     this.saveProcessAsync().then(result => {
       self.appDataService.sendFileToDevice();
       self.sendStatus = false;
+      self.deviceStatus.setIsSending(false);
     });
   }
 

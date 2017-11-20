@@ -670,7 +670,99 @@ ipcMain.on('send-file-to-device', (event, tarFilePath, deviceId, devicePath) => 
             console.error('Something went wrong:', err.stack)
             event.returnValue = false;
         });
-})
+});
+
+
+// check isntalled
+ipcMain.on('is-installed-apk', (event, packageName, deviceId) => {
+
+    console.log("is-installed-apk = " + packageName);
+    console.log("deviceId = " + deviceId);
+
+
+    client.isInstalled(deviceId, packageName)
+        .then(result => {
+            console.log("done! = " + result);
+            event.sender.send('is-installed-result', result);
+        })
+        .catch(function(err) {
+            console.error('Something went wrong:', JSON.stringify(err));
+            event.sender.send('is-installed-result', false);
+        });
+});
+
+//install apk
+ipcMain.on('install-apk', (event, targetFilePath, deviceId) => {
+
+    console.log("install-apk = " + targetFilePath);
+    console.log("deviceId = " + deviceId);
+
+
+    client.install(deviceId, __dirname + '/' + targetFilePath)
+        .then(result => {
+            console.log("install done! = " + result);
+            event.sender.send('installed-result', result);
+        })
+        .catch(function(err) {
+            console.error('Something went wrong:', JSON.stringify(err));
+            event.sender.send('installed-result', false);
+        });
+});
+
+
+//start activity
+ipcMain.on('start-activity', (event, option, deviceId) => {
+
+    console.log("start activity = " + option);
+    console.log("deviceId = " + deviceId);
+    client.startActivity(deviceId, option)
+        .then(result => {
+            console.log("install done! = " + result);
+            event.returnValue = result;
+        })
+        .catch(function(err) {
+            console.error('Something went wrong:', JSON.stringify(err));
+            event.returnValue = false;
+        });
+});
+
+
+//start activity
+ipcMain.on('read-heart-beat', (event, filePath, deviceId) => {
+
+    console.log("start activity = " + filePath);
+    console.log("deviceId = " + deviceId);
+    console.log("target path = " + filePath);
+    client.pull(deviceId, filePath)
+        .then(function(transfer) {
+            return new Promise(function(resolve, reject) {
+                var fn = app.getPath('desktop') + '/' + deviceId + '_temp.txt';
+                console.log('path = ' + fn);
+                transfer.on('progress', function(stats) {
+                    console.log('[%s] Pulled %d bytes so far', deviceId, stats.bytesTransferred)
+                })
+                transfer.on('end', function() {
+                    console.log('[%s] Pull complete', fse.readFileSync(fn, "utf8"));
+                    resolve(fse.readFileSync(fn, "utf8"));
+                })
+                transfer.on('error', function(error) {
+                    console.log("error = " + error);
+                    reject(error);
+                })
+                transfer.pipe(fse.createWriteStream(fn))
+            })
+        })
+        .then(result => {
+            console.log("install done! = " + result);
+            event.sender.send('heart-beat-result', JSON.parse(result));
+        })
+        .catch(function(err) {
+            console.error('Something went wrong:', JSON.stringify(err));
+            event.sender.send('heart-beat-result', false);
+        });
+});
+
+
 
 
 function createWindow() {
