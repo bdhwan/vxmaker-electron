@@ -180,23 +180,27 @@ input:checked+.slider:before {
 
 
 /*.object-id {
-    width:90px;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 6px;
-    padding-bottom: 5px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  width:90px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 6px;
+  padding-bottom: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }*/
 
-.timeline-preview {
-  margin-top: 7px;
-  margin-left: 8px;
-}
+
 
 .go-graph {
+  float: right;
   margin-top: 5px;
+}
+
+.timeline-preview {
+  float: right;
+  margin-top: 7px;
+  margin-left: 8px;
 }
 
 .go-graph canvas {
@@ -207,7 +211,6 @@ input:checked+.slider:before {
   cursor: pointer;
 }
 
-.graph-wrap p,
 .timeline-wrap p {
   padding-top: 10px;
   font-size: 10px;
