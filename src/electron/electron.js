@@ -844,6 +844,7 @@ function createWindow() {
             })
 
             // checkVersionDialog();
+               startUpdateCheck();
             registADB();
         }, 12000)
     } else {
