@@ -16,7 +16,8 @@ import { RecentProjectComponent } from '../init/recent-project/recent-project.co
 })
 export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
 
-
+  platform;
+  version;
   imgPrefix = environment.imgPrefix;
   isGuideMode = environment.guideMode;
   isProdMode = environment.production;
@@ -42,6 +43,8 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.appDataService.insertHistory('init', null);
 
+    this.platform = this.appDataService.getAppPlatform();
+    this.version = this.appDataService.getAppVersion();
 
   }
 

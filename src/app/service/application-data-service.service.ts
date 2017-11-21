@@ -1428,6 +1428,15 @@ export class ApplicationDataServiceService {
   }
 
 
+  getAppPlatform() {
+    return electron.ipcRenderer.sendSync('get-app-platform');
+  }
+
+
+  getAppVersion() {
+    return electron.ipcRenderer.sendSync('get-app-version');
+  }
+
 
 
 

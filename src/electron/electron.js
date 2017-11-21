@@ -595,6 +595,15 @@ ipcMain.on('copy-file-from-root', (event, src, dst) => {
 
 
 
+ipcMain.on('get-app-platform', (event) => {
+    event.returnValue = process.platform;
+})
+
+ipcMain.on('get-app-version', (event) => {
+    event.returnValue = app.getVersion();
+})
+
+
 ipcMain.on('have-file', (event, path) => {
     console.log("have file = " + path);
     try {
