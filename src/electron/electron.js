@@ -98,14 +98,17 @@ function startUpdateCheck() {
         })
     });
 
-    // autoUpdater.on('error', message => {
-    //     console.error('There was a problem updating the application')
-    //     console.error(message)
-    //         // showMessage('error', message);
-    // });
+    autoUpdater.on('error', message => {
+        console.error('There was a problem updating the application')
+        console.error(message)
+            // showMessage('error', message);
+    });
 
     autoUpdater.setFeedURL(feed);
-    autoUpdater.checkForUpdates();
+    setTimeout(function() {
+        autoUpdater.checkForUpdates();
+    }, 1000);
+    // 
 }
 
 function showMessage(title, message) {
