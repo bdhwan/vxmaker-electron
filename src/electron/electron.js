@@ -15,7 +15,7 @@ var Promise = require('bluebird');
 var PsdUtil = require('./psd-util.js');
 // var screenshot = require('electron-screenshot-service');
 const isDev = require('electron-is-dev');
-
+if (require('electron-squirrel-startup')) app.quit();
 
 var settings = new ElectronData({
     path: app.getPath('userData'),
