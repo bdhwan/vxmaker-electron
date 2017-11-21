@@ -2,7 +2,7 @@
     "name": "vxmaker",
     "version": "0.0.1",
     "license": "MIT",
-    "productName": "vxmaker",
+    "productName": "Vxmaker",
     "scripts": {
         "ng": "ng",
         "start": "concurrently \"ng serve\" \"electron src/electron/electron.js\" \"node src/imageserver/server.js\"",

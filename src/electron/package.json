@@ -1,9 +1,9 @@
 {
-    "name": "vxmaker",
+    "name": "Vxmaker",
     "version": "0.0.2",
     "main": "electron.js",
     "author": "altamirasoft inc.",
-    "productName": "vxmaker",
+    "productName": "Vxmaker",
     "dependencies": {
         "adbkit": "^2.11.0",
         "bluebird": "^3.5.0",
