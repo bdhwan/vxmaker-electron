@@ -1,6 +1,8 @@
 // src/electron.js
 
 const { app, dialog, shell, Menu, autoUpdater, Tray, BrowserWindow, ipcMain } = require('electron')
+if (require('electron-squirrel-startup')) app.quit();
+
 var path = require("path");
 const url = require('url');
 var fse = require('fs-extra');
@@ -13,9 +15,7 @@ var tar = require('tar');
 var fstream = require("fstream");
 var Promise = require('bluebird');
 var PsdUtil = require('./psd-util.js');
-// var screenshot = require('electron-screenshot-service');
 const isDev = require('electron-is-dev');
-if (require('electron-squirrel-startup')) app.quit();
 
 var settings = new ElectronData({
     path: app.getPath('userData'),
@@ -51,9 +51,6 @@ const feed = `${server}/update/${process.platform}/${app.getVersion()}`
 var client;
 var deviceList;
 var adbFilePath;
-
-
-
 
 if (isDev) {
     console.log('Running in development');
@@ -100,7 +97,7 @@ function startUpdateCheck() {
     // });
 
     autoUpdater.setFeedURL(feed);
-    autoUpdater.checkForUpdates();
+    // autoUpdater.checkForUpdates();
 }
 
 function showMessage(title, message) {
