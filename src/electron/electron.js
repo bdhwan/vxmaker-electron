@@ -105,7 +105,7 @@ function startUpdateCheck() {
     // });
 
     autoUpdater.setFeedURL(feed);
-    // autoUpdater.checkForUpdates();
+    autoUpdater.checkForUpdates();
 }
 
 function showMessage(title, message) {
