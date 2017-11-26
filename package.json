@@ -17,7 +17,8 @@
         "deploy": "npm run build-guide && npm run build-electron && ls && cd dist && ls && electron-packager . --asar --platform=win32 --electron-version=1.7.9 && zip -r win32.zip vxmaker-darwin-x64-win32-x64 && node ../deploy.js  --base-href ./",
         "prepare-pack": "rm -rf src/electron/icon && cp -r icon src/electron/ && npm run build-guide && npm run build-electron",
         "pack-win32": "npm run prepare-pack && cd dist && electron-packager . --asar --platform=win32 --electron-version=1.7.9 --icon=../icon/icon.ico --overwrite",
-        "pack-osx": "npm run prepare-pack && cd dist && electron-packager . --asar --platform=darwin --platform=darwin --osx-sign.type=distribution --electron-version=1.7.9 --icon=../icon/icon.icns --app-category-type=public.app-category.developer-tools && zip -r osx.zip vxmaker-darwin-x64",
+        "pack-osx": "npm run prepare-pack && cd dist && electron-packager . --asar --platform=darwin --osx-sign.type=distribution --electron-version=1.7.9 --icon=../icon/icon.icns --app-category-type=public.app-category.developer-tools && zip -r osx.zip vxmaker-darwin-x64",
+        "pack-linux": "npm run prepare-pack && cd dist && electron-packager . --asar --platform=linux --arch=x64 --electron-version=1.7.9 --icon=../icon/icon.icns",
         "win32-deploy": "npm run pack-win32 && rm -rf ../vxmaker-win/installer && rm -rf ../vxmaker-win/icon && cp -r icon ../vxmaker-win/  && rm -rf ../vxmaker-win/vxmaker-win32-x64 && cp -r dist/vxmaker-win32-x64 ../vxmaker-win/ && rm -rf ../vxmaker-win/installer.js && cp -r installer.js ../vxmaker-win/installer.js && cd ../vxmaker-win && node installer.js",
         "dmg": "npm run pack-osx && cd dist && cd vxmaker-darwin-x64 && electron-installer-dmg --icon=../icon/icon.icns vxmaker.app vxmaker-beta"
     },
