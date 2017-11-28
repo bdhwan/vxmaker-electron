@@ -13,7 +13,9 @@ export class ResourceComponent implements OnInit {
 
   applicationFolderPath;
   imageList = [];
-  fileList = [];
+  jsonFileList = [];
+  videoFileList = [];
+
   fileConfigList = [];
   prefix = environment.imgPrefix;
 
@@ -54,6 +56,7 @@ export class ResourceComponent implements OnInit {
     this.applicationFolderPath = this.appDataService.getApplicationPath();
     this.appDataService.loadImageResourceList().then((result: any) => {
       this.imageList = result.reverse();
+
       return this.appDataService.loadFileResourceList();
     }).then((result: any) => {
       this.refreshFileList();
@@ -115,18 +118,21 @@ export class ResourceComponent implements OnInit {
 
   clickNewFile(event, target) {
     let files = [];
+    let folderPath = 'image';
     if (target === 'image') {
       files = this.appDataService.selectImageFiles();
     } else {
-      files = this.appDataService.selectFiles();
+      folderPath = 'file';
+      files = this.appDataService.selectFilesWithType(target);
     }
 
     if (files) {
       for (let i = 0; i < files.length; i++) {
         const newImagePath = files[i];
         const fileName = this.appDataService.getUniqueImageName(newImagePath);
-        const targetPath = this.applicationFolderPath + '/' + target + '/' + fileName;
+        const targetPath = this.applicationFolderPath + '/' + folderPath + '/' + fileName;
         const result = this.appDataService.copyFile(newImagePath, targetPath);
+
         if (result) {
 
         }
@@ -147,10 +153,32 @@ export class ResourceComponent implements OnInit {
 
   refreshFileList() {
     this.appDataService.loadFileResourceList().then((result) => {
-      this.fileList = this.appDataService.getFileResourceList().reverse();
+      const fileList = this.appDataService.getFileResourceList().reverse();
+      this.jsonFileList = [];
+      this.videoFileList = [];
+
+      for (let i = 0; i < fileList.length; i++) {
+        const aFile = fileList[i];
+        const fileType = this.extension(aFile);
+        console.log('aFile = ' + aFile);
+        if (aFile.startsWith('.')) {
+
+          continue;
+
+        }
+        if (fileType === 'mp4') {
+          this.videoFileList.push(aFile);
+        } else if (this.extension(aFile) === 'json') {
+          this.jsonFileList.push(aFile);
+        }
+      }
     });
   }
 
+  extension(filename) {
+    let r = /.+\.(.+)$/.exec(filename);
+    return r ? r[1] : null;
+  }
 
   clickImageFolder() {
     this.appDataService.openFinder(this.applicationFolderPath + '/image');

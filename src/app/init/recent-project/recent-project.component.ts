@@ -24,10 +24,16 @@ export class RecentProjectComponent implements OnInit {
 
   ngOnInit() {
     this.refreshList();
+
+    this.appDataService.insertHistory('recent', null);
+
   }
 
 
   clickApplication(folderPath) {
+
+    this.appDataService.insertHistory('recent', folderPath);
+
     const message = {
       kind: 'open-application-folder',
       folderPath: folderPath

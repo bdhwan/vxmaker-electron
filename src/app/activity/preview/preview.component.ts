@@ -108,7 +108,6 @@ export class PreviewComponent implements OnInit {
       const x = (event.clientX - this.elementView.nativeElement.offsetLeft) / this.zoom;
       const y = (event.clientY - this.elementView.nativeElement.offsetTop) / this.zoom;
       this.checkSelectedObject(x, y, true);
-
     }
 
 
@@ -132,12 +131,14 @@ export class PreviewComponent implements OnInit {
       const bottom = top + state.height;
       if (x > left && x < right && y > top && y < bottom) {
         this.selectedOverState = state;
-        const message = {
-          kind: 'select-object',
-          objectId: state.objectId
-        };
-        console.log("click object");
-        this.broadcaster.broadcast(this.viewMode, message);
+        if (needSelectObject) {
+          const message = {
+            kind: 'select-object',
+            objectId: state.objectId
+          };
+          console.log("click object");
+          this.broadcaster.broadcast(this.viewMode, message);
+        }
         break;
       }
     }
@@ -152,6 +153,7 @@ export class PreviewComponent implements OnInit {
 
   mouseLeave(event: MouseEvent) {
     console.log("leave");
+    this.selectedOverState = null;
     this.mouseUp(null);
   }
 
@@ -165,6 +167,11 @@ export class PreviewComponent implements OnInit {
     const differX = (this.beforeX - currentX) / this.zoom;
     const differY = (this.beforeY - currentY) / this.zoom;
 
+
+    const x = (event.clientX - this.elementView.nativeElement.offsetLeft) / this.zoom;
+    const y = (event.clientY - this.elementView.nativeElement.offsetTop) / this.zoom;
+    this.checkSelectedObject(x, y, false);
+
     let fixDiffer = differX;
     if (Math.abs(differX) < Math.abs(differY)) {
       fixDiffer = differY;
@@ -174,6 +181,17 @@ export class PreviewComponent implements OnInit {
     if ('guide' === this.viewMode) {
       return;
     }
+
+    this.moveObject(differX, differY);
+
+
+    this.beforeX = currentX;
+    this.beforeY = currentY;
+
+  }
+
+
+  moveObject(differX, differY) {
 
 
     if (this.appDataService.getSelectedStage().id === 'rootStage') {
@@ -263,14 +281,8 @@ export class PreviewComponent implements OnInit {
     this.appDataService.getSelectedState().marginTop = Math.round(this.appDataService.getSelectedState().marginTop);
 
 
-
-
-    this.beforeX = currentX;
-    this.beforeY = currentY;
-
-
-
   }
+
 
 
   isRoot() {
@@ -368,9 +380,13 @@ export class PreviewComponent implements OnInit {
     return this.appDataService.getSelectedObjectStyle(this.appDataService.getSelectedState());
   }
 
-
   public getSelectedOverObjectStyle() {
     return this.appDataService.getSelectedObjectStyle(this.selectedOverState);
+  }
+
+  public getSelectedSnapStyle() {
+
+
   }
 
 

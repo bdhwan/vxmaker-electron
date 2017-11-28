@@ -24,6 +24,8 @@ export class NewApplicationComponent implements OnInit {
   ngOnInit() {
     this.applicationName = 'UntitledApplication';
     this.workspaceFolderPath = this.appDataService.getWorkspaceFolderPath();
+
+    this.appDataService.insertHistory('new', null);
   }
 
 
@@ -49,9 +51,6 @@ export class NewApplicationComponent implements OnInit {
       return;
     }
     const applicationFolder = this.workspaceFolderPath + '/' + this.applicationName;
-
-
-
     const checkFolderPath = this.workspaceFolderPath + '/' + this.applicationName;
     const haveFolder = this.appDataService.haveFile(checkFolderPath);
     let result = true;
@@ -64,6 +63,9 @@ export class NewApplicationComponent implements OnInit {
       this.appDataService.deleteFile(applicationFolder);
       this.appDataService.createNewApplication(applicationFolder, this.applicationName);
       this.router.navigate(['/application', applicationFolder]);
+
+      this.appDataService.insertHistory('application', applicationFolder + '/' + this.applicationName);
+
     }
 
 

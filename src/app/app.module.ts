@@ -48,11 +48,14 @@ import { EventDetailStopLottieComponent } from './activity/event-detail-stop-lot
 import { EventDetailStartVideoComponent } from './activity/event-detail-start-video/event-detail-start-video.component';
 import { EventDetailStopVideoComponent } from './activity/event-detail-stop-video/event-detail-stop-video.component';
 import { EventDetailTriggerObjectComponent } from './activity/event-detail-trigger-object/event-detail-trigger-object.component';
+import * as Parse from 'parse';
+import { environment } from '../environments/environment';
 
 
 const appRoutes: Routes = [
   { path: 'init/:workspaceFolder', component: InitComponent },
   { path: 'init', component: InitComponent },
+  { path: 'login', component: InitComponent },
   { path: 'guide/:activityId', component: GuideComponent },
   { path: 'setting', component: SettingComponent },
   { path: 'new-application', component: NewApplicationComponent },
@@ -63,6 +66,8 @@ const appRoutes: Routes = [
   { path: '**', component: InitComponent }
 ];
 
+Parse.initialize(environment.parse_app_id);
+Parse.serverURL = environment.parse_server_url;
 
 
 @NgModule({
@@ -105,7 +110,7 @@ const appRoutes: Routes = [
     EventDetailStopLottieComponent,
     EventDetailStartVideoComponent,
     EventDetailStopVideoComponent,
-    EventDetailTriggerObjectComponent
+    EventDetailTriggerObjectComponent,
   ],
   imports: [
     BrowserModule,

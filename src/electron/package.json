@@ -1,16 +1,18 @@
 {
-    "name": "vxmaker",
-    "version": "0.0.1",
+    "name": "Vxmaker",
+    "version": "0.1.1",
     "main": "electron.js",
     "author": "altamirasoft inc.",
-    "productName": "vxmaker",
+    "productName": "Vxmaker",
     "dependencies": {
-        "adbkit": "^2.10.0",
+        "adbkit": "^2.11.0",
         "bluebird": "^3.5.0",
         "clipboard": "^1.7.1",
         "electron-data": "^1.2.1",
+        "electron-is-dev": "^0.3.0",
         "fs-extra": "^2.0.0",
         "fstream": "^1.0.11",
+        "getmac": "^1.2.1",
         "image-size": "^0.6.1",
         "js-beautify": "^1.6.14",
         "mkdirp": "^0.5.1",
@@ -18,7 +20,7 @@
         "tar": "^2.2.1",
         "trycatch": "^1.5.21",
         "url": "^0.11.0",
-        "uuid": "3.1.0",
-        "electron-is-dev": "^0.3.0"
+        "electron-squirrel-startup": "^1.0.0",
+        "uuid": "3.1.0"
     }
 }

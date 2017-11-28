@@ -7,6 +7,7 @@ import { ResourceComponent } from '../common/resource/resource.component';
 import { ApplicationDataServiceService } from '../service/application-data-service.service';
 import { UUID } from 'angular2-uuid';
 import { BroadcastService } from '../service/broadcast.service';
+import { DeviceStatusComponent } from '../common/device-status/device-status.component';
 
 import 'rxjs/add/operator/switchMap';
 // declare var electron: any;
@@ -34,6 +35,9 @@ export class ApplicationComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('resourceAppDialog')
   private resourceDialog: ResourceComponent;
 
+
+  @ViewChild('deviceStatus')
+  private deviceStatus: DeviceStatusComponent;
 
   constructor(
     private route: ActivatedRoute,
@@ -72,11 +76,18 @@ export class ApplicationComponent implements OnInit, AfterViewInit, OnDestroy {
   onClickSendDevice(value: string): void {
     this.sendStatus = true;
     const self = this;
+    self.deviceStatus.setIsSending(true);
+
     setTimeout(function () {
       self.applicationData.updatedAt = new Date().getTime();
+
+      self.saveProcess();
       self.appDataService.saveApplicationData(self.applicationData);
       self.appDataService.sendFileToDevice();
+
       self.sendStatus = false;
+      self.deviceStatus.setIsSending(false);
+
     }, 100);
   };
 
@@ -105,7 +116,7 @@ export class ApplicationComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.registerStringBroadcast();
-
+    this.appDataService.insertHistory('application', this.applicationFolderPath);
   }
 
   ngOnDestroy() {
@@ -210,7 +221,7 @@ export class ApplicationComponent implements OnInit, AfterViewInit, OnDestroy {
   clickDeleteActivity(activityId): void {
 
     const activityName = this.appDataService.getActivityName(activityId);
-    const result = confirm('Are you sure you want to delete "' +activityName+'"?\nOnce you delete it, you cannot recover it again.');
+    const result = confirm('Are you sure you want to delete "' + activityName + '"?\nOnce you delete it, you cannot recover it again.');
     if (result) {
       const index = this.findActivityPosition(activityId);
       this.applicationData.activityList.splice(index, 1);
@@ -261,7 +272,21 @@ export class ApplicationComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   clickSave(): void {
-    this.appDataService.saveApplicationData(this.applicationData);
+    const self = this;
+    this.deviceStatus.setIsSaving(true);
+
+    this.saveProcess().then(result => {
+      self.deviceStatus.setIsSaving(false);
+    });
+
+  }
+
+  saveProcess() {
+    return new Promise((resolve, reject) => {
+      this.appDataService.saveApplicationData(this.applicationData);
+      resolve(true);
+    });
+
   }
 
 

@@ -15,12 +15,13 @@ import { RecentProjectComponent } from '../init/recent-project/recent-project.co
   providers: [BroadcastService, MessageEventService]
 })
 export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
+
+  platform;
+  version;
   imgPrefix = environment.imgPrefix;
   isGuideMode = environment.guideMode;
   isProdMode = environment.production;
-
   messageListener;
-
 
   @ViewChild('recentProjectList')
   private recentProjectList: RecentProjectComponent;
@@ -40,7 +41,10 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {
     this.registerStringBroadcast();
 
+    this.appDataService.insertHistory('init', null);
 
+    this.platform = this.appDataService.getAppPlatform();
+    this.version = this.appDataService.getAppVersion();
 
   }
 
@@ -68,7 +72,7 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
         } else if (kind === 'open-application-folder') {
           this.openApplicationFolder(message.folderPath);
         } else if (kind === 'how-to-use') {
-          this.appDataService.openUrl('http://www.vxmaker.com');
+          this.appDataService.openUrl('http://beta.vxmaker.com/tutorial');
         }
       });
   }
@@ -82,7 +86,6 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
 
   newApplication() {
     this.router.navigate(['/new-application']);
-
   }
 
 
@@ -92,14 +95,13 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   openApplicationFolder(folder) {
-    const applicationData = this.appDataService.readFileData(folder + '/app.json');// JSON.parse(JSON.stringify(electron.ipcRenderer.sendSync('read-file-data', folder + "/app.json")));
+    const applicationData = this.appDataService.readFileData(folder + '/app.json');
     if (applicationData) {
       this.router.navigate(['/application', folder]);
     } else {
-      alert("no data");
+      alert('Cannot open this folder for vxm project');
       this.appDataService.removeRecentProjectListWithPath(folder);
       this.recentProjectList.refreshList();
-
     }
   }
 

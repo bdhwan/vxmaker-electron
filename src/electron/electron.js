@@ -1,6 +1,16 @@
 // src/electron.js
 
 const { app, dialog, shell, Menu, autoUpdater, Tray, BrowserWindow, ipcMain } = require('electron')
+if (require('electron-squirrel-startup')) app.quit();
+
+
+// this should be placed at top of main.js to handle setup events quickly
+if (handleSquirrelEvent()) {
+    // squirrel event handled and app will exit in 1000ms, so don't do anything else
+    return;
+}
+
+
 var path = require("path");
 const url = require('url');
 var fse = require('fs-extra');
@@ -13,15 +23,33 @@ var tar = require('tar');
 var fstream = require("fstream");
 var Promise = require('bluebird');
 var PsdUtil = require('./psd-util.js');
-// var screenshot = require('electron-screenshot-service');
 const isDev = require('electron-is-dev');
 
 var settings = new ElectronData({
     path: app.getPath('userData'),
-    filename: 'settings_v3'
+    filename: 'settings_v4'
 });
 
-console.log("userDatapath = " + app.getPath('userData'));
+
+let macAddress = getRandMac();
+
+require('getmac').getMac(function(err, _macAddress) {
+    if (!err) {
+        macAddress = _macAddress;
+    }
+});
+
+
+function getRandMac() {
+    var result = settings.get("mac");
+    if (!result) {
+        result = 'no-mac-' + new Date().getTime();
+        settings.set("mac", result);
+    }
+    return result;
+}
+
+
 
 const server = 'http://update.vxmaker.com'
 const feed = `${server}/update/${process.platform}/${app.getVersion()}`
@@ -31,9 +59,6 @@ const feed = `${server}/update/${process.platform}/${app.getVersion()}`
 var client;
 var deviceList;
 var adbFilePath;
-
-
-
 
 if (isDev) {
     console.log('Running in development');
@@ -45,21 +70,21 @@ if (isDev) {
 
 function startUpdateCheck() {
     setInterval(() => {
-        console.log('will check update');
+        // console.log('will check update');
         autoUpdater.checkForUpdates();
     }, 60000);
 
-    autoUpdater.on('checking-for-update', (event, temp) => {
-        showMessage('checking-for-update', 'checking-for-update' + event);
-    });
+    // autoUpdater.on('checking-for-update', (event, temp) => {
+    //     // showMessage('checking-for-update', 'checking-for-update' + event);
+    // });
 
-    autoUpdater.on('update-available', (event, temp) => {
-        showMessage('update-available', 'update-available' + event);
-    });
+    // autoUpdater.on('update-available', (event, temp) => {
+    //     // showMessage('update-available', 'update-available' + event);
+    // });
 
-    autoUpdater.on('update-not-available', (event, temp) => {
-        showMessage('update-not-available', 'update-not-available' + event);
-    });
+    // autoUpdater.on('update-not-available', (event, temp) => {
+    //     // showMessage('update-not-available', 'update-not-available' + event);
+    // });
 
     autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
         const dialogOpts = {
@@ -68,7 +93,6 @@ function startUpdateCheck() {
             title: 'Application Update',
             detail: 'A new version has been downloaded. Restart the application to apply the updates.'
         }
-
         dialog.showMessageBox(dialogOpts, (response) => {
             if (response === 0) autoUpdater.quitAndInstall()
         })
@@ -77,11 +101,14 @@ function startUpdateCheck() {
     autoUpdater.on('error', message => {
         console.error('There was a problem updating the application')
         console.error(message)
-        showMessage('error', message);
+            // showMessage('error', message);
     });
 
     autoUpdater.setFeedURL(feed);
-    autoUpdater.checkForUpdates();
+    setTimeout(function() {
+        autoUpdater.checkForUpdates();
+    }, 1000);
+    // 
 }
 
 function showMessage(title, message) {
@@ -514,24 +541,39 @@ ipcMain.on('select-file', (event, arg) => {
     })
     //select image
 ipcMain.on('select-files', (event, arg) => {
-    console.log(arg) // prints "ping"
+        console.log(arg) // prints "ping"
 
-    var files = dialog.showOpenDialog({
-        properties: ['openFile', 'multiSelections'],
-        filters: [
-            { name: 'Files', extensions: ['*'] }
-        ]
-    });
+        var files = dialog.showOpenDialog({
+            properties: ['openFile', 'multiSelections'],
+            filters: [
+                { name: 'Files', extensions: ['*'] }
+            ]
+        });
 
 
-    if (files) {
-        event.returnValue = files;
-    } else {
-        event.returnValue = null;
-    }
-})
+        if (files) {
+            event.returnValue = files;
+        } else {
+            event.returnValue = null;
+        }
+    })
+    //select image
+ipcMain.on('select-files-with-type', (event, fileType) => {
+        console.log(fileType) // prints "ping"
 
-//copy folder
+        var files = dialog.showOpenDialog({
+            properties: ['openFile', 'multiSelections'],
+            filters: [
+                { name: 'Files', extensions: [fileType] }
+            ]
+        });
+        if (files) {
+            event.returnValue = files;
+        } else {
+            event.returnValue = null;
+        }
+    })
+    //copy folder
 ipcMain.on('copy-folder', (event, src, dst) => {
     console.log(src + ", " + dst);
     fse.copySync(src, dst);
@@ -553,6 +595,15 @@ ipcMain.on('copy-file-from-root', (event, src, dst) => {
 
 
 
+ipcMain.on('get-app-platform', (event) => {
+    event.returnValue = process.platform;
+})
+
+ipcMain.on('get-app-version', (event) => {
+    event.returnValue = app.getVersion();
+})
+
+
 ipcMain.on('have-file', (event, path) => {
     console.log("have file = " + path);
     try {
@@ -562,6 +613,12 @@ ipcMain.on('have-file', (event, path) => {
     }
 })
 
+
+//copy file
+ipcMain.on('get-mac-address', (event) => {
+    // Fetch the computer's mac address 
+    event.returnValue = macAddress;
+})
 
 //copy file
 ipcMain.on('copy-file', (event, src, dst) => {
@@ -610,27 +667,27 @@ ipcMain.on('get-image-size', (event, path) => {
 // send file
 ipcMain.on('tar-folder', (event, folderPath) => {
 
-    console.log("will tar = " + folderPath);
+    // console.log("will tar = " + folderPath);
 
-    var filePath = app.getPath('desktop') + "/temp.tar";
+    var filePath = getTempFolder() + "/temp.tar";
 
     var dirDest = fse.createWriteStream(filePath);
-    console.log("makeNew3");
+    // console.log("makeNew3");
 
     var packer = tar.Pack({ noProprietary: true })
         .on('error', function(err) {
-            console.log("err2=" + JSON.stringify(err));
+            // console.log("err2=" + JSON.stringify(err));
             event.returnValue = false;
         })
         .on('end', function() {
-            console.log("makeNew5=" + folderPath);
-            console.log("makeNew6 will resolve=" + filePath);
+            // console.log("makeNew5=" + folderPath);
+            // console.log("makeNew6 will resolve=" + filePath);
             event.returnValue = filePath;
         });
 
     fstream.Reader({ path: folderPath, type: "Directory" })
         .on('error', function(err) {
-            console.log("err1=" + JSON.stringify(err));
+            // console.log("err1=" + JSON.stringify(err));
             event.returnValue = false;
         })
         .pipe(packer)
@@ -643,9 +700,9 @@ ipcMain.on('tar-folder', (event, folderPath) => {
 // send file
 ipcMain.on('send-file-to-device', (event, tarFilePath, deviceId, devicePath) => {
 
-    console.log("will send file to device = " + tarFilePath);
-    console.log("deviceId = " + deviceId);
-    console.log("devicePath = " + devicePath);
+    // console.log("will send file to device = " + tarFilePath);
+    // console.log("deviceId = " + deviceId);
+    // console.log("devicePath = " + devicePath);
 
     client.push(deviceId, tarFilePath, devicePath)
         .then(function(transfer) {
@@ -670,18 +727,116 @@ ipcMain.on('send-file-to-device', (event, tarFilePath, deviceId, devicePath) => 
             console.error('Something went wrong:', err.stack)
             event.returnValue = false;
         });
-})
+});
+
+
+// check isntalled
+ipcMain.on('is-installed-apk', (event, packageName, deviceId) => {
+
+    // console.log("is-installed-apk = " + packageName);
+    // console.log("deviceId = " + deviceId);
+
+
+    client.isInstalled(deviceId, packageName)
+        .then(result => {
+            console.log("done! = " + result);
+            event.sender.send('is-installed-result', result);
+        })
+        .catch(function(err) {
+            console.error('Something went wrong:', JSON.stringify(err));
+            event.sender.send('is-installed-result', false);
+        });
+});
+
+//install apk
+ipcMain.on('install-apk', (event, targetFilePath, deviceId) => {
+
+    // console.log("install-apk = " + targetFilePath);
+    // console.log("deviceId = " + deviceId);
+
+
+    client.install(deviceId, __dirname + '/' + targetFilePath)
+        .then(result => {
+            console.log("install done! = " + result);
+            event.sender.send('installed-result', result);
+        })
+        .catch(function(err) {
+            console.error('Something went wrong:', JSON.stringify(err));
+            event.sender.send('installed-result', false);
+        });
+});
+
+
+//start activity
+ipcMain.on('start-activity', (event, option, deviceId) => {
+
+    // console.log("start activity = " + option);
+    // console.log("deviceId = " + deviceId);
+    client.startActivity(deviceId, option)
+        .then(result => {
+            // console.log("install done! = " + result);
+            event.returnValue = result;
+        })
+        .catch(function(err) {
+            // console.error('Something went wrong:', JSON.stringify(err));
+            event.returnValue = false;
+        });
+});
+
+function getTempFolder() {
+    return app.getPath('temp');
+
+}
+
+//start activity
+ipcMain.on('read-heart-beat', (event, filePath, deviceId) => {
+
+
+
+    // console.log("start activity = " + filePath);
+    // console.log("deviceId = " + deviceId);
+    // console.log("target path = " + filePath);
+    client.pull(deviceId, filePath)
+        .then(function(transfer) {
+            return new Promise(function(resolve, reject) {
+                var fn = getTempFolder() + '/' + deviceId + '_temp.txt';
+                console.log('path = ' + fn);
+                transfer.on('progress', function(stats) {
+                    console.log('[%s] Pulled %d bytes so far', deviceId, stats.bytesTransferred)
+                })
+                transfer.on('end', function() {
+                    console.log('[%s] Pull complete', fse.readFileSync(fn, "utf8"));
+                    resolve(fse.readFileSync(fn, "utf8"));
+                })
+                transfer.on('error', function(error) {
+                    console.log("error = " + error);
+                    reject(error);
+                })
+                transfer.pipe(fse.createWriteStream(fn))
+            })
+        })
+        .then(result => {
+            console.log("install done! = " + result);
+            event.sender.send('heart-beat-result', JSON.parse(result));
+        })
+        .catch(function(err) {
+            console.error('Something went wrong:', JSON.stringify(err));
+            event.sender.send('heart-beat-result', false);
+        });
+});
+
+
 
 
 function createWindow() {
 
-    
-    const initWidth = 1280;
-    const initHeight = 694;
 
-    const minWidth = 1280;
-    const minHeight = 694;
-    
+    const initWidth = 1024;
+    const initHeight = 720;
+
+    const minWidth = 700;
+    const minHeight = 600;
+
 
 
     if (isDev) {
@@ -705,7 +860,8 @@ function createWindow() {
                 win = null
             })
 
-            checkVersionDialog();
+            // checkVersionDialog();
+            startUpdateCheck();
             registADB();
         }, 12000)
     } else {
@@ -718,12 +874,12 @@ function createWindow() {
         win.loadURL(targetUrl)
             // Emitted when the window is closed.
         win.on('closed', () => {
-            // Dereference the window object, usually you would store windows
-            // in an array if your app supports multi windows, this is the time
-            // when you should delete the corresponding element.
-            win = null
-        })
-        checkVersionDialog();
+                // Dereference the window object, usually you would store windows
+                // in an array if your app supports multi windows, this is the time
+                // when you should delete the corresponding element.
+                win = null
+            })
+            // checkVersionDialog();
         startUpdateCheck();
         registADB();
     }
@@ -840,3 +996,68 @@ function registADB() {
             console.error('Something went wrong:', err.stack)
         });
 }
+
+
+
+
+function handleSquirrelEvent() {
+    if (process.argv.length === 1) {
+        return false;
+    }
+
+    const ChildProcess = require('child_process');
+    const path = require('path');
+
+    const appFolder = path.resolve(process.execPath, '..');
+    const rootAtomFolder = path.resolve(appFolder, '..');
+    const updateDotExe = path.resolve(path.join(rootAtomFolder, 'Update.exe'));
+    const exeName = path.basename(process.execPath);
+
+    const spawn = function(command, args) {
+        let spawnedProcess, error;
+
+        try {
+            spawnedProcess = ChildProcess.spawn(command, args, { detached: true });
+        } catch (error) {}
+
+        return spawnedProcess;
+    };
+
+    const spawnUpdate = function(args) {
+        return spawn(updateDotExe, args);
+    };
+
+    const squirrelEvent = process.argv[1];
+    switch (squirrelEvent) {
+        case '--squirrel-install':
+        case '--squirrel-updated':
+            // Optionally do things such as:
+            // - Add your .exe to the PATH
+            // - Write to the registry for things like file associations and
+            //   explorer context menus
+
+            // Install desktop and start menu shortcuts
+            spawnUpdate(['--createShortcut', exeName]);
+
+            setTimeout(app.quit, 1000);
+            return true;
+
+        case '--squirrel-uninstall':
+            // Undo anything you did in the --squirrel-install and
+            // --squirrel-updated handlers
+
+            // Remove desktop and start menu shortcuts
+            spawnUpdate(['--removeShortcut', exeName]);
+
+            setTimeout(app.quit, 1000);
+            return true;
+
+        case '--squirrel-obsolete':
+            // This is called on the outgoing version of your app before
+            // we update to the new version - it's the opposite of
+            // --squirrel-updated
+
+            app.quit();
+            return true;
+    }
+};

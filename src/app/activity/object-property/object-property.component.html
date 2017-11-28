@@ -21,8 +21,9 @@
             <div *ngIf="(selectedObject.type=='LottieAnimationView'||selectedObject.type=='VideoView')&&!selectedObject.fixResource">
                 <div class="img-selected">
                     <div class="img-sub">
-                        
-                        <img src="./assets/images/ic_image_select_28x28.png" class="btn-file-select" [hidden]="viewMode=='guide'" (click)="clickSelectFile()">
+                        <img *ngIf="selectedObject.type=='VideoView'" src="./assets/images/ic_image_select_28x28.png" class="btn-file-select" [hidden]="viewMode=='guide'" (click)="clickSelectFile('mp4')">
+                        <img *ngIf="selectedObject.type=='LottieAnimationView'" src="./assets/images/ic_image_select_28x28.png" class="btn-file-select" [hidden]="viewMode=='guide'" (click)="clickSelectFile('json')">
+
                     </div>
                     <div class="img-sub">
                         <p>{{selectedObject.dataUrl}}</p>
@@ -30,15 +31,12 @@
                     </div>
                 </div>
             </div>
-            
-<!-- 
+
+            <!-- 
             <div *ngIf="(selectedObject.type=='LottieAnimationView'||selectedObject.type=='VideoView')&&!selectedObject.fixResource">
                 <p>{{selectedObject.dataUrl}}</p>
                 <button [hidden]="viewMode=='guide'" (click)="clickSelectFile()"> FileSelect</button>
             </div> -->
-
-
-
             <!-- 이미지, 파일 선택버튼@ -->
 
             <div class="property-detail-wrap" style="padding-top:5px;">

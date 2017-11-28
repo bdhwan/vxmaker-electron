@@ -6,7 +6,6 @@
         "Button.json",
         "LottieAnimationView.json",
         "CameraView.json",
-        "VideoView.json",
         "EditText.json"
     ],
     "defaultState": {

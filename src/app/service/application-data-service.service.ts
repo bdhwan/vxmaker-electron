@@ -3,6 +3,8 @@ import { Http } from '@angular/http';
 import { UUID } from 'angular2-uuid';
 import { BroadcastService } from './broadcast.service';
 import { ColorPickerService, Rgba } from 'ngx-color-picker';
+import * as Parse from 'parse';
+
 
 
 declare var electron: any;
@@ -14,8 +16,12 @@ declare var css_beautify: any;
 
 
 
+
 @Injectable()
 export class ApplicationDataServiceService {
+
+  History = Parse.Object.extend('History');
+
 
 
   activityId: String;
@@ -49,10 +55,13 @@ export class ApplicationDataServiceService {
   templeteFolderPath = './assets/template';
   templateHash = {};
 
-
-
   parsePsdPromise: any;
   capturePromise: any;
+  isInstallPromise: any;
+  installPromise: any;
+  heartBeatPromise: any;
+  getMacPromise: any;
+
 
 
   idHash = {};
@@ -105,15 +114,51 @@ export class ApplicationDataServiceService {
 
 
     if (electron) {
+
       electron.ipcRenderer.on('parse-psd-result', (event, arg) => {
         this.parsePsdPromise(arg);
       });
+
       electron.ipcRenderer.on('capture-screen-result', (event, arg) => {
         this.capturePromise(arg);
       });
+
+      electron.ipcRenderer.on('is-installed-result', (event, arg) => {
+        this.isInstallPromise(arg);
+      });
+
+      electron.ipcRenderer.on('installed-result', (event, arg) => {
+        this.installPromise(arg);
+      });
+
+      electron.ipcRenderer.on('heart-beat-result', (event, arg) => {
+        this.heartBeatPromise(arg);
+      });
+
+      electron.ipcRenderer.on('get-mac-address-result', (event, arg) => {
+        this.getMacPromise(arg);
+      });
     }
+  }
 
 
+  insertHistory(page, etc) {
+    console.log("page = " + page);
+    const mac = electron.ipcRenderer.sendSync('get-mac-address');
+    const aNew = new this.History();
+    aNew.set('page', page);
+    aNew.set('mac', mac);
+    if (etc) {
+      aNew.set('etc', etc);
+    }
+    aNew.save();
+  }
+
+  getMacAddress() {
+    return new Promise((resolve, reject) => {
+      this.getMacPromise = resolve;
+
+    });
   }
 
 
@@ -292,8 +337,6 @@ export class ApplicationDataServiceService {
       this.capturePromise = resolve;
       electron.ipcRenderer.send('capture-screen', x, y, w, h, filePath);
     });
-
-
   }
 
 
@@ -317,6 +360,10 @@ export class ApplicationDataServiceService {
 
   selectFiles() {
     return electron.ipcRenderer.sendSync('select-files');
+  }
+
+  selectFilesWithType(fileType) {
+    return electron.ipcRenderer.sendSync('select-files-with-type', fileType);
   }
 
 
@@ -1247,6 +1294,9 @@ export class ApplicationDataServiceService {
 
 
   getSelectedObjectStyle(state) {
+    if (!state) {
+      return {};
+    }
     const tempObjectData = this.findObjectById(state.objectId);
     if (tempObjectData === null) {
       return {};
@@ -1378,6 +1428,15 @@ export class ApplicationDataServiceService {
   }
 
 
+  getAppPlatform() {
+    return electron.ipcRenderer.sendSync('get-app-platform');
+  }
+
+
+  getAppVersion() {
+    return electron.ipcRenderer.sendSync('get-app-version');
+  }
+
 
 
 
@@ -1441,10 +1500,18 @@ export class ApplicationDataServiceService {
 
   loadFileResourceList() {
     return new Promise((resolve, reject) => {
-      this.fileResourceList = electron.ipcRenderer.sendSync('get-file-list', this.applicationFolderPath + '/file');
-      for (let i = 0; i < this.fileResourceList.length; i++) {
-        this.fileResourceList[i] = 'file/' + this.fileResourceList[i];
+      this.fileResourceList = [];
+
+      const tempList = electron.ipcRenderer.sendSync('get-file-list', this.applicationFolderPath + '/file');
+      console.log('tempList = ' + tempList.length);
+      for (let i = 0; i < tempList.length; i++) {
+        if (tempList[i].startsWith('.')) {
+          continue;
+        }
+        this.fileResourceList.push('file/' + tempList[i]);
       }
+
+      console.log('fileResourceList = ' + this.fileResourceList.length);
       resolve(this.fileResourceList);
     });
   }
@@ -1458,13 +1525,16 @@ export class ApplicationDataServiceService {
 
   loadImageResourceList() {
     return new Promise((resolve, reject) => {
-      this.imageResourceList = electron.ipcRenderer.sendSync('get-file-list', this.applicationFolderPath + '/image');
-      console.log('from electron = ' + JSON.stringify(this.imageResourceList));
-      if (!this.imageResourceList) {
-        this.imageResourceList = [];
-      }
-      for (let i = 0; i < this.imageResourceList.length; i++) {
-        this.imageResourceList[i] = 'image/' + this.imageResourceList[i];
+
+      const tempImageResource = electron.ipcRenderer.sendSync('get-file-list', this.applicationFolderPath + '/image');
+      this.imageResourceList = [];
+
+
+      for (let i = 0; i < tempImageResource.length; i++) {
+        if (tempImageResource[i].startsWith('.')) {
+          continue;
+        }
+        this.imageResourceList.push('image/' + tempImageResource[i]);
       }
       resolve(this.imageResourceList);
     });
@@ -1481,6 +1551,59 @@ export class ApplicationDataServiceService {
       }
     });
   }
+
+  readFileFromDevice(targetFilePath) {
+    return new Promise((resolve, reject) => {
+      const data = electron.ipcRenderer.sendSync('read-file-from-device', targetFilePath, this.deviceList[0]);
+      if (data) {
+        resolve(data);
+      } else {
+        reject('no data');
+      }
+    });
+  }
+
+  emptyPromise(result) {
+    return new Promise((resolve, reject) => {
+      resolve(result);
+    });
+  }
+
+  isInstalled(packageName) {
+    return new Promise((resolve, reject) => {
+      this.isInstallPromise = resolve;
+      electron.ipcRenderer.send('is-installed-apk', packageName, this.deviceList[0]);
+    });
+  }
+
+  installApk(targetFilePath) {
+    return new Promise((resolve, reject) => {
+      this.installPromise = resolve;
+      electron.ipcRenderer.send('install-apk', targetFilePath, this.deviceList[0]);
+    });
+  }
+
+  startActivity(option) {
+    return new Promise((resolve, reject) => {
+      const data = electron.ipcRenderer.sendSync('start-activity', option, this.deviceList[0]);
+      if (data) {
+        resolve(data);
+      } else {
+        reject('fail');
+      }
+    });
+  }
+
+
+  readHeartBeat(filePath) {
+    return new Promise((resolve, reject) => {
+      this.heartBeatPromise = resolve;
+      electron.ipcRenderer.send('read-heart-beat', filePath, this.deviceList[0]);
+    });
+  }
+
+
+
 
 
   getViewClass(origin) {

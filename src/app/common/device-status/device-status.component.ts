@@ -2,10 +2,10 @@ import { Component, OnInit, OnDestroy, NgZone, Output, Input, EventEmitter } fro
 
 import { ApplicationDataServiceService } from '../../service/application-data-service.service';
 import { BroadcastService } from '../../service/broadcast.service';
-
+import { timeout } from 'q';
+import { Observable, Subscription } from 'rxjs/Rx';
 
 declare var electron: any;
-
 
 
 @Component({
@@ -20,6 +20,9 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
   @Output() onClickSendDevice = new EventEmitter<string>();
   @Input() sendStatus: Boolean;
 
+  isSaving;
+  isSending;
+  appStatus;
 
   constructor(public zone: NgZone, private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) { }
 
@@ -37,12 +40,31 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
     electron.ipcRenderer.sendSync('unregist-device-connect-status');
   }
 
+
+
+  public setIsSaving(value) {
+    this.isSaving = value;
+  }
+  public setIsSending(value) {
+    this.isSending = value;
+  }
+
+
+
+
+
   refreshDeviceStatus(): void {
     this.appDataService.refreshDeviceList();
     this.deviceList = this.appDataService.getDeviceList();
+    if (this.deviceList.length > 0) {
+      this.checkAppStatus();
+    }
   }
 
   public clickSaveFile(): void {
+
+    this.isSaving = true;
+
     const message = {
       kind: 'save'
     };
@@ -51,11 +73,8 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
   }
 
   public clickSendFile(): void {
-    const message = {
-      kind: 'send-device'
-    };
-    this.broadcaster.broadcast('activity', message);
-    this.broadcaster.broadcast('application', message);
+    this.isSending = true;
+    this.checkInstallAndRun();
   }
 
 
@@ -81,6 +100,135 @@ export class DeviceStatusComponent implements OnInit, OnDestroy {
   clickHowToConnect(url) {
     this.appDataService.openUrl(url);
   }
+
+
+
+  clickInstall() {
+    if (this.deviceList.length > 0) {
+      this.appStatus = 'installing';
+      this.appDataService.installApk('apk/vxmaker.apk').then(result => {
+        console.log("isInstalled = " + result);
+        if (!result) {
+          alert('Please make developer mode!');
+        } else {
+          this.appStatus = 'installed';
+          this.clickStartActivity();
+        }
+      }).catch(error => {
+        console.log("error is isntalled = " + error);
+        this.checkAppStatus();
+      });
+    }
+  }
+
+  clickReadHeartBeat() {
+    if (this.deviceList.length > 0) {
+      this.appDataService.readHeartBeat('/sdcard/vxmaker/vxmheartbeat/heartbeat.txt').then(result => {
+        const heartbeat = JSON.parse(JSON.stringify(result));
+        console.log("isInstalled = " + heartbeat.time);
+        const lastHeartBeat = new Date(heartbeat.time);
+        const now = new Date().getTime();
+        const differ = now - heartbeat.time;
+
+        if (differ > 1000 * 10) {
+          this.clickStartActivity();
+        }
+      }).catch(error => {
+        console.log("error is isntalled = " + error);
+      });
+    }
+  }
+
+
+  clickStartActivity() {
+    if (this.deviceList.length > 0) {
+      const option = {
+        wait: true,
+        action: 'com.altamirasoft.action.START'
+      };
+
+      this.appDataService.startActivity(option).then(result => {
+        console.log("start = " + result);
+      }).catch(error => {
+        console.log("error start = " + error);
+      });
+    }
+  }
+
+
+  checkInstallAndRun() {
+    //check heart beat
+    if (this.deviceList.length > 0) {
+      this.appDataService.readHeartBeat('/sdcard/vxmaker/vxmheartbeat/heartbeat.txt').then(result => {
+        const heartbeat = JSON.parse(JSON.stringify(result));
+        const lastHeartBeat = new Date(heartbeat.time);
+        const now = new Date().getTime();
+        const differ = now - heartbeat.time;
+        if (differ > 1000 * 10) {
+          //start activity
+          const option = {
+            wait: true,
+            action: 'com.altamirasoft.action.START'
+          };
+          return this.appDataService.startActivity(option);
+        } else {
+          //working now
+          return this.appDataService.emptyPromise(true);
+        }
+      }).then(result => {
+        console.log("start activity result = " + result);
+
+        const message = {
+          kind: 'send-device'
+        };
+        this.broadcaster.broadcast('activity', message);
+        this.broadcaster.broadcast('application', message);
+
+      }).catch(error => {
+        console.log("error heart beat = " + error);
+        this.isSending = false;
+        this.checkAppStatus();
+      });
+    }
+  }
+
+
+  checkAppStatus() {
+    const self = this;
+    if (this.deviceList.length > 0) {
+      this.appDataService.isInstalled('com.altamirasoft.vxmaker_android').then(result => {
+        console.log('installed = ' + result);
+        if (self.appStatus === 'installing') {
+
+        } else {
+          if (result) {
+            self.appStatus = 'installed';
+          } else {
+            self.appStatus = 'not_installed';
+          }
+        }
+      }).catch(error => {
+        console.log('not installed');
+        self.appStatus = 'not_installed';
+      });
+    }
+  }
+
+
+
+
+  clickIsInstalled() {
+    if (this.deviceList.length > 0) {
+      this.appDataService.isInstalled('com.altamirasoft.vxmaker_android').then(result => {
+        console.log("isInstalled = " + result);
+      }).catch(error => {
+        console.log("error is isntalled = " + error);
+      });
+    }
+
+  }
+
+
 
 
 
