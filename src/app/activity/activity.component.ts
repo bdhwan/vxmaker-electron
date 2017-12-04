@@ -750,7 +750,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
     console.log("onSelectFile = " + target);
     const selectedObject = this.appDataService.getSelectedObject();
-
     console.log("selectedObject.objectType  = " + JSON.stringify(selectedObject));
 
     if (selectedObject) {
@@ -764,6 +763,17 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         if (tempUrl && tempUrl !== target) {
           this.previewComponent.recreateObjectList();
         }
+      }
+      if (selectedObject.type === 'ImageView') {
+
+        const imageFilePath = this.prefix + this.appDataService.getWorkspaceFolderPath() + '/' + target;
+        const tempSize = this.appDataService.getImageSize(imageFilePath);
+
+        this.appDataService.getSelectedState().width = tempSize.width;
+        this.appDataService.getSelectedState().height = tempSize.height;
+
+
+
       }
     }
   }
