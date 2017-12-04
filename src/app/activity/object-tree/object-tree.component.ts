@@ -83,12 +83,12 @@ export class ObjectTreeComponent implements OnInit {
     this.nodes = this.appDataService.getActivityData().objectList;
     this.tree.treeModel.update();
     //  this.tree.
-    if (!this.selectedNode) {
-      const target = this.nodes[0];
-      this.tree.treeModel._setActiveNodeSingle(target, true);
-      this.selectedNode = target;
-      this.onSelectNode.emit(this.selectedNode.id);
-    }
+    // if (!this.selectedNode) {
+    //   const target = this.nodes[0];
+    //   this.tree.treeModel._setActiveNodeSingle(target, true);
+    //   this.selectedNode = target;
+    //   this.onSelectNode.emit(this.selectedNode.id);
+    // }
 
     const self = this;
 

@@ -53,6 +53,7 @@ export class PreviewComponent implements OnInit {
 
   isKeyCTRL = false;
   isKeyALT = false;
+  isShift = false;
 
   constructor(private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) {
 
@@ -67,19 +68,41 @@ export class PreviewComponent implements OnInit {
 
   keyDown($event) {
     console.log("keyDown-" + $event.keyCode);
-    if ($event.keyCode === 17) {
+    if ($event.keyCode === 17 || $event.keyCode === 91) {
       this.isKeyCTRL = true;
+    }
+    if ($event.keyCode === 16) {
+      this.isShift = true;
     }
     if ($event.keyCode === 18) {
       this.isKeyALT = true;
     }
 
+    if ($event.keyCode === 90) {
+      if (this.isKeyCTRL) {
+
+        if (this.isShift) {
+          const message = {
+            kind: 'redo',
+          };
+          this.broadcaster.broadcast('activity', message);
+        } else {
+          const message = {
+            kind: 'undo',
+          };
+          this.broadcaster.broadcast('activity', message);
+        }
+      }
+    }
   }
 
   keyUp($event) {
     console.log("keyUp-" + $event.keyCode);
-    if ($event.keyCode === 17) {
+    if ($event.keyCode === 17 || $event.keyCode === 91) {
       this.isKeyCTRL = false;
+    }
+    if ($event.keyCode === 16) {
+      this.isShift = false;
     }
     if ($event.keyCode === 18) {
       this.isKeyALT = false;
@@ -89,32 +112,48 @@ export class PreviewComponent implements OnInit {
       };
       this.broadcaster.broadcast('activity', message);
     }
+
   }
 
 
   mouseDown(event: MouseEvent) {
-
     this.startX = event.clientX;
     this.startY = event.clientY;
     this.beforeX = event.clientX;
     this.beforeY = event.clientY;
-
-
     if ('guide' === this.viewMode) {
       this.isKeyCTRL = true;
     }
-
     if (this.isKeyCTRL) {
       const x = (event.clientX - this.elementView.nativeElement.offsetLeft) / this.zoom;
       const y = (event.clientY - this.elementView.nativeElement.offsetTop) / this.zoom;
       this.checkSelectedObject(x, y, true);
     }
-
-
-
     if (this.selectedObject.id !== 'root') {
       this.isMouseDown = true;
     }
+  }
+
+  mouseLeave(event: MouseEvent) {
+    this.selectedOverState = null;
+    this.mouseUp(null);
+  }
+
+  mouseUp(event: MouseEvent) {
+    console.log('up');
+    if (this.isMouseDown || this.isResizeDown) {
+
+      const message = {
+        kind: 'add-stack'
+      };
+      this.broadcaster.broadcast(this.viewMode, message);
+
+    }
+
+
+    this.isMouseDown = false;
+    this.isResizeDown = false;
+
   }
 
 
@@ -131,12 +170,13 @@ export class PreviewComponent implements OnInit {
       const bottom = top + state.height;
       if (x > left && x < right && y > top && y < bottom) {
         this.selectedOverState = state;
+
+
         if (needSelectObject) {
           const message = {
             kind: 'select-object',
             objectId: state.objectId
           };
-          console.log("click object");
           this.broadcaster.broadcast(this.viewMode, message);
         }
         break;
@@ -151,12 +191,6 @@ export class PreviewComponent implements OnInit {
 
 
 
-  mouseLeave(event: MouseEvent) {
-    console.log("leave");
-    this.selectedOverState = null;
-    this.mouseUp(null);
-  }
-
 
 
   mouseOver(event: MouseEvent) {
@@ -167,7 +201,6 @@ export class PreviewComponent implements OnInit {
     const differX = (this.beforeX - currentX) / this.zoom;
     const differY = (this.beforeY - currentY) / this.zoom;
 
-
     const x = (event.clientX - this.elementView.nativeElement.offsetLeft) / this.zoom;
     const y = (event.clientY - this.elementView.nativeElement.offsetTop) / this.zoom;
     this.checkSelectedObject(x, y, false);
@@ -176,18 +209,12 @@ export class PreviewComponent implements OnInit {
     if (Math.abs(differX) < Math.abs(differY)) {
       fixDiffer = differY;
     }
-
-
     if ('guide' === this.viewMode) {
       return;
     }
-
     this.moveObject(differX, differY);
-
-
     this.beforeX = currentX;
     this.beforeY = currentY;
-
   }
 
 
@@ -286,14 +313,10 @@ export class PreviewComponent implements OnInit {
 
 
   isRoot() {
-    return this.appDataService.getSelectedState().objectId === 'root';
+    return this.appDataService.getSelectedState().objectId === 'root'
   }
 
-  mouseUp(event: MouseEvent) {
-    console.log('up');
-    this.isMouseDown = false;
-    this.isResizeDown = false;
-  }
+
 
 
 
@@ -304,7 +327,6 @@ export class PreviewComponent implements OnInit {
       this.isResizeDown = true;
       this.resizeIndex = index;
     }
-
   }
 
 
@@ -315,16 +337,11 @@ export class PreviewComponent implements OnInit {
 
   invalidatePreviewSize(): void {
 
-
     this.previewWidth = window.innerWidth - (this.leftMargin + this.rightMargin);
     this.previewHeight = window.innerHeight - this.topMargin;
-
     if ('guide' === this.viewMode) {
       this.previewWidth = window.innerWidth * 0.3;
     }
-
-
-
   }
 
   public getPreviewPosition() {
@@ -426,7 +443,7 @@ export class PreviewComponent implements OnInit {
 
 
   onSelectNodeFromPreview(objectId) {
-    console.log("onSelectNodeFromPreview event-" + objectId);
+
     this.onSelectNodeFromOther.emit(objectId);
   }
 
