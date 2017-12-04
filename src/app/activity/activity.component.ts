@@ -523,6 +523,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   changeActivityName(): void {
+    console.log('this.activityMetaData  =' + JSON.stringify(this.activityMetaData));
     this.saveApplicationData();
   }
 
@@ -766,8 +767,9 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       if (selectedObject.type === 'ImageView') {
 
-        // const imageFilePath = this.prefix + this.appDataService.getWorkspaceFolderPath() + '/' + target;
-        // const tempSize = this.appDataService.getImageSize(imageFilePath);
+        const imageFilePath = this.prefix + this.appDataService.getWorkspaceFolderPath() + '/' + target;
+        const tempSize = this.appDataService.getImageSize(imageFilePath);
+        console.log('tempsize=' + JSON.stringify(tempSize));
 
         // this.appDataService.getSelectedState().width = tempSize.width;
         // this.appDataService.getSelectedState().height = tempSize.height;

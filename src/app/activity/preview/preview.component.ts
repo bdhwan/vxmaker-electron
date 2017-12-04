@@ -396,16 +396,16 @@ export class PreviewComponent implements OnInit {
 
     if (target === 4) {
       // console.log('will return ' + center.cx + 'px');
-      return center.cx - 5 + 'px';
+      return center.cx - 3 + 'px';
     } else if (target === 5) {
       // console.log('will return ' + center.cx + 'px');
-      return center.cy - 5 + 'px';
+      return center.cy - 3 + 'px';
     } else if (target === 6) {
       // console.log('will return ' + center.cx + 'px');
-      return center.cx - 5 + 'px';
+      return center.cx - 3 + 'px';
     } else if (target === 7) {
       // console.log('will return ' + center.cx + 'px');
-      return center.cy - 5 + 'px';
+      return center.cy - 3 + 'px';
     };
   }
 
