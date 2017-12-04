@@ -207,6 +207,7 @@ export class ObjectPropertyComponent implements OnInit, AfterViewInit {
   }
 
   clickTextAlign(value) {
+    console.log('clickTextAlign =' + value);
     this.selectedObject.textAlign = value;
   }
 
