@@ -78,22 +78,22 @@ export class PreviewComponent implements OnInit {
       this.isKeyALT = true;
     }
 
-    if ($event.keyCode === 90) {
-      if (this.isKeyCTRL) {
+    // if ($event.keyCode === 90) {
+    //   if (this.isKeyCTRL) {
 
-        if (this.isShift) {
-          const message = {
-            kind: 'redo',
-          };
-          this.broadcaster.broadcast('activity', message);
-        } else {
-          const message = {
-            kind: 'undo',
-          };
-          this.broadcaster.broadcast('activity', message);
-        }
-      }
-    }
+    //     if (this.isShift) {
+    //       const message = {
+    //         kind: 'redo',
+    //       };
+    //       this.broadcaster.broadcast('activity', message);
+    //     } else {
+    //       const message = {
+    //         kind: 'undo',
+    //       };
+    //       this.broadcaster.broadcast('activity', message);
+    //     }
+    //   }
+    // }
   }
 
   keyUp($event) {
@@ -106,12 +106,14 @@ export class PreviewComponent implements OnInit {
     }
     if ($event.keyCode === 18) {
       this.isKeyALT = false;
-    } else if ($event.keyCode === 46 || ($event.keyCode === 8 && this.isKeyALT)) {
-      const message = {
-        kind: 'delete-current-object-by-key',
-      };
-      this.broadcaster.broadcast('activity', message);
     }
+
+    // else if ($event.keyCode === 46 || ($event.keyCode === 8 && this.isKeyALT)) {
+    //   const message = {
+    //     kind: 'delete-current-object-by-key',
+    //   };
+    //   this.broadcaster.broadcast('activity', message);
+    // }
 
   }
 

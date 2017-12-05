@@ -122,6 +122,13 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   messageListener;
   haveInputFocus;
 
+
+  isKeyCTRL = false;
+  isKeyALT = false;
+  isShift = false;
+
+
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -172,6 +179,75 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
+  keyDown($event) {
+    console.log("activity keyDown-" + $event.keyCode);
+    if ($event.keyCode === 17 || $event.keyCode === 91) {
+      this.isKeyCTRL = true;
+    }
+    if ($event.keyCode === 16) {
+      this.isShift = true;
+    }
+    if ($event.keyCode === 18) {
+      this.isKeyALT = true;
+    }
+
+    if ($event.keyCode === 90) {
+      if (this.isKeyCTRL) {
+
+        if (this.isShift) {
+          this.redo();
+        } else {
+          this.undo();
+        }
+      }
+    }
+  }
+
+  keyUp($event) {
+    console.log("activity keyUp-" + $event.keyCode);
+    if ($event.keyCode === 17 || $event.keyCode === 91) {
+      this.isKeyCTRL = false;
+    }
+    if ($event.keyCode === 16) {
+      this.isShift = false;
+    }
+    if ($event.keyCode === 18) {
+      this.isKeyALT = false;
+    } else if ($event.keyCode === 46 || ($event.keyCode === 8 && this.isKeyALT)) {
+      const message = {
+        kind: 'delete-current-object-by-key',
+      };
+      this.broadcaster.broadcast('activity', message);
+    }
+
+  }
+
+
+  addStack() {
+    this.appDataService.addStack();
+  }
+
+  undo() {
+    this.appDataService.undo().then(result => {
+      if (result) {
+        this.activityData = this.appDataService.getActivityData();
+        this.appDataService.invalidateSelectedObject();
+        this.notifySelectedObjectChanged();
+      }
+    });
+  }
+  redo() {
+    this.appDataService.redo().then(result => {
+      if (result) {
+        this.activityData = this.appDataService.getActivityData();
+        this.appDataService.invalidateSelectedObject();
+        this.notifySelectedObjectChanged();
+      }
+    });
+  }
+
+
+
   registerStringBroadcast() {
     this.messageListener = this.broadcaster.on<any>('activity')
       .subscribe(message => {
@@ -183,25 +259,13 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         if (kind === 'save') {
           this.onClickSave();
         } else if (kind === 'undo') {
-          this.appDataService.undo().then(result => {
-            if (result) {
-              this.activityData = this.appDataService.getActivityData();
-              this.appDataService.invalidateSelectedObject();
-              this.notifySelectedObjectChanged();
-            }
-          });
-
+          this.undo();
         } else if (kind === 'redo') {
-          this.appDataService.redo().then(result => {
-            if (result) {
-              this.activityData = this.appDataService.getActivityData();
-              this.appDataService.invalidateSelectedObject();
-              this.notifySelectedObjectChanged();
-            }
-          });
+          this.redo();
 
         } else if (kind === 'add-stack') {
-          this.appDataService.addStack();
+          this.addStack();
+
         } else if (kind === 'save-refresh-activity') {
           this.notifySelectedObjectChanged();
           this.onClickSave();

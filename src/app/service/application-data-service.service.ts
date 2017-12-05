@@ -25,7 +25,6 @@ export class ApplicationDataServiceService {
 
   undoStack = [];
   redoStack = [];
-
   undoIndex = 0;
 
   firstRedo = true;
@@ -165,7 +164,6 @@ export class ApplicationDataServiceService {
   getMacAddress() {
     return new Promise((resolve, reject) => {
       this.getMacPromise = resolve;
-
     });
   }
 
@@ -180,16 +178,10 @@ export class ApplicationDataServiceService {
 
   undo() {
     return new Promise((resolve, reject) => {
-      if (this.undoStack.length > 0) {
-        if (this.redoStack.length === 0) {
-          this.activityData = this.undoStack.pop();
-          this.redoStack.push(JSON.parse(JSON.stringify(this.activityData)));
-        }
-        if (this.undoStack.length > 0) {
-          this.activityData = this.undoStack.pop();
-          this.redoStack.push(JSON.parse(JSON.stringify(this.activityData)));
-        }
-
+      const stackCount = this.undoStack.length;
+      if (stackCount > 1) {
+        this.redoStack.push(JSON.parse(JSON.stringify(this.undoStack.pop())));
+        this.activityData = this.undoStack[this.undoStack.length - 1];
         resolve(true);
       } else {
         resolve(false);
@@ -199,18 +191,10 @@ export class ApplicationDataServiceService {
 
   redo() {
     return new Promise((resolve, reject) => {
-      if (this.redoStack.length > 0) {
-
-        if (this.firstRedo) {
-          this.activityData = this.redoStack.pop();
-          this.undoStack.push(JSON.parse(JSON.stringify(this.activityData)));
-        }
-        this.firstRedo = false;
-
-        if (this.redoStack.length > 0) {
-          this.activityData = this.redoStack.pop();
-          this.undoStack.push(JSON.parse(JSON.stringify(this.activityData)));
-        }
+      const stackCount = this.redoStack.length;
+      if (stackCount > 0) {
+        this.activityData = this.redoStack.pop();
+        this.undoStack.push(JSON.parse(JSON.stringify(this.activityData)));
         resolve(true);
       } else {
         resolve(false);
