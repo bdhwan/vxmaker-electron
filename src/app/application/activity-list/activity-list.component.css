@@ -73,6 +73,7 @@
     background: #f5f6f7;
     padding: 15px 35px;
     position: relative;
+    text-align: center;
 }
 
 .list-box-left .list-img:hover {
@@ -231,6 +232,7 @@ i.fa.fa-trash {
 .list-box .list-img .preview-img {
     width: 100px;
     height: 150px;
+    
 }
 
 .list-img .btn-home-on {
