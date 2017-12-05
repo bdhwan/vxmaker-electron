@@ -182,6 +182,26 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
         if (kind === 'save') {
           this.onClickSave();
+        } else if (kind === 'undo') {
+          this.appDataService.undo().then(result => {
+            if (result) {
+              this.activityData = this.appDataService.getActivityData();
+              this.appDataService.invalidateSelectedObject();
+              this.notifySelectedObjectChanged();
+            }
+          });
+
+        } else if (kind === 'redo') {
+          this.appDataService.redo().then(result => {
+            if (result) {
+              this.activityData = this.appDataService.getActivityData();
+              this.appDataService.invalidateSelectedObject();
+              this.notifySelectedObjectChanged();
+            }
+          });
+
+        } else if (kind === 'add-stack') {
+          this.appDataService.addStack();
         } else if (kind === 'save-refresh-activity') {
           this.notifySelectedObjectChanged();
           this.onClickSave();
@@ -217,11 +237,12 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           const targetUrl = message.url;
           this.appDataService.openUrl(targetUrl);
         } else if (kind === 'select-object') {
+
           const selectedObject = this.appDataService.findObjectById(message.objectId);
           this.onSelectNodeFromOther(message.objectId);
-
           this.appDataService.setSelectedObject(selectedObject);
           this.notifySelectedObjectChanged();
+
         } else if (kind === 'code-export') {
 
           this.saveProcessAsync().then(result => {
@@ -393,6 +414,9 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         this.activityMetaData = this.appDataService.getActivityMetaData();
         this.activityData = this.appDataService.getActivityData();
         this.selectedTriggerEvent = this.appDataService.getSelectedTriggerEvent();
+
+
+
         return this.checkEmptyActivityData();
       })
       // .then(result => {
@@ -401,7 +425,14 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
       .then((result) => {
         return this.initDataToView();
       }).then((result) => {
+
+
+
         this.notifySelectedObjectChanged();
+        if (this.appDataService.getSelectedObject()) {
+          this.objectTreeComponent.selectObjectNode(this.appDataService.getSelectedObject());
+        }
+        this.appDataService.addStack();
       });
   }
 
@@ -478,13 +509,11 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   initDataToView() {
     return new Promise((resolve, reject) => {
       this.isReadyToRender = true;
-
-      this.appDataService.setSelectedStage(this.activityData.stageList[0]);
-      this.appDataService.setSelectedObject(this.activityData.objectList[0]);
+      this.appDataService.setSelectedStage(this.activityData.selectedStage || this.activityData.stageList[0]);
+      this.appDataService.setSelectedObject(this.activityData.selectedObject || this.activityData.objectList[0]);
       this.objectNewComponent.setObjectTypeData(this.objectTypeData);
       this.objectTreeComponent.initObjectData();
       this.stageList.initData();
-
       resolve(true);
     });
   }
@@ -523,6 +552,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   changeActivityName(): void {
+    console.log('this.activityMetaData  =' + JSON.stringify(this.activityMetaData));
     this.saveApplicationData();
   }
 
@@ -675,9 +705,13 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   clickNewObject(type: string) {
 
     let parentObject = this.appDataService.getSelectedObject();
+
+
     if (!parentObject.children) {
       parentObject = this.appDataService.findObjectById(this.appDataService.getSelectedObject().parentId);
     }
+
+
 
     const newObject = this.appDataService.createNewObject(type);
     newObject['parentId'] = parentObject.id;
@@ -689,6 +723,9 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     parentObject.children.push(newObject);
+
+
+
     this.objectTreeComponent.updateTreeModel();
     this.objectTreeComponent.selectObjectNode(newObject);
     this.objectTreeComponent.expandAll();
@@ -750,7 +787,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
     console.log("onSelectFile = " + target);
     const selectedObject = this.appDataService.getSelectedObject();
-
     console.log("selectedObject.objectType  = " + JSON.stringify(selectedObject));
 
     if (selectedObject) {
@@ -764,6 +800,18 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         if (tempUrl && tempUrl !== target) {
           this.previewComponent.recreateObjectList();
         }
+      }
+      if (selectedObject.type === 'ImageView') {
+
+        const imageFilePath = this.prefix + this.appDataService.getWorkspaceFolderPath() + '/' + target;
+        const tempSize = this.appDataService.getImageSize(imageFilePath);
+        console.log('tempsize=' + JSON.stringify(tempSize));
+
+        // this.appDataService.getSelectedState().width = tempSize.width;
+        // this.appDataService.getSelectedState().height = tempSize.height;
+
+
+
       }
     }
   }
@@ -790,7 +838,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   onSelectNodeFromTree(objectId: string) {
 
     const selectedObject = this.appDataService.findObjectById(objectId);
-    // console.log("onSelectNodeFromTree = " + selectedObject.id);
     this.appDataService.setSelectedObject(selectedObject);
     this.notifySelectedObjectChanged();
   }
@@ -821,13 +868,11 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.eventDetailStartActivity.onChangeData();
     this.eventDetailFinishActivity.onChangeData();
 
-
     this.eventDetailStartVideo.onChangeData();
     this.eventDetailStopVideo.onChangeData();
     this.eventDetailStopLottie.onChangeData();
     this.eventDetailStartLottie.onChangeData();
     this.eventDetailTakePicture.onChangeData();
-
 
   }
 

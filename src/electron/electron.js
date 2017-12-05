@@ -656,11 +656,36 @@ ipcMain.on('get-file-list', (event, path) => {
 
 //get file list
 ipcMain.on('get-image-size', (event, path) => {
-    if (fse.existsSync(path)) {
-        event.returnValue = sizeOf(path);
+
+    if (isDev) {
+
+
+
+
+        // if (fse.existsSync(path)) {
+        //     event.returnValue = sizeOf(path);
+        // } else {
+        //     event.returnValue = null;
+        // }
+
+        const temp = {
+            width: 400,
+            heigth: 200
+        };
+        event.returnValue = temp;
+
     } else {
-        event.returnValue = null;
+
+        if (fse.existsSync(path)) {
+            event.returnValue = sizeOf(path);
+        } else {
+            event.returnValue = null;
+        }
     }
+
+
+
+
 })
 
 
@@ -834,7 +859,7 @@ function createWindow() {
     const initWidth = 1024;
     const initHeight = 720;
 
-    const minWidth = 700;
+    const minWidth = 896;
     const minHeight = 600;
 
 

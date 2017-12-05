@@ -42,7 +42,9 @@ export class PreviewObjectComponent implements OnInit {
     // const lineSpacingExtra = (this.objectData.textSize * 1.333 + this.objectData.lineSpacingExtra) * this.zoom;
 
     const lineSpacingExtra = (Number(this.objectData.textSize) * 1.3333 + Number(this.objectData.lineSpacingExtra)) * this.zoom;
-    return {
+
+    const cssObject = {
+
       'font-family': this.objectData.family + '-' + this.objectData.variant,
       'font-size': Number(this.objectData.textSize * this.zoom) + 'pt',
       'color': this.objectData.textColor,
@@ -50,6 +52,8 @@ export class PreviewObjectComponent implements OnInit {
       'letter-spacing': Number(this.objectData.letterSpacing * this.zoom) + 'px',
       'text-align': this.objectData.textAlign
     };
+    // console.log('cssObejct = ' + JSON.stringify(cssObject));
+    return cssObject;
   }
 
   convertReadableString(text) {
