@@ -859,7 +859,7 @@ function createWindow() {
     const initWidth = 1024;
     const initHeight = 720;
 
-    const minWidth = 700;
+    const minWidth = 896;
     const minHeight = 600;
 
 

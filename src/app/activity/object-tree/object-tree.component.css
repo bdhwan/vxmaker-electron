@@ -1,3 +1,26 @@
 .object-tree{
     background:white;
 }
+
+.delete-layer{
+    display: block;
+    background: #f4f4f4;
+    position: relative;
+    width: inherit;
+    height: 33px;
+}
+
+.delete-layer img {
+    display: block;
+    position: absolute;
+    margin: 2px 4px 2px 2px;
+    right: 0;
+    bottom: 0;
+    opacity: 0.6;
+
+    border-radius: 3px;
+}
+
+.delete-layer img:hover {
+    background: #ccc;
+}
