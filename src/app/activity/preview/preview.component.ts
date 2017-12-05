@@ -453,8 +453,8 @@ export class PreviewComponent implements OnInit {
   public captureScreen() {
 
     return new Promise((resolve, reject) => {
-      let node = this.elementView.nativeElement.innerHTML;
-      let canvas = document.createElement('canvas');
+      const node = this.elementView.nativeElement.innerHTML;
+      const canvas = document.createElement('canvas');
       canvas.width = this.getRootWidth();
       canvas.height = this.getRootHeight();
       rasterizeHTML.drawHTML(node, canvas)
@@ -462,8 +462,7 @@ export class PreviewComponent implements OnInit {
           if (navigator.msSaveBlob) {
             window.navigator.msSaveBlob(canvas.msToBlob(), name);
           } else {
-            let data = canvas.toDataURL();
-
+            const data = canvas.toDataURL();
             resolve(data);
           }
         });

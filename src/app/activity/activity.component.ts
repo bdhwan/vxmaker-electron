@@ -276,20 +276,24 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           if (objectId !== 'root') {
             this.appDataService.deleteObject(objectId);
             this.onClickSave();
+            this.addStack();
           }
         } else if (kind === 'delete-current-object-by-key') {
           if (!this.haveInputFocus) {
             this.deleteCurrentObject();
+            this.addStack();
           }
         } else if (kind === 'delete-current-object') {
 
           this.deleteCurrentObject();
+          this.addStack();
 
         } else if (kind === 'delete-event') {
 
           this.appDataService.deleteTriggerEventByTriggerEventId(message.triggerEventId);
           this.notifySelectedObjectChanged();
           this.onClickSave();
+          this.addStack();
 
         } else if (kind === 'select-psd') {
 
@@ -297,6 +301,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           if (selectedPSD) {
             this.parsePsd(selectedPSD);
           }
+          this.addStack();
         } else if (kind === 'open-url') {
           const targetUrl = message.url;
           this.appDataService.openUrl(targetUrl);
@@ -306,6 +311,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           this.onSelectNodeFromOther(message.objectId);
           this.appDataService.setSelectedObject(selectedObject);
           this.notifySelectedObjectChanged();
+          // this.addStack();
 
         } else if (kind === 'code-export') {
 
@@ -318,34 +324,45 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           this.clickActivity(activityId);
         } else if (kind === 'delete-activity') {
           this.clickDeleteActivity(activityId);
+          this.addStack();
+
         } else if (kind === 'duplicate-activity') {
           this.onCompleteEvent(null);
           this.clickDuplicateActivity(activityId);
+          this.addStack();
         } else if (kind === 'new-activity') {
           this.onCompleteEvent(null);
           this.clickNewActivity();
         } else if (kind === 'set-launcher-activity') {
           this.onClickLauncherActivity(activityId);
+          this.addStack();
+
         } else if (kind === 'on-change-data') {
 
         } else if (kind === 'change-icon') {
           this.onClickChangeIcon();
+          this.addStack();
         } else if (kind === 'complete-event') {
           this.onCompleteEvent(null);
+          this.addStack();
         } else if (kind === 'close-event') {
           this.onCloseEvent();
+          this.addStack();
         } else if (kind === 'new-object') {
           this.clickNewObject(message.type);
         } else if (kind === 'new-event') {
           this.onNewEvent();
+          this.addStack();
+
         } else if (kind === 'detail-event') {
           const detailEvent = message.event;
           this.onClickDetailEvent(detailEvent);
-        } else if (kind === 'new-after-animation') {
+          this.addStack();
 
+        } else if (kind === 'new-after-animation') {
           const implEventId = message.implEventId;
           this.onNewAfterAnimationEvent(implEventId);
-
+          this.addStack();
         } else if (kind === 'select-file') {
           const dataUrl = message.dataUrl;
           const target = message.target;
@@ -354,11 +371,15 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         } else if (kind === 'select-stage') {
           const stage = message.stage;
           this.onSelectStage(stage);
+          this.addStack();
         } else if (kind === 'delete-stage') {
           const stage = message.stage;
           this.onDeleteStage(stage);
+          this.addStack();
+
         } else if (kind === 'new-stage') {
           this.onNewStage();
+          this.addStack();
         } else if (kind === 'focus') {
           this.haveInputFocus = true;
         } else if (kind === 'blur') {
