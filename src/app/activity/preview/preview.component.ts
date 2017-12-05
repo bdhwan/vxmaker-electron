@@ -377,7 +377,7 @@ export class PreviewComponent implements OnInit {
     const rootState = this.appDataService.findStateByObjectId('root');
     const zoom = this.appDataService.getZoom();
     const marginLeft = (this.previewWidth - rootState.width * zoom) / 2;
-    const marginTop = (this.previewHeight - rootState.height * zoom) / 2;
+    const marginTop = (this.previewHeight - rootState.height * zoom) / 2 + 39;
 
     let cursor = 'move';
     if (this.isKeyCTRL) {

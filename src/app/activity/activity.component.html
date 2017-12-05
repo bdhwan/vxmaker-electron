@@ -50,12 +50,27 @@
         </div>
         <!-- activity left@-->
 
+        
+
 
 
         <!-- activity canvas-->
         <div class="activity-canvas" [style.width]="getPreviewWidth()" [style.height]="getPreviewHeight()">
             <app-stage-list #stageList [viewMode]="'activity'"></app-stage-list>
             <app-preview #previewCanvas [prefix]="prefix" [viewMode]="'activity'" (onSelectNodeFromOther)="onSelectNodeFromOther($event)" (onShowResourceDialog)="onShowResourceDialog($event)"></app-preview>
+            
+            <!-- zoom in/out -->
+            <div class="zoom">
+                <div class="zoom-out">
+                    <img class="img_zoom_out" src="../assets/images/ic_zoomout.png" />
+                </div>
+                
+                <a style="font-size:12px;"><input type="number">%</a>
+
+                <div class="zoom-in">
+                    <img class="img_zoom_in" src="../assets/images/ic_zoomin.png" />
+                </div>
+            </div>
         </div>
         <!-- activity canvas@-->
 
