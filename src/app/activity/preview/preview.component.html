@@ -9,7 +9,7 @@
             </div> -->
 
 
-            <div [ngStyle]="getSelectedObjectStyle()">
+            <div [ngStyle]="getSelectedObjectStyle()" *ngIf="getSelectedObjectStyle()">
                 <div class="preview-dot dot-0" (mousedown)="resizeDown($event,0)" *ngIf="!isRoot()"></div>
                 <div class="preview-dot dot-1" (mousedown)="resizeDown($event,1)" *ngIf="!isRoot()"></div>
                 <div class="preview-dot dot-2" (mousedown)="resizeDown($event,2)" *ngIf="!isRoot()"></div>
