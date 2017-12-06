@@ -34,10 +34,9 @@
     bottom: 120%;
     right: 0;
     margin-left: -60px;
-    background-color: #aaa;
+    background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
-    font-size: 10px;
-    font-weight: 500;
+    font-size: 12px;
     text-align: center;
     padding: 2px 4px;
     border-radius: 3px;

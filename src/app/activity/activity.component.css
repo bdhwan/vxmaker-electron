@@ -122,6 +122,13 @@
 }
 /* left-bottom zoom in/out finish */
 
+.hint-always-up {
+    position: fixed;
+    right: 332px;
+    bottom: 9px;
+
+    opacity: 0.6;
+}
 
 .activity-right {
     float: right;
