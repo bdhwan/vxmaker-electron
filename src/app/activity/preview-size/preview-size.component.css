@@ -82,6 +82,38 @@
     margin-left: 1px;
 }
 
+/* tooltip */
+
+.preview-size .dropdown button .tooltiptext {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    transition-property: opacity;
+    transition-delay: 1s;
+    transition-duration: 0.5s;
+
+    width: 68px;
+    top: 110%;
+    left: -90%;
+
+    background-color: rgba(255, 255, 255, 0.8);
+    border: solid 1px rgba(0, 0, 0, 0.4);
+
+    color: #000;
+    font-size: 10px;
+    text-align: center;
+
+    padding: 0px 1px;
+
+    z-index:9999;
+}
+
+.preview-size .dropdown button:hover .tooltiptext{
+    visibility: visible;
+    opacity: 1;
+}
+/* tooltip finish */
+
 .dropdown-menu {
     min-width: 60px;
     font-size: 13px;

@@ -172,6 +172,56 @@
     align-items: center;
 }
 
+/* tooltip  */
+
+/* .img-thumbnail .ic_image_select {
+    display: block;
+    position: absolute;
+    margin: 2px 4px 2px 2px;
+    right: 0;
+    bottom: 0;
+    opacity: 0.6;
+
+    border-radius: 3px;
+}
+
+
+.img-thumbnail .ic_image_select .tooltiptext {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    transition-property: opacity;
+    transition-delay: 1s;
+    transition-duration: 0.5s;
+
+    width: 94px;
+    bottom: 45%;
+    left: 56%;
+
+    background-color: rgba(255, 255, 255, 0.8);
+    border: solid 1px rgba(0, 0, 0, 0.4);
+
+    color: #000;
+    font-size: 10px;
+    text-align: center;
+
+    padding: 1px 2px;
+
+    z-index:9999;
+}
+
+
+.img-thumbnail .ic_image_select:hover {
+    background: #ccc;
+}
+
+.img-thumbnail .ic_image_select:hover .tooltiptext{
+    visibility: visible;
+    opacity: 1;
+} */
+/* tooltip finish */
+
+
 .object-property .img-selected .img-thumbnail img {
     width: 50px;
     text-align: center;
