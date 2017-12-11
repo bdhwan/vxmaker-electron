@@ -1,3 +1,4 @@
+![vxmaker](https://vxmaker.com/images/signature_intro.png)
 # vxmaker
 
 vxmaker는 모바일 앱 모션을 쉽게 작업하여 개발용 안드로이드 소스코드로 추출하는 데스크톱 애플리케이션입니다.<br/>오픈소스 프로젝트이며 베타버전을 배포합니다.
