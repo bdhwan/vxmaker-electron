@@ -39,7 +39,7 @@ vxmaker는 모바일 앱 모션을 쉽게 작업하여 개발용 안드로이드
 
 ## 튜토리얼
 
-[![vxmaker](http://img.youtube.com/vi/OlYtYxqGCWw/0.jpg)](https://youtu.be/OlYtYxqGCWw?t=0s)
+[![vxmaker](http://img.youtube.com/vi/OlYtYxqGCWw/0.jpg)](https://youtu.be/OlYtYxqGCWw?t=0s "vxmaker official youtube")
 
 
 ## 제작 목적
