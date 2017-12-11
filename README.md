@@ -46,6 +46,7 @@ vxmaker는 모바일 앱 모션을 쉽게 작업하여 개발용 안드로이드
 
 ## 오픈소스
 vxmaker는 [Altamirasoft Inc.](http:/altamirasoft.com)가 관리하는 오픈소스 프로그램입니다.
+개인 및 기업 사용자가 자유롭게 사용, 수정 및 재배포 가능합니다.
 
 ## License
 The MIT License (MIT)
