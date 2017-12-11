@@ -45,13 +45,13 @@ vxmaker는 모바일 앱 모션을 쉽게 작업하여 개발용 안드로이드
 자세한 정보는 [이 곳에서](https://vxmaker.com) 얻을 수 있습니다.
 
 ## 오픈소스
-vxmaker는 [Altamirasoft Inc.](http:/altamirasoft.com)가 관리하는 오픈소스 프로그램입니다.
+vxmaker는 (주)알타미라소프트가 배포하는 오픈소스 프로그램입니다.
 개인 및 기업 사용자가 자유롭게 사용, 수정 및 재배포 가능합니다.
 
 ## License
 The MIT License (MIT)
 
-Copyright (C) 2017, Altamirasoft Inc. http://altamirasoft.com. All rights reserved.
+Copyright (C) 2017, [Altamirasoft Inc.](http://altamirasoft.com.) All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
