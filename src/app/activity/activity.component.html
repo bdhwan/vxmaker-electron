@@ -1,6 +1,6 @@
-<div class="activity-wrap" (window:resize)="onResize($event)">
-    
-    
+<div class="activity-wrap" (window:resize)="onResize($event)" (window:keydown)="keyDown($event)" (window:keyup)="keyUp($event)">
+
+
     <!-- activity navbar -->
     
     <nav id="topSide" class="navbar navbar-default activity-nav" *ngIf="activityMetaData" style="height:50px;">
