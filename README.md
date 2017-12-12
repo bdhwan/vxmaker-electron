@@ -53,11 +53,6 @@ size & position | transparency | rotation
 
 자세한 정보는 [이 곳에서](https://vxmaker.com/pages/kr/learn/learn.html) 얻을 수 있습니다.
 
-
-## 오픈소스입니다.
-vxmaker는 (주)알타미라소프트가 배포하는 오픈소스 프로그램입니다.<br/>
-개인 및 기업 사용자가 자유롭게 사용, 수정 및 재배포 가능합니다.
-<br/>
 <br/>
 
 ## 개발 모드 설치
