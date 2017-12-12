@@ -34,7 +34,7 @@ size & position | transparency | rotation
 
 ### codeExport
 
-모션 및 디자인 작업을 완료하였다면, 그것들을 개발용 소스로 내보내기 합니다.
+모션 및 디자인 작업을 개발용 소스로 추출합니다.
 ![codeExport1](./src/assets/images/export_illust.png)
 ![codeExport2](./src/assets/images/exportcode2.png)
 <br/>
