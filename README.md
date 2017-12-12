@@ -24,7 +24,7 @@ vxmaker는 모바일 앱 모션을 쉽게 작업하여 개발용 안드로이드
 <br/>
 
 3. angular cli 설치<br/> 
-```https://github.com/angular/angular-cli```
+```https://github.com/angular/angular-cli```<br/>
 ```sudo npm install -g @angular/cli```
 <br/>
 
@@ -34,7 +34,7 @@ vxmaker는 모바일 앱 모션을 쉽게 작업하여 개발용 안드로이드
 
 5. electron 설치<br/> 
 ```sudo npm install -g electron```
-<br/>에러 발생할 때: 
+<br/>/에러 발생할 때: 
 <br/>```sudo npm install -g electron --unsafe-perm=true --allow-root```
 <br/>
 
