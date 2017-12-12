@@ -7,10 +7,60 @@ vxmaker는 모바일 앱 모션을 쉽게 작업하여 개발용 안드로이드
 
 ## 설치 방법은 이렇습니다.
 
-* npm : `npm blah blah`
-* [다운로드 페이지](https://vxmaker.com/)
+### [다운로드 페이지](https://vxmaker.com/)
+----
+### 개발 모드 설치
+
+윈도우즈에서는 npm install 시, **sudo** 명령어 대신 **관리자 권한으로 실행**을 사용할 것
+<br/>
+<br/>
+
+1. node.js 설치 및 버전 체크<br/>
+```https://nodejs.org```
+<br/>
+
+2. npm update<br/>
+```sudo npm install -g npm```
+<br/>
+
+3. angular cli 설치<br/> 
+```https://github.com/angular/angular-cli```
+```sudo npm install -g @angular/cli```
+<br/>
+
+4. typescript 설치<br/>
+```sudo npm install -g typescript```
+<br/>
+
+5. electron 설치<br/> 
+```sudo npm install -g electron```
+<br/>에러 발생할 때: 
+<br/>```sudo npm install -g electron --unsafe-perm=true --allow-root```
+<br/>
+
+6. concurrently 설치<br/>
+```sudo npm install -g concurrently```
+<br/>
 
 <br/>
+소스 다운로드 후 
+<br/>
+
+7. angular의 npm 모듈 설치<br/>
+위치: ```프로젝트 root폴더```<br/>
+```npm install```
+<br/>
+
+8. electron의 npm 모듈 설치<br/>
+위치: ```cd src/electron```<br/>
+```npm install```
+<br/>
+
+9. **실행**<br/>
+위치: '''프로젝트 root폴더'''
+<br/>```npm start```
+<br/>
+
 
 ## 안드로이드 앱의 움직임을 만듭니다.
 
