@@ -1,4 +1,4 @@
-[![vxmaker](https://vxmaker.com/images/signature_intro.png)](https://vxmaker.com)
+[![vxmaker](https://vxmaker.com/images/signature_intro.png)](https://vxmaker.com/)
 ## 데스크톱 애플리케이션입니다.
 
 vxmaker는 모바일 앱 모션을 쉽게 작업하여 개발용 안드로이드 소스코드로 추출합니다.<br/>오픈소스 프로젝트이며 베타버전을 배포합니다.
@@ -7,7 +7,7 @@ vxmaker는 모바일 앱 모션을 쉽게 작업하여 개발용 안드로이드
 ## 설치 방법은 이렇습니다.
 
 * npm : `npm blah blah`
-* [다운로드 페이지](https://vxmaker.com)
+* [다운로드 페이지](https://vxmaker.com/)
 
 
 ## 안드로이드 앱의 움직임을 만듭니다.
@@ -19,9 +19,17 @@ vxmaker는 모바일 앱 모션을 쉽게 작업하여 개발용 안드로이드
 
 스테이지는 일종의 키프레임입니다. 스테이지를 추가하고 속성을 편집하세요.
 
+rootStage | stage1 | stage2
+:-------: | :-------: | :-------:
+![](./src/assets/images/readme_img_rootstage.png) | ![](./src/assets/images/readme_img_stage1.png) | ![](./src/assets/images/readme_img_stage2.png)
+
 ### stageChange
 
-사용자의 제스처에 의한 이벤트중 하나이며, 스테이지를 바꿔줍니다. 인터랙션 작업에 필수적입니다.
+편집한 스테이지를 전환시키는 이벤트입니다. 전환되는 스테이지에 따라 부드러운 움직임을 연출합니다.
+
+size & position | transparency | rotation
+:-------: | :-------: | :-------:
+![](./src/assets/images/readme_stagechange1.gif) | ![](./src/assets/images/readme_stagechange2.gif) | ![](./src/assets/images/readme_stagechange3.gif)
 
 ### codeExport
 
@@ -39,7 +47,7 @@ vxmaker는 모바일 앱 모션을 쉽게 작업하여 개발용 안드로이드
 
 ## 튜토리얼
 
-[![vxmaker](http://img.youtube.com/vi/OlYtYxqGCWw/0.jpg)](https://youtu.be/OlYtYxqGCWw?t=0s "vxmaker official youtube")
+[![vxmaker](http://img.youtube.com/vi/OlYtYxqGCWw/0.jpg)](https://youtu.be/OlYtYxqGCWw?t=0s/ "vxmaker official youtube")
 
 
 ## 제작 목적
@@ -54,7 +62,7 @@ vxmaker는 (주)알타미라소프트가 배포하는 오픈소스 프로그램�
 ## License
 The MIT License (MIT)
 
-Copyright (C) 2017, [Altamirasoft Inc.](http://altamirasoft.com.) All rights reserved.
+Copyright (C) 2017, [Altamirasoft Inc.](http://altamirasoft.com/) All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
