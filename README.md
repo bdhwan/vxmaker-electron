@@ -34,7 +34,8 @@ size & position | transparency | rotation
 ### codeExport
 
 모션 및 디자인 작업을 완료하였다면, 그것들을 개발용 소스로 내보내기 합니다.
-
+![codeExport1](./src/assets/images/exportcode1.png)
+![codeExport2](./src/assets/images/exportcode2.png)
 
 ## 이런 사용자들에게 유용합니다.
 
