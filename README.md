@@ -51,7 +51,7 @@ size & position | transparency | rotation
 * 앱 기획팀
 * 학생
 
-자세한 정보는 [이 곳에서](https://vxmaker.com/pages/kr/learn/learn.html) 얻을 수 있습니다.
+자세한 정보는 [이 곳에서](https://vxmaker.com) 얻을 수 있습니다.
 
 <br/>
 
@@ -95,9 +95,11 @@ sudo npm install -g concurrently
 위치: 프로젝트 root폴더
 npm install
 
+
 8. electron의 npm 모듈 설치
 위치: cd src/electron
 npm install
+
 
 9. 실행
 위치: 프로젝트 root폴더
@@ -105,6 +107,122 @@ npm start
 ~~~~
 
 <br/>
+
+
+---
+<br/>
+<br/>
+
+[![vxmaker](https://vxmaker.com/images/signature_intro.png)](https://vxmaker.com/)
+## This is a desktop application.
+
+Vxmaker makes mobile app motion easier and extracts it into the Android source code for development.
+<br/>
+[Download](https://vxmaker.com/)
+
+<br/>
+
+## Create the motion of the Android app.
+
+Edit the internal action of an Android activity into several stages and edit the properties.<br/>
+Extract native code for the generated app layout and events.
+<br/>
+<br/>
+
+### stage
+
+Stage is a concept similar to a key frame. Add the stage and edit the properties.
+
+rootStage | stage1 | stage2
+:-------: | :-------: | :-------:
+![](./src/assets/images/readme_img_rootstage.png) | ![](./src/assets/images/readme_img_stage1.png) | ![](./src/assets/images/readme_img_stage2.png)
+<br/>
+
+### stageChange
+
+This is an event that changes between the editing stages. It produces soft movement according to the changing stages.
+
+size & position | transparency | rotation
+:-------: | :-------: | :-------:
+![](./src/assets/images/readme_stagechange1.gif) | ![](./src/assets/images/readme_stagechange2.gif) | ![](./src/assets/images/readme_stagechange3.gif)
+<br/>
+
+### codeExport
+
+Exports motion and design elements to the source code for development.
+![codeExport1](./src/assets/images/export_illust.png)
+![codeExport2](./src/assets/images/exportcode2.png)
+<br/>
+<br/>
+<br/>
+
+
+## Purpose of development
+The aim of simplifying motion development and image resource extraction during Android development.<br/>
+It will be useful in that area.
+* Front-End development
+* Motion graphic
+* Development of mobile app
+* Student
+
+You can get more detailed information [here](https://vxmaker.com).
+
+<br/>
+
+## Installing development mode
+
+'npm install' in Windows OS :<br/>
+Use **Run as administrator** instead of using **Sudo** command.
+
+~~~~
+1. Install 'node.js' and check version
+https://nodejs.org
+
+
+2. npm update<br/>
+sudo npm install -g npm
+
+
+3. Install Angular Cli
+https://github.com/angular/angular-cli
+sudo npm install -g @angular/cli
+
+
+4. Install Typescript
+sudo npm install -g typescript
+
+
+5. Install Electron 
+sudo npm install -g electron
+/When an error occurs: 
+sudo npm install -g electron --unsafe-perm=true --allow-root
+
+
+6. Install concurrently
+sudo npm install -g concurrently
+~~~~
+
+~~~~
+After downloading source, 
+
+
+7. Install the npm module in angular
+Location : Root folder of project
+npm install
+
+
+8. Installing the npm module in electronics
+Position : cd src/electron
+npm install
+
+
+9. Run
+Location : Root folder of project
+npm start
+~~~~
+
+<br/>
+
 
 ## License
 The MIT License (MIT)
