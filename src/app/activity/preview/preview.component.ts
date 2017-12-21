@@ -129,6 +129,7 @@ export class PreviewComponent implements OnInit {
     if (this.isKeyCTRL) {
       const x = (event.clientX - this.elementView.nativeElement.offsetLeft) / this.zoom;
       const y = (event.clientY - this.elementView.nativeElement.offsetTop) / this.zoom;
+      console.log('check = ' + x + ', ' + y);
       this.checkSelectedObject(x, y, true);
     }
     if (this.selectedObject.id !== 'root') {
@@ -162,7 +163,6 @@ export class PreviewComponent implements OnInit {
 
   checkSelectedObject(x, y, needSelectObject) {
 
-
     const targetList = this.appDataService.getAllSelectedState();
     for (let i = targetList.length - 1; i >= 0; i--) {
       const state = targetList[i];
@@ -175,6 +175,7 @@ export class PreviewComponent implements OnInit {
 
 
         if (needSelectObject) {
+          console.log('will send = ' + state.objectId);
           const message = {
             kind: 'select-object',
             objectId: state.objectId
