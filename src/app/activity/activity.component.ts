@@ -121,7 +121,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   previewCss = {};
   messageListener;
   haveInputFocus;
-
+  zoomLevel;
 
   isKeyCTRL = false;
   isKeyALT = false;
@@ -499,6 +499,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         this.activityMetaData = this.appDataService.getActivityMetaData();
         this.activityData = this.appDataService.getActivityData();
         this.selectedTriggerEvent = this.appDataService.getSelectedTriggerEvent();
+        this.zoomLevel = this.appDataService.getZoom() * 100;
 
 
 
@@ -1041,8 +1042,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
       this.reloadActivityData();
     });
 
-
-
   }
 
   clickDeleteActivity(activityId): void {
@@ -1073,23 +1072,48 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   clickDuplicateActivity(activityId): void {
 
 
-    const index = this.findActivityPosition(activityId);
+    // const index = this.findActivityPosition(activityId);
 
-    const now = new Date().getTime();
-    const newActivityId = 'activity_' + UUID.UUID();
+    // const now = new Date().getTime();
+    // const newActivityId = 'activity_' + UUID.UUID();
 
-    const newObject = JSON.parse(JSON.stringify(this.applicationData.activityList[index]));
-    newObject.activityId = newActivityId;
-    newObject.activityName = 'Copy_' + newObject.activityName;
-    newObject.createdAt = now;
-    newObject.updatedAt = now;
+    // const newObject = JSON.parse(JSON.stringify(this.applicationData.activityList[index]));
+    // newObject.activityId = newActivityId;
+    // newObject.activityName = 'Copy_' + newObject.activityName;
+    // newObject.createdAt = now;
+    // newObject.updatedAt = now;
 
-    this.applicationData.activityList.splice(index + 1, 0, newObject);
+    // this.applicationData.activityList.splice(index + 1, 0, newObject);
 
-    this.appDataService.saveApplicationData(this.applicationData);
-    this.appDataService.saveActivityData(newActivityId, newObject);
+    // this.appDataService.saveApplicationData(this.applicationData);
+    // this.appDataService.saveActivityData(newActivityId, newObject);
 
-    this.clickActivity(newActivityId);
+    // this.clickActivity(newActivityId);
+
+    this.saveProcessAsync().then(result => {
+
+
+      const index = this.findActivityPosition(activityId);
+      const now = new Date().getTime();
+      const newActivityId = 'activity_' + UUID.UUID();
+
+      const newObject = JSON.parse(JSON.stringify(this.applicationData.activityList[index]));
+      newObject.activityId = newActivityId;
+      newObject.activityName = 'Copy_' + newObject.activityName;
+      newObject.createdAt = now;
+      newObject.updatedAt = now;
+
+      this.applicationData.activityList.splice(index + 1, 0, newObject);
+      this.appDataService.saveApplicationData(this.applicationData);
+
+
+      this.appDataService.duplicateActivityData(activityId, newActivityId);
+
+      // this.clickActivity(newActivityId);
+      this.clickActivity(newActivityId);
+    });
+
+
 
   }
 
@@ -1098,6 +1122,30 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.appDataService.saveApplicationData(this.applicationData);
   }
 
+
+  onClickPlusZoom(value) {
+    this.zoomLevel += value;
+    this.onBlurZoom();
+  }
+
+  onBlurZoom() {
+
+    if (this.zoomLevel < 5) {
+      this.zoomLevel = 5;
+    }
+    this.changeZoom(this.zoomLevel);
+  }
+
+  changeZoom(value) {
+    this.appDataService.setZoom(value / 100);
+  }
+
+
+  getZoom() {
+    if (this.activityData) {
+      return this.appDataService.getZoom();
+    }
+  }
 
   onClickChangeIcon(): void {
     const newIconImagePath = this.appDataService.selectImageFile();
