@@ -6,7 +6,7 @@
 
 
     <p class="device-unconnected" *ngIf="deviceList.length == 0">
-        <span (click)="clickHowToConnect('http://beta.vxmaker.com/howto')">How to connect <i class="fa fa-question-circle-o"></i></span>
+        <span (click)="clickHowToConnect('https://vxmaker.com/pages/kr/learn/connect.html')">How to connect <i class="fa fa-question-circle-o"></i></span>
     </p>
 
     <p *ngIf="'installed'===appStatus&&!isSending&&deviceList.length != 0" class="btn-preview nav-btn" (click)='clickSendFile()'>

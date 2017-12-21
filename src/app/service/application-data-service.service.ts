@@ -23,6 +23,13 @@ export class ApplicationDataServiceService {
   History = Parse.Object.extend('History');
 
 
+  undoStack = [];
+  redoStack = [];
+  undoIndex = 0;
+
+  firstRedo = true;
+  firstUndo = true;
+
 
   activityId: String;
   applicationFolderPath: string;
@@ -30,14 +37,14 @@ export class ApplicationDataServiceService {
   activityMetaData;
   activityData;
 
-  selectedObject;
+  // selectedObject;
   hoverObject;
 
-  selectedStage;
-  selectedState;
+  // selectedStage;
+  // selectedState;
 
-  selectedTriggerEvent;
-  selectedImplementEvent;
+  // selectedTriggerEvent;
+  // selectedImplementEvent;
 
 
   objectTypeData = [];
@@ -49,8 +56,8 @@ export class ApplicationDataServiceService {
   deviceList = [];
 
 
-  dpi = 'xxxhdpi';
-  zoom = 0.18;
+  // dpi = 'xxxhdpi';
+  // zoom = 0.18;
 
   templeteFolderPath = './assets/template';
   templateHash = {};
@@ -157,9 +164,46 @@ export class ApplicationDataServiceService {
   getMacAddress() {
     return new Promise((resolve, reject) => {
       this.getMacPromise = resolve;
-
     });
   }
+
+  addStack() {
+    this.undoStack.push(JSON.parse(JSON.stringify(this.activityData)));
+    if (this.undoStack.length > 30) {
+      this.undoStack.shift();
+    }
+    this.firstRedo = true;
+    this.redoStack = [];
+  }
+
+  undo() {
+    return new Promise((resolve, reject) => {
+      const stackCount = this.undoStack.length;
+      if (stackCount > 1) {
+        this.redoStack.push(JSON.parse(JSON.stringify(this.undoStack.pop())));
+        this.activityData = this.undoStack[this.undoStack.length - 1];
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  }
+
+  redo() {
+    return new Promise((resolve, reject) => {
+      const stackCount = this.redoStack.length;
+      if (stackCount > 0) {
+        this.activityData = this.redoStack.pop();
+        this.undoStack.push(JSON.parse(JSON.stringify(this.activityData)));
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  }
+
+
+
 
 
   createNewActivity(applicationFolderPath, activityId) {
@@ -190,9 +234,6 @@ export class ApplicationDataServiceService {
 
 
   createNewApplication(applicationFolder, applicationName) {
-
-
-
 
     electron.ipcRenderer.sendSync('make-folder', applicationFolder);
     electron.ipcRenderer.sendSync('make-folder', applicationFolder + '/activity');
@@ -309,14 +350,45 @@ export class ApplicationDataServiceService {
   }
 
   saveApplicationData(applicationData) {
-
     electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + '/app.json', applicationData);
   }
 
+
+
   saveActivityData(activityId, activityData) {
-    activityData.dpi = this.dpi;
+
+
+
+
     electron.ipcRenderer.sendSync('save-file-data', this.applicationFolderPath + '/activity/' + activityId + '.json', activityData);
   }
+
+
+  loadApplicationData() {
+    return new Promise((resolve, reject) => {
+      this.applicationData = electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + '/app.json');
+      for (let i = 0; i < this.applicationData.activityList.length; i++) {
+        const activity = this.applicationData.activityList[i];
+        if (activity.activityId === this.activityId) {
+          this.activityMetaData = activity;
+          break;
+        }
+      }
+      if (this.activityId) {
+        this.activityData = electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + '/activity/' + this.activityId + '.json');
+        // this.selectedObject = this.activityData.selectedObject;
+        // this.selectedState = this.activityData.selectedState;
+        // this.selectedStage = this.activityData.selectedStage;
+        // this.selectedTriggerEvent = this.activityData.selectedTriggerEvent;
+        // this.selectedImplementEvent = this.activityData.selectedImplementEvent;
+        // console.log(' this.selectedObject =' + this.selectedObject);
+
+      }
+
+      resolve(true);
+    });
+  }
+
 
 
   duplicateActivityData(srcAtivityId, dstActivityId) {
@@ -473,7 +545,7 @@ export class ApplicationDataServiceService {
 
 
   getUniqueSourceName(origin) {
-    var result = origin;
+    let result = origin;
     let lastId = 0;
     while (this.idHash[result]) {
       result = origin + '_' + lastId;
@@ -689,23 +761,6 @@ export class ApplicationDataServiceService {
     electron.ipcRenderer.sendSync('save-raw-data', filePath, data);
   }
 
-  loadApplicationData() {
-    console.log('loadApplicationData -' + this.applicationFolderPath);
-    return new Promise((resolve, reject) => {
-      this.applicationData = electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + '/app.json');
-      console.log('loadApplicationData done -' + JSON.stringify(this.applicationData));
-      for (let i = 0; i < this.applicationData.activityList.length; i++) {
-        const activity = this.applicationData.activityList[i];
-        if (activity.activityId === this.activityId) {
-          this.activityMetaData = activity;
-          break;
-        }
-      }
-      console.log('will read = this.activityId =' + this.activityId);
-      this.activityData = electron.ipcRenderer.sendSync('read-file-data', this.applicationFolderPath + '/activity/' + this.activityId + '.json');
-      resolve(true);
-    });
-  }
 
 
   loadApplicationDataSync() {
@@ -800,11 +855,14 @@ export class ApplicationDataServiceService {
 
 
   setSelectedStage(value) {
-    this.selectedStage = value;
-    if (this.selectedObject) {
-      this.selectedState = this.findStateByObjectId(this.selectedObject.id);
+    this.activityData.selectedStage = value;
+    if (this.activityData.selectedObject) {
+      this.activityData.selectedState = this.findStateByObjectId(this.activityData.selectedObject.id);
     }
   }
+
+
+
   setSelectedStageByStageId(stageId) {
 
     let value = null;
@@ -826,42 +884,47 @@ export class ApplicationDataServiceService {
     // }
   }
   setSelectedObject(value) {
-    this.selectedObject = value;
-    this.selectedState = this.findStateByObjectId(this.selectedObject.id);
+    this.activityData.selectedObject = value;
+    this.activityData.selectedState = this.findStateByObjectId(this.activityData.selectedObject.id);
+  }
+
+  invalidateSelectedObject() {
+    console.log('will invaildate selected state = ' + this.activityData.selectedObject.id);
+    this.activityData.selectedState = this.findStateByObjectId(this.activityData.selectedObject.id);
   }
 
 
   setSelectedTriggerEvent(event) {
-    this.selectedTriggerEvent = event;
+    this.activityData.selectedTriggerEvent = event;
   }
 
   setSelectedImplementEvent(event) {
-    this.selectedImplementEvent = event;
+    this.activityData.selectedImplementEvent = event;
   }
 
 
   getSelectedImplementEvent() {
-    return this.selectedImplementEvent;
+    return this.activityData.selectedImplementEvent;
   }
 
   getSelectedTriggerEvent() {
-    return this.selectedTriggerEvent;
+    return this.activityData.selectedTriggerEvent;
   }
 
   getSelectedStage() {
-    return this.selectedStage;
+    return this.activityData.selectedStage;
   }
 
   getSelectedObject() {
-    return this.selectedObject;
+    return this.activityData.selectedObject;
   }
 
   getSelectedState() {
-    return this.selectedState;
+    return this.activityData.selectedState;
   }
 
   getAllSelectedState() {
-    return this.findAllStateByStageId(this.selectedStage.id);
+    return this.findAllStateByStageId(this.activityData.selectedStage.id);
   }
 
   getImageSize(path) {
@@ -1082,7 +1145,7 @@ export class ApplicationDataServiceService {
 
 
   findStateByObjectId(objectId: string) {
-    return this.findStateByObjectIdWithStageId(objectId, this.selectedStage.id);
+    return this.findStateByObjectIdWithStageId(objectId, this.activityData.selectedStage.id);
   }
 
   findAllStateByObjectId(objectId: string) {
@@ -1221,7 +1284,6 @@ export class ApplicationDataServiceService {
     for (let i = 0; i < defaultObject.objectProperties.length; i++) {
       const aProperty = defaultObject.objectProperties[i];
       newObject[aProperty.name] = aProperty.default;
-      console.log("aProperty.name =" + aProperty.default);
     }
 
     if (newObject.canHaveChildren) {
@@ -1232,18 +1294,19 @@ export class ApplicationDataServiceService {
 
 
   setDpi(value) {
-    this.dpi = value;
+    this.activityData.dpi = value;
   }
 
   getDpi() {
-    return this.dpi;
+    return this.activityData.dpi || 'xxxhdpi';
   }
+
   setZoom(value) {
-    this.zoom = value;
+    this.activityData.zoom = value;
   }
 
   getZoom() {
-    return this.zoom;
+    return this.activityData.zoom || 0.15;
   }
 
 
@@ -1252,13 +1315,13 @@ export class ApplicationDataServiceService {
     const tempObjectData = this.findObjectById(state.objectId);
     const objectStyle = {
       'position': 'absolute',
-      'width': state.width * this.zoom + 'px',
-      'height': state.height * this.zoom + 'px',
+      'width': state.width * this.getZoom() + 'px',
+      'height': state.height * this.getZoom() + 'px',
       'background-color': this.hexToRgbA(tempObjectData.backgroundColor),
       'opacity': state.alpha,
-      'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
-      'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
-      'transform': 'rotate(' + state.rotate + 'deg)'
+      'margin-left': this.getMarginLeft(state, tempObjectData) * this.getZoom() + 'px',
+      'margin-top': this.getMarginTop(state, tempObjectData) * this.getZoom() + 'px',
+      'transform': 'rotate(' + state.rotate + 'deg) scale(' + state.scaleX + ',' + state.scaleY + ')'
     };
     return objectStyle;
   }
@@ -1305,23 +1368,23 @@ export class ApplicationDataServiceService {
     if (tempObjectData.id === 'root') {
       const objectStyle = {
         'position': 'absolute',
-        'width': state.width * this.zoom + 'px',
-        'height': state.height * this.zoom + 'px',
+        'width': state.width * this.getZoom() + 'px',
+        'height': state.height * this.getZoom() + 'px',
         'border': '0px solid grey',
         'vertical-align': 'text-top',
-        'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
-        'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
+        'margin-left': this.getMarginLeft(state, tempObjectData) * this.getZoom() + 'px',
+        'margin-top': this.getMarginTop(state, tempObjectData) * this.getZoom() + 'px',
       };
       return objectStyle;
     } else {
       const objectStyle = {
         'position': 'absolute',
-        'width': state.width * this.zoom + 'px',
-        'height': state.height * this.zoom + 'px',
+        'width': state.width * this.getZoom() + 'px',
+        'height': state.height * this.getZoom() + 'px',
         'border': '1px solid #46a2ba',
         'vertical-align': 'text-top',
-        'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
-        'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
+        'margin-left': this.getMarginLeft(state, tempObjectData) * this.getZoom() + 'px',
+        'margin-top': this.getMarginTop(state, tempObjectData) * this.getZoom() + 'px',
       };
       return objectStyle;
     }
@@ -1329,40 +1392,18 @@ export class ApplicationDataServiceService {
 
 
   getCenterPoint(state) {
+    if (!state) {
+      return { cx: 0, cy: 0 };
+    }
     const tempObjectData = this.findObjectById(state.objectId);
     if (tempObjectData === null) {
       return { cx: 0, cy: 0 };
     }
 
     return {
-      cx: state.width * this.zoom / 2,
-      cy: state.height * this.zoom / 2
+      cx: state.width * this.getZoom() / 2,
+      cy: state.height * this.getZoom() / 2
     };
-
-
-    // if (tempObjectData.id === 'root') {
-    //   const objectStyle = {
-    //     'position': 'absolute',
-    //     'width': state.width * this.zoom + 'px',
-    //     'height': state.height * this.zoom + 'px',
-    //     'border': '0px solid grey',
-    //     'vertical-align': 'text-top',
-    //     'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
-    //     'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
-    //   };
-    //   return objectStyle;
-    // } else {
-    //   const objectStyle = {
-    //     'position': 'absolute',
-    //     'width': state.width * this.zoom + 'px',
-    //     'height': state.height * this.zoom + 'px',
-    //     'border': '1px solid gold',
-    //     'vertical-align': 'text-top',
-    //     'margin-left': this.getMarginLeft(state, tempObjectData) * this.zoom + 'px',
-    //     'margin-top': this.getMarginTop(state, tempObjectData) * this.zoom + 'px',
-    //   };
-    //   return objectStyle;
-    // }
   }
 
 
@@ -1670,17 +1711,17 @@ export class ApplicationDataServiceService {
   pxToDp(px) {
 
     let density = 1;
-    if (this.dpi === 'ldpi') {
+    if (this.activityData.dpi === 'ldpi') {
       density = 0.75;
-    } else if (this.dpi === 'mdpi') {
+    } else if (this.activityData.dpi === 'mdpi') {
       density = 1;
-    } else if (this.dpi === 'hdpi') {
+    } else if (this.activityData.dpi === 'hdpi') {
       density = 1.5;
-    } else if (this.dpi === 'xhdpi') {
+    } else if (this.activityData.dpi === 'xhdpi') {
       density = 2;
-    } else if (this.dpi === 'xxhdpi') {
+    } else if (this.activityData.dpi === 'xxhdpi') {
       density = 3;
-    } else if (this.dpi === 'xxxhdpi') {
+    } else if (this.activityData.dpi === 'xxxhdpi') {
       density = 4;
     }
 
@@ -1942,7 +1983,7 @@ export class ApplicationDataServiceService {
       this.activityMetaData = activity;
       this.activityData = this.loadActivityDataSync(activity.activityId);
       console.log(i + ",this.activityData = " + JSON.stringify(this.activityData));
-      this.selectedStage = this.activityData.stageList[0];
+      this.activityData.selectedStage = this.activityData.stageList[0];
       this.activityData.codeActivityName = activity.codeActivityName;
       this.activityData.codeLayoutName = activity.codeLayoutName;
       const layout = this.makeActivityLayout();

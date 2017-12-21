@@ -1,15 +1,21 @@
 <div class="object-tree">
-
-
+    
+    
     <div style="width: 100%; height:300px;">
         <!-- <tree-root #tree [nodes]="nodes" [options]="options" (onMoveNode)="changeNode($event)" (onActivate)="selectNode($event)"></tree-root> -->
-
+        
         <tree-root #tree [nodes]="nodes" [options]="options" (onMoveNode)="changeNode($event)" (onActivate)="selectNode($event)">
             <ng-template #treeNodeTemplate let-node="node" let-index="index">
                 <div> <img style="width:20px;height:20px;margin-right:10px;" [src]="getIcon(node.data.type)">{{node.data.name}}</div>
             </ng-template>
         </tree-root>
-
+        
     </div>
-
+    <div class="delete-layer">
+        <div class="ic_trashcan">
+            <img src="../assets/images/ic_trashcan.png">
+            <span class="tooltiptext">alt + delete</span>
+        </div>
+    </div>
+    
 </div>

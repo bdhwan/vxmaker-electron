@@ -25,6 +25,8 @@
 
 .col-wrap {
     overflow: hidden;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .list-box {
@@ -40,6 +42,7 @@
 .list-box-left {
     max-width: 300px;
     margin: 15px;
+    border: none;
 }
 
 .list-box-left .list-img {
@@ -47,20 +50,22 @@
     text-align: center;
 }
 
-.list-box-left button:hover {
+.list-box-left .btn-trash:hover {
     cursor: default;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .list-box-left .list-box-bottom {
     background: #f5f6f7;
+    text-align: right;
 }
 
 .activity-current .list-box-bottom {
     background: #46a2ba;
+    text-align: right;
 }
 
-.activity-current .list-box-bottom button:hover {
+.activity-current .list-box-bottom .btn-trash:hover {
     background: rgba(255, 255, 255, 0.5);
 }
 
@@ -73,6 +78,7 @@
     background: #f5f6f7;
     padding: 15px 35px;
     position: relative;
+    text-align: center;
 }
 
 .list-box-left .list-img:hover {
@@ -88,20 +94,18 @@
 }
 
 .list-box-bottom .btn-trash {
-    width: 40px;
+    display: inline-block;
     background: transparent;
+    width:30px;
     margin: 0;
+    text-align: center;
     border: none;
-    padding: 6px;
+    padding: 0;
     opacity: 0.6;
 }
 
-i.fa.fa-trash {
-    font-size: 14px;
-}
-
 .list-box .list-text {
-    padding: 15px 5px;
+    padding: 5px 5px;
     text-align: center;
 }
 
@@ -115,10 +119,10 @@ i.fa.fa-trash {
 
 .list-text .list-text-title .activity-name {
     width: 100%;
-    font-size: 15px;
+    font-size: 13px;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-weight: 500;
+    font-weight: 400;
     border: none;
     text-align: center;
 }
@@ -127,10 +131,20 @@ i.fa.fa-trash {
     background: #f5f6f7;
 }
 
+.list-text .activity-name {
+    width: 100%;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 400;
+    border: none;
+    text-align: center;
+}
+
 .list-text .list-text-updated {
-    font-size: 12px;
+    font-size: 10px;
     color: #898989;
-    padding-top: 5px;
+    padding-bottom: 4px;
 }
 
 .list-new-wrap .list-new {
@@ -183,6 +197,7 @@ i.fa.fa-trash {
     right: 0;
     display: none;
     background: #46a2ba;
+    
 }
 
 .list-box .list-img .list-hover button {
@@ -212,6 +227,7 @@ i.fa.fa-trash {
 
 .list-box .list-img .list-hover button:hover {
     color: #46a2ba;
+
     font-weight: bold;
     background: #fff;
     cursor: pointer;
@@ -231,6 +247,7 @@ i.fa.fa-trash {
 .list-box .list-img .preview-img {
     width: 100px;
     height: 150px;
+    
 }
 
 .list-img .btn-home-on {
@@ -318,7 +335,7 @@ i.fa.fa-trash {
     left: 0;
     right: 0;
     bottom: 0;
-    margin-left: 280px;
+    margin-left: 180px;
     margin-top: 110px;
     min-width: 800px;
 }
@@ -372,13 +389,13 @@ i.fa.fa-trash {
     overflow-y: auto;
 }
 
-@media (min-width: 1850px) {
+@media (min-width: 1450px) {
     .col-3 {
         width: 20%;
     }
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1150px) {
     .col-3 {
         width: 33.33333%;
     }

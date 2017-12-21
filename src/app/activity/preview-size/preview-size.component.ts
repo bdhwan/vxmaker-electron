@@ -26,8 +26,8 @@ export class PreviewSizeComponent implements OnInit {
   constructor(private appDataService: ApplicationDataServiceService, private broadcaster: BroadcastService) { }
 
   ngOnInit() {
-    this.dpi = this.appDataService.getDpi();
-    this.zoomLevel = this.appDataService.getZoom() * 100;
+    // this.dpi = this.appDataService.getDpi();
+    // this.zoomLevel = this.appDataService.getZoom() * 100;
   }
 
   onChangeData() {
@@ -49,10 +49,8 @@ export class PreviewSizeComponent implements OnInit {
 
   clickZoomToggle() {
     this.showZoom = !this.showZoom;
-
-    this.showZoom = false;
+    this.showDpi = false;
     this.showRootSize = false;
-
   }
   clickDpiToggle() {
     this.showDpi = !this.showDpi;

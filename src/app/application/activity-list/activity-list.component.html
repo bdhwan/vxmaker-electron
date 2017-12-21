@@ -1,13 +1,13 @@
 <div *ngIf="viewMode==='application'">
-    
+
     <div class="activities-top">
         <p>{{applicationData.activityList.length}} Activities </p>
     </div>
-    
+
     <div class="list-scroll">
         <div class="col-wrap ">
             <div *ngFor="let activity of applicationData.activityList" class="col-3">
-                
+
                 <div class="list-box">
                     <div class="list-img">
                         <div class="btn-home-on" *ngIf="activity.activityId===applicationData.launcherActivityId">
@@ -21,29 +21,29 @@
                             <div class="btn-home" (click)="clickLauncherActivity(activity.activityId)"></div>
                         </div>
                     </div>
-                    
+
                     <div class="list-text">
                         <div class="list-text-title">
-                            <input type="text" class="activity-name" [(ngModel)]="activity.activityName" (blur)="onChange()" />
+                            <input type="text" class="activity-name" [(ngModel)]="activity.activityName" (blur)="onChangeActivityListData()" />
                         </div>
                         <div class="list-text-updated">
                             {{activity.updatedAt | date:'medium'}}
                         </div>
                     </div>
-                    
+
                 </div>
-                
+
             </div>
-            
+
             <div class="col-3 list-new-wrap">
-                
+
                 <div class="list-box">
-                    
+
                     <div class="list-img">
                         <img width="100px" height="150px">
-                        
+
                     </div>
-                    
+
                     <div class="list-text">
                         <div class="list-text-title">
                             <h4>list text title</h4>
@@ -52,28 +52,28 @@
                             list text updated
                         </div>
                     </div>
-                    
+
                 </div>
-                
+
                 <button class="list-new" (click)="clickNewActivity()">+</button>
-                
+
             </div>
-            
+
         </div>
     </div>
 </div>
 
 
 <div *ngIf="viewMode==='activity'">
-    
+
     <div class="activity-list-left">
         <div class="label-properties" style="border-top:1px solid #ececec;">
             Activity list
         </div>
     </div>
-    
+
     <div *ngFor="let activity of applicationData.activityList" class="list-box list-box-left">
-        
+
         <div [ngClass]="activity.activityId===currentActivityId?'activity-current':''">
             <div class="list-img" (click)="clickActivity(activity.activityId)">
                 <img width="100px" height="150px" [src]="getPreviewPath(prefix+applicationFolderPath+'/'+activity.previewPath)">
@@ -87,18 +87,18 @@
                     {{activity.updatedAt | date:'medium'}}
                 </div>
             </div>
-            
-            <div align="right" class="list-box-bottom">
-                <button (click)="clickDuplicateActivity(activity.activityId)" class="btn-trash">
+
+            <div class="list-box-bottom">
+                <div (click)="clickDuplicateActivity(activity.activityId)" class="btn-trash">
                     <img src="./assets/images/ic_copy.png">
-                </button>
-                <button (click)="clickDeleteActivity(activity.activityId)" class="btn-trash">
+                </div>
+                <div (click)="clickDeleteActivity(activity.activityId)" class="btn-trash">
                     <img src="./assets/images/ic_trashcan.png">
-                </button>
+                </div>
             </div>
         </div>
     </div>
-    
+
     <button class="activity-list-new" (click)="clickNewActivity()">+</button>
 </div>
 

@@ -81,17 +81,32 @@ input:checked+.slider:before {
 .event-time div {
   width: 50%;
   float: left;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.event-delay {
+  padding-right: 4px;
+}
+
+.event-duration {
+  padding-left: 4px;
+}
+
+.event-time span {
+  float: left;
+  width: auto;
+
+  padding: 4px 0px 4px 0px;
 }
 
 .event-time input {
-  width: 80px;
-  margin-left: 10px;
+  float: right;
+  width: 70px;
   background: #f1f1f1;
   border-radius: 3px;
   border: none;
-  padding: 3px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 3px 10px;
 }
 
 .interpolator-select {
@@ -106,14 +121,13 @@ input:checked+.slider:before {
 /* 인터폴레이터 커브그래프 @*/
 
 .curve-input input {
+  float: left;
   width: 141px;
   margin-bottom: 6px;
   background: #f1f1f1;
   border-radius: 3px;
   border: none;
-  padding: 3px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 3px 10px;
 }
 
 .curve-input .input-start-x {
@@ -334,11 +348,11 @@ input:checked+.slider:before {
 
 .btn-copy {
   border: 1px solid #ccc!important;
+  border-radius: 3px;
   color: #454545!important;
   font-size: 12px!important;
   padding: 3px 8px!important;
   position: relative;
-  margin: 4px;
   background: rgba(255, 255, 255, 1)!important;
 }
 

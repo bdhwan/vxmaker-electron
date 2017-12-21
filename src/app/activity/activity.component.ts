@@ -122,6 +122,13 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   messageListener;
   haveInputFocus;
 
+
+  isKeyCTRL = false;
+  isKeyALT = false;
+  isShift = false;
+
+
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -172,6 +179,75 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
+  keyDown($event) {
+    console.log("activity keyDown-" + $event.keyCode);
+    if ($event.keyCode === 17 || $event.keyCode === 91) {
+      this.isKeyCTRL = true;
+    }
+    if ($event.keyCode === 16) {
+      this.isShift = true;
+    }
+    if ($event.keyCode === 18) {
+      this.isKeyALT = true;
+    }
+
+    if ($event.keyCode === 90) {
+      if (this.isKeyCTRL) {
+
+        if (this.isShift) {
+          this.redo();
+        } else {
+          this.undo();
+        }
+      }
+    }
+  }
+
+  keyUp($event) {
+    console.log("activity keyUp-" + $event.keyCode);
+    if ($event.keyCode === 17 || $event.keyCode === 91) {
+      this.isKeyCTRL = false;
+    }
+    if ($event.keyCode === 16) {
+      this.isShift = false;
+    }
+    if ($event.keyCode === 18) {
+      this.isKeyALT = false;
+    } else if ($event.keyCode === 46 || ($event.keyCode === 8 && this.isKeyALT)) {
+      const message = {
+        kind: 'delete-current-object-by-key',
+      };
+      this.broadcaster.broadcast('activity', message);
+    }
+
+  }
+
+
+  addStack() {
+    this.appDataService.addStack();
+  }
+
+  undo() {
+    this.appDataService.undo().then(result => {
+      if (result) {
+        this.activityData = this.appDataService.getActivityData();
+        this.appDataService.invalidateSelectedObject();
+        this.notifySelectedObjectChanged();
+      }
+    });
+  }
+  redo() {
+    this.appDataService.redo().then(result => {
+      if (result) {
+        this.activityData = this.appDataService.getActivityData();
+        this.appDataService.invalidateSelectedObject();
+        this.notifySelectedObjectChanged();
+      }
+    });
+  }
+
+
+
   registerStringBroadcast() {
     this.messageListener = this.broadcaster.on<any>('activity')
       .subscribe(message => {
@@ -182,6 +258,14 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
         if (kind === 'save') {
           this.onClickSave();
+        } else if (kind === 'undo') {
+          this.undo();
+        } else if (kind === 'redo') {
+          this.redo();
+
+        } else if (kind === 'add-stack') {
+          this.addStack();
+
         } else if (kind === 'save-refresh-activity') {
           this.notifySelectedObjectChanged();
           this.onClickSave();
@@ -192,20 +276,24 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           if (objectId !== 'root') {
             this.appDataService.deleteObject(objectId);
             this.onClickSave();
+            this.addStack();
           }
         } else if (kind === 'delete-current-object-by-key') {
           if (!this.haveInputFocus) {
             this.deleteCurrentObject();
+            this.addStack();
           }
         } else if (kind === 'delete-current-object') {
 
           this.deleteCurrentObject();
+          this.addStack();
 
         } else if (kind === 'delete-event') {
 
           this.appDataService.deleteTriggerEventByTriggerEventId(message.triggerEventId);
           this.notifySelectedObjectChanged();
           this.onClickSave();
+          this.addStack();
 
         } else if (kind === 'select-psd') {
 
@@ -213,15 +301,18 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           if (selectedPSD) {
             this.parsePsd(selectedPSD);
           }
+          this.addStack();
         } else if (kind === 'open-url') {
           const targetUrl = message.url;
           this.appDataService.openUrl(targetUrl);
         } else if (kind === 'select-object') {
+
           const selectedObject = this.appDataService.findObjectById(message.objectId);
           this.onSelectNodeFromOther(message.objectId);
-
           this.appDataService.setSelectedObject(selectedObject);
           this.notifySelectedObjectChanged();
+          // this.addStack();
+
         } else if (kind === 'code-export') {
 
           this.saveProcessAsync().then(result => {
@@ -233,34 +324,45 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
           this.clickActivity(activityId);
         } else if (kind === 'delete-activity') {
           this.clickDeleteActivity(activityId);
+          this.addStack();
+
         } else if (kind === 'duplicate-activity') {
           this.onCompleteEvent(null);
           this.clickDuplicateActivity(activityId);
+          this.addStack();
         } else if (kind === 'new-activity') {
           this.onCompleteEvent(null);
           this.clickNewActivity();
         } else if (kind === 'set-launcher-activity') {
           this.onClickLauncherActivity(activityId);
+          this.addStack();
+
         } else if (kind === 'on-change-data') {
 
         } else if (kind === 'change-icon') {
           this.onClickChangeIcon();
+          this.addStack();
         } else if (kind === 'complete-event') {
           this.onCompleteEvent(null);
+          this.addStack();
         } else if (kind === 'close-event') {
           this.onCloseEvent();
+          this.addStack();
         } else if (kind === 'new-object') {
           this.clickNewObject(message.type);
         } else if (kind === 'new-event') {
           this.onNewEvent();
+          this.addStack();
+
         } else if (kind === 'detail-event') {
           const detailEvent = message.event;
           this.onClickDetailEvent(detailEvent);
-        } else if (kind === 'new-after-animation') {
+          this.addStack();
 
+        } else if (kind === 'new-after-animation') {
           const implEventId = message.implEventId;
           this.onNewAfterAnimationEvent(implEventId);
-
+          this.addStack();
         } else if (kind === 'select-file') {
           const dataUrl = message.dataUrl;
           const target = message.target;
@@ -269,11 +371,15 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         } else if (kind === 'select-stage') {
           const stage = message.stage;
           this.onSelectStage(stage);
+          this.addStack();
         } else if (kind === 'delete-stage') {
           const stage = message.stage;
           this.onDeleteStage(stage);
+          this.addStack();
+
         } else if (kind === 'new-stage') {
           this.onNewStage();
+          this.addStack();
         } else if (kind === 'focus') {
           this.haveInputFocus = true;
         } else if (kind === 'blur') {
@@ -393,6 +499,9 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         this.activityMetaData = this.appDataService.getActivityMetaData();
         this.activityData = this.appDataService.getActivityData();
         this.selectedTriggerEvent = this.appDataService.getSelectedTriggerEvent();
+
+
+
         return this.checkEmptyActivityData();
       })
       // .then(result => {
@@ -401,7 +510,14 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
       .then((result) => {
         return this.initDataToView();
       }).then((result) => {
+
+
+
         this.notifySelectedObjectChanged();
+        if (this.appDataService.getSelectedObject()) {
+          this.objectTreeComponent.selectObjectNode(this.appDataService.getSelectedObject());
+        }
+        this.appDataService.addStack();
       });
   }
 
@@ -478,13 +594,11 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   initDataToView() {
     return new Promise((resolve, reject) => {
       this.isReadyToRender = true;
-
-      this.appDataService.setSelectedStage(this.activityData.stageList[0]);
-      this.appDataService.setSelectedObject(this.activityData.objectList[0]);
+      this.appDataService.setSelectedStage(this.activityData.selectedStage || this.activityData.stageList[0]);
+      this.appDataService.setSelectedObject(this.activityData.selectedObject || this.activityData.objectList[0]);
       this.objectNewComponent.setObjectTypeData(this.objectTypeData);
       this.objectTreeComponent.initObjectData();
       this.stageList.initData();
-
       resolve(true);
     });
   }
@@ -523,6 +637,7 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   changeActivityName(): void {
+    console.log('this.activityMetaData  =' + JSON.stringify(this.activityMetaData));
     this.saveApplicationData();
   }
 
@@ -675,9 +790,13 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   clickNewObject(type: string) {
 
     let parentObject = this.appDataService.getSelectedObject();
+
+
     if (!parentObject.children) {
       parentObject = this.appDataService.findObjectById(this.appDataService.getSelectedObject().parentId);
     }
+
+
 
     const newObject = this.appDataService.createNewObject(type);
     newObject['parentId'] = parentObject.id;
@@ -689,6 +808,9 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     parentObject.children.push(newObject);
+
+
+
     this.objectTreeComponent.updateTreeModel();
     this.objectTreeComponent.selectObjectNode(newObject);
     this.objectTreeComponent.expandAll();
@@ -750,7 +872,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
     console.log("onSelectFile = " + target);
     const selectedObject = this.appDataService.getSelectedObject();
-
     console.log("selectedObject.objectType  = " + JSON.stringify(selectedObject));
 
     if (selectedObject) {
@@ -764,6 +885,18 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
         if (tempUrl && tempUrl !== target) {
           this.previewComponent.recreateObjectList();
         }
+      }
+      if (selectedObject.type === 'ImageView') {
+
+        const imageFilePath = this.prefix + this.appDataService.getWorkspaceFolderPath() + '/' + target;
+        const tempSize = this.appDataService.getImageSize(imageFilePath);
+        console.log('tempsize=' + JSON.stringify(tempSize));
+
+        // this.appDataService.getSelectedState().width = tempSize.width;
+        // this.appDataService.getSelectedState().height = tempSize.height;
+
+
+
       }
     }
   }
@@ -790,7 +923,6 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   onSelectNodeFromTree(objectId: string) {
 
     const selectedObject = this.appDataService.findObjectById(objectId);
-    // console.log("onSelectNodeFromTree = " + selectedObject.id);
     this.appDataService.setSelectedObject(selectedObject);
     this.notifySelectedObjectChanged();
   }
@@ -821,13 +953,11 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.eventDetailStartActivity.onChangeData();
     this.eventDetailFinishActivity.onChangeData();
 
-
     this.eventDetailStartVideo.onChangeData();
     this.eventDetailStopVideo.onChangeData();
     this.eventDetailStopLottie.onChangeData();
     this.eventDetailStartLottie.onChangeData();
     this.eventDetailTakePicture.onChangeData();
-
 
   }
 

@@ -1,3 +1,55 @@
 .object-tree{
     background:white;
 }
+
+.delete-layer{
+    display: block;
+    background: #f4f4f4;
+    position: relative;
+    width: inherit;
+    height: 33px;
+}
+
+.delete-layer .ic_trashcan {
+    display: block;
+    position: absolute;
+    margin: 2px 4px 2px 2px;
+    right: 0;
+    bottom: 0;
+    opacity: 0.6;
+
+    border-radius: 3px;
+}
+
+
+.delete-layer .ic_trashcan .tooltiptext {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    transition-property: opacity;
+    transition-delay: 0.5s;
+    transition-duration: 0.5s;
+
+    width: auto;
+    bottom: 120%;
+    right: 0;
+    margin-left: -60px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    padding: 2px 4px;
+    border-radius: 3px;
+
+    z-index:9999;
+}
+
+
+.delete-layer .ic_trashcan:hover {
+    background: #ccc;
+}
+
+.delete-layer .ic_trashcan:hover .tooltiptext{
+    visibility: visible;
+    opacity: 1;
+}

@@ -14,8 +14,11 @@
 
 <div *ngIf="viewMode==='activity'" style="padding:15px; background:#fff;">
     <div class="btn-icon" align="center">
-        <img [src]="prefix+applicationFolderPath+'/'+applicationData.iconPath" width="100px" height="100px">
-        <button class="btn-icon-edit" (click)="clickIcon()"><i class="fa fa-edit"></i></button>
+        <div style="position:relative;">
+            <img [src]="prefix+applicationFolderPath+'/'+applicationData.iconPath" width="100px" height="100px">
+            <button class="btn-icon-edit-left" (click)="clickIcon()"><i class="fa fa-edit"></i></button>
+        </div>
+        <!-- <button class="btn-icon-edit" (click)="clickIcon()"><i class="fa fa-edit"></i></button> -->
     </div>
 
     <div style="margin-top: 20px;" align="center">
