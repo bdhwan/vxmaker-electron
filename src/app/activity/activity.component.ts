@@ -184,6 +184,9 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
     if ($event.keyCode === 17 || $event.keyCode === 91) {
       this.isKeyCTRL = true;
     }
+    if ($event.keyCode === 13) {
+      this.onBlurZoom();
+    }
     if ($event.keyCode === 16) {
       this.isShift = true;
     }
@@ -1105,16 +1108,11 @@ export class ActivityComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.applicationData.activityList.splice(index + 1, 0, newObject);
       this.appDataService.saveApplicationData(this.applicationData);
-
-
       this.appDataService.duplicateActivityData(activityId, newActivityId);
 
       // this.clickActivity(newActivityId);
       this.clickActivity(newActivityId);
     });
-
-
-
   }
 
   onClickLauncherActivity(activityId): void {

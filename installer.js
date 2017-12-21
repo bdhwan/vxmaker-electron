@@ -7,6 +7,8 @@ const resultPromise = electronInstaller.createWindowsInstaller({
     exe: 'vxmaker.exe',
     description: 'vxmaker tool',
     setupIcon: 'icon/icon.ico',
+    certificateFile: 'cert/vxmaker.p12',
+    certificatePassword: '',
     iconUrl: 'http://beta.vxmaker.com/assets/images/icon.ico'
 });
 resultPromise.then(() => console.log("It worked!"), (e) => console.log(`No dice: ${e.message}`));
