@@ -84,11 +84,11 @@
     overflow-x: auto;
     overflow-y: scroll;
     padding-left: 280px;
-    padding-right: 430px;
+    padding-right: 233px;
 }
 
 .list-wrap .list-right {
-    width: 430px;
+    width: 233px;
     height: 100%;
     float: right;
     z-index: 9999;
@@ -306,7 +306,7 @@
 
 .export-code-wrap {
     background: #ffffff;
-    margin:15px;
+    margin:15px 15px 65px 15px;
     position: relative;
     padding:10px;
     border-radius: 5px;
