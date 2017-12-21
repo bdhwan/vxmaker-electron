@@ -1,6 +1,6 @@
 {
     "name": "Vxmaker",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "main": "electron.js",
     "author": "altamirasoft inc.",
     "productName": "Vxmaker",
