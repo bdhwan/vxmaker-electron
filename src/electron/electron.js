@@ -866,8 +866,12 @@ function createWindow() {
 
     if (isDev) {
         setTimeout(() => {
+
+            
             // Create the browser window.
-            win = new BrowserWindow({ width: initWidth, height: initHeight, minWidth: minWidth, minHeight: minHeight });
+            win = new BrowserWindow({ width: initWidth, height: initHeight, minWidth: minWidth, minHeight: minHeight, webPreferences: {
+                nodeIntegration: true
+              } });
 
             var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true });
             // var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true })
@@ -891,7 +895,9 @@ function createWindow() {
         }, 12000)
     } else {
         // Create the browser window.
-        win = new BrowserWindow({ width: initWidth, height: initHeight, minWidth: minWidth, minHeight: minHeight });
+        win = new BrowserWindow({ width: initWidth, height: initHeight, minWidth: minWidth, minHeight: minHeight , webPreferences: {
+            nodeIntegration: true
+          } });
 
         var targetUrl = `file://${__dirname}/index.html`;
         // var targetUrl = url.format({ pathname: 'localhost:4200', protocol: 'http:', slashes: true })

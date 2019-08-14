@@ -97,15 +97,9 @@ After downloading source,
 
 7. Install the npm module in angular
 Location : Root folder of project
-npm install
+npm run prepare-start
 
-
-8. Installing the npm module in electronics
-Position : cd src/electron
-npm install
-
-
-9. Run
+8. Run
 Location : Root folder of project
 npm start
 ~~~~
@@ -211,15 +205,10 @@ sudo npm install -g concurrently
 
 7. angular의 npm 모듈 설치
 위치: 프로젝트 root폴더
-npm install
+npm run prepare-start
 
 
-8. electron의 npm 모듈 설치
-위치: cd src/electron
-npm install
-
-
-9. 실행
+8. 실행
 위치: 프로젝트 root폴더
 npm start
 ~~~~
