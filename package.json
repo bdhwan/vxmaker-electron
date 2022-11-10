@@ -45,7 +45,7 @@
         "bodymovin": "^4.6.10",
         "bootstrap": "^4.0.0-beta",
         "core-js": "^2.4.1",
-        "electron": "^6.0.2",
+        "electron": "^18.3.7",
         "font-awesome": "^4.7.0",
         "image-size": "^0.5.1",
         "js-beautify": "^1.6.14",
